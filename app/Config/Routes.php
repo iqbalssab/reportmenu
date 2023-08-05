@@ -34,6 +34,7 @@ $routes->get('/', 'Home::index');
 // Sementara arahkan ke Preview kasir dulu
 $routes->get('/store/previewkasir', 'Store::previewkasir');
 $routes->get('/store/cekpromo', 'Store::cekpromo');
+$routes->get('/store/monitoringpromo/(:segment)', 'Store::tampildatapromo/$1');
 
 /*
  * --------------------------------------------------------------------

@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use CodeIgniter\I18n\Time;
+
 class Store extends BaseController
 {
     protected $helpers = ['number'];
@@ -20,7 +22,9 @@ class Store extends BaseController
     }
     public function previewkasir()
     {
-        $tglHariIni = $this->tglsekarang->toDateString();
+        $tglHariIni = date('d-m-Y');
+        date_default_timezone_set("Asia/Jakarta");
+        $waktuHariIni = date('H:i:s');
 
         $dbProd = db_connect('production');
 
@@ -54,11 +58,26 @@ class Store extends BaseController
          END AS Status
         FROM tbtr_jualsummary 
         LEFT JOIN tbmaster_user on js_cashierid=userid 
-        WHERE trunc(js_transactiondate)=to_date('$tglHariIni','YYYY-MM-DD')
+        WHERE trunc(js_transactiondate)=to_date('$tglHariIni','DD-MM-YYYY')
         ORDER BY status,js_cashierstation,js_cashierid");
 
-        
-        
+        $koneksiKasir = $koneksiKasir->getResultArray();
+        $totalTunai = $totalTotal = $totalKDebit = $totalKKredit = $totalKredit = [];
+
+        foreach($koneksiKasir as $kasir){
+          array_push($totalTotal, $kasir['TOTAL_TRANSAKSI']);
+          array_push($totalTunai, $kasir['TUNAI']);
+          array_push($totalKDebit, $kasir['KDEBIT']);
+          array_push($totalKKredit, $kasir['KKREDIT']);
+          array_push($totalKredit, $kasir['KREDIT']);
+        }
+        $totalTransaksi = [
+         'totalTotal' => array_sum($totalTotal),
+         'totalTunai' => array_sum($totalTunai),
+         'totalKdebit' => array_sum($totalKDebit),
+         'totalKkredit' => array_sum($totalKKredit),
+         'totalKredit' => array_sum($totalKredit)
+        ];
 
         $koneksiFaktur = $dbProd->query("SELECT alk_tahunpajak, case when alk_used='Y' then 'USED' else 'AVAILABLE' end as STATUS,  
         count(alk_taxnum) as ALOKASI
@@ -69,6 +88,7 @@ class Store extends BaseController
         $data = [
             'title' => 'Preview Transaksi Kasir',
             'transactions' => $koneksiKasir,
+            'totalTransaksi' => $totalTransaksi,
             'members' => $koneksiMember,
             'fakturs' => $koneksiFaktur
         ];
@@ -448,9 +468,7 @@ class Store extends BaseController
                 return redirect()->to('/store/cekpromo')->with('Error', 'Data yang anda masukkan tidak valid!!!')->withInput();
             }
         }
-     
-        d($promonk);
-        d($promohjk);
+
         $data = [
             'title' => 'Cek Promo',
             'promomd' => $promomd,
@@ -465,10 +483,25 @@ class Store extends BaseController
         redirect()->to('/store/cekpromo')->withInput();
         return view('store/cekpromo', $data);
     }
-    
 
-    public function promomd()
+    public function monitoringpromo()
     {
-        
+        $data = [
+          'title' => 'Monitoring Promo IGR'
+        ];
+
+        return view('store/monitoringpromo', $data);
+    }
+
+    public function tampildatapromo($jenis)
+    {
+      $dbSim = db_connect();
+      $jenis = $this->request->getVar('jenisLaporan');
+      $statusPromo = $this->request->getVar('statusPromo');
+      $tgl = $this->request->getVar('tglAkhir');
+      $kdPromosi = $this->request->getVar('kdPromosi');
+      dd($jenis, $statusPromo, $tgl, $kdPromosi);
+
+      return view('store/tampildatapromo');
     }
 }

@@ -1,0 +1,228 @@
+INFO - 2023-08-05 01:56:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-05 01:56:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-05 01:56:53 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(145): CodeIgniter\Database\BaseConnection->query('SELECT prd_prdcd as PLU,
+                    prd_deskripsipanjang as DESKRIPSI,
+                    prd_frac AS FRAC,
+                    prd_unit AS UNIT,
+                    prd_kodetag AS TAG_IGR,
+                    prc_kodetag AS TAG_OMI,
+                    prd_flag_aktivasi AS ACT,
+                    prd_minjual AS MIN_JUAL,
+                    prd_avgcost AS ACOST,
+                    prd_hrgjual as H_NORMAL,
+                    nvl(prmd_hrgjual,0)as H_PROMO,
+                    prmd_tglawal AS TGL_AWAL,
+                    prmd_tglakhir AS TGL_AKHIR,
+                    prmd_modify_dt AS TGL_UBAH,
+                case when non_prdcd is not null then \'Y\' else \'N\' end as plunonpromo
+                from tbmaster_prodmast 
+                left join (
+                  select prmd_prdcd,prmd_hrgjual,prmd_tglawal,prmd_tglakhir,to_char(prmd_modify_dt,\'DD/MM/YY hh24:mm\') as prmd_modify_dt  from tbtr_promomd where trunc(prmd_tglakhir)>=trunc(sysdate)
+                )on prd_prdcd=prmd_prdcd
+                left join tbmaster_prodcrm on prc_pluigr=prd_prdcd
+                left join tbmaster_plunonpromo on non_prdcd=prd_prdcd
+                where prd_prdcd like \'195787%\' order by prd_prdcd')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-05 01:57:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-05 01:57:03 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(188): CodeIgniter\Database\BaseConnection->query('SELECT cbd_prdcd as PLU,
+					prd_deskripsipendek as DESKRIPSI,
+					prd_kodetag as TAG,
+					prd_frac as FRAC,
+					cbd_kodepromosi as KDPROMO,
+					cbh_namapromosi as NAMAPROMO,
+					cbh_mekanisme as MEKANISME,
+					case when cbh_kiosk=\'Y\' then \'via I-Kiosk\'
+					when cbh_kiosk=\'M\' then \'via MyIndogrosir\'
+					else \'\' end as KIOSK,
+					cbh_kiosk,
+					cbmmember,
+					cbh_mintotbelanja as MINTOTBELANJA,
+					cbh_minrphprodukpromo as MINSPONSOR,
+					cbd_minstruk as MINSTRUK,
+					cbh_maxstrkperhari as MAX_STRK_PERHARI,
+                    cbh_maxrphperhari as MAX_RPH_PERHARI,
+					cbh_cashback as CBH,
+					cbd_cashback as CBD,
+					cbh_tglawal as TGLAWAL,
+					cbh_tglakhir as TGLAKHIR,
+					cba_reguler as MB,
+                    cba_retailer as MM,
+                    cba_platinum as PLT,
+					cba_alokasijumlah as ALOKASI,
+					cbd_alokasistok as ALOKASIPLU,
+					ALKUSED,
+					cbh_recordid as RECID,
+					case when trunc(cbh_tglawal)<=trunc(sysdate) then \'AKTIF\' else \'BLMAKTIF\' end as STATUS,
+					case when cbh_tglawalreg is null then \'0\' else \'1\' end as REGTERTENTU
+					from tbtr_cashback_dtl
+					left join tbtr_cashback_hdr on cbd_kodepromosi=cbh_kodepromosi
+					left join tbtr_cashback_alokasi on cba_kodepromosi=cbd_kodepromosi
+					left join (
+					  SELECT cbm_kodepromosi,count(cbm_kodemember) as cbmmember FROM TBTR_CASHBACK_MEMBER group by cbm_kodepromosi
+					) on cbm_kodepromosi=cbh_kodepromosi
+					left join (select kd_promosi,sum(kelipatan) as alkused from m_promosi_h group by kd_promosi) on kd_promosi=cbh_kodepromosi
+					left join tbmaster_prodmast on cbd_prdcd=prd_prdcd
+					where trunc(cbh_tglakhir)>=trunc(sysdate) and cbd_prdcd like \'195787%\' 
+					and (cba_reguler !=\'0\' or cba_retailer !=\'0\'  or cba_platinum !=\'0\' )
+					order by cbh_kiosk,mb,mm,plt,kdpromo')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-05 01:57:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-05 01:57:37 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(401): CodeIgniter\Database\BaseConnection->query('SELECT KODE,
+                    NAMA_PROMO,
+                    HADIAH,
+                    MIN_PCS,
+                    MIN_RPH,
+                    MIN_SPONSOR,
+                    ALOKASI,
+                    ALO_TERPAKAI,
+                    SISA_ALOKASI,
+                    gfa_reguler,
+                    gfa_retailer,
+                    gfa_platinum,
+                    gfh_tglawal,
+                    gfh_tglakhir 
+                    from ( select
+                    gfh_kodepromosi as KODE,
+                    gfh_namapromosi as NAMA_PROMO,
+                    gfh_kethadiah || \' - \' || prd_deskripsipendek as HADIAH,
+                    gfd_pcs as MIN_PCS,
+                    gfd_rph as MIN_RPH,
+                    gfh_mintotsponsor as MIN_SPONSOR,
+                    gfa_alokasijumlah as ALOKASI,
+                    alokasiused as ALO_TERPAKAI,
+                    case
+                      when gfa_alokasijumlah = 0 then 999999999 end as SISA_ALOKASI,
+                      gfa_reguler,
+                      gfa_retailer,
+                     gfa_platinum,
+                    gfh_tglawal,
+                     gfh_tglakhir
+                    from tbtr_gift_hdr
+                    left join tbtr_gift_dtl on gfd_kodepromosi = gfh_kodepromosi
+                    left join tbmaster_prodmast on prd_prdcd = gfd_prdcd
+                    left join (select kd_promosi,sum(jmlh_hadiah) as alokasiused from m_gift_h group by kd_promosi) on kd_promosi=gfh_kodepromosi 
+                    left join tbtr_gift_alokasi on gfa_kodepromosi = gfh_kodepromosi
+                    where trunc(gfh_tglakhir) >= trunc(sysdate) and gfd_prdcd = \'1957870\') --> ganti plu')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-05 01:57:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-05 01:57:41 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(426): CodeIgniter\Database\BaseConnection->query('SELECT 
+                        NKH_KODEPROMOSI AS KDPROMO,
+                        NKH_NAMAPROMOSI AS NAMAPROMO,
+                        NKH_TGLAWAL as TGLAWAL,
+                        NKH_TGLAKHIR AS TGLAKHIR,
+                        NKH_TOTALDANA AS TOTALDANA,
+                        NKD_PRDCD AS PLU,
+                        NKD_MAXCASHBACK AS MAXCASHBACK,
+                        NKD_MAXQTY AS MAXQTY,
+                        (NKD_MAXQTY*NKD_MAXCASHBACK) as MAXRPH,
+                        NVL(TOTQTYITEM,0) as QTYPAKAI,
+                        NVL(TOTDISCITEM,0) as RPHPAKAI,
+                        NVL(TOTDISC,0) AS TOTAL_RPHPAKAI,
+                        NKH_TOTALDANA-NVL(TOTDISC,0)AS SISA_RPHTOTAL
+                        FROM TBTR_NOTAKREDIT_HDR 
+                        LEFT JOIN TBTR_NOTAKREDIT_DTL ON NKH_KODEPROMOSI=NKD_KODEPROMOSI
+                        LEFT JOIN (SELECT KD_PROMOSI,SUM(TOTDISC) AS TOTDISC FROM TBTR_KASIR_NK_D 
+                          GROUP BY KD_PROMOSI) ON KD_PROMOSI=NKH_KODEPROMOSI
+                        LEFT JOIN (SELECT KD_PROMOSI as KD_PROMOSI1,PLU as PLU1,SUM(QTY) AS TOTQTYITEM,SUM(TOTDISC) AS TOTDISCITEM FROM TBTR_KASIR_NK_D 
+                          GROUP BY KD_PROMOSI, PLU) ON KD_PROMOSI1=NKH_KODEPROMOSI and PLU1=NKD_PRDCD
+                        WHERE nkd_prdcd like (\'195787%\')    --> GANTI PLU
+                        and TRUNC(NKH_TGLAKHIR)>=TRUNC(SYSDATE)-30
+                        order by NKD_KODEPROMOSI desc')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-05 01:57:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-05 01:57:47 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(426): CodeIgniter\Database\BaseConnection->query('SELECT 
+                        NKH_KODEPROMOSI AS KDPROMO,
+                        NKH_NAMAPROMOSI AS NAMAPROMO,
+                        NKH_TGLAWAL as TGLAWAL,
+                        NKH_TGLAKHIR AS TGLAKHIR,
+                        NKH_TOTALDANA AS TOTALDANA,
+                        NKD_PRDCD AS PLU,
+                        NKD_MAXCASHBACK AS MAXCASHBACK,
+                        NKD_MAXQTY AS MAXQTY,
+                        (NKD_MAXQTY*NKD_MAXCASHBACK) as MAXRPH,
+                        NVL(TOTQTYITEM,0) as QTYPAKAI,
+                        NVL(TOTDISCITEM,0) as RPHPAKAI,
+                        NVL(TOTDISC,0) AS TOTAL_RPHPAKAI,
+                        NKH_TOTALDANA-NVL(TOTDISC,0)AS SISA_RPHTOTAL
+                        FROM TBTR_NOTAKREDIT_HDR 
+                        LEFT JOIN TBTR_NOTAKREDIT_DTL ON NKH_KODEPROMOSI=NKD_KODEPROMOSI
+                        LEFT JOIN (SELECT KD_PROMOSI,SUM(TOTDISC) AS TOTDISC FROM TBTR_KASIR_NK_D 
+                          GROUP BY KD_PROMOSI) ON KD_PROMOSI=NKH_KODEPROMOSI
+                        LEFT JOIN (SELECT KD_PROMOSI as KD_PROMOSI1,PLU as PLU1,SUM(QTY) AS TOTQTYITEM,SUM(TOTDISC) AS TOTDISCITEM FROM TBTR_KASIR_NK_D 
+                          GROUP BY KD_PROMOSI, PLU) ON KD_PROMOSI1=NKH_KODEPROMOSI and PLU1=NKD_PRDCD
+                        WHERE nkd_prdcd like (\'195787%\')    --> GANTI PLU
+                        and TRUNC(NKH_TGLAKHIR)>=TRUNC(SYSDATE)-30
+                        order by NKD_KODEPROMOSI desc')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-05 01:58:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-05 01:58:07 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(145): CodeIgniter\Database\BaseConnection->query('SELECT prd_prdcd as PLU,
+                    prd_deskripsipanjang as DESKRIPSI,
+                    prd_frac AS FRAC,
+                    prd_unit AS UNIT,
+                    prd_kodetag AS TAG_IGR,
+                    prc_kodetag AS TAG_OMI,
+                    prd_flag_aktivasi AS ACT,
+                    prd_minjual AS MIN_JUAL,
+                    prd_avgcost AS ACOST,
+                    prd_hrgjual as H_NORMAL,
+                    nvl(prmd_hrgjual,0)as H_PROMO,
+                    prmd_tglawal AS TGL_AWAL,
+                    prmd_tglakhir AS TGL_AKHIR,
+                    prmd_modify_dt AS TGL_UBAH,
+                case when non_prdcd is not null then \'Y\' else \'N\' end as plunonpromo
+                from tbmaster_prodmast 
+                left join (
+                  select prmd_prdcd,prmd_hrgjual,prmd_tglawal,prmd_tglakhir,to_char(prmd_modify_dt,\'DD/MM/YY hh24:mm\') as prmd_modify_dt  from tbtr_promomd where trunc(prmd_tglakhir)>=trunc(sysdate)
+                )on prd_prdcd=prmd_prdcd
+                left join tbmaster_prodcrm on prc_pluigr=prd_prdcd
+                left join tbmaster_plunonpromo on non_prdcd=prd_prdcd
+                where prd_prdcd like \'195787%\' order by prd_prdcd')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()

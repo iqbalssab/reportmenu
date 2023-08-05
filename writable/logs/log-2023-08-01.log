@@ -1,0 +1,2696 @@
+INFO - 2023-08-01 02:30:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 02:31:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 02:31:46 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(33): CodeIgniter\Database\BaseConnection->query('SELECT js_cashierid AS ID_KASIR,
+        username AS NAMA_KASIR,
+        js_cashierstation AS KASSA, 
+        js_totsalesamt AS TOTAL_TRANSAKSI, 
+        js_totcashsalesamt AS TUNAI,
+        js_totdebitamt AS KDEBIT,
+        (js_totcc1amt+js_totcc2amt) AS KKREDIT,
+        js_totcreditsalesamt AS KREDIT,
+        CASE 
+           WHEN js_resetamt=0 THEN \'Aktif\'
+           WHEN js_resetamt>0 THEN \'Closing\'
+         END AS Status
+        FROM tbtr_jualsummary 
+        LEFT JOIN tbmaster_user on js_cashierid=userid 
+        WHERE trunc(js_transactiondate)=to_date(\'2023-08-01\',\'YYYY-MM-DD\')
+        ORDER BY status,js_cashierstation,js_cashierid')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 02:32:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 02:32:42 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(33): CodeIgniter\Database\BaseConnection->query('SELECT js_cashierid AS ID_KASIR,
+        username AS NAMA_KASIR,
+        js_cashierstation AS KASSA, 
+        js_totsalesamt AS TOTAL_TRANSAKSI, 
+        js_totcashsalesamt AS TUNAI,
+        js_totdebitamt AS KDEBIT,
+        (js_totcc1amt+js_totcc2amt) AS KKREDIT,
+        js_totcreditsalesamt AS KREDIT,
+        CASE 
+           WHEN js_resetamt=0 THEN \'Aktif\'
+           WHEN js_resetamt>0 THEN \'Closing\'
+         END AS Status
+        FROM tbtr_jualsummary 
+        LEFT JOIN tbmaster_user on js_cashierid=userid 
+        WHERE trunc(js_transactiondate)=to_date(\'2023-08-01\',\'YYYY-MM-DD\')
+        ORDER BY status,js_cashierstation,js_cashierid')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 02:32:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 02:32:58 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(33): CodeIgniter\Database\BaseConnection->query('SELECT js_cashierid AS ID_KASIR,
+        username AS NAMA_KASIR,
+        js_cashierstation AS KASSA, 
+        js_totsalesamt AS TOTAL_TRANSAKSI, 
+        js_totcashsalesamt AS TUNAI,
+        js_totdebitamt AS KDEBIT,
+        (js_totcc1amt+js_totcc2amt) AS KKREDIT,
+        js_totcreditsalesamt AS KREDIT,
+        CASE 
+           WHEN js_resetamt=0 THEN \'Aktif\'
+           WHEN js_resetamt>0 THEN \'Closing\'
+         END AS Status
+        FROM tbtr_jualsummary 
+        LEFT JOIN tbmaster_user on js_cashierid=userid 
+        WHERE trunc(js_transactiondate)=to_date(\'2023-08-01\',\'YYYY-MM-DD\')
+        ORDER BY status,js_cashierstation,js_cashierid')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 02:38:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 02:38:27 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(12): CodeIgniter\Database\BaseConnection->query('SELECT * FROM tbmaster_user LIMIT=10')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->index()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ERROR - 2023-08-01 02:38:27 --> ErrorException: oci_execute(): ORA-00933: SQL command not properly ended in F:\laragon\www\reportmenu\system\Database\OCI8\Connection.php:199
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'oci_execute(): ...', 'F:\\laragon\\www\\...', 199)
+#1 F:\laragon\www\reportmenu\system\Database\OCI8\Connection.php(199): oci_execute(Resource id #134, 32)
+#2 F:\laragon\www\reportmenu\system\Database\BaseConnection.php(692): CodeIgniter\Database\OCI8\Connection->execute('SELECT * FROM t...')
+#3 F:\laragon\www\reportmenu\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT * FROM t...')
+#4 F:\laragon\www\reportmenu\app\Controllers\Store.php(12): CodeIgniter\Database\BaseConnection->query('SELECT * FROM t...')
+#5 F:\laragon\www\reportmenu\system\CodeIgniter.php(932): App\Controllers\Store->index()
+#6 F:\laragon\www\reportmenu\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+#7 F:\laragon\www\reportmenu\system\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 F:\laragon\www\reportmenu\public\index.php(67): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2023-08-01 02:38:27 --> oci_execute(): ORA-00933: SQL command not properly ended
+in SYSTEMPATH\Database\OCI8\Connection.php on line 199.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'oci_execute(): ORA-00933: SQL command not properly ended', 'F:\\laragon\\www\\reportmenu\\system\\Database\\OCI8\\Connection.php', 199)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(199): oci_execute(resource (oci8 statement), 32)
+ 3 SYSTEMPATH\Database\BaseConnection.php(692): CodeIgniter\Database\OCI8\Connection->execute('SELECT * FROM tbmaster_user LIMIT=10')
+ 4 SYSTEMPATH\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT * FROM tbmaster_user LIMIT=10')
+ 5 APPPATH\Controllers\Store.php(12): CodeIgniter\Database\BaseConnection->query('SELECT * FROM tbmaster_user LIMIT=10')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->index()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 02:38:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 02:38:53 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(12): CodeIgniter\Database\BaseConnection->query('SELECT * FROM tbmaster_user')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->index()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 02:39:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 02:39:14 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(12): CodeIgniter\Database\BaseConnection->query('SELECT * FROM tbmaster_user')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->index()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 02:39:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 02:39:47 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(41): CodeIgniter\Database\BaseConnection->query('SELECT js_cashierid AS ID_KASIR,
+        username AS NAMA_KASIR,
+        js_cashierstation AS KASSA, 
+        js_totsalesamt AS TOTAL_TRANSAKSI, 
+        js_totcashsalesamt AS TUNAI,
+        js_totdebitamt AS KDEBIT,
+        (js_totcc1amt+js_totcc2amt) AS KKREDIT,
+        js_totcreditsalesamt AS KREDIT,
+        CASE 
+           WHEN js_resetamt=0 THEN \'Aktif\'
+           WHEN js_resetamt>0 THEN \'Closing\'
+         END AS Status
+        FROM tbtr_jualsummary 
+        LEFT JOIN tbmaster_user on js_cashierid=userid 
+        WHERE trunc(js_transactiondate)=to_date(\'2023-08-01\',\'YYYY-MM-DD\')
+        ORDER BY status,js_cashierstation,js_cashierid')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 02:40:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 02:40:06 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(41): CodeIgniter\Database\BaseConnection->query('SELECT js_cashierid AS ID_KASIR,
+        username AS NAMA_KASIR,
+        js_cashierstation AS KASSA, 
+        js_totsalesamt AS TOTAL_TRANSAKSI, 
+        js_totcashsalesamt AS TUNAI,
+        js_totdebitamt AS KDEBIT,
+        (js_totcc1amt+js_totcc2amt) AS KKREDIT,
+        js_totcreditsalesamt AS KREDIT,
+        CASE 
+           WHEN js_resetamt=0 THEN \'Aktif\'
+           WHEN js_resetamt>0 THEN \'Closing\'
+         END AS Status
+        FROM tbtr_jualsummary 
+        LEFT JOIN tbmaster_user on js_cashierid=userid 
+        WHERE trunc(js_transactiondate)=to_date(\'2023-08-01\',\'YYYY-MM-DD\')
+        ORDER BY status,js_cashierstation,js_cashierid')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 02:40:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 02:40:55 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(41): CodeIgniter\Database\BaseConnection->query('SELECT js_cashierid AS ID_KASIR,
+        username AS NAMA_KASIR,
+        js_cashierstation AS KASSA, 
+        js_totsalesamt AS TOTAL_TRANSAKSI, 
+        js_totcashsalesamt AS TUNAI,
+        js_totdebitamt AS KDEBIT,
+        (js_totcc1amt+js_totcc2amt) AS KKREDIT,
+        js_totcreditsalesamt AS KREDIT,
+        CASE 
+           WHEN js_resetamt=0 THEN \'Aktif\'
+           WHEN js_resetamt>0 THEN \'Closing\'
+         END AS Status
+        FROM tbtr_jualsummary 
+        LEFT JOIN tbmaster_user on js_cashierid=userid 
+        WHERE trunc(js_transactiondate)=to_date(\'2023-08-01\',\'YYYY-MM-DD\')
+        ORDER BY status,js_cashierstation,js_cashierid')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 02:41:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 02:41:09 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(41): CodeIgniter\Database\BaseConnection->query('SELECT js_cashierid AS ID_KASIR,
+        username AS NAMA_KASIR,
+        js_cashierstation AS KASSA, 
+        js_totsalesamt AS TOTAL_TRANSAKSI, 
+        js_totcashsalesamt AS TUNAI,
+        js_totdebitamt AS KDEBIT,
+        (js_totcc1amt+js_totcc2amt) AS KKREDIT,
+        js_totcreditsalesamt AS KREDIT,
+        CASE 
+           WHEN js_resetamt=0 THEN \'Aktif\'
+           WHEN js_resetamt>0 THEN \'Closing\'
+         END AS Status
+        FROM tbtr_jualsummary 
+        LEFT JOIN tbmaster_user on js_cashierid=userid 
+        WHERE trunc(js_transactiondate)=to_date(\'2023-08-01\',\'YYYY-MM-DD\')
+        ORDER BY status,js_cashierstation,js_cashierid')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 02:42:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 02:42:01 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT * FROM tbtr_jualsummary LIMIT 10')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ERROR - 2023-08-01 02:42:01 --> ErrorException: oci_execute(): ORA-00933: SQL command not properly ended in F:\laragon\www\reportmenu\system\Database\OCI8\Connection.php:199
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'oci_execute(): ...', 'F:\\laragon\\www\\...', 199)
+#1 F:\laragon\www\reportmenu\system\Database\OCI8\Connection.php(199): oci_execute(Resource id #133, 32)
+#2 F:\laragon\www\reportmenu\system\Database\BaseConnection.php(692): CodeIgniter\Database\OCI8\Connection->execute('SELECT * FROM t...')
+#3 F:\laragon\www\reportmenu\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT * FROM t...')
+#4 F:\laragon\www\reportmenu\app\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT * FROM t...')
+#5 F:\laragon\www\reportmenu\system\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+#6 F:\laragon\www\reportmenu\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+#7 F:\laragon\www\reportmenu\system\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 F:\laragon\www\reportmenu\public\index.php(67): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2023-08-01 02:42:01 --> oci_execute(): ORA-00933: SQL command not properly ended
+in SYSTEMPATH\Database\OCI8\Connection.php on line 199.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'oci_execute(): ORA-00933: SQL command not properly ended', 'F:\\laragon\\www\\reportmenu\\system\\Database\\OCI8\\Connection.php', 199)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(199): oci_execute(resource (oci8 statement), 32)
+ 3 SYSTEMPATH\Database\BaseConnection.php(692): CodeIgniter\Database\OCI8\Connection->execute('SELECT * FROM tbtr_jualsummary LIMIT 10')
+ 4 SYSTEMPATH\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT * FROM tbtr_jualsummary LIMIT 10')
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT * FROM tbtr_jualsummary LIMIT 10')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 02:42:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 02:42:08 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT * FROM tbtr_jualsummary LIMIT=10')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ERROR - 2023-08-01 02:42:08 --> ErrorException: oci_execute(): ORA-00933: SQL command not properly ended in F:\laragon\www\reportmenu\system\Database\OCI8\Connection.php:199
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'oci_execute(): ...', 'F:\\laragon\\www\\...', 199)
+#1 F:\laragon\www\reportmenu\system\Database\OCI8\Connection.php(199): oci_execute(Resource id #133, 32)
+#2 F:\laragon\www\reportmenu\system\Database\BaseConnection.php(692): CodeIgniter\Database\OCI8\Connection->execute('SELECT * FROM t...')
+#3 F:\laragon\www\reportmenu\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT * FROM t...')
+#4 F:\laragon\www\reportmenu\app\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT * FROM t...')
+#5 F:\laragon\www\reportmenu\system\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+#6 F:\laragon\www\reportmenu\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+#7 F:\laragon\www\reportmenu\system\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 F:\laragon\www\reportmenu\public\index.php(67): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2023-08-01 02:42:08 --> oci_execute(): ORA-00933: SQL command not properly ended
+in SYSTEMPATH\Database\OCI8\Connection.php on line 199.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'oci_execute(): ORA-00933: SQL command not properly ended', 'F:\\laragon\\www\\reportmenu\\system\\Database\\OCI8\\Connection.php', 199)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(199): oci_execute(resource (oci8 statement), 32)
+ 3 SYSTEMPATH\Database\BaseConnection.php(692): CodeIgniter\Database\OCI8\Connection->execute('SELECT * FROM tbtr_jualsummary LIMIT=10')
+ 4 SYSTEMPATH\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT * FROM tbtr_jualsummary LIMIT=10')
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT * FROM tbtr_jualsummary LIMIT=10')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 02:42:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 02:42:53 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT * FROM tbtr_jualheader_interface')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 02:43:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 02:43:04 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT * FROM tbtr_jualheader_interface')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 02:43:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-01 02:43:48 --> A non-numeric value encountered
+in APPPATH\Controllers\Store.php on line 23.
+ 1 APPPATH\Controllers\Store.php(23): CodeIgniter\Debug\Exceptions->errorHandler(2, 'A non-numeric value encountered', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 23)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 02:44:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 02:44:21 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT * FROM tbtr_jualheader')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 02:48:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 02:48:52 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT js_cashierid AS ID_KASIR,
+        username AS NAMA_KASIR,
+        js_cashierstation AS KASSA, 
+        js_totsalesamt AS TOTAL_TRANSAKSI, 
+        js_totcashsalesamt AS TUNAI,
+        js_totdebitamt AS KDEBIT,
+        (js_totcc1amt+js_totcc2amt) AS KKREDIT,
+        js_totcreditsalesamt AS KREDIT,
+        CASE 
+           WHEN js_resetamt=0 THEN \'Aktif\'
+           WHEN js_resetamt>0 THEN \'Closing\'
+         END AS Status
+        FROM tbtr_jualsummary 
+        LEFT JOIN tbmaster_user on js_cashierid=userid 
+        WHERE trunc(js_transactiondate)=to_date(\'2023-07-31\',\'YYYY-MM-DD\')
+        ORDER BY status,js_cashierstation,js_cashierid')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 02:49:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 02:49:06 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(41): CodeIgniter\Database\BaseConnection->query('SELECT js_cashierid AS ID_KASIR,
+        username AS NAMA_KASIR,
+        js_cashierstation AS KASSA, 
+        js_totsalesamt AS TOTAL_TRANSAKSI, 
+        js_totcashsalesamt AS TUNAI,
+        js_totdebitamt AS KDEBIT,
+        (js_totcc1amt+js_totcc2amt) AS KKREDIT,
+        js_totcreditsalesamt AS KREDIT,
+        CASE 
+           WHEN js_resetamt=0 THEN \'Aktif\'
+           WHEN js_resetamt>0 THEN \'Closing\'
+         END AS Status
+        FROM tbtr_jualsummary 
+        LEFT JOIN tbmaster_user on js_cashierid=userid 
+        WHERE trunc(js_transactiondate)=to_date(\'2023-08-01\',\'YYYY-MM-DD\')
+        ORDER BY status,js_cashierstation,js_cashierid')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 02:49:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 02:49:18 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(41): CodeIgniter\Database\BaseConnection->query('SELECT js_cashierid AS ID_KASIR,
+        username AS NAMA_KASIR,
+        js_cashierstation AS KASSA, 
+        js_totsalesamt AS TOTAL_TRANSAKSI, 
+        js_totcashsalesamt AS TUNAI,
+        js_totdebitamt AS KDEBIT,
+        (js_totcc1amt+js_totcc2amt) AS KKREDIT,
+        js_totcreditsalesamt AS KREDIT,
+        CASE 
+           WHEN js_resetamt=0 THEN \'Aktif\'
+           WHEN js_resetamt>0 THEN \'Closing\'
+         END AS Status
+        FROM tbtr_jualsummary 
+        LEFT JOIN tbmaster_user on js_cashierid=userid 
+        WHERE trunc(js_transactiondate)=to_date(\'2023-08-01\',\'YYYY-MM-DD\')
+        ORDER BY status,js_cashierstation,js_cashierid')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 02:50:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 02:50:50 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(41): CodeIgniter\Database\BaseConnection->query('SELECT js_cashierid AS ID_KASIR,
+        username AS NAMA_KASIR,
+        js_cashierstation AS KASSA, 
+        js_totsalesamt AS TOTAL_TRANSAKSI, 
+        js_totcashsalesamt AS TUNAI,
+        js_totdebitamt AS KDEBIT,
+        (js_totcc1amt+js_totcc2amt) AS KKREDIT,
+        js_totcreditsalesamt AS KREDIT,
+        CASE 
+           WHEN js_resetamt=0 THEN \'Aktif\'
+           WHEN js_resetamt>0 THEN \'Closing\'
+         END AS Status
+        FROM tbtr_jualsummary 
+        LEFT JOIN tbmaster_user on js_cashierid=userid 
+        WHERE trunc(js_transactiondate)=to_date(\'2023-08-01\',\'YYYY-MM-DD\')
+        ORDER BY status,js_cashierstation,js_cashierid')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 02:59:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 02:59:05 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('select 
+        case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end as TIPEMBR,
+      count( distinct jh_cus_kodemember) as JMLMBR
+      from tbtr_jualheader_interface
+      left join tbmaster_customer on jh_cus_kodemember=cus_kodemember
+      group by case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end, cus_flagmemberkhusus
+      order by TIPEMBR')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 02:59:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 02:59:09 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('select 
+        case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end as TIPEMBR,
+      count( distinct jh_cus_kodemember) as JMLMBR
+      from tbtr_jualheader_interface
+      left join tbmaster_customer on jh_cus_kodemember=cus_kodemember
+      group by case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end, cus_flagmemberkhusus
+      order by TIPEMBR')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 02:59:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 02:59:09 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('select 
+        case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end as TIPEMBR,
+      count( distinct jh_cus_kodemember) as JMLMBR
+      from tbtr_jualheader_interface
+      left join tbmaster_customer on jh_cus_kodemember=cus_kodemember
+      group by case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end, cus_flagmemberkhusus
+      order by TIPEMBR')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 03:00:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 03:00:42 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT 
+        case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end as TIPEMBR,
+      count( distinct jh_cus_kodemember) as JMLMBR
+      from tbtr_jualheader_interface
+      left join tbmaster_customer on jh_cus_kodemember=cus_kodemember
+      group by case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end, cus_flagmemberkhusus
+      order by TIPEMBR')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 03:01:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 03:01:19 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT 
+        case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end as TIPEMBR,
+      count( distinct jh_cus_kodemember) as JMLMBR
+      from tbtr_jualheader_interface
+      left join tbmaster_customer on jh_cus_kodemember=cus_kodemember
+      group by case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end, cus_flagmemberkhusus
+      order by TIPEMBR')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 03:02:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 03:02:42 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT 
+        case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end as TIPEMBR,
+      count( distinct jh_cus_kodemember) as JMLMBR
+      from tbtr_jualheader_interface
+      left join tbmaster_customer on jh_cus_kodemember=cus_kodemember
+      group by case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end, cus_flagmemberkhusus
+      order by TIPEMBR')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 03:02:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 03:02:51 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT 
+        case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end as TIPEMBR,
+      count( distinct jh_cus_kodemember) as JMLMBR
+      from tbtr_jualheader_interface
+      left join tbmaster_customer on jh_cus_kodemember=cus_kodemember
+      group by case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end, cus_flagmemberkhusus
+      order by TIPEMBR')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 03:02:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 03:02:55 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT 
+        case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end as TIPEMBR,
+      count( distinct jh_cus_kodemember) as JMLMBR
+      from tbtr_jualheader_interface
+      left join tbmaster_customer on jh_cus_kodemember=cus_kodemember
+      group by case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end, cus_flagmemberkhusus
+      order by TIPEMBR')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 03:05:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 03:05:20 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT 
+        case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end as TIPEMBR,
+      count( distinct jh_cus_kodemember) as JMLMBR
+      from tbtr_jualheader_interface
+      left join tbmaster_customer on jh_cus_kodemember=cus_kodemember
+      group by case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end, cus_flagmemberkhusus
+      order by TIPEMBR')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 03:09:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 03:09:04 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT 
+        case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end as TIPEMBR,
+      count( distinct jh_cus_kodemember) as JMLMBR
+      from tbtr_jualheader_interface
+      left join tbmaster_customer on jh_cus_kodemember=cus_kodemember
+      group by case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end, cus_flagmemberkhusus
+      order by TIPEMBR')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 06:14:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 06:14:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 06:14:40 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT 
+        case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end as TIPEMBR,
+      count( distinct jh_cus_kodemember) as JMLMBR
+      from tbtr_jualheader_interface
+      left join tbmaster_customer on jh_cus_kodemember=cus_kodemember
+      group by case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end, cus_flagmemberkhusus
+      order by TIPEMBR')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 06:18:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 06:18:29 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT 
+        case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end as TIPEMBR,
+      count( distinct jh_cus_kodemember) as JMLMBR
+      from tbtr_jualheader_interface
+      left join tbmaster_customer on jh_cus_kodemember=cus_kodemember
+      group by case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end, cus_flagmemberkhusus
+      order by TIPEMBR')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 06:18:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 06:18:30 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT 
+        case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end as TIPEMBR,
+      count( distinct jh_cus_kodemember) as JMLMBR
+      from tbtr_jualheader_interface
+      left join tbmaster_customer on jh_cus_kodemember=cus_kodemember
+      group by case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end, cus_flagmemberkhusus
+      order by TIPEMBR')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 06:19:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 06:19:04 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT 
+        case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end as TIPEMBR,
+      count( distinct jh_cus_kodemember) as JMLMBR
+      from tbtr_jualheader_interface
+      left join tbmaster_customer on jh_cus_kodemember=cus_kodemember
+      group by case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end, cus_flagmemberkhusus
+      order by TIPEMBR')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 06:19:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 06:19:04 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT 
+        case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end as TIPEMBR,
+      count( distinct jh_cus_kodemember) as JMLMBR
+      from tbtr_jualheader_interface
+      left join tbmaster_customer on jh_cus_kodemember=cus_kodemember
+      group by case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end, cus_flagmemberkhusus
+      order by TIPEMBR')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 06:20:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 06:20:07 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT 
+        case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end as TIPEMBR,
+      count( distinct jh_cus_kodemember) as JMLMBR
+      from tbtr_jualheader_interface
+      left join tbmaster_customer on jh_cus_kodemember=cus_kodemember
+      group by case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end, cus_flagmemberkhusus
+      order by TIPEMBR')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-08-01 06:20:07 --> Number formatting failed: U_ILLEGAL_ARGUMENT_ERROR
+in SYSTEMPATH\Helpers\number_helper.php on line 156.
+ 1 SYSTEMPATH\Helpers\number_helper.php(118): format_number(18512880.0, 1, 'en', [...])
+ 2 APPPATH\Views\store\previewkasir.php(28): number_to_currency(18512880.0, 'Rp')
+ 3 SYSTEMPATH\View\View.php(224): include('F:\\laragon\\www\\reportmenu\\app\\Views\\store\\previewkasir.php')
+ 4 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1180): CodeIgniter\View\View->render('store/previewkasir', [], true)
+ 6 APPPATH\Controllers\Store.php(76): view('store/previewkasir', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 8 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 9 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 06:20:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 06:20:20 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT 
+        case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end as TIPEMBR,
+      count( distinct jh_cus_kodemember) as JMLMBR
+      from tbtr_jualheader_interface
+      left join tbmaster_customer on jh_cus_kodemember=cus_kodemember
+      group by case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end, cus_flagmemberkhusus
+      order by TIPEMBR')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 06:23:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 06:23:18 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT 
+        case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end as TIPEMBR,
+      count( distinct jh_cus_kodemember) as JMLMBR
+      from tbtr_jualheader_interface
+      left join tbmaster_customer on jh_cus_kodemember=cus_kodemember
+      group by case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end, cus_flagmemberkhusus
+      order by TIPEMBR')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 06:23:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 06:23:37 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT 
+        case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end as TIPEMBR,
+      count( distinct jh_cus_kodemember) as JMLMBR
+      from tbtr_jualheader_interface
+      left join tbmaster_customer on jh_cus_kodemember=cus_kodemember
+      group by case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end, cus_flagmemberkhusus
+      order by TIPEMBR')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 06:24:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 06:24:25 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT 
+        case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end as TIPEMBR,
+      count( distinct jh_cus_kodemember) as JMLMBR
+      from tbtr_jualheader_interface
+      left join tbmaster_customer on jh_cus_kodemember=cus_kodemember
+      group by case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end, cus_flagmemberkhusus
+      order by TIPEMBR')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 06:49:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 06:50:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 06:50:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 06:50:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 06:50:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 06:51:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 06:51:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 06:51:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 06:51:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 06:51:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 06:52:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 06:57:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 06:57:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 06:58:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 06:59:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 06:59:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:00:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:00:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:00:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:00:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:00:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:01:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:02:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:02:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:02:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:02:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:03:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:03:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:03:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:24:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-01 07:24:59 --> Too few arguments to function App\Controllers\Store::cekpromo(), 0 passed in F:\laragon\www\reportmenu\system\CodeIgniter.php on line 932 and exactly 1 expected
+in APPPATH\Controllers\Store.php on line 79.
+ 1 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 2 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 07:33:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 07:33:50 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(86): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+        ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+        SELECT
+        PRMD_PRDCD AS PLU,
+        PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+        PRD_FRAC as frc,
+        PRD_UNIT AS stn,
+        PRD_KODETAG AS TAG_IGR,
+        CASE 
+          WHEN PRC_KODETAG IS NULL THEN \' \'
+          ELSE PRC_KODETAG 
+        END AS TAG_OMI,
+        case 
+          when prd_flag_aktivasi is null then \' \'
+          else prd_flag_aktivasi
+        end as ACT,
+        PRD_MINJUAL AS MIN_JUAL,
+        PRD_AVGCOST AS ACOST,
+        PRD_HRGJUAL AS H_NORMAL,
+        PRMD_HRGJUAL AS H_PROMO,
+        PRMD_TGLAWAL AS TGL_AWAL,
+        PRMD_TGLAKHIR AS TGL_AKHIR
+        FROM TBTR_PROMOMD
+        LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+        LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+        WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+        AND PRMD_PRDCD LIKE \'%\') --> ganti plu
+        order by plu asc;')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ERROR - 2023-08-01 07:33:50 --> ErrorException: oci_execute(): ORA-00911: invalid character in F:\laragon\www\reportmenu\system\Database\OCI8\Connection.php:199
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'oci_execute(): ...', 'F:\\laragon\\www\\...', 199)
+#1 F:\laragon\www\reportmenu\system\Database\OCI8\Connection.php(199): oci_execute(Resource id #134, 32)
+#2 F:\laragon\www\reportmenu\system\Database\BaseConnection.php(692): CodeIgniter\Database\OCI8\Connection->execute('SELECT PLU,DESK...')
+#3 F:\laragon\www\reportmenu\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT PLU,DESK...')
+#4 F:\laragon\www\reportmenu\app\Controllers\Store.php(86): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESK...')
+#5 F:\laragon\www\reportmenu\system\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+#6 F:\laragon\www\reportmenu\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+#7 F:\laragon\www\reportmenu\system\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 F:\laragon\www\reportmenu\public\index.php(67): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2023-08-01 07:33:50 --> oci_execute(): ORA-00911: invalid character
+in SYSTEMPATH\Database\OCI8\Connection.php on line 199.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'oci_execute(): ORA-00911: invalid character', 'F:\\laragon\\www\\reportmenu\\system\\Database\\OCI8\\Connection.php', 199)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(199): oci_execute(resource (oci8 statement), 32)
+ 3 SYSTEMPATH\Database\BaseConnection.php(692): CodeIgniter\Database\OCI8\Connection->execute('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+        ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+        SELECT
+        PRMD_PRDCD AS PLU,
+        PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+        PRD_FRAC as frc,
+        PRD_UNIT AS stn,
+        PRD_KODETAG AS TAG_IGR,
+        CASE 
+          WHEN PRC_KODETAG IS NULL THEN \' \'
+          ELSE PRC_KODETAG 
+        END AS TAG_OMI,
+        case 
+          when prd_flag_aktivasi is null then \' \'
+          else prd_flag_aktivasi
+        end as ACT,
+        PRD_MINJUAL AS MIN_JUAL,
+        PRD_AVGCOST AS ACOST,
+        PRD_HRGJUAL AS H_NORMAL,
+        PRMD_HRGJUAL AS H_PROMO,
+        PRMD_TGLAWAL AS TGL_AWAL,
+        PRMD_TGLAKHIR AS TGL_AKHIR
+        FROM TBTR_PROMOMD
+        LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+        LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+        WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+        AND PRMD_PRDCD LIKE \'%\') --> ganti plu
+        order by plu asc;')
+ 4 SYSTEMPATH\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+        ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+        SELECT
+        PRMD_PRDCD AS PLU,
+        PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+        PRD_FRAC as frc,
+        PRD_UNIT AS stn,
+        PRD_KODETAG AS TAG_IGR,
+        CASE 
+          WHEN PRC_KODETAG IS NULL THEN \' \'
+          ELSE PRC_KODETAG 
+        END AS TAG_OMI,
+        case 
+          when prd_flag_aktivasi is null then \' \'
+          else prd_flag_aktivasi
+        end as ACT,
+        PRD_MINJUAL AS MIN_JUAL,
+        PRD_AVGCOST AS ACOST,
+        PRD_HRGJUAL AS H_NORMAL,
+        PRMD_HRGJUAL AS H_PROMO,
+        PRMD_TGLAWAL AS TGL_AWAL,
+        PRMD_TGLAKHIR AS TGL_AKHIR
+        FROM TBTR_PROMOMD
+        LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+        LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+        WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+        AND PRMD_PRDCD LIKE \'%\') --> ganti plu
+        order by plu asc;')
+ 5 APPPATH\Controllers\Store.php(86): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+        ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+        SELECT
+        PRMD_PRDCD AS PLU,
+        PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+        PRD_FRAC as frc,
+        PRD_UNIT AS stn,
+        PRD_KODETAG AS TAG_IGR,
+        CASE 
+          WHEN PRC_KODETAG IS NULL THEN \' \'
+          ELSE PRC_KODETAG 
+        END AS TAG_OMI,
+        case 
+          when prd_flag_aktivasi is null then \' \'
+          else prd_flag_aktivasi
+        end as ACT,
+        PRD_MINJUAL AS MIN_JUAL,
+        PRD_AVGCOST AS ACOST,
+        PRD_HRGJUAL AS H_NORMAL,
+        PRMD_HRGJUAL AS H_PROMO,
+        PRMD_TGLAWAL AS TGL_AWAL,
+        PRMD_TGLAKHIR AS TGL_AKHIR
+        FROM TBTR_PROMOMD
+        LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+        LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+        WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+        AND PRMD_PRDCD LIKE \'%\') --> ganti plu
+        order by plu asc;')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 07:34:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 07:34:23 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(112): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+        ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+        SELECT
+        PRMD_PRDCD AS PLU,
+        PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+        PRD_FRAC as frc,
+        PRD_UNIT AS stn,
+        PRD_KODETAG AS TAG_IGR,
+        CASE 
+          WHEN PRC_KODETAG IS NULL THEN \' \'
+          ELSE PRC_KODETAG 
+        END AS TAG_OMI,
+        case 
+          when prd_flag_aktivasi is null then \' \'
+          else prd_flag_aktivasi
+        end as ACT,
+        PRD_MINJUAL AS MIN_JUAL,
+        PRD_AVGCOST AS ACOST,
+        PRD_HRGJUAL AS H_NORMAL,
+        PRMD_HRGJUAL AS H_PROMO,
+        PRMD_TGLAWAL AS TGL_AWAL,
+        PRMD_TGLAKHIR AS TGL_AKHIR
+        FROM TBTR_PROMOMD
+        LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+        LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+        WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+        AND PRMD_PRDCD LIKE \'%\') --> ganti plu
+        order by plu asc;')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ERROR - 2023-08-01 07:34:23 --> ErrorException: oci_execute(): ORA-00911: invalid character in F:\laragon\www\reportmenu\system\Database\OCI8\Connection.php:199
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'oci_execute(): ...', 'F:\\laragon\\www\\...', 199)
+#1 F:\laragon\www\reportmenu\system\Database\OCI8\Connection.php(199): oci_execute(Resource id #133, 32)
+#2 F:\laragon\www\reportmenu\system\Database\BaseConnection.php(692): CodeIgniter\Database\OCI8\Connection->execute('SELECT PLU,DESK...')
+#3 F:\laragon\www\reportmenu\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT PLU,DESK...')
+#4 F:\laragon\www\reportmenu\app\Controllers\Store.php(112): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESK...')
+#5 F:\laragon\www\reportmenu\system\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+#6 F:\laragon\www\reportmenu\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+#7 F:\laragon\www\reportmenu\system\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 F:\laragon\www\reportmenu\public\index.php(67): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2023-08-01 07:34:23 --> oci_execute(): ORA-00911: invalid character
+in SYSTEMPATH\Database\OCI8\Connection.php on line 199.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'oci_execute(): ORA-00911: invalid character', 'F:\\laragon\\www\\reportmenu\\system\\Database\\OCI8\\Connection.php', 199)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(199): oci_execute(resource (oci8 statement), 32)
+ 3 SYSTEMPATH\Database\BaseConnection.php(692): CodeIgniter\Database\OCI8\Connection->execute('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+        ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+        SELECT
+        PRMD_PRDCD AS PLU,
+        PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+        PRD_FRAC as frc,
+        PRD_UNIT AS stn,
+        PRD_KODETAG AS TAG_IGR,
+        CASE 
+          WHEN PRC_KODETAG IS NULL THEN \' \'
+          ELSE PRC_KODETAG 
+        END AS TAG_OMI,
+        case 
+          when prd_flag_aktivasi is null then \' \'
+          else prd_flag_aktivasi
+        end as ACT,
+        PRD_MINJUAL AS MIN_JUAL,
+        PRD_AVGCOST AS ACOST,
+        PRD_HRGJUAL AS H_NORMAL,
+        PRMD_HRGJUAL AS H_PROMO,
+        PRMD_TGLAWAL AS TGL_AWAL,
+        PRMD_TGLAKHIR AS TGL_AKHIR
+        FROM TBTR_PROMOMD
+        LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+        LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+        WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+        AND PRMD_PRDCD LIKE \'%\') --> ganti plu
+        order by plu asc;')
+ 4 SYSTEMPATH\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+        ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+        SELECT
+        PRMD_PRDCD AS PLU,
+        PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+        PRD_FRAC as frc,
+        PRD_UNIT AS stn,
+        PRD_KODETAG AS TAG_IGR,
+        CASE 
+          WHEN PRC_KODETAG IS NULL THEN \' \'
+          ELSE PRC_KODETAG 
+        END AS TAG_OMI,
+        case 
+          when prd_flag_aktivasi is null then \' \'
+          else prd_flag_aktivasi
+        end as ACT,
+        PRD_MINJUAL AS MIN_JUAL,
+        PRD_AVGCOST AS ACOST,
+        PRD_HRGJUAL AS H_NORMAL,
+        PRMD_HRGJUAL AS H_PROMO,
+        PRMD_TGLAWAL AS TGL_AWAL,
+        PRMD_TGLAKHIR AS TGL_AKHIR
+        FROM TBTR_PROMOMD
+        LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+        LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+        WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+        AND PRMD_PRDCD LIKE \'%\') --> ganti plu
+        order by plu asc;')
+ 5 APPPATH\Controllers\Store.php(112): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+        ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+        SELECT
+        PRMD_PRDCD AS PLU,
+        PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+        PRD_FRAC as frc,
+        PRD_UNIT AS stn,
+        PRD_KODETAG AS TAG_IGR,
+        CASE 
+          WHEN PRC_KODETAG IS NULL THEN \' \'
+          ELSE PRC_KODETAG 
+        END AS TAG_OMI,
+        case 
+          when prd_flag_aktivasi is null then \' \'
+          else prd_flag_aktivasi
+        end as ACT,
+        PRD_MINJUAL AS MIN_JUAL,
+        PRD_AVGCOST AS ACOST,
+        PRD_HRGJUAL AS H_NORMAL,
+        PRMD_HRGJUAL AS H_PROMO,
+        PRMD_TGLAWAL AS TGL_AWAL,
+        PRMD_TGLAKHIR AS TGL_AKHIR
+        FROM TBTR_PROMOMD
+        LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+        LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+        WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+        AND PRMD_PRDCD LIKE \'%\') --> ganti plu
+        order by plu asc;')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 07:34:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 07:34:26 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(112): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+        ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+        SELECT
+        PRMD_PRDCD AS PLU,
+        PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+        PRD_FRAC as frc,
+        PRD_UNIT AS stn,
+        PRD_KODETAG AS TAG_IGR,
+        CASE 
+          WHEN PRC_KODETAG IS NULL THEN \' \'
+          ELSE PRC_KODETAG 
+        END AS TAG_OMI,
+        case 
+          when prd_flag_aktivasi is null then \' \'
+          else prd_flag_aktivasi
+        end as ACT,
+        PRD_MINJUAL AS MIN_JUAL,
+        PRD_AVGCOST AS ACOST,
+        PRD_HRGJUAL AS H_NORMAL,
+        PRMD_HRGJUAL AS H_PROMO,
+        PRMD_TGLAWAL AS TGL_AWAL,
+        PRMD_TGLAKHIR AS TGL_AKHIR
+        FROM TBTR_PROMOMD
+        LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+        LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+        WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+        AND PRMD_PRDCD LIKE \'%\') --> ganti plu
+        order by plu asc;')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ERROR - 2023-08-01 07:34:26 --> ErrorException: oci_execute(): ORA-00911: invalid character in F:\laragon\www\reportmenu\system\Database\OCI8\Connection.php:199
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'oci_execute(): ...', 'F:\\laragon\\www\\...', 199)
+#1 F:\laragon\www\reportmenu\system\Database\OCI8\Connection.php(199): oci_execute(Resource id #133, 32)
+#2 F:\laragon\www\reportmenu\system\Database\BaseConnection.php(692): CodeIgniter\Database\OCI8\Connection->execute('SELECT PLU,DESK...')
+#3 F:\laragon\www\reportmenu\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT PLU,DESK...')
+#4 F:\laragon\www\reportmenu\app\Controllers\Store.php(112): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESK...')
+#5 F:\laragon\www\reportmenu\system\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+#6 F:\laragon\www\reportmenu\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+#7 F:\laragon\www\reportmenu\system\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 F:\laragon\www\reportmenu\public\index.php(67): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2023-08-01 07:34:26 --> oci_execute(): ORA-00911: invalid character
+in SYSTEMPATH\Database\OCI8\Connection.php on line 199.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'oci_execute(): ORA-00911: invalid character', 'F:\\laragon\\www\\reportmenu\\system\\Database\\OCI8\\Connection.php', 199)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(199): oci_execute(resource (oci8 statement), 32)
+ 3 SYSTEMPATH\Database\BaseConnection.php(692): CodeIgniter\Database\OCI8\Connection->execute('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+        ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+        SELECT
+        PRMD_PRDCD AS PLU,
+        PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+        PRD_FRAC as frc,
+        PRD_UNIT AS stn,
+        PRD_KODETAG AS TAG_IGR,
+        CASE 
+          WHEN PRC_KODETAG IS NULL THEN \' \'
+          ELSE PRC_KODETAG 
+        END AS TAG_OMI,
+        case 
+          when prd_flag_aktivasi is null then \' \'
+          else prd_flag_aktivasi
+        end as ACT,
+        PRD_MINJUAL AS MIN_JUAL,
+        PRD_AVGCOST AS ACOST,
+        PRD_HRGJUAL AS H_NORMAL,
+        PRMD_HRGJUAL AS H_PROMO,
+        PRMD_TGLAWAL AS TGL_AWAL,
+        PRMD_TGLAKHIR AS TGL_AKHIR
+        FROM TBTR_PROMOMD
+        LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+        LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+        WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+        AND PRMD_PRDCD LIKE \'%\') --> ganti plu
+        order by plu asc;')
+ 4 SYSTEMPATH\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+        ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+        SELECT
+        PRMD_PRDCD AS PLU,
+        PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+        PRD_FRAC as frc,
+        PRD_UNIT AS stn,
+        PRD_KODETAG AS TAG_IGR,
+        CASE 
+          WHEN PRC_KODETAG IS NULL THEN \' \'
+          ELSE PRC_KODETAG 
+        END AS TAG_OMI,
+        case 
+          when prd_flag_aktivasi is null then \' \'
+          else prd_flag_aktivasi
+        end as ACT,
+        PRD_MINJUAL AS MIN_JUAL,
+        PRD_AVGCOST AS ACOST,
+        PRD_HRGJUAL AS H_NORMAL,
+        PRMD_HRGJUAL AS H_PROMO,
+        PRMD_TGLAWAL AS TGL_AWAL,
+        PRMD_TGLAKHIR AS TGL_AKHIR
+        FROM TBTR_PROMOMD
+        LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+        LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+        WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+        AND PRMD_PRDCD LIKE \'%\') --> ganti plu
+        order by plu asc;')
+ 5 APPPATH\Controllers\Store.php(112): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+        ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+        SELECT
+        PRMD_PRDCD AS PLU,
+        PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+        PRD_FRAC as frc,
+        PRD_UNIT AS stn,
+        PRD_KODETAG AS TAG_IGR,
+        CASE 
+          WHEN PRC_KODETAG IS NULL THEN \' \'
+          ELSE PRC_KODETAG 
+        END AS TAG_OMI,
+        case 
+          when prd_flag_aktivasi is null then \' \'
+          else prd_flag_aktivasi
+        end as ACT,
+        PRD_MINJUAL AS MIN_JUAL,
+        PRD_AVGCOST AS ACOST,
+        PRD_HRGJUAL AS H_NORMAL,
+        PRMD_HRGJUAL AS H_PROMO,
+        PRMD_TGLAWAL AS TGL_AWAL,
+        PRMD_TGLAKHIR AS TGL_AKHIR
+        FROM TBTR_PROMOMD
+        LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+        LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+        WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+        AND PRMD_PRDCD LIKE \'%\') --> ganti plu
+        order by plu asc;')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 07:35:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-01 07:35:32 --> Undefined variable $plu
+in APPPATH\Views\store\cekpromo.php on line 18.
+ 1 APPPATH\Views\store\cekpromo.php(18): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $plu', 'F:\\laragon\\www\\reportmenu\\app\\Views\\store\\cekpromo.php', 18)
+ 2 SYSTEMPATH\View\View.php(224): include('F:\\laragon\\www\\reportmenu\\app\\Views\\store\\cekpromo.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1180): CodeIgniter\View\View->render('store/cekpromo', [], true)
+ 5 APPPATH\Controllers\Store.php(87): view('store/cekpromo')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 07:36:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-01 07:36:01 --> Undefined variable $title
+in APPPATH\Views\layout\template.php on line 7.
+ 1 APPPATH\Views\layout\template.php(7): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $title', 'F:\\laragon\\www\\reportmenu\\app\\Views\\layout\\template.php', 7)
+ 2 SYSTEMPATH\View\View.php(224): include('F:\\laragon\\www\\reportmenu\\app\\Views\\layout\\template.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\View\View.php(240): CodeIgniter\View\View->render('layout/template', [], true)
+ 5 SYSTEMPATH\Common.php(1180): CodeIgniter\View\View->render('store/cekpromo', [], true)
+ 6 APPPATH\Controllers\Store.php(87): view('store/cekpromo')
+ 7 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 8 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 9 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 07:36:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:36:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:36:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:36:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:36:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:36:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:36:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:36:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:36:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:37:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:37:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:37:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:37:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:37:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:38:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:49:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:49:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:52:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:52:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:52:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:52:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:52:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:53:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:53:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:53:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:53:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:54:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:54:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-01 07:54:09 --> Undefined variable $pluplusnol
+in APPPATH\Controllers\Store.php on line 105.
+ 1 APPPATH\Controllers\Store.php(105): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluplusnol', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 105)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 07:55:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:55:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 07:55:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-01 07:55:40 --> Undefined variable $pluplusnol
+in APPPATH\Controllers\Store.php on line 104.
+ 1 APPPATH\Controllers\Store.php(104): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluplusnol', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 104)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:00:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:01:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:01:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:01:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-01 08:01:16 --> Undefined variable $pluplusnol
+in APPPATH\Controllers\Store.php on line 104.
+ 1 APPPATH\Controllers\Store.php(104): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluplusnol', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 104)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:02:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:02:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:06:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:06:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:06:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:06:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:06:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:06:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:06:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:08:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:08:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:08:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:08:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 08:08:35 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT 
+        case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end as TIPEMBR,
+      count( distinct jh_cus_kodemember) as JMLMBR
+      from tbtr_jualheader_interface
+      left join tbmaster_customer on jh_cus_kodemember=cus_kodemember
+      group by case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end, cus_flagmemberkhusus
+      order by TIPEMBR')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+WARNING - 2023-08-01 08:08:35 --> [DEPRECATED] number_format(): Passing null to parameter #1 ($num) of type float is deprecated in APPPATH\Views\store\previewkasir.php on line 29.
+ 1 APPPATH\Views\store\previewkasir.php(29): number_format(null, '0', ',', '.')
+ 2 SYSTEMPATH\View\View.php(224): include('F:\\laragon\\www\\reportmenu\\app\\Views\\store\\previewkasir.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1180): CodeIgniter\View\View->render('store/previewkasir', [], true)
+ 5 APPPATH\Controllers\Store.php(76): view('store/previewkasir', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:08:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:09:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:09:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:11:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-01 08:11:57 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 140.
+ 1 APPPATH\Controllers\Store.php(140): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 140)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:11:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-01 08:11:59 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 140.
+ 1 APPPATH\Controllers\Store.php(140): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 140)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:12:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-01 08:12:43 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 140.
+ 1 APPPATH\Controllers\Store.php(140): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 140)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:14:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:14:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 08:14:20 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(136): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+              WHEN PRC_KODETAG IS NULL THEN \' \'
+              ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+              when prd_flag_aktivasi is null then \' \'
+              else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'0000850%\') --> ganti plu
+            order by plu asc;')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ERROR - 2023-08-01 08:14:20 --> ErrorException: oci_execute(): ORA-00911: invalid character in F:\laragon\www\reportmenu\system\Database\OCI8\Connection.php:199
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'oci_execute(): ...', 'F:\\laragon\\www\\...', 199)
+#1 F:\laragon\www\reportmenu\system\Database\OCI8\Connection.php(199): oci_execute(Resource id #133, 32)
+#2 F:\laragon\www\reportmenu\system\Database\BaseConnection.php(692): CodeIgniter\Database\OCI8\Connection->execute('SELECT PLU,DESK...')
+#3 F:\laragon\www\reportmenu\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT PLU,DESK...')
+#4 F:\laragon\www\reportmenu\app\Controllers\Store.php(136): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESK...')
+#5 F:\laragon\www\reportmenu\system\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+#6 F:\laragon\www\reportmenu\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+#7 F:\laragon\www\reportmenu\system\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 F:\laragon\www\reportmenu\public\index.php(67): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2023-08-01 08:14:20 --> oci_execute(): ORA-00911: invalid character
+in SYSTEMPATH\Database\OCI8\Connection.php on line 199.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'oci_execute(): ORA-00911: invalid character', 'F:\\laragon\\www\\reportmenu\\system\\Database\\OCI8\\Connection.php', 199)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(199): oci_execute(resource (oci8 statement), 32)
+ 3 SYSTEMPATH\Database\BaseConnection.php(692): CodeIgniter\Database\OCI8\Connection->execute('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+              WHEN PRC_KODETAG IS NULL THEN \' \'
+              ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+              when prd_flag_aktivasi is null then \' \'
+              else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'0000850%\') --> ganti plu
+            order by plu asc;')
+ 4 SYSTEMPATH\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+              WHEN PRC_KODETAG IS NULL THEN \' \'
+              ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+              when prd_flag_aktivasi is null then \' \'
+              else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'0000850%\') --> ganti plu
+            order by plu asc;')
+ 5 APPPATH\Controllers\Store.php(136): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+              WHEN PRC_KODETAG IS NULL THEN \' \'
+              ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+              when prd_flag_aktivasi is null then \' \'
+              else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'0000850%\') --> ganti plu
+            order by plu asc;')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:14:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:14:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:14:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 08:14:57 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(136): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+              WHEN PRC_KODETAG IS NULL THEN \' \'
+              ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+              when prd_flag_aktivasi is null then \' \'
+              else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'0000850%\') --> ganti plu
+            order by plu asc;')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ERROR - 2023-08-01 08:14:57 --> ErrorException: oci_execute(): ORA-00911: invalid character in F:\laragon\www\reportmenu\system\Database\OCI8\Connection.php:199
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'oci_execute(): ...', 'F:\\laragon\\www\\...', 199)
+#1 F:\laragon\www\reportmenu\system\Database\OCI8\Connection.php(199): oci_execute(Resource id #133, 32)
+#2 F:\laragon\www\reportmenu\system\Database\BaseConnection.php(692): CodeIgniter\Database\OCI8\Connection->execute('SELECT PLU,DESK...')
+#3 F:\laragon\www\reportmenu\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT PLU,DESK...')
+#4 F:\laragon\www\reportmenu\app\Controllers\Store.php(136): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESK...')
+#5 F:\laragon\www\reportmenu\system\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+#6 F:\laragon\www\reportmenu\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+#7 F:\laragon\www\reportmenu\system\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 F:\laragon\www\reportmenu\public\index.php(67): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2023-08-01 08:14:57 --> oci_execute(): ORA-00911: invalid character
+in SYSTEMPATH\Database\OCI8\Connection.php on line 199.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'oci_execute(): ORA-00911: invalid character', 'F:\\laragon\\www\\reportmenu\\system\\Database\\OCI8\\Connection.php', 199)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(199): oci_execute(resource (oci8 statement), 32)
+ 3 SYSTEMPATH\Database\BaseConnection.php(692): CodeIgniter\Database\OCI8\Connection->execute('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+              WHEN PRC_KODETAG IS NULL THEN \' \'
+              ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+              when prd_flag_aktivasi is null then \' \'
+              else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'0000850%\') --> ganti plu
+            order by plu asc;')
+ 4 SYSTEMPATH\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+              WHEN PRC_KODETAG IS NULL THEN \' \'
+              ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+              when prd_flag_aktivasi is null then \' \'
+              else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'0000850%\') --> ganti plu
+            order by plu asc;')
+ 5 APPPATH\Controllers\Store.php(136): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+              WHEN PRC_KODETAG IS NULL THEN \' \'
+              ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+              when prd_flag_aktivasi is null then \' \'
+              else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'0000850%\') --> ganti plu
+            order by plu asc;')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:15:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 08:15:12 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(136): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+              WHEN PRC_KODETAG IS NULL THEN \' \'
+              ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+              when prd_flag_aktivasi is null then \' \'
+              else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'0000850%\') --> ganti plu
+            order by plu asc;')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ERROR - 2023-08-01 08:15:12 --> ErrorException: oci_execute(): ORA-00911: invalid character in F:\laragon\www\reportmenu\system\Database\OCI8\Connection.php:199
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'oci_execute(): ...', 'F:\\laragon\\www\\...', 199)
+#1 F:\laragon\www\reportmenu\system\Database\OCI8\Connection.php(199): oci_execute(Resource id #133, 32)
+#2 F:\laragon\www\reportmenu\system\Database\BaseConnection.php(692): CodeIgniter\Database\OCI8\Connection->execute('SELECT PLU,DESK...')
+#3 F:\laragon\www\reportmenu\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT PLU,DESK...')
+#4 F:\laragon\www\reportmenu\app\Controllers\Store.php(136): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESK...')
+#5 F:\laragon\www\reportmenu\system\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+#6 F:\laragon\www\reportmenu\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+#7 F:\laragon\www\reportmenu\system\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 F:\laragon\www\reportmenu\public\index.php(67): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2023-08-01 08:15:12 --> oci_execute(): ORA-00911: invalid character
+in SYSTEMPATH\Database\OCI8\Connection.php on line 199.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'oci_execute(): ORA-00911: invalid character', 'F:\\laragon\\www\\reportmenu\\system\\Database\\OCI8\\Connection.php', 199)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(199): oci_execute(resource (oci8 statement), 32)
+ 3 SYSTEMPATH\Database\BaseConnection.php(692): CodeIgniter\Database\OCI8\Connection->execute('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+              WHEN PRC_KODETAG IS NULL THEN \' \'
+              ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+              when prd_flag_aktivasi is null then \' \'
+              else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'0000850%\') --> ganti plu
+            order by plu asc;')
+ 4 SYSTEMPATH\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+              WHEN PRC_KODETAG IS NULL THEN \' \'
+              ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+              when prd_flag_aktivasi is null then \' \'
+              else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'0000850%\') --> ganti plu
+            order by plu asc;')
+ 5 APPPATH\Controllers\Store.php(136): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+              WHEN PRC_KODETAG IS NULL THEN \' \'
+              ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+              when prd_flag_aktivasi is null then \' \'
+              else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'0000850%\') --> ganti plu
+            order by plu asc;')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:15:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:15:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 08:15:15 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT 
+        case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end as TIPEMBR,
+      count( distinct jh_cus_kodemember) as JMLMBR
+      from tbtr_jualheader_interface
+      left join tbmaster_customer on jh_cus_kodemember=cus_kodemember
+      group by case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end, cus_flagmemberkhusus
+      order by TIPEMBR')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+WARNING - 2023-08-01 08:15:15 --> [DEPRECATED] number_format(): Passing null to parameter #1 ($num) of type float is deprecated in APPPATH\Views\store\previewkasir.php on line 29.
+ 1 APPPATH\Views\store\previewkasir.php(29): number_format(null, '0', ',', '.')
+ 2 SYSTEMPATH\View\View.php(224): include('F:\\laragon\\www\\reportmenu\\app\\Views\\store\\previewkasir.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1180): CodeIgniter\View\View->render('store/previewkasir', [], true)
+ 5 APPPATH\Controllers\Store.php(76): view('store/previewkasir', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:15:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:15:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:15:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 08:15:23 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(136): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+              WHEN PRC_KODETAG IS NULL THEN \' \'
+              ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+              when prd_flag_aktivasi is null then \' \'
+              else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'0000850%\') --> ganti plu
+            order by plu asc;')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ERROR - 2023-08-01 08:15:23 --> ErrorException: oci_execute(): ORA-00911: invalid character in F:\laragon\www\reportmenu\system\Database\OCI8\Connection.php:199
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'oci_execute(): ...', 'F:\\laragon\\www\\...', 199)
+#1 F:\laragon\www\reportmenu\system\Database\OCI8\Connection.php(199): oci_execute(Resource id #133, 32)
+#2 F:\laragon\www\reportmenu\system\Database\BaseConnection.php(692): CodeIgniter\Database\OCI8\Connection->execute('SELECT PLU,DESK...')
+#3 F:\laragon\www\reportmenu\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT PLU,DESK...')
+#4 F:\laragon\www\reportmenu\app\Controllers\Store.php(136): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESK...')
+#5 F:\laragon\www\reportmenu\system\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+#6 F:\laragon\www\reportmenu\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+#7 F:\laragon\www\reportmenu\system\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 F:\laragon\www\reportmenu\public\index.php(67): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2023-08-01 08:15:23 --> oci_execute(): ORA-00911: invalid character
+in SYSTEMPATH\Database\OCI8\Connection.php on line 199.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'oci_execute(): ORA-00911: invalid character', 'F:\\laragon\\www\\reportmenu\\system\\Database\\OCI8\\Connection.php', 199)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(199): oci_execute(resource (oci8 statement), 32)
+ 3 SYSTEMPATH\Database\BaseConnection.php(692): CodeIgniter\Database\OCI8\Connection->execute('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+              WHEN PRC_KODETAG IS NULL THEN \' \'
+              ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+              when prd_flag_aktivasi is null then \' \'
+              else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'0000850%\') --> ganti plu
+            order by plu asc;')
+ 4 SYSTEMPATH\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+              WHEN PRC_KODETAG IS NULL THEN \' \'
+              ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+              when prd_flag_aktivasi is null then \' \'
+              else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'0000850%\') --> ganti plu
+            order by plu asc;')
+ 5 APPPATH\Controllers\Store.php(136): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+              WHEN PRC_KODETAG IS NULL THEN \' \'
+              ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+              when prd_flag_aktivasi is null then \' \'
+              else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'0000850%\') --> ganti plu
+            order by plu asc;')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:16:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:16:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:17:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:17:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:18:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:18:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 08:18:11 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(136): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+              WHEN PRC_KODETAG IS NULL THEN \' \'
+              ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+              when prd_flag_aktivasi is null then \' \'
+              else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'850%\') --> ganti plu
+            order by plu asc;')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ERROR - 2023-08-01 08:18:11 --> ErrorException: oci_execute(): ORA-00911: invalid character in F:\laragon\www\reportmenu\system\Database\OCI8\Connection.php:199
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'oci_execute(): ...', 'F:\\laragon\\www\\...', 199)
+#1 F:\laragon\www\reportmenu\system\Database\OCI8\Connection.php(199): oci_execute(Resource id #133, 32)
+#2 F:\laragon\www\reportmenu\system\Database\BaseConnection.php(692): CodeIgniter\Database\OCI8\Connection->execute('SELECT PLU,DESK...')
+#3 F:\laragon\www\reportmenu\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT PLU,DESK...')
+#4 F:\laragon\www\reportmenu\app\Controllers\Store.php(136): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESK...')
+#5 F:\laragon\www\reportmenu\system\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+#6 F:\laragon\www\reportmenu\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+#7 F:\laragon\www\reportmenu\system\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 F:\laragon\www\reportmenu\public\index.php(67): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2023-08-01 08:18:11 --> oci_execute(): ORA-00911: invalid character
+in SYSTEMPATH\Database\OCI8\Connection.php on line 199.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'oci_execute(): ORA-00911: invalid character', 'F:\\laragon\\www\\reportmenu\\system\\Database\\OCI8\\Connection.php', 199)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(199): oci_execute(resource (oci8 statement), 32)
+ 3 SYSTEMPATH\Database\BaseConnection.php(692): CodeIgniter\Database\OCI8\Connection->execute('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+              WHEN PRC_KODETAG IS NULL THEN \' \'
+              ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+              when prd_flag_aktivasi is null then \' \'
+              else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'850%\') --> ganti plu
+            order by plu asc;')
+ 4 SYSTEMPATH\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+              WHEN PRC_KODETAG IS NULL THEN \' \'
+              ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+              when prd_flag_aktivasi is null then \' \'
+              else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'850%\') --> ganti plu
+            order by plu asc;')
+ 5 APPPATH\Controllers\Store.php(136): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+              WHEN PRC_KODETAG IS NULL THEN \' \'
+              ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+              when prd_flag_aktivasi is null then \' \'
+              else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'850%\') --> ganti plu
+            order by plu asc;')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:18:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:19:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 08:19:00 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(137): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+              WHEN PRC_KODETAG IS NULL THEN \' \'
+              ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+              when prd_flag_aktivasi is null then \' \'
+              else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'850%\') --> ganti plu
+            order by plu asc')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:19:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:19:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 08:19:16 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(137): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+              WHEN PRC_KODETAG IS NULL THEN \' \'
+              ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+              when prd_flag_aktivasi is null then \' \'
+              else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'850%\') --> ganti plu
+            order by plu asc')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:19:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:20:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 08:20:10 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT 
+        case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end as TIPEMBR,
+      count( distinct jh_cus_kodemember) as JMLMBR
+      from tbtr_jualheader_interface
+      left join tbmaster_customer on jh_cus_kodemember=cus_kodemember
+      group by case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end, cus_flagmemberkhusus
+      order by TIPEMBR')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:20:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 08:20:26 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT 
+        case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end as TIPEMBR,
+      count( distinct jh_cus_kodemember) as JMLMBR
+      from tbtr_jualheader_interface
+      left join tbmaster_customer on jh_cus_kodemember=cus_kodemember
+      group by case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end, cus_flagmemberkhusus
+      order by TIPEMBR')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:21:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:21:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 08:21:07 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(137): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+              WHEN PRC_KODETAG IS NULL THEN \' \'
+              ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+              when prd_flag_aktivasi is null then \' \'
+              else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'0000850%\') --> ganti plu
+            order by plu asc')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:23:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:23:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:24:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:24:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:24:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:24:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:24:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-01 08:24:41 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(137): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+              WHEN PRC_KODETAG IS NULL THEN \' \'
+              ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+              when prd_flag_aktivasi is null then \' \'
+              else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'000085%\') --> ganti plu
+            order by plu asc')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:31:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-01 08:31:01 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 144.
+ 1 APPPATH\Controllers\Store.php(144): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 144)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:31:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-01 08:31:57 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 144.
+ 1 APPPATH\Controllers\Store.php(144): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 144)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:33:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-01 08:33:13 --> Undefined variable $pluCari
+in APPPATH\Controllers\Store.php on line 139.
+ 1 APPPATH\Controllers\Store.php(139): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluCari', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 139)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:33:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-01 08:33:15 --> Undefined variable $pluCari
+in APPPATH\Controllers\Store.php on line 139.
+ 1 APPPATH\Controllers\Store.php(139): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluCari', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 139)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:33:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-01 08:33:39 --> Undefined variable $pluCari
+in APPPATH\Controllers\Store.php on line 139.
+ 1 APPPATH\Controllers\Store.php(139): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluCari', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 139)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:33:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-01 08:33:41 --> Undefined variable $pluCari
+in APPPATH\Controllers\Store.php on line 139.
+ 1 APPPATH\Controllers\Store.php(139): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluCari', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 139)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:33:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-01 08:33:47 --> Undefined variable $pluCari
+in APPPATH\Controllers\Store.php on line 139.
+ 1 APPPATH\Controllers\Store.php(139): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluCari', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 139)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:34:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-01 08:34:01 --> Undefined variable $data
+in APPPATH\Controllers\Store.php on line 148.
+ 1 APPPATH\Controllers\Store.php(148): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $data', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 148)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:34:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-01 08:34:02 --> Undefined variable $data
+in APPPATH\Controllers\Store.php on line 148.
+ 1 APPPATH\Controllers\Store.php(148): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $data', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 148)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:34:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:34:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-01 08:36:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-01 08:36:08 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 144.
+ 1 APPPATH\Controllers\Store.php(144): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 144)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:37:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-01 08:37:03 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 142.
+ 1 APPPATH\Controllers\Store.php(142): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 142)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:37:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-01 08:37:05 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 142.
+ 1 APPPATH\Controllers\Store.php(142): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 142)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:37:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-01 08:37:06 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 142.
+ 1 APPPATH\Controllers\Store.php(142): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 142)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:37:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-01 08:37:58 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 144.
+ 1 APPPATH\Controllers\Store.php(144): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 144)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:38:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-01 08:38:00 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 144.
+ 1 APPPATH\Controllers\Store.php(144): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 144)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:38:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-01 08:38:07 --> Undefined variable $promomd
+in APPPATH\Views\store\cekpromo.php on line 52.
+ 1 APPPATH\Views\store\cekpromo.php(52): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Views\\store\\cekpromo.php', 52)
+ 2 SYSTEMPATH\View\View.php(224): include('F:\\laragon\\www\\reportmenu\\app\\Views\\store\\cekpromo.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1180): CodeIgniter\View\View->render('store/cekpromo', [], true)
+ 5 APPPATH\Controllers\Store.php(146): view('store/cekpromo', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-01 08:38:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-01 08:38:09 --> Undefined variable $promomd
+in APPPATH\Views\store\cekpromo.php on line 52.
+ 1 APPPATH\Views\store\cekpromo.php(52): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Views\\store\\cekpromo.php', 52)
+ 2 SYSTEMPATH\View\View.php(224): include('F:\\laragon\\www\\reportmenu\\app\\Views\\store\\cekpromo.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1180): CodeIgniter\View\View->render('store/cekpromo', [], true)
+ 5 APPPATH\Controllers\Store.php(146): view('store/cekpromo', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()

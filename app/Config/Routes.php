@@ -31,6 +31,10 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 
+// Sementara arahkan ke Preview kasir dulu
+$routes->get('/store/previewkasir', 'Store::previewkasir');
+$routes->get('/store/cekpromo', 'Store::cekpromo');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

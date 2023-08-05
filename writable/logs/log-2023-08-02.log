@@ -1,0 +1,2268 @@
+INFO - 2023-08-02 06:16:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:16:08 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 144.
+ 1 APPPATH\Controllers\Store.php(144): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 144)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:16:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:16:17 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 140.
+ 1 APPPATH\Controllers\Store.php(140): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 140)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:17:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:17:57 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 140.
+ 1 APPPATH\Controllers\Store.php(140): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 140)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:18:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:18:46 --> Undefined variable $pluCari
+in APPPATH\Controllers\Store.php on line 139.
+ 1 APPPATH\Controllers\Store.php(139): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluCari', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 139)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:18:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:18:48 --> Undefined variable $pluCari
+in APPPATH\Controllers\Store.php on line 139.
+ 1 APPPATH\Controllers\Store.php(139): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluCari', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 139)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:19:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:19:27 --> Undefined variable $pluCari
+in APPPATH\Controllers\Store.php on line 138.
+ 1 APPPATH\Controllers\Store.php(138): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluCari', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 138)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:19:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:19:37 --> Undefined variable $pluplusnol
+in APPPATH\Controllers\Store.php on line 109.
+ 1 APPPATH\Controllers\Store.php(109): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluplusnol', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 109)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:19:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:19:39 --> Undefined variable $pluplusnol
+in APPPATH\Controllers\Store.php on line 109.
+ 1 APPPATH\Controllers\Store.php(109): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluplusnol', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 109)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:21:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:21:45 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 142.
+ 1 APPPATH\Controllers\Store.php(142): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 142)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:21:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:21:47 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 142.
+ 1 APPPATH\Controllers\Store.php(142): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 142)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:24:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:24:18 --> Undefined variable $data
+in APPPATH\Controllers\Store.php on line 144.
+ 1 APPPATH\Controllers\Store.php(144): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $data', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 144)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:29:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:29:15 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 140.
+ 1 APPPATH\Controllers\Store.php(140): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 140)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:29:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:29:16 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 140.
+ 1 APPPATH\Controllers\Store.php(140): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 140)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:29:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:29:50 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 143.
+ 1 APPPATH\Controllers\Store.php(143): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 143)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:29:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:29:52 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 143.
+ 1 APPPATH\Controllers\Store.php(143): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 143)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:37:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:37:39 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 145.
+ 1 APPPATH\Controllers\Store.php(145): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 145)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:37:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:37:55 --> Undefined variable $promomd
+in APPPATH\Views\store\cekpromo.php on line 52.
+ 1 APPPATH\Views\store\cekpromo.php(52): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Views\\store\\cekpromo.php', 52)
+ 2 SYSTEMPATH\View\View.php(224): include('F:\\laragon\\www\\reportmenu\\app\\Views\\store\\cekpromo.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1180): CodeIgniter\View\View->render('store/cekpromo', [], true)
+ 5 APPPATH\Controllers\Store.php(147): view('store/cekpromo', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:38:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:38:35 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 144.
+ 1 APPPATH\Controllers\Store.php(144): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 144)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:38:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:38:38 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 144.
+ 1 APPPATH\Controllers\Store.php(144): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 144)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:39:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-02 06:39:27 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT 
+        case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end as TIPEMBR,
+      count( distinct jh_cus_kodemember) as JMLMBR
+      from tbtr_jualheader_interface
+      left join tbmaster_customer on jh_cus_kodemember=cus_kodemember
+      group by case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end, cus_flagmemberkhusus
+      order by TIPEMBR')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+WARNING - 2023-08-02 06:39:28 --> [DEPRECATED] number_format(): Passing null to parameter #1 ($num) of type float is deprecated in APPPATH\Views\store\previewkasir.php on line 29.
+ 1 APPPATH\Views\store\previewkasir.php(29): number_format(null, '0', ',', '.')
+ 2 SYSTEMPATH\View\View.php(224): include('F:\\laragon\\www\\reportmenu\\app\\Views\\store\\previewkasir.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1180): CodeIgniter\View\View->render('store/previewkasir', [], true)
+ 5 APPPATH\Controllers\Store.php(76): view('store/previewkasir', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:40:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-02 06:40:24 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(27): CodeIgniter\Database\BaseConnection->query('SELECT 
+        case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end as TIPEMBR,
+      count( distinct jh_cus_kodemember) as JMLMBR
+      from tbtr_jualheader_interface
+      left join tbmaster_customer on jh_cus_kodemember=cus_kodemember
+      group by case 
+          when nvl(cus_flagmemberkhusus,\'N\')=\'Y\' then \'1 - MBR MERAH\'
+          when nvl(cus_flagmemberkhusus,\'N\')!=\'Y\' and cus_kodeoutlet=\'6\' then \'2 - END USER\'
+          else \'3 - OTHER\'
+        end, cus_flagmemberkhusus
+      order by TIPEMBR')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+WARNING - 2023-08-02 06:40:24 --> [DEPRECATED] number_format(): Passing null to parameter #1 ($num) of type float is deprecated in APPPATH\Views\store\previewkasir.php on line 29.
+ 1 APPPATH\Views\store\previewkasir.php(29): number_format(null, '0', ',', '.')
+ 2 SYSTEMPATH\View\View.php(224): include('F:\\laragon\\www\\reportmenu\\app\\Views\\store\\previewkasir.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1180): CodeIgniter\View\View->render('store/previewkasir', [], true)
+ 5 APPPATH\Controllers\Store.php(76): view('store/previewkasir', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->previewkasir()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:40:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:40:27 --> Too few arguments to function App\Controllers\Store::cekpromo(), 0 passed in F:\laragon\www\reportmenu\system\CodeIgniter.php on line 932 and exactly 1 expected
+in APPPATH\Controllers\Store.php on line 79.
+ 1 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 2 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:40:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:40:32 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 142.
+ 1 APPPATH\Controllers\Store.php(142): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 142)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:41:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:41:14 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 143.
+ 1 APPPATH\Controllers\Store.php(143): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 143)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:41:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:41:16 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 143.
+ 1 APPPATH\Controllers\Store.php(143): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 143)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:41:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:41:18 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 143.
+ 1 APPPATH\Controllers\Store.php(143): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 143)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:42:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:42:07 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 144.
+ 1 APPPATH\Controllers\Store.php(144): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 144)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:42:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:42:53 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 144.
+ 1 APPPATH\Controllers\Store.php(144): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 144)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:42:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:42:54 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 144.
+ 1 APPPATH\Controllers\Store.php(144): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 144)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:43:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:43:19 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 143.
+ 1 APPPATH\Controllers\Store.php(143): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 143)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:43:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:43:21 --> Undefined variable $cekpromomd
+in APPPATH\Controllers\Store.php on line 143.
+ 1 APPPATH\Controllers\Store.php(143): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cekpromomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 143)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:43:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:43:37 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 143.
+ 1 APPPATH\Controllers\Store.php(143): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 143)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:45:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:45:15 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 142.
+ 1 APPPATH\Controllers\Store.php(142): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 142)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:45:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:45:17 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 142.
+ 1 APPPATH\Controllers\Store.php(142): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 142)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:46:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:46:09 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 143.
+ 1 APPPATH\Controllers\Store.php(143): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 143)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:46:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:46:43 --> Undefined variable $querymd
+in APPPATH\Controllers\Store.php on line 141.
+ 1 APPPATH\Controllers\Store.php(141): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $querymd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 141)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:46:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:46:44 --> Undefined variable $querymd
+in APPPATH\Controllers\Store.php on line 141.
+ 1 APPPATH\Controllers\Store.php(141): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $querymd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 141)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:51:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:51:01 --> Undefined variable $querymd
+in APPPATH\Controllers\Store.php on line 159.
+ 1 APPPATH\Controllers\Store.php(159): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $querymd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 159)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:51:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:51:14 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 161.
+ 1 APPPATH\Controllers\Store.php(161): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 161)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:52:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:52:04 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 161.
+ 1 APPPATH\Controllers\Store.php(161): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 161)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:52:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:52:05 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 161.
+ 1 APPPATH\Controllers\Store.php(161): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 161)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:53:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:53:02 --> Undefined variable $pluCari
+in APPPATH\Controllers\Store.php on line 158.
+ 1 APPPATH\Controllers\Store.php(158): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluCari', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 158)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:53:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:53:04 --> Undefined variable $pluCari
+in APPPATH\Controllers\Store.php on line 158.
+ 1 APPPATH\Controllers\Store.php(158): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluCari', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 158)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:53:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:53:13 --> Undefined variable $pluCari
+in APPPATH\Controllers\Store.php on line 158.
+ 1 APPPATH\Controllers\Store.php(158): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluCari', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 158)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:53:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:53:15 --> Undefined variable $pluCari
+in APPPATH\Controllers\Store.php on line 158.
+ 1 APPPATH\Controllers\Store.php(158): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluCari', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 158)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:53:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:53:51 --> Undefined variable $pluCari
+in APPPATH\Controllers\Store.php on line 158.
+ 1 APPPATH\Controllers\Store.php(158): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluCari', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 158)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:54:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:54:52 --> Undefined variable $pluCari
+in APPPATH\Controllers\Store.php on line 158.
+ 1 APPPATH\Controllers\Store.php(158): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluCari', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 158)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:55:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:55:03 --> Undefined variable $pluCari
+in APPPATH\Controllers\Store.php on line 157.
+ 1 APPPATH\Controllers\Store.php(157): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluCari', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 157)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:55:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:55:04 --> Undefined variable $pluCari
+in APPPATH\Controllers\Store.php on line 157.
+ 1 APPPATH\Controllers\Store.php(157): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluCari', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 157)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:55:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:55:31 --> Undefined variable $pluCari
+in APPPATH\Controllers\Store.php on line 158.
+ 1 APPPATH\Controllers\Store.php(158): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluCari', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 158)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:55:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:55:47 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 162.
+ 1 APPPATH\Controllers\Store.php(162): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 162)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:55:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:55:50 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 162.
+ 1 APPPATH\Controllers\Store.php(162): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 162)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:56:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:56:37 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 162.
+ 1 APPPATH\Controllers\Store.php(162): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 162)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:57:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:57:20 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 162.
+ 1 APPPATH\Controllers\Store.php(162): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 162)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 06:57:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 06:57:22 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 162.
+ 1 APPPATH\Controllers\Store.php(162): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 162)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:05:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:05:02 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 162.
+ 1 APPPATH\Controllers\Store.php(162): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 162)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:06:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:07:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-02 07:07:04 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(156): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+              WHEN PRC_KODETAG IS NULL THEN \' \'
+              ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+              when prd_flag_aktivasi is null then \' \'
+              else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'000085%\') --> ganti plu
+            order by plu asc')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:07:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-02 07:07:20 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(156): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+              WHEN PRC_KODETAG IS NULL THEN \' \'
+              ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+              when prd_flag_aktivasi is null then \' \'
+              else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'000085%\') --> ganti plu
+            order by plu asc')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:07:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:07:22 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 160.
+ 1 APPPATH\Controllers\Store.php(160): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 160)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:07:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:07:54 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 159.
+ 1 APPPATH\Controllers\Store.php(159): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 159)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:07:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:07:56 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 159.
+ 1 APPPATH\Controllers\Store.php(159): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 159)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:07:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:07:58 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 159.
+ 1 APPPATH\Controllers\Store.php(159): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 159)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:10:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:10:03 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 140.
+ 1 APPPATH\Controllers\Store.php(140): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 140)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:10:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:10:05 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 140.
+ 1 APPPATH\Controllers\Store.php(140): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 140)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:10:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:10:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-02 07:10:32 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(137): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+              WHEN PRC_KODETAG IS NULL THEN \' \'
+              ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+              when prd_flag_aktivasi is null then \' \'
+              else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'000085%\') --> ganti plu
+            order by plu asc')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:11:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:11:59 --> Undefined variable $title
+in APPPATH\Views\layout\template.php on line 7.
+ 1 APPPATH\Views\layout\template.php(7): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $title', 'F:\\laragon\\www\\reportmenu\\app\\Views\\layout\\template.php', 7)
+ 2 SYSTEMPATH\View\View.php(224): include('F:\\laragon\\www\\reportmenu\\app\\Views\\layout\\template.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\View\View.php(240): CodeIgniter\View\View->render('layout/template', [], true)
+ 5 SYSTEMPATH\Common.php(1180): CodeIgniter\View\View->render('store/cekpromo', [], true)
+ 6 APPPATH\Controllers\Store.php(149): view('store/cekpromo')
+ 7 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 8 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 9 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:12:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:12:11 --> Undefined variable $title
+in APPPATH\Views\layout\template.php on line 7.
+ 1 APPPATH\Views\layout\template.php(7): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $title', 'F:\\laragon\\www\\reportmenu\\app\\Views\\layout\\template.php', 7)
+ 2 SYSTEMPATH\View\View.php(224): include('F:\\laragon\\www\\reportmenu\\app\\Views\\layout\\template.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\View\View.php(240): CodeIgniter\View\View->render('layout/template', [], true)
+ 5 SYSTEMPATH\Common.php(1180): CodeIgniter\View\View->render('store/cekpromo', [], true)
+ 6 APPPATH\Controllers\Store.php(147): view('store/cekpromo')
+ 7 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 8 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 9 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:12:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:12:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-02 07:12:39 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(137): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+              WHEN PRC_KODETAG IS NULL THEN \' \'
+              ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+              when prd_flag_aktivasi is null then \' \'
+              else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'000085%\') --> ganti plu
+            order by plu asc')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:13:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:13:15 --> Undefined variable $promomd
+in APPPATH\Views\store\cekpromo.php on line 52.
+ 1 APPPATH\Views\store\cekpromo.php(52): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Views\\store\\cekpromo.php', 52)
+ 2 SYSTEMPATH\View\View.php(224): include('F:\\laragon\\www\\reportmenu\\app\\Views\\store\\cekpromo.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1180): CodeIgniter\View\View->render('store/cekpromo', [], true)
+ 5 APPPATH\Controllers\Store.php(148): view('store/cekpromo', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:13:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:13:18 --> Undefined variable $promomd
+in APPPATH\Views\store\cekpromo.php on line 52.
+ 1 APPPATH\Views\store\cekpromo.php(52): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Views\\store\\cekpromo.php', 52)
+ 2 SYSTEMPATH\View\View.php(224): include('F:\\laragon\\www\\reportmenu\\app\\Views\\store\\cekpromo.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1180): CodeIgniter\View\View->render('store/cekpromo', [], true)
+ 5 APPPATH\Controllers\Store.php(148): view('store/cekpromo', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:13:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:13:35 --> Undefined variable $promomd
+in APPPATH\Views\store\cekpromo.php on line 52.
+ 1 APPPATH\Views\store\cekpromo.php(52): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Views\\store\\cekpromo.php', 52)
+ 2 SYSTEMPATH\View\View.php(224): include('F:\\laragon\\www\\reportmenu\\app\\Views\\store\\cekpromo.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1180): CodeIgniter\View\View->render('store/cekpromo', [], true)
+ 5 APPPATH\Controllers\Store.php(148): view('store/cekpromo', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:13:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:13:58 --> Call to a member function getResultArray() on null
+in APPPATH\Views\store\cekpromo.php on line 52.
+ 1 SYSTEMPATH\View\View.php(224): include()
+ 2 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1180): CodeIgniter\View\View->render('store/cekpromo', [], true)
+ 4 APPPATH\Controllers\Store.php(148): view('store/cekpromo', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 6 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 7 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:13:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:13:59 --> Call to a member function getResultArray() on null
+in APPPATH\Views\store\cekpromo.php on line 52.
+ 1 SYSTEMPATH\View\View.php(224): include()
+ 2 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1180): CodeIgniter\View\View->render('store/cekpromo', [], true)
+ 4 APPPATH\Controllers\Store.php(148): view('store/cekpromo', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 6 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 7 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:14:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:14:12 --> Call to a member function getResultArray() on null
+in APPPATH\Views\store\cekpromo.php on line 52.
+ 1 SYSTEMPATH\View\View.php(224): include()
+ 2 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1180): CodeIgniter\View\View->render('store/cekpromo', [], true)
+ 4 APPPATH\Controllers\Store.php(147): view('store/cekpromo', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 6 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 7 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:15:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:15:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:16:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:16:37 --> Undefined variable $data
+in APPPATH\Controllers\Store.php on line 146.
+ 1 APPPATH\Controllers\Store.php(146): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $data', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 146)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:16:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:16:50 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 144.
+ 1 APPPATH\Controllers\Store.php(144): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 144)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:17:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:17:13 --> Undefined variable $dbProd
+in APPPATH\Controllers\Store.php on line 115.
+ 1 APPPATH\Controllers\Store.php(115): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $dbProd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 115)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:17:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:17:19 --> Undefined variable $pluCari
+in APPPATH\Controllers\Store.php on line 141.
+ 1 APPPATH\Controllers\Store.php(141): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluCari', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 141)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:17:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:17:25 --> Undefined variable $pluCari
+in APPPATH\Controllers\Store.php on line 141.
+ 1 APPPATH\Controllers\Store.php(141): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluCari', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 141)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:17:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:17:30 --> Undefined variable $pluplusnol
+in APPPATH\Controllers\Store.php on line 113.
+ 1 APPPATH\Controllers\Store.php(113): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluplusnol', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 113)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:17:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:17:46 --> Undefined variable $pluplusnol
+in APPPATH\Controllers\Store.php on line 113.
+ 1 APPPATH\Controllers\Store.php(113): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluplusnol', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 113)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:18:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:18:11 --> Undefined variable $pluplusnol
+in APPPATH\Controllers\Store.php on line 112.
+ 1 APPPATH\Controllers\Store.php(112): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluplusnol', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 112)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:18:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:18:13 --> Undefined variable $pluplusnol
+in APPPATH\Controllers\Store.php on line 112.
+ 1 APPPATH\Controllers\Store.php(112): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluplusnol', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 112)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:18:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:18:51 --> Undefined variable $pluplusnol
+in APPPATH\Controllers\Store.php on line 110.
+ 1 APPPATH\Controllers\Store.php(110): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluplusnol', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 110)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:18:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:18:54 --> Undefined variable $pluplusnol
+in APPPATH\Controllers\Store.php on line 110.
+ 1 APPPATH\Controllers\Store.php(110): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluplusnol', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 110)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:23:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:23:00 --> Undefined variable $pluplusnol
+in APPPATH\Controllers\Store.php on line 108.
+ 1 APPPATH\Controllers\Store.php(108): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluplusnol', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 108)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:23:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:23:02 --> Undefined variable $pluplusnol
+in APPPATH\Controllers\Store.php on line 108.
+ 1 APPPATH\Controllers\Store.php(108): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluplusnol', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 108)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:23:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:23:13 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 141.
+ 1 APPPATH\Controllers\Store.php(141): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 141)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:23:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:23:15 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 141.
+ 1 APPPATH\Controllers\Store.php(141): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 141)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:23:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:23:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:23:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-02 07:23:29 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(135): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+            WHEN PRC_KODETAG IS NULL THEN \' \'
+            ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+            when prd_flag_aktivasi is null then \' \'
+            else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'000085%\') --> ganti plu
+            order by plu asc')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:23:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-02 07:23:32 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(135): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+            WHEN PRC_KODETAG IS NULL THEN \' \'
+            ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+            when prd_flag_aktivasi is null then \' \'
+            else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'000085%\') --> ganti plu
+            order by plu asc')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:24:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-02 07:24:11 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(135): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+            WHEN PRC_KODETAG IS NULL THEN \' \'
+            ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+            when prd_flag_aktivasi is null then \' \'
+            else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'000085%\') --> ganti plu
+            order by plu asc')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:24:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:24:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-02 07:24:20 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(135): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+            WHEN PRC_KODETAG IS NULL THEN \' \'
+            ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+            when prd_flag_aktivasi is null then \' \'
+            else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'000763%\') --> ganti plu
+            order by plu asc')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:24:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:24:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-02 07:24:29 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(135): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+            WHEN PRC_KODETAG IS NULL THEN \' \'
+            ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+            when prd_flag_aktivasi is null then \' \'
+            else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'000085%\') --> ganti plu
+            order by plu asc')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:24:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:24:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-02 07:24:51 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(135): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+            ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+            SELECT
+            PRMD_PRDCD AS PLU,
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+            PRD_FRAC as frc,
+            PRD_UNIT AS stn,
+            PRD_KODETAG AS TAG_IGR,
+            CASE 
+            WHEN PRC_KODETAG IS NULL THEN \' \'
+            ELSE PRC_KODETAG 
+            END AS TAG_OMI,
+            case 
+            when prd_flag_aktivasi is null then \' \'
+            else prd_flag_aktivasi
+            end as ACT,
+            PRD_MINJUAL AS MIN_JUAL,
+            PRD_AVGCOST AS ACOST,
+            PRD_HRGJUAL AS H_NORMAL,
+            PRMD_HRGJUAL AS H_PROMO,
+            PRMD_TGLAWAL AS TGL_AWAL,
+            PRMD_TGLAKHIR AS TGL_AKHIR
+            FROM TBTR_PROMOMD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+            WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+            AND PRMD_PRDCD LIKE \'000010%\') --> ganti plu
+            order by plu asc')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:24:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:27:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:27:36 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 142.
+ 1 APPPATH\Controllers\Store.php(142): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 142)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:33:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:33:32 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 141.
+ 1 APPPATH\Controllers\Store.php(141): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 141)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:36:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:36:45 --> Undefined variable $pluplusnol
+in APPPATH\Controllers\Store.php on line 108.
+ 1 APPPATH\Controllers\Store.php(108): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluplusnol', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 108)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:37:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:37:30 --> Undefined variable $pluCari
+in APPPATH\Controllers\Store.php on line 136.
+ 1 APPPATH\Controllers\Store.php(136): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluCari', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 136)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:39:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:39:22 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 142.
+ 1 APPPATH\Controllers\Store.php(142): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 142)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:40:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:40:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:40:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:40:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:40:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:40:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:40:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:40:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:40:19 --> Undefined variable $data
+in APPPATH\Controllers\Store.php on line 145.
+ 1 APPPATH\Controllers\Store.php(145): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $data', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 145)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:40:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:41:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:44:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:44:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:44:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:44:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:44:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:44:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:44:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:44:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:44:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 07:44:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 07:44:33 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 143.
+ 1 APPPATH\Controllers\Store.php(143): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 143)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 07:47:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 08:01:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 08:01:16 --> Undefined variable $pluCari
+in APPPATH\Controllers\Store.php on line 138.
+ 1 APPPATH\Controllers\Store.php(138): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluCari', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 138)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:01:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 08:01:38 --> Undefined variable $pluplusnol
+in APPPATH\Controllers\Store.php on line 110.
+ 1 APPPATH\Controllers\Store.php(110): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluplusnol', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 110)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:01:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 08:01:49 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 142.
+ 1 APPPATH\Controllers\Store.php(142): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 142)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:07:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 08:07:12 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 142.
+ 1 APPPATH\Controllers\Store.php(142): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 142)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:07:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 08:07:13 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 142.
+ 1 APPPATH\Controllers\Store.php(142): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 142)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:10:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 08:10:00 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 142.
+ 1 APPPATH\Controllers\Store.php(142): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 142)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:10:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 08:10:27 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 142.
+ 1 APPPATH\Controllers\Store.php(142): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 142)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:10:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 08:10:29 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 142.
+ 1 APPPATH\Controllers\Store.php(142): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 142)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:12:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 08:12:49 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 142.
+ 1 APPPATH\Controllers\Store.php(142): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 142)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:25:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 08:25:22 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 142.
+ 1 APPPATH\Controllers\Store.php(142): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 142)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:27:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 08:29:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 08:29:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 08:29:59 --> Undefined variable $data
+in APPPATH\Controllers\Store.php on line 150.
+ 1 APPPATH\Controllers\Store.php(150): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $data', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 150)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:30:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 08:30:27 --> Undefined variable $data
+in APPPATH\Controllers\Store.php on line 150.
+ 1 APPPATH\Controllers\Store.php(150): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $data', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 150)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:37:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 08:37:16 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 144.
+ 1 APPPATH\Controllers\Store.php(144): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 144)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:40:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 08:40:54 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 148.
+ 1 APPPATH\Controllers\Store.php(148): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 148)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:40:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 08:40:57 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 148.
+ 1 APPPATH\Controllers\Store.php(148): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 148)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:40:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 08:40:58 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 148.
+ 1 APPPATH\Controllers\Store.php(148): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 148)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:41:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 08:41:38 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 144.
+ 1 APPPATH\Controllers\Store.php(144): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 144)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-08-02 08:43:13 --> syntax error, unexpected token ";", expecting "]"
+in APPPATH\Controllers\Store.php on line 144.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(289): CodeIgniter\Autoloader\Autoloader->includeFile('F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(267): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\Store')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\Store')
+ 4 SYSTEMPATH\CodeIgniter.php(890): class_exists('\\App\\Controllers\\Store', true)
+ 5 SYSTEMPATH\CodeIgniter.php(484): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:43:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 08:43:29 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 144.
+ 1 APPPATH\Controllers\Store.php(144): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 144)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:45:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 08:45:03 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 144.
+ 1 APPPATH\Controllers\Store.php(144): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 144)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:45:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 08:45:30 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 142.
+ 1 APPPATH\Controllers\Store.php(142): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 142)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:47:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 08:47:21 --> Undefined variable $promomd
+in APPPATH\Controllers\Store.php on line 142.
+ 1 APPPATH\Controllers\Store.php(142): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $promomd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 142)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:49:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 08:50:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 08:50:19 --> Undefined variable $dbProd
+in APPPATH\Controllers\Store.php on line 145.
+ 1 APPPATH\Controllers\Store.php(145): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $dbProd', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 145)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:51:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 08:51:14 --> Undefined variable $pluCari
+in APPPATH\Controllers\Store.php on line 145.
+ 1 APPPATH\Controllers\Store.php(145): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pluCari', 'F:\\laragon\\www\\reportmenu\\app\\Controllers\\Store.php', 145)
+ 2 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 4 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:53:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 08:53:55 --> Call to a member function getResultArray() on array
+in APPPATH\Views\store\cekpromo.php on line 53.
+ 1 SYSTEMPATH\View\View.php(224): include()
+ 2 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1180): CodeIgniter\View\View->render('store/cekpromo', [], true)
+ 4 APPPATH\Controllers\Store.php(150): view('store/cekpromo', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 6 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 7 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:54:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 08:54:28 --> Call to a member function getResultArray() on array
+in APPPATH\Views\store\cekpromo.php on line 53.
+ 1 SYSTEMPATH\View\View.php(224): include()
+ 2 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1180): CodeIgniter\View\View->render('store/cekpromo', [], true)
+ 4 APPPATH\Controllers\Store.php(150): view('store/cekpromo', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 6 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 7 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:54:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 08:54:29 --> Call to a member function getResultArray() on array
+in APPPATH\Views\store\cekpromo.php on line 53.
+ 1 SYSTEMPATH\View\View.php(224): include()
+ 2 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1180): CodeIgniter\View\View->render('store/cekpromo', [], true)
+ 4 APPPATH\Controllers\Store.php(150): view('store/cekpromo', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 6 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 7 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:54:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 08:54:30 --> Call to a member function getResultArray() on array
+in APPPATH\Views\store\cekpromo.php on line 53.
+ 1 SYSTEMPATH\View\View.php(224): include()
+ 2 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1180): CodeIgniter\View\View->render('store/cekpromo', [], true)
+ 4 APPPATH\Controllers\Store.php(150): view('store/cekpromo', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 6 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 7 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:55:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 08:55:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-02 08:55:31 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(138): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+                ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+                SELECT
+                PRMD_PRDCD AS PLU,
+                PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+                PRD_FRAC as frc,
+                PRD_UNIT AS stn,
+                PRD_KODETAG AS TAG_IGR,
+                CASE 
+                WHEN PRC_KODETAG IS NULL THEN \' \'
+                ELSE PRC_KODETAG 
+                END AS TAG_OMI,
+                case 
+                when prd_flag_aktivasi is null then \' \'
+                else prd_flag_aktivasi
+                end as ACT,
+                PRD_MINJUAL AS MIN_JUAL,
+                PRD_AVGCOST AS ACOST,
+                PRD_HRGJUAL AS H_NORMAL,
+                PRMD_HRGJUAL AS H_PROMO,
+                PRMD_TGLAWAL AS TGL_AWAL,
+                PRMD_TGLAKHIR AS TGL_AKHIR
+                FROM TBTR_PROMOMD
+                LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+                LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+                WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+                AND PRMD_PRDCD LIKE \'000085%\') --> ganti plu
+                order by plu asc')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ERROR - 2023-08-02 08:55:54 --> Error connecting to the database: ErrorException: oci_pconnect(): ORA-12170: TNS:Connect timeout occurred in F:\laragon\www\reportmenu\system\Database\OCI8\Connection.php:129
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'oci_pconnect():...', 'F:\\laragon\\www\\...', 129)
+#1 F:\laragon\www\reportmenu\system\Database\OCI8\Connection.php(129): oci_pconnect('edp', 'edp', '192.168.240.191...', 'utf8')
+#2 F:\laragon\www\reportmenu\system\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+#3 F:\laragon\www\reportmenu\system\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+#4 F:\laragon\www\reportmenu\app\Controllers\Store.php(138): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESK...')
+#5 F:\laragon\www\reportmenu\system\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+#6 F:\laragon\www\reportmenu\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+#7 F:\laragon\www\reportmenu\system\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 F:\laragon\www\reportmenu\public\index.php(67): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2023-08-02 08:55:54 --> Unable to connect to the database.
+Main connection [oci8]: oci_pconnect(): ORA-12170: TNS:Connect timeout occurred
+in SYSTEMPATH\Database\BaseConnection.php on line 427.
+ 1 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 2 APPPATH\Controllers\Store.php(138): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+                ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+                SELECT
+                PRMD_PRDCD AS PLU,
+                PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+                PRD_FRAC as frc,
+                PRD_UNIT AS stn,
+                PRD_KODETAG AS TAG_IGR,
+                CASE 
+                WHEN PRC_KODETAG IS NULL THEN \' \'
+                ELSE PRC_KODETAG 
+                END AS TAG_OMI,
+                case 
+                when prd_flag_aktivasi is null then \' \'
+                else prd_flag_aktivasi
+                end as ACT,
+                PRD_MINJUAL AS MIN_JUAL,
+                PRD_AVGCOST AS ACOST,
+                PRD_HRGJUAL AS H_NORMAL,
+                PRMD_HRGJUAL AS H_PROMO,
+                PRMD_TGLAWAL AS TGL_AWAL,
+                PRMD_TGLAKHIR AS TGL_AKHIR
+                FROM TBTR_PROMOMD
+                LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+                LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+                WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+                AND PRMD_PRDCD LIKE \'000085%\') --> ganti plu
+                order by plu asc')
+ 3 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 4 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 5 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:58:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 08:58:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-02 08:58:53 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(138): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+                ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+                SELECT
+                PRMD_PRDCD AS PLU,
+                PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+                PRD_FRAC as frc,
+                PRD_UNIT AS stn,
+                PRD_KODETAG AS TAG_IGR,
+                CASE 
+                WHEN PRC_KODETAG IS NULL THEN \' \'
+                ELSE PRC_KODETAG 
+                END AS TAG_OMI,
+                case 
+                when prd_flag_aktivasi is null then \' \'
+                else prd_flag_aktivasi
+                end as ACT,
+                PRD_MINJUAL AS MIN_JUAL,
+                PRD_AVGCOST AS ACOST,
+                PRD_HRGJUAL AS H_NORMAL,
+                PRMD_HRGJUAL AS H_PROMO,
+                PRMD_TGLAWAL AS TGL_AWAL,
+                PRMD_TGLAKHIR AS TGL_AKHIR
+                FROM TBTR_PROMOMD
+                LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+                LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+                WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+                AND PRMD_PRDCD LIKE \'000085%\') --> ganti plu
+                order by plu asc')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-08-02 08:58:54 --> Trying to access array offset on value of type resource
+in APPPATH\Views\store\cekpromo.php on line 55.
+ 1 APPPATH\Views\store\cekpromo.php(55): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type resource', 'F:\\laragon\\www\\reportmenu\\app\\Views\\store\\cekpromo.php', 55)
+ 2 SYSTEMPATH\View\View.php(224): include('F:\\laragon\\www\\reportmenu\\app\\Views\\store\\cekpromo.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1180): CodeIgniter\View\View->render('store/cekpromo', [], true)
+ 5 APPPATH\Controllers\Store.php(150): view('store/cekpromo', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:59:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-02 08:59:18 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(138): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+                ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+                SELECT
+                PRMD_PRDCD AS PLU,
+                PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+                PRD_FRAC as frc,
+                PRD_UNIT AS stn,
+                PRD_KODETAG AS TAG_IGR,
+                CASE 
+                WHEN PRC_KODETAG IS NULL THEN \' \'
+                ELSE PRC_KODETAG 
+                END AS TAG_OMI,
+                case 
+                when prd_flag_aktivasi is null then \' \'
+                else prd_flag_aktivasi
+                end as ACT,
+                PRD_MINJUAL AS MIN_JUAL,
+                PRD_AVGCOST AS ACOST,
+                PRD_HRGJUAL AS H_NORMAL,
+                PRMD_HRGJUAL AS H_PROMO,
+                PRMD_TGLAWAL AS TGL_AWAL,
+                PRMD_TGLAKHIR AS TGL_AKHIR
+                FROM TBTR_PROMOMD
+                LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+                LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+                WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+                AND PRMD_PRDCD LIKE \'000085%\') --> ganti plu
+                order by plu asc')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:59:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-02 08:59:27 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(138): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+                ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+                SELECT
+                PRMD_PRDCD AS PLU,
+                PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+                PRD_FRAC as frc,
+                PRD_UNIT AS stn,
+                PRD_KODETAG AS TAG_IGR,
+                CASE 
+                WHEN PRC_KODETAG IS NULL THEN \' \'
+                ELSE PRC_KODETAG 
+                END AS TAG_OMI,
+                case 
+                when prd_flag_aktivasi is null then \' \'
+                else prd_flag_aktivasi
+                end as ACT,
+                PRD_MINJUAL AS MIN_JUAL,
+                PRD_AVGCOST AS ACOST,
+                PRD_HRGJUAL AS H_NORMAL,
+                PRMD_HRGJUAL AS H_PROMO,
+                PRMD_TGLAWAL AS TGL_AWAL,
+                PRMD_TGLAKHIR AS TGL_AKHIR
+                FROM TBTR_PROMOMD
+                LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+                LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+                WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+                AND PRMD_PRDCD LIKE \'000085%\') --> ganti plu
+                order by plu asc')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 08:59:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 08:59:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 08:59:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-02 08:59:47 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(138): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+                ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+                SELECT
+                PRMD_PRDCD AS PLU,
+                PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+                PRD_FRAC as frc,
+                PRD_UNIT AS stn,
+                PRD_KODETAG AS TAG_IGR,
+                CASE 
+                WHEN PRC_KODETAG IS NULL THEN \' \'
+                ELSE PRC_KODETAG 
+                END AS TAG_OMI,
+                case 
+                when prd_flag_aktivasi is null then \' \'
+                else prd_flag_aktivasi
+                end as ACT,
+                PRD_MINJUAL AS MIN_JUAL,
+                PRD_AVGCOST AS ACOST,
+                PRD_HRGJUAL AS H_NORMAL,
+                PRMD_HRGJUAL AS H_PROMO,
+                PRMD_TGLAWAL AS TGL_AWAL,
+                PRMD_TGLAKHIR AS TGL_AKHIR
+                FROM TBTR_PROMOMD
+                LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+                LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+                WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+                AND PRMD_PRDCD LIKE \'000085%\') --> ganti plu
+                order by plu asc')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 09:00:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-02 09:00:06 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(138): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+                ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+                SELECT
+                PRMD_PRDCD AS PLU,
+                PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+                PRD_FRAC as frc,
+                PRD_UNIT AS stn,
+                PRD_KODETAG AS TAG_IGR,
+                CASE 
+                WHEN PRC_KODETAG IS NULL THEN \' \'
+                ELSE PRC_KODETAG 
+                END AS TAG_OMI,
+                case 
+                when prd_flag_aktivasi is null then \' \'
+                else prd_flag_aktivasi
+                end as ACT,
+                PRD_MINJUAL AS MIN_JUAL,
+                PRD_AVGCOST AS ACOST,
+                PRD_HRGJUAL AS H_NORMAL,
+                PRMD_HRGJUAL AS H_PROMO,
+                PRMD_TGLAWAL AS TGL_AWAL,
+                PRMD_TGLAKHIR AS TGL_AKHIR
+                FROM TBTR_PROMOMD
+                LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+                LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+                WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+                AND PRMD_PRDCD LIKE \'000085%\') --> ganti plu
+                order by plu asc')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 09:00:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 09:00:26 --> Call to a member function getResultArray() on array
+in APPPATH\Views\store\cekpromo.php on line 53.
+ 1 SYSTEMPATH\View\View.php(224): include()
+ 2 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1180): CodeIgniter\View\View->render('store/cekpromo', [], true)
+ 4 APPPATH\Controllers\Store.php(150): view('store/cekpromo', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 6 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 7 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 09:00:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 09:00:28 --> Call to a member function getResultArray() on array
+in APPPATH\Views\store\cekpromo.php on line 53.
+ 1 SYSTEMPATH\View\View.php(224): include()
+ 2 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1180): CodeIgniter\View\View->render('store/cekpromo', [], true)
+ 4 APPPATH\Controllers\Store.php(150): view('store/cekpromo', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 6 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 7 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 09:00:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 09:00:51 --> Call to a member function getResultArray() on array
+in APPPATH\Controllers\Store.php on line 147.
+ 1 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 2 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 09:01:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 09:01:18 --> Call to a member function getResult() on array
+in APPPATH\Controllers\Store.php on line 147.
+ 1 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 2 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 09:01:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 09:01:20 --> Call to a member function getResult() on array
+in APPPATH\Controllers\Store.php on line 147.
+ 1 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 2 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 3 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 09:01:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 09:01:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 09:02:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 09:02:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-02 09:02:33 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(138): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+                ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+                SELECT
+                PRMD_PRDCD AS PLU,
+                PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+                PRD_FRAC as frc,
+                PRD_UNIT AS stn,
+                PRD_KODETAG AS TAG_IGR,
+                CASE 
+                WHEN PRC_KODETAG IS NULL THEN \' \'
+                ELSE PRC_KODETAG 
+                END AS TAG_OMI,
+                case 
+                when prd_flag_aktivasi is null then \' \'
+                else prd_flag_aktivasi
+                end as ACT,
+                PRD_MINJUAL AS MIN_JUAL,
+                PRD_AVGCOST AS ACOST,
+                PRD_HRGJUAL AS H_NORMAL,
+                PRMD_HRGJUAL AS H_PROMO,
+                PRMD_TGLAWAL AS TGL_AWAL,
+                PRMD_TGLAKHIR AS TGL_AKHIR
+                FROM TBTR_PROMOMD
+                LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+                LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+                WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+                AND PRMD_PRDCD LIKE \'000085%\') --> ganti plu
+                order by plu asc')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 09:02:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-02 09:02:54 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(138): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+                ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+                SELECT
+                PRMD_PRDCD AS PLU,
+                PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+                PRD_FRAC as frc,
+                PRD_UNIT AS stn,
+                PRD_KODETAG AS TAG_IGR,
+                CASE 
+                WHEN PRC_KODETAG IS NULL THEN \' \'
+                ELSE PRC_KODETAG 
+                END AS TAG_OMI,
+                case 
+                when prd_flag_aktivasi is null then \' \'
+                else prd_flag_aktivasi
+                end as ACT,
+                PRD_MINJUAL AS MIN_JUAL,
+                PRD_AVGCOST AS ACOST,
+                PRD_HRGJUAL AS H_NORMAL,
+                PRMD_HRGJUAL AS H_PROMO,
+                PRMD_TGLAWAL AS TGL_AWAL,
+                PRMD_TGLAKHIR AS TGL_AKHIR
+                FROM TBTR_PROMOMD
+                LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+                LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+                WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+                AND PRMD_PRDCD LIKE \'000085%\') --> ganti plu
+                order by plu asc')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 09:03:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-08-02 09:03:33 --> Call to a member function getResultArray() on array
+in APPPATH\Views\store\cekpromo.php on line 53.
+ 1 SYSTEMPATH\View\View.php(224): include()
+ 2 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1180): CodeIgniter\View\View->render('store/cekpromo', [], true)
+ 4 APPPATH\Controllers\Store.php(150): view('store/cekpromo', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 6 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 7 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 09:04:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 09:04:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-02 09:04:07 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(138): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+                ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+                SELECT
+                PRMD_PRDCD AS PLU,
+                PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+                PRD_FRAC as frc,
+                PRD_UNIT AS stn,
+                PRD_KODETAG AS TAG_IGR,
+                CASE 
+                WHEN PRC_KODETAG IS NULL THEN \' \'
+                ELSE PRC_KODETAG 
+                END AS TAG_OMI,
+                case 
+                when prd_flag_aktivasi is null then \' \'
+                else prd_flag_aktivasi
+                end as ACT,
+                PRD_MINJUAL AS MIN_JUAL,
+                PRD_AVGCOST AS ACOST,
+                PRD_HRGJUAL AS H_NORMAL,
+                PRMD_HRGJUAL AS H_PROMO,
+                PRMD_TGLAWAL AS TGL_AWAL,
+                PRMD_TGLAKHIR AS TGL_AKHIR
+                FROM TBTR_PROMOMD
+                LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+                LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+                WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+                AND PRMD_PRDCD LIKE \'000085%\') --> ganti plu
+                order by plu asc')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 09:04:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 09:04:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-02 09:04:26 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(138): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+                ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+                SELECT
+                PRMD_PRDCD AS PLU,
+                PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+                PRD_FRAC as frc,
+                PRD_UNIT AS stn,
+                PRD_KODETAG AS TAG_IGR,
+                CASE 
+                WHEN PRC_KODETAG IS NULL THEN \' \'
+                ELSE PRC_KODETAG 
+                END AS TAG_OMI,
+                case 
+                when prd_flag_aktivasi is null then \' \'
+                else prd_flag_aktivasi
+                end as ACT,
+                PRD_MINJUAL AS MIN_JUAL,
+                PRD_AVGCOST AS ACOST,
+                PRD_HRGJUAL AS H_NORMAL,
+                PRMD_HRGJUAL AS H_PROMO,
+                PRMD_TGLAWAL AS TGL_AWAL,
+                PRMD_TGLAKHIR AS TGL_AKHIR
+                FROM TBTR_PROMOMD
+                LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+                LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+                WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+                AND PRMD_PRDCD LIKE \'000085%\') --> ganti plu
+                order by plu asc')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-08-02 09:04:26 --> Call to a member function getResultArray() on resource
+in APPPATH\Views\store\cekpromo.php on line 54.
+ 1 SYSTEMPATH\View\View.php(224): include()
+ 2 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1180): CodeIgniter\View\View->render('store/cekpromo', [], true)
+ 4 APPPATH\Controllers\Store.php(150): view('store/cekpromo', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 6 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 7 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 09:04:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 09:04:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-02 09:04:40 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(138): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+                ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+                SELECT
+                PRMD_PRDCD AS PLU,
+                PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+                PRD_FRAC as frc,
+                PRD_UNIT AS stn,
+                PRD_KODETAG AS TAG_IGR,
+                CASE 
+                WHEN PRC_KODETAG IS NULL THEN \' \'
+                ELSE PRC_KODETAG 
+                END AS TAG_OMI,
+                case 
+                when prd_flag_aktivasi is null then \' \'
+                else prd_flag_aktivasi
+                end as ACT,
+                PRD_MINJUAL AS MIN_JUAL,
+                PRD_AVGCOST AS ACOST,
+                PRD_HRGJUAL AS H_NORMAL,
+                PRMD_HRGJUAL AS H_PROMO,
+                PRMD_TGLAWAL AS TGL_AWAL,
+                PRMD_TGLAKHIR AS TGL_AKHIR
+                FROM TBTR_PROMOMD
+                LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+                LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+                WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+                AND PRMD_PRDCD LIKE \'000085%\') --> ganti plu
+                order by plu asc')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-08-02 09:04:40 --> Trying to access array offset on value of type resource
+in APPPATH\Views\store\cekpromo.php on line 55.
+ 1 APPPATH\Views\store\cekpromo.php(55): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type resource', 'F:\\laragon\\www\\reportmenu\\app\\Views\\store\\cekpromo.php', 55)
+ 2 SYSTEMPATH\View\View.php(224): include('F:\\laragon\\www\\reportmenu\\app\\Views\\store\\cekpromo.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1180): CodeIgniter\View\View->render('store/cekpromo', [], true)
+ 5 APPPATH\Controllers\Store.php(150): view('store/cekpromo', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 09:05:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 09:05:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-02 09:05:07 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(138): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+                ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+                SELECT
+                PRMD_PRDCD AS PLU,
+                PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+                PRD_FRAC as frc,
+                PRD_UNIT AS stn,
+                PRD_KODETAG AS TAG_IGR,
+                CASE 
+                WHEN PRC_KODETAG IS NULL THEN \' \'
+                ELSE PRC_KODETAG 
+                END AS TAG_OMI,
+                case 
+                when prd_flag_aktivasi is null then \' \'
+                else prd_flag_aktivasi
+                end as ACT,
+                PRD_MINJUAL AS MIN_JUAL,
+                PRD_AVGCOST AS ACOST,
+                PRD_HRGJUAL AS H_NORMAL,
+                PRMD_HRGJUAL AS H_PROMO,
+                PRMD_TGLAWAL AS TGL_AWAL,
+                PRMD_TGLAKHIR AS TGL_AKHIR
+                FROM TBTR_PROMOMD
+                LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+                LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+                WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+                AND PRMD_PRDCD LIKE \'000085%\') --> ganti plu
+                order by plu asc')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-08-02 09:05:07 --> Array to string conversion
+in APPPATH\Views\store\cekpromo.php on line 55.
+ 1 APPPATH\Views\store\cekpromo.php(55): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string conversion', 'F:\\laragon\\www\\reportmenu\\app\\Views\\store\\cekpromo.php', 55)
+ 2 SYSTEMPATH\View\View.php(224): include('F:\\laragon\\www\\reportmenu\\app\\Views\\store\\cekpromo.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1180): CodeIgniter\View\View->render('store/cekpromo', [], true)
+ 5 APPPATH\Controllers\Store.php(150): view('store/cekpromo', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-08-02 09:05:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-08-02 09:05:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2023-08-02 09:05:27 --> [DEPRECATED] ctype_digit(): Argument of type int will be interpreted as string in the future in SYSTEMPATH\Database\OCI8\Connection.php on line 637.
+ 1 SYSTEMPATH\Database\OCI8\Connection.php(637): ctype_digit(1521)
+ 2 SYSTEMPATH\Database\OCI8\Connection.php(122): CodeIgniter\Database\OCI8\Connection->buildDSN()
+ 3 SYSTEMPATH\Database\BaseConnection.php(391): CodeIgniter\Database\OCI8\Connection->connect(true)
+ 4 SYSTEMPATH\Database\BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 5 APPPATH\Controllers\Store.php(138): CodeIgniter\Database\BaseConnection->query('SELECT PLU,DESKRIPSI,frc || \'/\' || stn as FRAC,TAG_IGR,TAG_OMI,ACT,MIN_JUAL,
+                ACOST,H_NORMAL,H_PROMO,TGL_AWAL || \' sd \' || TGL_AKHIR AS PERIODE from(
+                SELECT
+                PRMD_PRDCD AS PLU,
+                PRD_DESKRIPSIPANJANG AS DESKRIPSI,
+                PRD_FRAC as frc,
+                PRD_UNIT AS stn,
+                PRD_KODETAG AS TAG_IGR,
+                CASE 
+                WHEN PRC_KODETAG IS NULL THEN \' \'
+                ELSE PRC_KODETAG 
+                END AS TAG_OMI,
+                case 
+                when prd_flag_aktivasi is null then \' \'
+                else prd_flag_aktivasi
+                end as ACT,
+                PRD_MINJUAL AS MIN_JUAL,
+                PRD_AVGCOST AS ACOST,
+                PRD_HRGJUAL AS H_NORMAL,
+                PRMD_HRGJUAL AS H_PROMO,
+                PRMD_TGLAWAL AS TGL_AWAL,
+                PRMD_TGLAKHIR AS TGL_AKHIR
+                FROM TBTR_PROMOMD
+                LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+                LEFT JOIN TBMASTER_PRODCRM ON PRC_PLUOMI = PRD_PRDCD
+                WHERE trunc(prmd_tglakhir) >= trunc(sysdate)
+                AND PRMD_PRDCD LIKE \'000085%\') --> ganti plu
+                order by plu asc')
+ 6 SYSTEMPATH\CodeIgniter.php(932): App\Controllers\Store->cekpromo()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Store))
+ 8 SYSTEMPATH\CodeIgniter.php(366): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()

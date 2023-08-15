@@ -1,17 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
 
-<?php $this->extend('layout/template'); ?>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?= $title ?></title>
 
-<?php $this->section('content'); ?>
+    <link rel="stylesheet" href="<?= base_url('bootstrap/dist/css/bootstrap.min.css'); ?>">
+
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Kalo gapake Laragon/XAMPP -->
+    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+    
 
 <!-- Tampil Data Cashback -->
-    <?php if(!empty($cashback)): ?>
+<?php if(!empty($cashback)): ?>
         <div class="container-fluid mt-3">
             <div class="row mb-2">
                 <div class="col judul-promo">
-                    <h4>Data Promo <?= $jenis; ?></h4>
-                    <h5 class="d-inline">Pilihan Data Promo :</h5><span class=" d-inline fw-bold fs-6 fst-italic"><?= $status; ?></span><br>
-                    <h5 class="d-inline">Kode Promo :</h5><span class=" d-inline fw-bold fs-6 fst-italic"><?= $kodepromo; ?></span><br>
-                    <h5 class="d-inline">Tanggal Akhir Promo :</h5><span class=" d-inline fw-bold fs-6 fst-italic"><?= $tglakhir; ?></span>
+                    <h3>Data Promo <?= $jenis; ?></h3>
+                    <h5 class="">Pilihan Data Promo :</h5><?= $status; ?><br>
+                    <h5 class="">Kode Promo :</h5><?= $kodepromo; ?><br>
+                    <h5 class="">Tanggal Akhir Promo :</h5><?= $tglakhir; ?>
                 </div>
             </div>
             <table class="table table-bordered table-hover table-sm">
@@ -565,4 +579,14 @@
         </div>
     <?php endif; ?>
 
-    <?php $this->endSection(); ?>
+
+
+
+    <script src="<?=base_url('jquery-3.7.0.min.js');?>"></script>
+    <script src="<?=base_url('bootstrap/dist/js/bootstrap.bundle.min.js')?>"></script>
+
+    <script>
+        
+    </script>
+</body>
+</html>

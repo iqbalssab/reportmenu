@@ -52,7 +52,7 @@
                     <br>
                     <button type="submit" class="btn btn-primary" name="tombol" value="tampil">Tampil</button>
                     <button type="submit" class="btn btn-success" name="tombol" value="xls">Export xls</button>
-                    <button type="submit" class="btn btn-danger" name="tombol" value="clear">Clear</button>
+                    <button type="reset" class="btn btn-danger" value="clear">Clear</button>
                     </form>
                     </div>
                 </div>

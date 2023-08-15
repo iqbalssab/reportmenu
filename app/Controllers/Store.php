@@ -3,6 +3,9 @@
 namespace App\Controllers;
 
 use CodeIgniter\I18n\Time;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xls;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class Store extends BaseController
 {
@@ -98,11 +101,13 @@ class Store extends BaseController
 
     public function cekpromo()
     {
+        $isidesk1 = strtoupper($this->request->getVar('desc1'));
+        $isidesk2 = strtoupper($this->request->getVar('desc2'));
         $isiplu = $this->request->getVar('plu');
         $aksi = $this->request->getVar('tombol');
         $pluplusnol = ""; // Inisialisasi $pluplusnol
         $promomd = []; 
-        $promocb = $hargamb = $hargamm = $hargaplt = $promogift = $promonk = $promohjk = [];  
+        $promocb = $hargamb = $hargamm = $hargaplt = $promogift = $promonk = $promohjk = $cariProduk = [];  
     
         if (isset($isiplu)) {
             if (is_numeric($isiplu)) {
@@ -469,6 +474,21 @@ class Store extends BaseController
             }
         }
 
+        if (!empty($isidesk1) || !empty($isidesk2)) {
+
+          $dbProd = db_connect('production');
+          $cariProduk = $dbProd->query(
+            " SELECT prd_prdcd,prd_deskripsipanjang,prd_unit,prd_kodetag,prd_hrgjual,st_saldoakhir 
+						from tbmaster_prodmast 
+						left join tbmaster_stock on st_prdcd=prd_prdcd
+						left join tbmaster_barcode on brc_prdcd=prd_prdcd
+						where (st_lokasi='01' and prd_prdcd like '%0' and prd_deskripsipanjang like '%$isidesk1%' and prd_deskripsipanjang like '%$isidesk2%') 
+						or brc_barcode like '%$isidesk1%' 
+						order by prd_prdcd");
+
+            $cariProduk = $cariProduk->getResultArray();
+        }
+
         $data = [
             'title' => 'Cek Promo',
             'promomd' => $promomd,
@@ -478,7 +498,10 @@ class Store extends BaseController
             'hargaplt' => $hargaplt,
             'promogift' => $promogift,
             'promonk' => $promonk,
-            'promohjk' => $promohjk
+            'promohjk' => $promohjk,
+            'cariproduk' => $cariProduk,
+            'desk1' => $isidesk1,
+            'desk2' => $isidesk2,
         ];
         redirect()->to('/store/cekpromo')->withInput();
         return view('store/cekpromo', $data);
@@ -493,15 +516,438 @@ class Store extends BaseController
         return view('store/monitoringpromo', $data);
     }
 
-    public function tampildatapromo($jenis)
+    public function tampildatapromo()
     {
-      $dbSim = db_connect();
+      $tanggalSekarang = $this->tglsekarang;
+      $dbProd = db_connect("production");
       $jenis = $this->request->getVar('jenisLaporan');
       $statusPromo = $this->request->getVar('statusPromo');
       $tgl = $this->request->getVar('tglAkhir');
-      $kdPromosi = $this->request->getVar('kdPromosi');
-      dd($jenis, $statusPromo, $tgl, $kdPromosi);
+      $kdPromosi = strtoupper($this->request->getVar('kdPromosi'));
 
-      return view('store/tampildatapromo');
+      $cashBack = $cbperplu = $perolehancb = $gift = $giftperplu = $perolehangift = $instore = $instoreperplu = [];
+      $judul_filterstatus = $judul_filterkodepromo = $judul_filtertglakhir = "";
+
+      // masukan tgl awal dan tgl akhir
+      switch ($jenis) {
+        case 'cb':
+          $kolomtglAwal = "cbh_tglawal";
+          $kolomtglAkhir = "cbh_tglakhir";
+          break;
+        case 'cbperplu' :
+            $kolomtglAwal = "cbh_tglawal";
+            $kolomtglAkhir = "cbh_tglakhir";
+          break;
+        case 'gift':
+          $kolomtglAwal = "gfh_tglawal";
+          $kolomtglAkhir = "gfh_tglakhir";
+          break;
+        case 'giftperplu':
+          $kolomtglAwal = "gfh_tglawal";
+          $kolomtglAkhir = "gfh_tglakhir";
+          break;
+        case 'instore':
+          $kolomtglAwal = "ish_tglawal";
+          $kolomtglAkhir = "ish_tglakhir";
+          break;
+        case 'instoreperplu':
+          $kolomtglAwal = "ish_tglawal";
+          $kolomtglAkhir = "ish_tglakhir";
+          break;
+        
+        default:
+          $kolomtglAwal = "";
+          $kolomtglAkhir = "";
+          break;
+      }
+
+      // pilih status promo
+      switch ($statusPromo) {
+        case 'all':
+          $filterstatus = " and trunc($kolomtglAwal)>trunc(sysdate-365) "; 
+          $judul_filterstatus = " All Promo";
+          break;
+        case 'aktif':
+          $filterstatus = " and trunc($kolomtglAwal)<=trunc(sysdate) and trunc($kolomtglAkhir)>=trunc(sysdate) "; 
+          $judul_filterstatus = " hanya promo aktif saja";
+          break;            
+        case 'selesai':
+          $filterstatus = " and trunc($kolomtglAkhir)>=trunc(sysdate-90) and trunc($kolomtglAkhir)<trunc(sysdate) " ; 
+          $judul_filterstatus = " promo yang sudah selesai";
+          break;
+        case 'blmaktif':
+          $filterstatus = " and trunc($kolomtglAwal)>trunc(sysdate) " ; 
+          $judul_filterstatus = " belum aktif";
+          break;
+        default :
+          $filterstatus = " and trunc($kolomtglAwal)>trunc(sysdate-365) "; 
+          $judul_filterstatus = "";
+          break;
+        }
+
+        // cek tanggal akhir promo
+        if($tgl == "") {
+          $filtertglakhir = "";
+          $judul_filtertglakhir = " tidak ditentukan";
+        }else{
+          $filtertglakhir = " and trunc($kolomtglAkhir)=to_date('$tgl','yyyy-mm-dd') ";
+          $judul_filtertglakhir = " $tgl ";
+        }
+
+        // cek input kodepromosi
+        if($kdPromosi == "") {
+          $filterkodepromo = "";
+          $judul_filterkodepromo = " belum diinput! ";
+        }else{
+          $filterkodepromo = "and kd_promosi='$kdPromosi' ";
+          $judul_filterkodepromo = " $kdPromosi ";
+        }
+      
+      if ($jenis=="cb") {
+        
+        $judul_jenis = "CASHBACK";        
+          
+          $cashBack = $dbProd->query(
+            "SELECT distinct 
+            cbh_kodepromosi,
+            cbh_namapromosi,
+            cbh_recordid,
+            cbh_tglawal,
+            cbh_tglakhir,
+            cba_alokasijumlah,
+            alokasiused,
+            case when cbd_alokasistok>0 then 'Y' else 'N' end as pembatasanplu
+            from tbtr_cashback_hdr
+            left join tbtr_cashback_alokasi on cba_kodepromosi=cbh_kodepromosi
+            left join tbtr_cashback_dtl on cbd_kodepromosi=cbh_kodepromosi
+            left join (select kd_promosi,sum(kelipatan) as alokasiused from m_promosi_h group by kd_promosi)on kd_promosi=cbh_kodepromosi
+            where 1=1 $filterstatus $filtertglakhir $filterkodepromo
+            order by cbh_kodepromosi"
+          );
+
+          $cashBack = $cashBack->getResultArray();
+
+          
+      }elseif($jenis=="cbperplu"){
+
+        $judul_jenis = "CASHBACK per PLU";
+        
+
+        $cbperplu = $dbProd->query(
+          "SELECT 
+          prd_kodedivisi as DIV,
+          prd_kodedepartement as DEP,
+          prd_kodekategoribarang as KAT,
+          prd_prdcd as PLU,
+          prd_deskripsipanjang as DESKRIPSI,
+          prd_unit as UNIT,
+          prd_frac as FRAC,
+          prd_kodetag as TAG,
+          cbh_kodepromosi as KDPROMOSI,
+          cbh_namapromosi as NAMAPROMOSI,
+          cbh_tglawal as tglawal,
+          cbh_tglakhir as tglakhir,
+          CBH_MINRPHPRODUKPROMO AS MIN_SPONSOR, 
+          CBD_CASHBACK AS NILAI_CB,
+          CBH_CASHBACK AS NILAI_CB_GAB,
+          CBD_REDEEMPOINT AS REDEEM_POINT,  
+          CBD_MINSTRUK AS MIN_STRUK,   
+          CBD_MAXSTRUK AS MAX_STRUK,
+          cbh_maxrphperhari as MAX_RPH_PERHARI,
+          CBA_ALOKASIJUMLAH AS ALOKASI_JUMLAH,
+          ALOKASIUSED as ALOKASI_KELUAR,
+          case when CBA_ALOKASIJUMLAH!=0 then CBA_ALOKASIJUMLAH-ALOKASIUSED else 0 end as SISA_ALOKASI,
+              CASE WHEN CBA_REGULER = 1 THEN 'BIRU ' ELSE '' END BIRU, 
+              CASE WHEN CBA_REGULER_BIRUPLUS = 1 THEN 'BIRU+ ' ELSE '' END BIRUPLUS, 
+              CASE WHEN CBA_FREEPASS = 1 THEN 'FREE ' ELSE '' END FREEPASS, 
+              CASE WHEN CBA_RETAILER = 1 THEN 'RET ' ELSE '' END RETAILER, 
+              CASE WHEN CBA_SILVER = 1 THEN 'SILV ' ELSE '' END SILVER, 
+              CASE WHEN CBA_GOLD1 = 1 THEN 'GD1 ' ELSE '' END GOLD1, 
+              CASE WHEN CBA_GOLD2 = 1 THEN 'GD2 ' ELSE '' END GOLD2, 
+              CASE WHEN CBA_GOLD3 = 1 THEN 'GD3 ' ELSE '' END GOLD3, 
+              CASE WHEN CBA_PLATINUM = 1 THEN 'PLAT ' ELSE '' END PLATINUM 
+          from tbmaster_prodmast 
+          left join tbtr_cashback_dtl on cbd_prdcd = prd_prdcd
+          left join tbtr_cashback_hdr on cbh_kodepromosi = cbd_kodepromosi
+          left join tbtr_cashback_alokasi on cba_kodepromosi = cbd_kodepromosi
+          left join (select kd_promosi,sum(kelipatan) as alokasiused from m_promosi_h group by kd_promosi)on kd_promosi=cbh_kodepromosi
+          where cbd_prdcd is not null
+          $filterstatus $filtertglakhir
+          order by DIV,DEP,KAT,DESKRIPSI"
+        );
+
+        $cbperplu = $cbperplu->getResultArray();
+      }elseif($jenis=="perolehancb"){
+        $judul_jenis = "PEROLEHAN CASHBACK";
+
+        $perolehancb = $dbProd->query(
+          "SELECT 
+          cbh_kodepromosi,
+          cbh_namapromosi,
+          cus_kodemember,
+          cus_namamember,
+          tgl_trans,
+          create_by||'.'||kode_station||'.'||trans_no as NOSTRUK,
+          kelipatan,
+          cashback
+        from M_PROMOSI_H 
+        left join tbmaster_customer on cus_kodemember=kd_member
+        left join tbtr_CASHBACK_hdr on cbh_kodepromosi=kd_promosi
+        where $filterkodepromo
+        order by tgl_trans,nostruk"
+        );
+
+        $perolehancb = $perolehancb->getResultArray();
+      }elseif($jenis=="gift"){
+        $judul_jenis = "Promo GIFT";
+
+        $gift = $dbProd->query(
+          "SELECT 
+          gfh_kodepromosi,
+          gfh_namapromosi,
+          gfh_tglawal,
+          gfh_tglakhir,
+          gfa_alokasijumlah,
+          alokasiused
+          from tbtr_gift_hdr
+          left join tbtr_gift_alokasi on gfa_kodepromosi=gfh_kodepromosi
+          left join (select kd_promosi,sum(jmlh_hadiah) as alokasiused from m_gift_h group by kd_promosi) on kd_promosi=gfh_kodepromosi
+          where 1=1 $filterstatus  $filtertglakhir or $filterkodepromo
+          order by gfh_kodepromosi"
+        );
+
+        $gift = $gift->getResultArray();
+      }elseif($jenis=="giftperplu"){
+        $judul_jenis = "GIFT per PLU";
+
+        $giftperplu = $dbProd->query(
+          "SELECT 
+          DIV,DEP,KAT,PLU,DESKRIPSI,UNIT,FRAC,TAG,KODE_PROMOSI,NAMA_PROMOSI,
+          JENIS_PROMOSI,ALL_ITEM,TANGGAL_AWAL,TANGGAL_AKHIR,MINBELI,MIN_TOTAL_BELANJA,    
+          MIN_TOTAL_SPONSOR,MAX_JUMLAH_HARI,MAX_FREQ_HARI,MAX_JUMLAH_EVENT,MAX_FREQ_EVENT,  
+          DIV_HADIAH,PLU_HADIAH,HADIAH_RUPIAH,JUMLAH_HADIAH,ALOKASI_HADIAH,ALOKASIUSED,
+          SISA_ALOKASI, BIRU, BIRUPLUS, FREEPASS, RETAILER, SILVER, GOLD1,
+          GOLD2, GOLD3, PLATINUM, KODEPERJANJIAN FROM (
+          select   
+          prd_kodedivisi as DIV,  
+          prd_kodedepartement as DEP,  
+          prd_kodekategoribarang as KAT,  
+          prd_prdcd as PLU,  
+          prd_deskripsipanjang as DESKRIPSI,  
+          prd_unit as UNIT,  
+          prd_frac as FRAC,  
+          prd_kodetag as TAG,  
+          GFH_KODEPROMOSI AS KODE_PROMOSI,    
+          GFH_NAMAPROMOSI AS NAMA_PROMOSI,    
+          GFH_JENISPROMOSI AS JENIS_PROMOSI,    
+          GFH_ALLITEM AS ALL_ITEM,    
+          GFH_TGLAWAL AS TANGGAL_AWAL,    
+          GFH_TGLAKHIR AS TANGGAL_AKHIR,    
+          GFD_PCS as MINBELI,  
+          GFH_MINTOTBELANJA AS MIN_TOTAL_BELANJA,    
+          GFH_MINTOTSPONSOR AS MIN_TOTAL_SPONSOR,     
+          GFH_MAXJMLHARI AS MAX_JUMLAH_HARI,    
+          GFH_MAXFREKHARI AS MAX_FREQ_HARI,    
+          GFH_MAXJMLEVENT AS MAX_JUMLAH_EVENT,    
+          GFH_MAXFREKEVENT AS MAX_FREQ_EVENT,  
+          divhdh as DIV_HADIAH,  
+          GFH_KETHADIAH AS PLU_HADIAH,    
+          GFH_RPHHADIAH AS HADIAH_RUPIAH,    
+          GFH_JMLHADIAH AS JUMLAH_HADIAH,   
+          GFA_ALOKASIJUMLAH AS ALOKASI_HADIAH,
+          GFH_KODEPERJANJIAN AS KODEPERJANJIAN,  
+          ALOKASIUSED,  
+          case 
+            when GFA_ALOKASIJUMLAH!=0 then GFA_ALOKASIJUMLAH-ALOKASIUSED else 999999 end as SISA_ALOKASI,  
+          CASE 
+            WHEN GFA_REGULER = 1 THEN 'BIRU ' ELSE '' END BIRU,   
+          CASE 
+            WHEN GFA_REGULER_BIRUPLUS = 1 THEN 'BIRU+ ' ELSE '' END BIRUPLUS,   
+          CASE 
+            WHEN GFA_FREEPASS = 1 THEN 'FREE ' ELSE '' END FREEPASS,   
+          CASE 
+            WHEN GFA_RETAILER = 1 THEN 'RET ' ELSE '' END RETAILER,   
+          CASE 
+            WHEN GFA_SILVER = 1 THEN 'SILV ' ELSE '' END SILVER,   
+          CASE 
+            WHEN GFA_GOLD1 = 1 THEN 'GD1 ' ELSE '' END GOLD1,   
+          CASE 
+            WHEN GFA_GOLD2 = 1 THEN 'GD2 ' ELSE '' END GOLD2,   
+          CASE 
+            WHEN GFA_GOLD3 = 1 THEN 'GD3 ' ELSE '' END GOLD3,   
+          CASE 
+            WHEN GFA_PLATINUM = 1 THEN 'PLAT ' ELSE '' END PLATINUM   
+                    
+          from tbmaster_prodmast  
+          left join tbtr_gift_dtl     on gfd_prdcd=prd_prdcd  
+          left join tbtr_gift_hdr     on gfh_kodepromosi = gfd_kodepromosi  
+          left join tbtr_gift_alokasi on gfa_kodepromosi = gfd_kodepromosi  
+          left join (select prd_prdcd as pluhdh,prd_kodedivisi as divhdh from tbmaster_prodmast) on pluhdh=gfh_kethadiah  
+          left join (select kd_promosi,sum(jmlh_hadiah) as alokasiused from m_gift_h group by kd_promosi) on kd_promosi=gfh_kodepromosi  
+          where gfd_prdcd is not null  $filterstatus $filtertglakhir
+          order by DIV,DEP,KAT,DESKRIPSI)"
+        );
+
+        $giftperplu = $giftperplu->getResultArray();
+      }elseif($jenis=="perolehangift"){
+        $judul_jenis="PEROLEHAN GIFT";
+
+        $perolehangift = $dbProd->query(
+          "SELECT 
+          kd_promosi,
+          ket_hadiah,
+          kd_member,
+          cus_namamember,
+          tgl_trans,
+          create_by||'.'||kd_station||'.'||trans_no as NOSTRUK,
+          jmlh_hadiah
+          from m_gift_h 
+          left join tbmaster_customer on cus_kodemember=kd_member
+          where $filterkodepromo
+          order by tgl_trans,nostruk"
+        );
+
+        $perolehangift = $perolehangift->getResultArray();
+      }elseif($jenis=="instore"){
+        $judul_jenis="PROMO INSTORE";
+
+        $instore = $dbProd->query(
+          "SELECT 
+          ish_kodepromosi,
+          ish_namapromosi,
+          ish_keterangan,
+          ish_tglawal,
+          ish_tglakhir,
+          ish_qtyalokasi,
+          alokasiused
+          from tbtr_instore_hdr
+          left join (select kd_promosi,sum(jmlh_hadiah) as alokasiused from m_gift_h group by kd_promosi) on kd_promosi=ish_kodepromosi
+          where 1=1 $filterstatus  $filtertglakhir
+          order by ish_kodepromosi"
+        );
+
+        $instore = $instore->getResultArray();
+      }elseif($jenis=="instoreperplu"){
+        $judul_jenis="INSTORE PER PLU";
+
+        $instoreperplu = $dbProd->query(
+          "SELECT prd_kodedivisi as DIV,
+          prd_kodedepartement as DEP,
+          prd_kodekategoribarang as KAT,
+          isd_prdcd as PLU,
+          prd_deskripsipanjang as DESKRIPSI,
+          prd_unit as UNIT,
+          prd_frac as FRAC,
+          prd_kodetag as TAG,
+          ISH_KODEPROMOSI AS KODE_PROMOSI,  
+          ISH_NAMAPROMOSI AS NAMA_PROMOSI,  
+          ISH_JENISPROMOSI AS JENIS_PROMOSI,  
+          ISH_TGLAWAL AS TANGGAL_AWAL,  
+          ISH_TGLAKHIR AS TANGGAL_AKHIR,  
+          ISD_MINPCS as MINBELI,
+          ISH_MINSTRUK AS MIN_TOTAL_BELANJA,  
+          ISH_MINSPONSOR AS MIN_TOTAL_SPONSOR,   
+          ISH_MAXJMLEVENT AS MAX_JUMLAH_EVENT,  
+          ISH_MAXFREKEVENT AS MAX_FREQ_EVENT,
+          divhdh as DIV_HADIAH,
+          ISH_PRDCDHADIAH AS PLU_HADIAH,  
+          ISH_JMLHADIAH AS JUMLAH_HADIAH, 
+          ISH_QTYALOKASI AS ALOKASI_HADIAH,
+          ALOKASIUSED,
+          case when ISH_QTYALOKASI !=0 then ISH_QTYALOKASI-ALOKASIUSED else 0 end as SISA_ALOKASI,
+          CASE WHEN ISH_REGULER = 1 THEN 'BIRU ' ELSE '' END BIRU, 
+          CASE WHEN ISH_REGULERBIRUPLUS = 1 THEN 'BIRU+ ' ELSE '' END BIRUPLUS, 
+          CASE WHEN ISH_FREEPASS = 1 THEN 'FREE ' ELSE '' END FREEPASS, 
+          CASE WHEN ISH_RETAILER = 1 THEN 'RET ' ELSE '' END RETAILER, 
+          CASE WHEN ISH_SILVER = 1 THEN 'SILV ' ELSE '' END SILVER, 
+          CASE WHEN ISH_GOLD1 = 1 THEN 'GD1 ' ELSE '' END GOLD1, 
+          CASE WHEN ISH_GOLD2 = 1 THEN 'GD2 ' ELSE '' END GOLD2, 
+          CASE WHEN ISH_GOLD3 = 1 THEN 'GD3 ' ELSE '' END GOLD3, 
+          CASE WHEN ISH_PLATINUM = 1 THEN 'PLAT ' ELSE '' END PLATINUM 
+          
+        from tbtr_instore_dtl
+        left join tbmaster_prodmast     on isd_prdcd=prd_prdcd
+        left join tbtr_instore_hdr     on ish_kodepromosi = isd_kodepromosi
+        left join (select prd_prdcd as pluhdh,prd_kodedivisi as divhdh from tbmaster_prodmast) on pluhdh=ish_prdcdhadiah
+        left join (select kd_promosi,sum(jmlh_hadiah) as alokasiused from m_gift_h group by kd_promosi) on kd_promosi=ish_kodepromosi
+        where isd_prdcd is not null     
+        $filterstatus $filtertglakhir
+        order by DIV,DEP,KAT,DESKRIPSI"
+        );
+
+        $instoreperplu = $instoreperplu->getResultArray();
+      }
+
+      
+
+      $data =[
+        'title' => 'Data '. $tanggalSekarang,
+        'jenis' => $judul_jenis,
+        'status' => $judul_filterstatus,
+        'tglakhir' => $judul_filtertglakhir,
+        'kodepromo' => $judul_filterkodepromo,
+        'cashback' => $cashBack,
+        'cbperplu' => $cbperplu,
+        'perolehancb' => $perolehancb,
+        'gift' => $gift,
+        'giftperplu' => $giftperplu,
+        'perolehangift' => $perolehangift,
+        'instore' => $instore,
+        'instoreperplu' => $instoreperplu
+      ];
+
+      if($this->request->getVar('tombol')=="tampil"){
+        return view('store/tampildatapromo', $data);
+      }elseif ($this->request->getVar('tombol')=="xls") {
+        $filename = "datapromo $tanggalSekarang.xls";
+        header("Content-Disposition: attachment; filename=\"$filename\"");
+        header("Content-Type: application/vnd.ms-excel");
+        return view('store/tampilexcel',$data);
+      }
+
     }
+
+    public function diskonminus()
+    {
+      $dbprod = db_connect('production');
+      $diskonMinus = $dbprod->query(
+        "SELECT prmd_prdcd as PLU,
+        prd_deskripsipanjang as DESKRIPSI,
+        prd_kodetag as TAG,
+        prd_frac as FRAC,
+        prd_unit as UNIT,
+        st_saldoakhir as STOK,
+        prd_hrgjual as HRG_NORMAL,
+        prmd_hrgjual as HRG_PROMO,
+        prd_hrgjual-prmd_hrgjual as DISKON
+        from tbtr_promomd
+        left join tbmaster_prodmast on prmd_prdcd=prd_prdcd
+        left join tbmaster_stock on substr(st_prdcd,0,6)=substr(prmd_prdcd,0,6)
+        where st_lokasi='01' and  trunc(prmd_tglakhir)>=trunc(sysdate) and prd_hrgjual-prmd_hrgjual<0
+        order by deskripsi,plu"
+      );
+
+      $diskonMinus = $diskonMinus->getResultArray();
+
+      $data= [
+        'title' => 'Diskon Minus',
+        'diskonminus'=> $diskonMinus
+      ];
+
+      return view('store/diskonminus', $data);
+    }
+
+    public function marginminus()
+    {
+      
+    }
+
+    // public function export()
+    // {
+    //   $spreadsheet = new Spreadsheet();
+    //   $activeWorksheet = $spreadsheet->getActiveSheet();
+
+    //   $writer = new Xls($spreadsheet);
+    //   $writer->save('Data '.Time::now().'.xls');
+    // }
 }

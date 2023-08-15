@@ -10,12 +10,13 @@
     <?php endif; ?>
     <div class="row">
         <div class="col-md-3">
+            <!-- Form Cari berdasarkan PLU -->
             <div class="card w-100 mb-3">
                 <div class="card-header bg-primary text-light">
                     <h6 class="">Cek Promo</h6>
                 </div>
                 <div class="card-body text-center align-content-center justify-content-center">
-                    <form method="post" action="/store/cekpromo">
+                    <form method="get" action="/store/cekpromo">
                         <?= csrf_field(); ?>
                         <label class="" for="plu">Input PLU :</label><br>
                         <input type="text" name="plu" id="plu" class="text-center mb-3" value="<?= old('plu'); ?>" required autofocus>
@@ -26,6 +27,23 @@
                         <button type="submit" name="tombol" value="btnnk" class="btn btn-info w-100 d-block">Cek NK/HJK</button>
                     </form>
                 </div>
+            </div>
+            <!-- Form Cari Berdasarkan Deskripsi -->
+            <div class="card w-100 mb-2 mt-2">
+                <div class="card-header bg-dark-subtle">
+                    <h6 class="">Cari Produk</h6>
+                </div>
+                <div class="card-body">
+                    <form action="/store/cekpromo" method="get">
+                        <?= csrf_field(); ?>
+                        <label for="desc1">Deskripsi 1 :</label>
+                        <input type="text" name="desc1" id="desc1" class="w-100 d-block">
+                        <label for="desc2">Deskripsi 2 :</label>
+                        <input type="text" name="desc2" id="desc2" class="w-100 d-block">
+
+                        <button type="submit" name="cari" class="btn btn-dark mt-2">Cari</button>
+                    </form>
+                </div> 
             </div>
         </div>
         <div class="col-md-9">
@@ -108,13 +126,13 @@
                                         <td>
                                             <?= $cb['KDPROMO']; ?> - <?= $cb['NAMAPROMO']; ?><br>
                                             <div class="badge rounded bg-warning">
-                                                <?= $cb['ALOKASI']; ?>
+                                               Alokasi : <?= $cb['ALOKASI']; ?>
                                             </div>
                                             <div class="badge rounded bg-info">
-                                                <?= $cb['ALKUSED']; ?>
+                                               Used :  <?= $cb['ALKUSED']? $cb['ALKUSED'] : 0; ?>
                                             </div>
                                             <div class="badge rounded bg-secondary">
-                                                <?= $cb['ALOKASIPLU']; ?>
+                                               Sisa : <?= $cb['ALOKASIPLU']; ?>
                                             </div>
                                         </td>
                                         <td><?= number_format($cb['MINSPONSOR']); ?></td>
@@ -276,7 +294,8 @@
                     </div>
                 </div>
             <?php endif; ?>
-            <?php if(!empty($promonk) or !empty($promohjk)): ?>
+            <!-- Cek Promo NK dan HJK -->
+            <?php if(!empty($promonk) || !empty($promohjk)): ?>
                 <div class="card w-100 mb3">
                     <div class="card-header bg-info text-dark">
                         <h6>Promo NK</h6>
@@ -314,6 +333,7 @@
                         </table>
                     </div>
                 </div>
+                <!-- HJK -->
                 <div class="card w-100 mb-3">
                     <div class="card-header bg-warning text-dark">
                         <h6>Setting HJK</h6>
@@ -337,6 +357,48 @@
                                     <td><?= $hjk['HGK_HRGJUAL'];?></td>
                                     <td><?= $hjk['HGK_TGLAWAL']; ?></td>
                                     <td><?= $hjk['HGK_TGLAKHIR']; ?></td>
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <?php if(!empty($cariproduk)): ?>
+                <div class="card w-100 mb-3">
+                    <div class="card-header bg-info text-dark">
+                        <h6>Hasil Pencarian dengan keyword = <?= $desk1; ?> + <?= $desk2; ?></h6>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-hover table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>PLU</th>
+                                    <th>Deskripsi</th>
+                                    <th>Unit</th>
+                                    <th>Tag</th>
+                                    <th>H.Jual</th>
+                                    <th>Stok</th>
+                                    <th>View Promo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $i=0; ?>
+                                <?php foreach($cariproduk as $prd): ?>
+                                <tr>
+                                    <td><?= $i++; ?></td>
+                                    <td><?= $prd['PRD_PRDCD'] ?></td>
+                                    <td><?= $prd['PRD_DESKRIPSIPANJANG'] ?></td>
+                                    <td><?= $prd['PRD_UNIT'] ?></td>
+                                    <td><?= $prd['PRD_KODETAG'] ?></td>
+                                    <td><?= $prd['PRD_HRGJUAL'] ?></td>
+                                    <td><?= $prd['ST_SALDOAKHIR'] ?></td>
+                                    <td>
+                                        <a href="/store/cekpromo?plu=<?= $prd['PRD_PRDCD']; ?>&tombol=btnpromocb" class="badge rounded bg-success">CB</a>
+                                        <a href="/store/cekpromo?plu=<?= $prd['PRD_PRDCD']; ?>&tombol=btnpromogift" class="badge rounded bg-success">GF</a>
+                                        <a href="/store/cekpromo?plu=<?= $prd['PRD_PRDCD']; ?>&tombol=btnnk" class="badge rounded bg-warning">NK</a>
+                                    </td>
                                 </tr>
                                 <?php endforeach; ?>
                             </tbody>

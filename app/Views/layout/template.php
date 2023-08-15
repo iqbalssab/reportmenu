@@ -11,7 +11,7 @@
     <!-- Style CSS -->
     <link rel="stylesheet" href="/css/style.css">
     <!-- Kalo gapake Laragon/XAMPP -->
-    <!-- <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -24,21 +24,7 @@
     <script src="<?=base_url('bootstrap/dist/js/bootstrap.bundle.min.js')?>"></script>
 
     <script>
-
-        // function previewImg(){
-        //     const sampul = document.querySelector('#sampul');
-        //     const sampulLabel = document.querySelector('.custom-file-label');
-        //     const imgPreview = document.querySelector('.img-preview');
-    
-        //     sampulLabel.textContent =sampul.files[0].name;
-    
-        //     const fileSampul = new FileReader();
-        //     fileSampul.readAsDataURL(sampul.files[0])
-    
-        //     fileSampul.onload =function(e) {
-        //         imgPreview.src = e.target.result;
-        //     }
-        // }
+        
     </script>
 </body>
 </html>

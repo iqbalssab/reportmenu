@@ -36,6 +36,8 @@ $routes->get('/store/previewkasir', 'Store::previewkasir');
 $routes->get('/store/cekpromo', 'Store::cekpromo');
 $routes->get('/store/monitoringpromo/(:segment)', 'Store::tampildatapromo/$1');
 
+// $routes->get('/store/monitoringpromo/export', 'Store::export');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

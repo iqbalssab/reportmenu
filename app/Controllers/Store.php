@@ -1111,7 +1111,6 @@ class Store extends BaseController
       'perolehan' => $perolehan,
       'penukaran' => $penukaran
      ];
-     d($data);
 
       return view('store/transmypoint', $data);
     }
@@ -1183,16 +1182,65 @@ class Store extends BaseController
         'detail' => $detail,
         'akumulasi' => $akumulasi
       ];
-      d($data);
       return view('store/transaksimitra', $data);
     }
 
     public function transaksiklik()
     {
+      $dbProd = db_connect('production');
+      $tglAwal = $this->request->getVar('tglawal');
+      $tglAkhir = $this->request->getVar('tglakhir');
+
+      $klik = $dbProd->query(
+        "SELECT 
+        obi_tglpb as TGL_PB,obi_nopb as NO_PB,obi_attribute2 as TIPE,
+        obi_tglstruk as TGL_STRUK,
+        obi_cashierid||'.'||obi_kdstation||'.'||obi_nostruk as NO_STRUK,
+        obi_kdmember as KDMEMBER,cus_namamember as NAMAMEMBER,jh_transactionamt as TRANSACTIONAMT,
+        case when nvl(jh_transactioncashamt,0)>0 then 'Tunai' end as TUNAI,
+        case when nvl(jh_transactioncreditamt,0)>0 then 'Kredit' end as KREDIT,
+        case when nvl(jh_debitcardamt,0)>0 then 'DebitCard' end as DC,
+        case when nvl(jh_ccamt1,0)>0 then 'CreditCard' end as CC1,
+        case when nvl(jh_ccamt2,0)>0 then 'CreditCard' end as CC2,
+        case when nvl(jh_isaku_amt,0)>0 then 'Isaku' end as ISAKU,
+        case when nvl(jh_voucheramt,0)>0 then 'Vouvher' end as VOUCHER,
+        case when nvl(jh_kmmamt,0)>0 then 'KreditUsaha' end as KR_USAHA,
+        case when nvl(jh_transferamt,0)>0 then 'Transfer' end as TRANSFER,
+        obi_tipebayar as TIPEBAYAR
+        from tbtr_obi_h 
+        left join tbmaster_customer on cus_kodemember=obi_kdmember
+        left join tbtr_jualheader 
+          on trunc(obi_tglstruk)=trunc(jh_transactiondate)
+          and obi_kdmember=jh_cus_kodemember
+          and obi_cashierid=jh_cashierid
+          and obi_kdstation=jh_cashierstation
+          and obi_nostruk=jh_transactionno
+          and obi_tipe=jh_transactiontype
+        where trunc(obi_tglstruk) between to_date('$tglAwal','YYYY-MM-DD') and to_date('$tglAkhir','YYYY-MM-DD') 
+        order by obi_tglstruk,no_struk"
+      );
+      $klik = $klik->getResultArray();
       $data = [
-        'title' => 'History Transaksi Klik'
+        'title' => 'History Transaksi Klik',
+        'klik' => $klik
       ];
       return view('store/transaksiklik', $data);
+    }
+
+    public function transaksiproduk()
+    {
+      $dbProd = db_connect('production');
+      
+      $plu = $this->request->getVar('plu');
+      $tglAwal = $this->request->getVar('tglawal');
+      $tglAkhir = $this->request->getVar('tglakhir');
+      $jenisMember = $this->request->getVar('jenismember');
+      $kodeMember = $this->request->getVar('kodemember');
+
+      $data = [
+        'title' => 'History Transaksi Produk'
+      ];
+      return view('store/transaksiproduk', $data);
     }
 
     public function salesmember()

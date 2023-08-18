@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title ?></title>
 
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="<?= base_url('fontawesome/css/fontawesome.css'); ?>">
+    <link rel="stylesheet" href="<?= base_url('fontawesome/css/brands.css'); ?>">
+    <link rel="stylesheet" href="<?= base_url('fontawesome/css/solid.css'); ?>">
+    <link rel="stylesheet" href="<?= base_url('fontawesome/css/regular.css'); ?>">
     <!-- Laragon -->
     <link rel="stylesheet" href="<?= base_url('bootstrap/dist/css/bootstrap.min.css'); ?>">
 

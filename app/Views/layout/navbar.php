@@ -24,6 +24,7 @@
             <li><a class="dropdown-item" href="/store/transaksimypoint">Data Transaksi MyPoin</a></li>
             <li><a class="dropdown-item" href="/store/transaksimitra">Data Transaksi Mitra</a></li>
             <li><a class="dropdown-item" href="/store/transaksiklik">Data Transaksi Klik</a></li>
+            <li><a class="dropdown-item" href="/store/transaksiproduk">History Transaksi Produk</a></li>
             <li><a class="dropdown-item" href="/store/salesmember">Laporan Sales Member</a></li>
           </ul>
         </li>

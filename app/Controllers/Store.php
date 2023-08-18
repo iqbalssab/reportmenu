@@ -939,7 +939,268 @@ class Store extends BaseController
 
     public function marginminus()
     {
-      
+      $dbProd = db_connect('production');
+      $marginminus = $dbProd->query(
+        "SELECT * from (
+          select DIV,
+          DEP,
+          KAT,
+          PLU,
+          DESKRIPSI,
+          TAG,
+          FRAC,
+          UNIT,
+          STOK,
+          (ACOSTPCS*FRAC) as ACOST,
+          FLAGBKP1,
+          FLAGBKP2,
+          HRG_NORMAL,
+          HRG_PROMO,
+          HARGA_JUAL,
+          case when flagbkp2='Y' then round((HARGA_JUAL / (1 + PRD_PPN/100))-(ACOSTPCS*FRAC)) else round(HARGA_JUAL-(ACOSTPCS*FRAC)) end as MARGIN,
+          case when flagbkp2='Y' then round(((HARGA_JUAL / (1 + PRD_PPN/100))-(ACOSTPCS*FRAC))/(HARGA_JUAL / (1 + PRD_PPN/100) )*100,2) else round((HARGA_JUAL-(ACOSTPCS*FRAC))/(HARGA_JUAL)*100,2) end as MRG
+          from (
+          select 
+          prd_kodedivisi as DIV,
+          prd_kodedepartement as DEP,
+          prd_kodekategoribarang as KAT,
+          prd_prdcd as PLU,
+          prd_deskripsipanjang as DESKRIPSI,
+          prd_kodetag as TAG,
+          prd_frac as FRAC,
+          prd_unit as UNIT,
+          st_saldoakhir as STOK,
+          case when prd_unit = 'KG' then st_avgcost/1000 else st_avgcost end as ACOSTPCS,
+          prd_flagbkp1 as FLAGBKP1,
+          prd_flagbkp2 as FLAGBKP2,
+          prd_ppn,
+          prd_hrgjual as HRG_NORMAL,
+          prmd_hrgjual as HRG_PROMO,
+          case 
+            when prmd_hrgjual is null then prd_hrgjual
+            when prmd_hrgjual<prd_hrgjual then prmd_hrgjual
+            when prmd_hrgjual>prd_hrgjual then prd_hrgjual
+          end as HARGA_JUAL
+          from tbmaster_prodmast 
+          left join tbmaster_stock on st_prdcd=substr(prd_prdcd,0,6)||'0'
+          left join (select * from tbtr_promomd where trunc(prmd_tglakhir)>=trunc(sysdate)) on prmd_prdcd=prd_prdcd
+          where st_lokasi='01' and prd_kodetag not in ('N','X'))
+          order by div,dep,kat,deskripsi,plu)
+          where margin<0 and stok>0"
+      );
+      $marginminus = $marginminus->getResultArray();
+
+      $data= [
+        'title' => 'Margin Minus',
+        'marginminus' => $marginminus
+      ];
+      return view('store/marginminus', $data);
+    }
+
+    public function transaksiisaku()
+    {
+      $tglTrans = $this->request->getVar('tglawal');
+      $cashIn = $cashOut = $purchase = [];
+      $dbProd = db_connect('production');
+
+      // BTN Cash IN
+      if ($this->request->getVar('btn')=="cashin") {
+        $cashIn = $dbProd->query(
+          "SELECT  
+          VIR_CASHIERSTATION AS KASA,  
+          VIR_CASHIERID AS ID_KASIR,  
+          USERNAME as NAMAKASIR, 
+          VIR_TYPE as TRANS,
+          VIR_TRANSACTIONNO AS NO_TRANSAKSI,  
+          VIR_AMOUNT AMOUNT,  
+          VIR_FEE FEE,  
+          VIR_TOTAL TOTAL,
+          'file:///s:/GROSIR/STRUK/'||to_char(VIR_TRANSACTIONDATE,'yyyymmdd')||'/'||VIR_CASHIERSTATION as folder							
+          FROM TBTR_VIRTUAL  
+          LEFT JOIN TBMASTER_USER on USERID=VIR_CASHIERID 
+          WHERE TRUNC (VIR_TRANSACTIONDATE) = to_date('$tglTrans','YYYY-MM-DD')
+          AND VIR_TRANSACTIONTYPE = 'CI' 
+          order by KASA,ID_KASIR"
+        );
+
+        $cashIn = $cashIn->getResultArray();
+      }elseif($this->request->getVar('btn')=="cashout"){
+        $cashOut = $dbProd->query(
+          "SELECT  
+          VIR_CASHIERSTATION AS KASA,  
+          VIR_CASHIERID AS ID_KASIR,  
+          USERNAME as NAMAKASIR, 
+          VIR_TYPE as TRANS,
+          VIR_TRANSACTIONNO AS NO_TRANSAKSI,  
+          VIR_AMOUNT AMOUNT,  
+          VIR_FEE FEE,  
+          VIR_TOTAL TOTAL,
+          'file:///s:/GROSIR/STRUK/'||to_char(VIR_TRANSACTIONDATE,'yyyymmdd')||'/'||VIR_CASHIERSTATION as folder							
+          FROM TBTR_VIRTUAL  
+          LEFT JOIN TBMASTER_USER on USERID=VIR_CASHIERID 
+          WHERE TRUNC (VIR_TRANSACTIONDATE) = to_date('$tglTrans','YYYY-MM-DD')
+          AND VIR_TRANSACTIONTYPE = 'CO' 
+          order by KASA,ID_KASIR"
+        );
+
+        $cashOut = $cashOut->getResultArray();
+      }elseif ($this->request->getVar('btn')=="purchase") {
+        $purchase = $dbProd->query(
+          "SELECT  
+          VIR_CASHIERSTATION AS KASA,  
+          VIR_CASHIERID AS ID_KASIR,  
+          USERNAME as NAMAKASIR, 
+          VIR_TYPE as TRANS,
+          VIR_TRANSACTIONNO AS NO_TRANSAKSI,  
+          VIR_AMOUNT AMOUNT,  
+          VIR_FEE FEE,  
+          VIR_TOTAL TOTAL  
+          FROM TBTR_VIRTUAL  
+          LEFT JOIN TBMASTER_USER on USERID=VIR_CASHIERID 
+          WHERE TRUNC (VIR_TRANSACTIONDATE) = to_date('$tglTrans','YYYY-MM-DD')
+          AND VIR_TRANSACTIONTYPE = 'S' 
+          order by KASA,ID_KASIR"
+        );
+
+        $purchase = $purchase->getResultArray();
+      }
+
+      $data =[
+        'title' => 'Transaksi I-Saku',
+        'cashin' => $cashIn,
+        'purchase' => $purchase,
+        'cashout' => $cashOut
+      ];
+
+      return view('store/transaksiisaku', $data);
+    }
+
+    public function transaksimypoint()
+    {
+     $tglTrans = $this->request->getVar('tglawal');
+     $perolehan = $penukaran = [];
+     $dbProd = db_connect('production');
+
+     if ($this->request->getVar('btn')=="perolehan") {
+      $perolehan = $dbProd->query(
+        "SELECT to_char(por_create_dt,'yyyy-mm-dd hh24:mi:ss') as TRXDATE,
+        por_kodetransaksi,
+        por_kodemember,
+        por_perolehanpoint,
+        por_deskripsi
+				from tbtr_perolehanmypoin where trunc(por_create_dt) = to_date('$tglTrans','YYYY-MM-DD')
+				order by por_create_dt"
+      );
+
+      $perolehan = $perolehan->getResultArray();
+     }elseif ($this->request->getVar('btn')=="penukaran") {
+      $penukaran = $dbProd->query(
+        "SELECT to_char(pot_create_dt,'yyyy-mm-dd hh24:mi:ss') as TRXDATE,
+        pot_kodetransaksi,
+        pot_kodemember,
+        pot_penukaranpoint   
+				from tbtr_penukaranmypoin where trunc(pot_create_dt)  = to_date('$tglTrans','YYYY-MM-DD')
+				order by pot_create_dt"
+      );
+
+      $penukaran = $penukaran->getResultArray();
+     }
+
+     $data = [
+      'title' => 'Transaksi MyPoin',
+      'perolehan' => $perolehan,
+      'penukaran' => $penukaran
+     ];
+     d($data);
+
+      return view('store/transmypoint', $data);
+    }
+
+    public function transaksimitra()
+    {
+      $dbProd = db_connect('production');
+      $tglAwal = $this->request->getVar('tglawal');
+      $tglAkhir = $this->request->getVar('tglakhir');
+      $jenisMember = $this->request->getVar('jenismember');
+      $kodeMember = $this->request->getVar('kodemember');
+      $detail = $akumulasi = [];
+
+      if ($jenisMember=="MM") {
+        $filterMember = "and nvl(cus_flagmemberkhusus,'T')='Y' ";
+      }elseif ($jenisMember == "MB") {
+        $filterMember = "and nvl(cus_flagmemberkhusus,'T')!='Y' ";
+      }else{
+        $filterMember = "";
+      }
+
+      if ($kodeMember != '') {
+        $filterkdmember = " and cus_kodemember='$kodeMember' ";
+      }else{
+        $filterkdmember = "";
+      }
+
+      if ($this->request->getVar('btn')=="detail") {
+        $detail = $dbProd->query(
+          "SELECT DPP_CREATE_DT as TANGGAL,
+          substr(dpp_stationkasir,0,2) as STATION,
+          substr(dpp_stationkasir,3,3) as KASIR,
+          dpp_kodemember,
+          cus_namamember,
+          case when nvl(cus_flagmemberkhusus,'T')='Y' then 'MBR MERAH' else 'MBR BIRU' end as JENIS_MEMBER,
+          dpp_nohp,
+          dpp_jumlahdeposit 
+          FROM TBTR_DEPOSIT_MITRAIGR 
+          LEFT JOIN TBMASTER_CUSTOMER ON CUS_KODEMEMBER = DPP_KODEMEMBER
+          WHERE trunc(DPP_CREATE_DT) between to_date('$tglAwal','YYYY-MM-DD') and to_date('$tglAkhir','YYYY-MM-DD')
+          $filterMember
+          $filterkdmember
+          order by DPP_CREATE_DT,dpp_stationkasir,dpp_kodemember"
+        );
+        $detail = $detail->getResultArray();
+
+      }elseif($this->request->getVar('btn')=="akumulasi"){
+        $akumulasi = $dbProd->query(
+          "SELECT dpp_kodemember as KODEMEMBER,
+          cus_namamember as NAMAMEMBER,
+          dpp_nohp as NOHP,
+				case when nvl(cus_flagmemberkhusus,'T')='Y' then 'MBR MERAH' else 'MBR BIRU' end as JENIS_MEMBER,
+				sum(dpp_jumlahdeposit) as NILAITOPUP,
+        count(dpp_notransaksi) as JUMLAHTOPUP
+				FROM TBTR_DEPOSIT_MITRAIGR 
+				LEFT JOIN TBMASTER_CUSTOMER ON CUS_KODEMEMBER = DPP_KODEMEMBER
+				WHERE trunc(DPP_CREATE_DT) between to_date('$tglAwal','YYYY-MM-DD') and to_date('$tglAkhir','YYYY-MM-DD')
+				$filterMember
+        $filterkdmember
+				group by dpp_kodemember, cus_namamember, dpp_nohp,case when nvl(cus_flagmemberkhusus,'T')='Y' then 'MBR MERAH' else 'MBR BIRU' end
+				order by nilaitopup desc"
+        );
+
+        $akumulasi = $akumulasi->getResultArray();
+      }      
+
+      $data = [
+        'title' => 'Data Transaksi Mitra',
+        'detail' => $detail,
+        'akumulasi' => $akumulasi
+      ];
+      d($data);
+      return view('store/transaksimitra', $data);
+    }
+
+    public function transaksiklik()
+    {
+      $data = [
+        'title' => 'History Transaksi Klik'
+      ];
+      return view('store/transaksiklik', $data);
+    }
+
+    public function salesmember()
+    {
+      $data = [
+        'title' => 'Evaluasi Sales Member'
+      ];
+      return view('store/salesmember', $data);
     }
 
     // public function export()

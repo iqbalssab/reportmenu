@@ -1229,26 +1229,707 @@ class Store extends BaseController
 
     public function transaksiproduk()
     {
-      $dbProd = db_connect('production');
-      
-      $plu = $this->request->getVar('plu');
-      $tglAwal = $this->request->getVar('tglawal');
-      $tglAkhir = $this->request->getVar('tglakhir');
-      $jenisMember = $this->request->getVar('jenismember');
-      $kodeMember = $this->request->getVar('kodemember');
-
       $data = [
         'title' => 'History Transaksi Produk'
       ];
       return view('store/transaksiproduk', $data);
     }
 
+    // Part of History Transaksi Produk
+    public function transaksi()
+    {
+      $dbProd = db_connect('production');
+      
+      $isiplu = $this->request->getVar('plu');
+      $tglAwal = $this->request->getVar('tglawal');
+      $tglAkhir = $this->request->getVar('tglakhir');
+      $jenisMember = $this->request->getVar('jenismember');
+      $kodeMember = strtoupper($this->request->getVar('kodemember'));
+
+      $filtermember = $filtermember2 = "";
+      
+      if (isset($isiplu)) {
+        if (is_numeric($isiplu)) {
+            switch (strlen($isiplu)) {
+                case 1:
+                    redirect()->to('/store/transaksiproduk')->with('Error', 'Data yang anda masukkan tidak valid!');
+                case 2:
+                    $pluplusnol = '00000'. $isiplu;
+                    break;
+                case 3:
+                    $pluplusnol = '0000' . $isiplu;
+                    break;
+                case 4:
+                    $pluplusnol = '000' . $isiplu;
+                    break;
+                case 5:
+                    $pluplusnol = '00' . $isiplu;
+                    break;
+                case 6:
+                    $pluplusnol = '0' . $isiplu;
+                    break;
+                case 7 :
+                    $pluplusnol = $isiplu;
+                    break;
+                case $isiplu > 7: 
+                    redirect()->to('/store/transaksiproduk')->with('Error', 'PLU maksimal 7 Digit!!')->withInput();
+                    break;
+                default:
+                    redirect()->to('/store/transaksiproduk')->with('Error', 'Data yang anda masukkan tidak valid!!')->withInput();
+                    break;
+            }
+
+            $plu0 = substr($pluplusnol, 0, 6).'0';
+            $plu1 = substr($pluplusnol, 0, 6).'1';
+            $plu2 = substr($pluplusnol, 0, 6).'2';
+            $plu3 = substr($pluplusnol, 0, 6).'3';
+            
+          }
+        }
+
+        if($jenisMember=="mm") {
+          $filtermember="and cus_flagmemberkhusus='Y'";
+        }elseif($jenisMember=="mb"){
+          $filtermember="and nvl(cus_flagmemberkhusus,'T')='T'";
+        }elseif($jenisMember=="all") {
+          $filtermember="";
+        }
+
+        if($kodeMember!="") {
+          $filtermember2="and trjd_cus_kodemember='$kodeMember'";
+        }else{
+          $filtermember2="";
+        }
+
+      $transaksi = $dbProd->query(
+        "SELECT 
+        trjd_transactiondate, 
+        trjd_create_by,
+        trjd_cashierstation,
+        trjd_transactionno,
+        trjd_prdcd,
+        trjd_prd_deskripsipendek,
+        prd_frac,
+        trjd_quantity,
+        trjd_unitprice,
+        trjd_nominalamt,
+        trjd_baseprice,
+        trjd_transactiontype,
+        trjd_cus_kodemember,
+        cus_namamember,
+        cus_flagmemberkhusus,
+        cus_kodeoutlet,
+        cus_kodesuboutlet,
+        crm_idsegment
+        from tbtr_jualdetail 
+        left join tbmaster_prodmast on trjd_prdcd=prd_prdcd
+        left join tbmaster_customer on trjd_cus_kodemember=cus_kodemember
+        left join tbmaster_customercrm on trjd_cus_kodemember=crm_kodemember
+        where trunc(trjd_transactiondate) between to_date('$tglAwal','yyyy-mm-dd') and to_date('$tglAkhir','yyyy-mm-dd')
+        and trjd_prdcd in ('$plu0','$plu1','$plu2','$plu3') 
+        $filtermember 
+        $filtermember2
+        order by trjd_transactiondate,trjd_create_by,trjd_cashierstation,trjd_transactionno"
+      );
+
+      $transaksi = $transaksi->getResultArray();
+
+      $data = [
+        'title' => 'transaksi produk',
+        'transaksi' => $transaksi
+      ];
+      d($data);
+      return view('store/transaksi', $data);
+    }
+
     public function salesmember()
     {
+      $dbProd = db_connect('production');
+      $daftarOutlet = $dbProd->query(
+        "SELECT out_kodeoutlet, out_namaoutlet, sub_kodesuboutlet, sub_namasuboutlet 
+        from tbmaster_outlet
+        left join tbmaster_suboutlet on sub_kodeoutlet=out_kodeoutlet
+        order by out_kodeoutlet,sub_kodesuboutlet"
+      );
+      $daftarDepartement = $dbProd->query(
+        "SELECT dep_kodedivisi,div_namadivisi,div_singkatannamadivisi,dep_kodedepartement, dep_namadepartement 
+        from tbmaster_departement 
+        left join tbmaster_divisi on div_kodedivisi=dep_kodedivisi
+        order by dep_kodedivisi,dep_kodedepartement"
+      );
+
+      $daftarOutlet = $daftarOutlet->getResultArray();
+      $daftarDepartement = $daftarDepartement->getResultArray();
+     
       $data = [
-        'title' => 'Evaluasi Sales Member'
+        'title' => 'Evaluasi Sales Member',
+        'outlet' => $daftarOutlet,
+        'departement' => $daftarDepartement,
       ];
       return view('store/salesmember', $data);
+    }
+
+    public function tampilsalesmember()
+    {
+      $dbProd = db_connect('production');
+      $tglSekarang = date('d-m-Y-H:i:s');
+      $tglAwal = $this->request->getVar('tglawal');
+      $tglAkhir = $this->request->getVar('tglakhir');
+      $jenisLaporan = $this->request->getVar('jenislaporan');
+      $jenisTransaksi = $this->request->getVar('jenistransaksi');
+      $jenisMember = $this->request->getVar('jenismember');
+      $outlet = $this->request->getVar('outlet');
+      $segmentasi = $this->request->getVar('segmentasi');
+      $memberTertentu = strtoupper($this->request->getVar('membertertentu'));
+      $jenisProduk = $this->request->getVar('jenisproduk');
+      $departement = $this->request->getVar('departement');
+      $supplier = strtoupper($this->request->getVar('supplier'));
+      $plu = $this->request->getVar('plu');
+
+      $tipeoutlet = $permember = $produk = $bulan = $struk = [];
+      $filtertran = $filtermember = $filterkodemember = $filteroutlet = $filterSegmen = $filterproduk = $filterdep = $filterplu = $filtersup = "";
+
+      // Set Filter Data
+      switch ($jenisTransaksi) {
+        case 'all':
+          $filtertran = "" ; 
+          break;
+        case 'reguler':
+          $filtertran = " and OBI_NOPB IS NULL ";
+          break;
+        case 'klik':
+          $filtertran = " and OBI_NOPB IS NOT NULL " ; 
+          break;
+        default: "";
+      }
+
+      // Pilihan Member
+      switch ($jenisMember) {
+        case 'all':
+          $filtermember = "";
+          break;
+        case 'nontmi':
+          $filtermember = " and nvl(cus_jenismember,'X') != 'T' ";
+          break;
+        case 'mm':
+            $filtermember = " and nvl(cus_flagmemberkhusus,'T')='Y' ";
+          break;
+        case 'mmtmi':
+          $filtermember = " and nvl(cus_flagmemberkhusus,'T')='Y' and cus_jenismember='T' ";
+          break;
+        case 'mmnontmi':
+          $filtermember = " and nvl(cus_flagmemberkhusus,'T')='Y' and nvl(cus_jenismember,'X') != 'T' ";
+          break;
+        case 'mmhoreka':
+          $filtermember = " and nvl(cus_flagmemberkhusus,'T')='Y' and cus_kodeoutlet='5' and cus_kodesuboutlet='5A' ";
+          break;
+        case 'mb':
+          $filtermember = " and nvl(cus_flagmemberkhusus,'T')!='Y' ";
+          break;
+        case 'mbend':
+          $filtermember = " and nvl(cus_flagmemberkhusus,'T')!='Y' and nvl(cus_kodeoutlet,6)='6' ";
+          break;
+        case 'mbomi':
+          $filtermember = " and nvl(cus_flagmemberkhusus,'T')!='Y' and cus_kodeoutlet='4' ";
+          break;
+        default:
+          $filtermember = " and cus_kodemember='' ";
+          break;
+      }
+
+      if ($memberTertentu == "") {
+        $filterkodemember = "";
+      }else{
+        $memberFokus = '';
+        $kodeMember = $memberTertentu;
+        $kdMemberEx = explode(",",$kodeMember);
+        foreach($kdMemberEx as $kdx){
+          $kdx = "'$kdx',";
+          $memberFokus .= $kdx;
+          $panjangstr = strlen($memberFokus)-1;
+        }
+        $memberGab = substr($memberFokus,0,$panjangstr);
+        $filterkodemember = " and cus_kodemember in ( $memberGab ) ";
+      }
+
+      // Pilih Outlet
+      $kodeOutlet = substr($outlet,0,1);
+      $kodeSubOutlet = substr($outlet,1,2);
+
+      if($outlet=="all"){
+        $filteroutlet = "" ; 
+      }elseif($kodeSubOutlet==""){
+        $filteroutlet = " and nvl(cus_kodeoutlet,6)='$kodeOutlet' ";
+      }else{
+        $filteroutlet = " and nvl(cus_kodeoutlet,6)='$kodeOutlet' and cus_kodesuboutlet ='$kodeSubOutlet' ";
+      }
+
+      // Pilih Segmentasi Member
+      if($segmentasi=="0"){
+        $filterSegmen = "";
+      }else{
+        $filterSegmen = " and crm_idsegment ='$segmentasi' ";
+      }
+
+      // Pilihan Produk
+      switch ($jenisProduk) {
+        case 'all':
+          # code...
+          break;
+        case 'itempromo':
+          $filterproduk = " and concat(rpad(trjd_prdcd,6),'0') IN   (SELECT NON_PRDCD FROM TBMASTER_PLUNONPROMO) ";
+          break;
+        case 'itemnonpromo':
+          $filterproduk = " and concat(rpad(trjd_prdcd,6),'0') NOT IN   (SELECT NON_PRDCD FROM TBMASTER_PLUNONPROMO) ";
+          break;
+        default:"";
+      }
+
+
+
+      // Pilih Departement
+      $kodeDivisi = substr($departement,0,1);
+      $kodeDepartement = substr($departement,1,2);
+
+      if ($departement=="all") {
+        $filterdep = "";
+      }elseif ($kodeDepartement=="") {
+        $filterdep = " and prd_kodedivisi='$kodeDivisi' ";
+      }else{
+        $filterdep = " and prd_kodedivisi='$kodeDivisi' and prd_kodedepartement ='$kodeDepartement' ";
+      }
+
+      // Pilih input PLU tertentu
+      if ($plu=="") {
+        $filterplu = "";
+      }else{
+        $pluFokus = "";
+        $pluEx = explode(",",$plu);
+        foreach($pluEx as $plu0){
+          $plu0 = sprintf("%07s",$plu0);
+          $plu123 = "'". substr($plu0,0,6)."0'".",'".substr($plu0,0,6)."1'".",'".substr($plu0,0,6)."2'".",'".substr($plu0,0,6)."3',";
+          $pluFokus .= $plu123;
+          $panjangstr = strlen($pluFokus)-1;
+        }
+        $pluGab = substr($pluFokus,0,$panjangstr);
+        $filterplu =" and trjd_prdcd in ($pluGab) ";
+      }
+
+      // Pilih PLU dari supplier Tertentu
+      if ($supplier=="") {
+        $filtersup = "";
+      }else{
+        $filtersup = " and concat(rpad(trjd_prdcd,6),'0') in ( select hgb_prdcd from tbmaster_hargabeli where hgb_kodesupplier='$supplier' )" ;
+      }
+
+      // Query berdasarkan jenis laporan yg dipilih
+      if ($jenisLaporan=="tipeoutlet") {
+        $tipeoutlet = $dbProd->query(
+          "SELECT cus_kodeoutlet as KDOUTLET,out_namaoutlet as NAMAOUTLET,cus_kodesuboutlet as KDSUBOUTLET,sub_namasuboutlet as NAMASUBOUTLET,
+          count(distinct TO_DATE(TRJD_TRANSACTIONDATE,'DD-MM-YYYY')) as HARISALES,
+          count (distinct concat(concat(concat(trjd_create_by,trjd_cashierstation),trjd_transactionno),trjd_transactiondate)||trjd_cus_kodemember) as SLIP,    
+          count (distinct rpad(trjd_prdcd,6)||trjd_cus_kodemember) as PRODUK,
+          count(distinct trjd_cus_kodemember) as JML_MEMBER,  
+          count(distinct TO_DATE(TRJD_TRANSACTIONDATE,'DD-MM-YYYY')||TRJD_CUS_KODEMEMBER) as KUNJUNGAN,
+          /*Qty Sales */ 
+          sum (case 
+               when trjd_transactiontype='S' and prd_unit<>'KG' then (trjd_quantity * prd_frac)*1 
+               when trjd_transactiontype='R' and prd_unit<>'KG' then (trjd_quantity * prd_frac)*(-1) 
+               when trjd_transactiontype='S' and prd_unit='KG' then (trjd_quantity / prd_frac)*1 
+               when trjd_transactiontype='R' and prd_unit='KG' then (trjd_quantity / prd_frac)*(-1) 
+               end) as QTY_SALES, 
+          /*Sales Gross*/ 
+              sum(case 
+                  when (trjd_transactiontype='S')and(cus_kodeoutlet='4') and(trjd_flagtax2='Y') then trjd_nominalamt*(1+(prs_nilaippn/100)) 
+                  when trjd_transactiontype='S' then trjd_nominalamt*1 
+                  when trjd_transactiontype='R' then trjd_nominalamt*(-1) 
+                  end) as RPH_GROSS, 
+          /*Sales Nett*/   
+              sum(case   
+                  /*non omi */   
+                  when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') then trjd_nominalamt/(1+(prs_nilaippn/100))   
+                  when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') then trjd_nominalamt/1   
+                  when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') then trjd_nominalamt/(-(1+(prs_nilaippn/100)))   
+                  when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') then trjd_nominalamt/(-1)   
+                  /*omi */   
+                  when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N' )='Y') and (nvl(cus_kodeoutlet,'6')='4')  then trjd_nominalamt*1   
+                  when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')='4')  then trjd_nominalamt*1   
+                  end) as S_NETT,   
+                
+             /*Margin*/   
+             sum(case   
+                  /*non omi */   
+                  when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit<>'KG') then (trjd_nominalamt/(1+(prs_nilaippn/100)) - (trjd_baseprice * trjd_quantity))   
+                  when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit<>'KG') then (trjd_nominalamt/1   - (trjd_baseprice * trjd_quantity))   
+                  when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit<>'KG') then (trjd_nominalamt/(1+(prs_nilaippn/100)) - (trjd_baseprice * trjd_quantity))*(-1)   
+                  when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit<>'KG') then (trjd_nominalamt/1   - (trjd_baseprice * trjd_quantity))*(-1)   
+                  /*pengecualian untuk unit KG*/   
+                  when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit ='KG') then (trjd_nominalamt/(1+(prs_nilaippn/100)) - (trjd_baseprice * trjd_quantity/1000))   
+                  when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit ='KG') then (trjd_nominalamt/1   - (trjd_baseprice * trjd_quantity/1000))  
+                  when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit ='KG') then (trjd_nominalamt/(1+(prs_nilaippn/100)) - (trjd_baseprice * trjd_quantity/1000))*(-1)    
+                  when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit ='KG') then (trjd_nominalamt/1   - (trjd_baseprice * trjd_quantity/1000))*(-1)    
+                  /*omi */   
+                  when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6') ='4')                      then trjd_nominalamt*1 - (trjd_baseprice * trjd_quantity)   
+                  when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6') ='4')                      then trjd_nominalamt*1 - (trjd_baseprice * trjd_quantity)   
+                  end) as MARGIN
+                  
+   from tbtr_jualdetail 
+   left join tbmaster_prodmast on trjd_prdcd=prd_prdcd 
+   left join tbmaster_customer on trjd_cus_kodemember=cus_kodemember
+   left join tbmaster_perusahaan on prs_kodeigr=trjd_kodeigr
+   left join tbmaster_outlet on out_kodeoutlet=cus_kodeoutlet
+   left join tbmaster_suboutlet on sub_kodesuboutlet=cus_kodesuboutlet
+   LEFT JOIN TBTR_OBI_H 
+     ON trjd_cus_kodemember         =obi_kdmember
+     AND trjd_cashierstation        =obi_kdstation     
+     AND TRUNC(trjd_transactiondate)=TRUNC(obi_tglstruk)     
+     AND trjd_transactionno         =obi_nostruk     
+     AND trjd_create_by             =obi_modifyby  
+   where trunc(trjd_transactiondate)  between to_date('$tglAwal','YYYY-MM-DD') and to_date('$tglAkhir','YYYY-MM-DD') 
+   $filtertran
+   $filtermember
+   $filteroutlet
+   $filterSegmen
+   $filterkodemember
+   $filterproduk
+   $filterdep
+   $filtersup
+   $filterplu
+   group by cus_kodeoutlet,out_namaoutlet, cus_kodesuboutlet,sub_namasuboutlet 
+   order by kdoutlet,kdsuboutlet"
+        );
+        $tipeoutlet = $tipeoutlet->getResultArray();
+    }elseif($jenisLaporan=="member"){
+      $permember = $dbProd->query(
+        "SELECT cus_kodemember as KODEMEMBER,    
+        cus_namamember as NAMAMEMBER,    
+        cus_kodeigr as KODEIGR,    
+        CUS_FLAGMEMBERKHUSUS as MM,   
+        cus_jenismember as JENIS, 
+        nvl(CUS_KODEOUTLET,6) as OUTLET,             /* member yang outletnya kosong dibikin outlet 6 */    
+        CUS_KODESUBOUTLET as SUBOUTLET,    
+        CRM_IDSEGMENT as IDSEGMEN,    
+        SEG_NAMA as SEGMENTASI,    
+        /*menambahkan kolom KUNJUNGAN,SLIP,PRODUK*/    
+        count(distinct rpad(trjd_transactiondate,9)||trjd_cus_kodemember) as KUNJUNGAN,    
+        count (distinct concat(concat(concat(trjd_create_by,trjd_cashierstation),trjd_transactionno),trjd_transactiondate)) as SLIP,    
+        count (distinct rpad(trjd_prdcd,6)||trjd_cus_kodemember) as PRODUK,
+        /*menambahkan kolom S_GROSS,S_NETT,MARGIN*/    
+        /*Sales Gross*/   
+            sum(case   
+                when (trjd_transactiontype='S')and(cus_kodeoutlet='4') and(trjd_flagtax2='Y') then trjd_nominalamt*1.11   
+                when trjd_transactiontype='S' then trjd_nominalamt*1   
+                when trjd_transactiontype='R' then trjd_nominalamt*(-1)   
+                end) as S_GROSS,   
+        /*Sales Nett*/     
+            sum(case     
+                /*non omi */     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') then trjd_nominalamt/1.11     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') then trjd_nominalamt/1     
+                when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') then trjd_nominalamt/(-1.11)     
+                when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') then trjd_nominalamt/(-1)     
+                /*omi */     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N' )='Y') and (nvl(cus_kodeoutlet,'6')='4')  then trjd_nominalamt*1     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')='4')  then trjd_nominalamt*1     
+                end) as S_NETT,     
+                
+           /*Margin*/     
+           sum(case     
+                /*non omi */     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit<>'KG') then (trjd_nominalamt/1.11 - (trjd_baseprice * trjd_quantity))     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit<>'KG') then (trjd_nominalamt/1   - (trjd_baseprice * trjd_quantity))     
+                when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit<>'KG') then (trjd_nominalamt/1.11 - (trjd_baseprice * trjd_quantity))*(-1)     
+                when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit<>'KG') then (trjd_nominalamt/1   - (trjd_baseprice * trjd_quantity))*(-1)     
+                /*pengecualian untuk unit KG*/     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit ='KG') then (trjd_nominalamt/1.11 - (trjd_baseprice * trjd_quantity/1000))     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit ='KG') then (trjd_nominalamt/1   - (trjd_baseprice * trjd_quantity/1000))     
+                when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit ='KG') then (trjd_nominalamt/1.11 - (trjd_baseprice * trjd_quantity/1000))*(-1)    
+                when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit ='KG') then (trjd_nominalamt/1   - (trjd_baseprice * trjd_quantity/1000))*(-1)    
+          /*omi */     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6') ='4')                      then trjd_nominalamt*1 - (trjd_baseprice * trjd_quantity)     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6') ='4')                      then trjd_nominalamt*1 - (trjd_baseprice * trjd_quantity)     
+                end) as MARGIN
+            
+ FROM tbtr_jualdetail    
+ LEFT JOIN tbmaster_customer on trjd_cus_kodemember=cus_kodemember    
+ LEFT JOIN tbmaster_customercrm on trjd_cus_kodemember=crm_kodemember    
+ LEFT JOIN tbmaster_segmentasi on crm_idsegment=seg_id    
+ LEFT JOIN tbmaster_prodmast on trjd_prdcd=prd_prdcd    
+ LEFT JOIN TBTR_OBI_H 
+   ON trjd_cus_kodemember         =obi_kdmember
+   AND trjd_cashierstation        =obi_kdstation     
+   AND TRUNC(trjd_transactiondate)=TRUNC(obi_tglstruk)     
+   AND trjd_transactionno         =obi_nostruk     
+   AND trjd_create_by             =obi_modifyby  
+ where trunc(trjd_transactiondate)  between to_date('$tglAwal','YYYY-MM-DD') and to_date('$tglAkhir','YYYY-MM-DD') 
+ $filtertran
+ $filtermember
+ $filteroutlet
+ $filterSegmen
+ $filterkodemember
+ $filterproduk
+ $filterdep
+ $filtersup
+ $filterplu
+ group by cus_kodemember, cus_namamember, cus_kodeigr, CUS_FLAGMEMBERKHUSUS, cus_jenismember, nvl(CUS_KODEOUTLET,6), CUS_KODESUBOUTLET, CRM_IDSEGMENT, SEG_NAMA
+ order by KODEMEMBER"
+      );
+
+      $permember = $permember->getResultArray();
+    }elseif($jenisLaporan=="produk"){
+      $produk = $dbProd->query(
+        "SELECT prd_kodedivisi as DIV, 
+        prd_kodedepartement as DEP, 
+        prd_kodekategoribarang as KATB, 
+        concat(rpad(trjd_prdcd,6),'0') as PLU, 
+      prd_deskripsipanjang as DESKRIPSI, 
+      count(distinct TO_DATE(TRJD_TRANSACTIONDATE,'DD-MM-YYYY')) as HARISALES,
+      count (distinct concat(concat(concat(trjd_create_by,trjd_cashierstation),trjd_transactionno),trjd_transactiondate)) as SLIP,    
+        count(distinct trjd_cus_kodemember) as JML_MEMBER,   
+        /*Qty Sales */ 
+        sum (case 
+             when trjd_transactiontype='S' and prd_unit<>'KG' then (trjd_quantity * prd_frac)*1 
+             when trjd_transactiontype='R' and prd_unit<>'KG' then (trjd_quantity * prd_frac)*(-1) 
+             when trjd_transactiontype='S' and prd_unit='KG' then (trjd_quantity / prd_frac)*1 
+             when trjd_transactiontype='R' and prd_unit='KG' then (trjd_quantity / prd_frac)*(-1) 
+             end) as QTY_SALES, 
+        /*Sales Gross*/ 
+            sum(case 
+                when (trjd_transactiontype='S')and(cus_kodeoutlet='4') and(trjd_flagtax2='Y') then trjd_nominalamt*(1+(prs_nilaippn/100)) 
+                when trjd_transactiontype='S' then trjd_nominalamt*1 
+                when trjd_transactiontype='R' then trjd_nominalamt*(-1) 
+                end) as RPH_GROSS, 
+        /*Sales Nett*/   
+            sum(case   
+                /*non omi */   
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') then trjd_nominalamt/(1+(prs_nilaippn/100))   
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') then trjd_nominalamt/1   
+                when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') then trjd_nominalamt/(-(1+(prs_nilaippn/100)))   
+                when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') then trjd_nominalamt/(-1)   
+                /*omi */   
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N' )='Y') and (nvl(cus_kodeoutlet,'6')='4')  then trjd_nominalamt*1   
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')='4')  then trjd_nominalamt*1   
+                end) as S_NETT,   
+              
+           /*Margin*/   
+           sum(case   
+                /*non omi */   
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit<>'KG') then (trjd_nominalamt/(1+(prs_nilaippn/100)) - (trjd_baseprice * trjd_quantity))   
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit<>'KG') then (trjd_nominalamt/1   - (trjd_baseprice * trjd_quantity))   
+                when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit<>'KG') then (trjd_nominalamt/(1+(prs_nilaippn/100)) - (trjd_baseprice * trjd_quantity))*(-1)   
+                when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit<>'KG') then (trjd_nominalamt/1   - (trjd_baseprice * trjd_quantity))*(-1)   
+                /*pengecualian untuk unit KG*/   
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit ='KG') then (trjd_nominalamt/(1+(prs_nilaippn/100)) - (trjd_baseprice * trjd_quantity/1000))   
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit ='KG') then (trjd_nominalamt/1   - (trjd_baseprice * trjd_quantity/1000))  
+                when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit ='KG') then (trjd_nominalamt/(1+(prs_nilaippn/100)) - (trjd_baseprice * trjd_quantity/1000))*(-1)    
+                when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit ='KG') then (trjd_nominalamt/1   - (trjd_baseprice * trjd_quantity/1000))*(-1)    
+                /*omi */   
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6') ='4')                      then trjd_nominalamt*1 - (trjd_baseprice * trjd_quantity)   
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6') ='4')                      then trjd_nominalamt*1 - (trjd_baseprice * trjd_quantity)   
+                end) as MARGIN
+                
+ from tbtr_jualdetail 
+ left join tbmaster_prodmast on trjd_prdcd=prd_prdcd 
+ left join tbmaster_customer on trjd_cus_kodemember=cus_kodemember
+ left join tbmaster_perusahaan on prs_kodeigr=trjd_kodeigr
+ left join tbmaster_outlet on out_kodeoutlet=cus_kodeoutlet
+ left join tbmaster_suboutlet on sub_kodesuboutlet=cus_kodesuboutlet
+ LEFT JOIN TBTR_OBI_H 
+   ON trjd_cus_kodemember         =obi_kdmember
+   AND trjd_cashierstation        =obi_kdstation     
+   AND TRUNC(trjd_transactiondate)=TRUNC(obi_tglstruk)     
+   AND trjd_transactionno         =obi_nostruk     
+   AND trjd_create_by             =obi_modifyby  
+ where trunc(trjd_transactiondate)  between to_date('$tglAwal','YYYY-MM-DD') and to_date('$tglAkhir','YYYY-MM-DD') 
+ $filtertran
+ $filtermember
+ $filteroutlet
+ $filterSegmen
+ $filterkodemember
+ $filterproduk
+ $filterdep
+ $filtersup
+ $filterplu
+ group by prd_kodedivisi, prd_kodedepartement, prd_kodekategoribarang, prd_deskripsipanjang, concat(rpad(trjd_prdcd,6),'0') 
+ order by div,dep"
+      );
+
+      $produk = $produk->getResultArray();
+    }elseif($jenisLaporan=="bulan") {
+      $bulan = $dbProd->query(
+        "SELECT cus_kodemember as KODEMEMBER,    
+        cus_namamember as NAMAMEMBER,    
+        to_char(trjd_transactiondate,'YYYY-MM') as PERIODE, 
+        /*menambahkan kolom KUNJUNGAN,SLIP,PRODUK*/    
+        count(distinct rpad(trjd_transactiondate,9)||trjd_cus_kodemember) as KUNJUNGAN,    
+        count (distinct concat(concat(concat(trjd_create_by,trjd_cashierstation),trjd_transactionno),trjd_transactiondate)) as SLIP,    
+        count (distinct rpad(trjd_prdcd,6)) as PRODUK,    
+        /*menambahkan kolom S_GROSS,S_NETT,MARGIN*/    
+        /*Sales Gross*/   
+            sum(case   
+                when (trjd_transactiontype='S')and(cus_kodeoutlet='4') and(trjd_flagtax2='Y') then trjd_nominalamt*1.11   
+                when trjd_transactiontype='S' then trjd_nominalamt*1   
+                when trjd_transactiontype='R' then trjd_nominalamt*(-1)   
+                end) as S_GROSS,   
+        /*Sales Nett*/     
+            sum(case     
+                /*non omi */     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') then trjd_nominalamt/1.11     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') then trjd_nominalamt/1     
+                when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') then trjd_nominalamt/(-1.11)     
+                when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') then trjd_nominalamt/(-1)     
+                /*omi */     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N' )='Y') and (nvl(cus_kodeoutlet,'6')='4')  then trjd_nominalamt*1     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')='4')  then trjd_nominalamt*1     
+                end) as S_NETT,     
+                
+           /*Margin*/     
+           sum(case     
+                /*non omi */     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit<>'KG') then (trjd_nominalamt/1.11 - (trjd_baseprice * trjd_quantity))     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit<>'KG') then (trjd_nominalamt/1   - (trjd_baseprice * trjd_quantity))     
+                when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit<>'KG') then (trjd_nominalamt/1.11 - (trjd_baseprice * trjd_quantity))*(-1)     
+                when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit<>'KG') then (trjd_nominalamt/1   - (trjd_baseprice * trjd_quantity))*(-1)     
+                /*pengecualian untuk unit KG*/     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit ='KG') then (trjd_nominalamt/1.11 - (trjd_baseprice * trjd_quantity/1000))     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit ='KG') then (trjd_nominalamt/1   - (trjd_baseprice * trjd_quantity/1000))     
+                when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit ='KG') then (trjd_nominalamt/1.11 - (trjd_baseprice * trjd_quantity/1000))*(-1)    
+                when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit ='KG') then (trjd_nominalamt/1   - (trjd_baseprice * trjd_quantity/1000))*(-1)    
+          /*omi */     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6') ='4')                      then trjd_nominalamt*1 - (trjd_baseprice * trjd_quantity)     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6') ='4')                      then trjd_nominalamt*1 - (trjd_baseprice * trjd_quantity)     
+                end) as MARGIN
+            
+ FROM tbtr_jualdetail    
+ LEFT JOIN tbmaster_customer on trjd_cus_kodemember=cus_kodemember    
+ LEFT JOIN tbmaster_customercrm on trjd_cus_kodemember=crm_kodemember    
+ LEFT JOIN tbmaster_segmentasi on crm_idsegment=seg_id    
+ LEFT JOIN tbmaster_prodmast on trjd_prdcd=prd_prdcd    
+ LEFT JOIN TBTR_OBI_H 
+   ON trjd_cus_kodemember         =obi_kdmember
+   AND trjd_cashierstation        =obi_kdstation     
+   AND TRUNC(trjd_transactiondate)=TRUNC(obi_tglstruk)     
+   AND trjd_transactionno         =obi_nostruk     
+   AND trjd_create_by             =obi_modifyby  
+ where trunc(trjd_transactiondate)  between to_date('$tglAwal','YYYY-MM-DD') and to_date('$tglAkhir','YYYY-MM-DD') 
+ $filtertran
+ $filtermember
+ $filteroutlet
+ $filterSegmen
+ $filterkodemember
+ $filterproduk
+ $filterdep
+ $filtersup
+ $filterplu
+ group by cus_kodemember, cus_namamember, to_char(trjd_transactiondate,'YYYY-MM')
+ order by PERIODE"
+      );
+
+      $bulan = $bulan->getResultArray();
+    }elseif($jenisLaporan=="struk"){
+      $struk = $dbProd->query(
+        "SELECT cus_kodemember as KODEMEMBER,    
+        cus_namamember as NAMAMEMBER,    
+        to_char(trjd_transactiondate,'YYYY-MM-DD') as TANGGAL, 
+        trjd_create_by||'.'||trjd_cashierstation||'.'||trjd_transactionno||'.'||trjd_transactiontype as NOSTRUK,
+        /*menambahkan kolom KUNJUNGAN,SLIP,PRODUK*/    
+        count(distinct rpad(trjd_transactiondate,9)||trjd_cus_kodemember) as KUNJUNGAN,    
+        count (distinct concat(concat(concat(trjd_create_by,trjd_cashierstation),trjd_transactionno),trjd_transactiondate)) as SLIP,    
+        count (distinct rpad(trjd_prdcd,6)) as PRODUK,    
+        /*menambahkan kolom S_GROSS,S_NETT,MARGIN*/    
+        /*Sales Gross*/   
+            sum(case   
+                when (trjd_transactiontype='S')and(cus_kodeoutlet='4') and(trjd_flagtax2='Y') then trjd_nominalamt*1.11   
+                when trjd_transactiontype='S' then trjd_nominalamt*1   
+                when trjd_transactiontype='R' then trjd_nominalamt*(-1)   
+                end) as S_GROSS,   
+        /*Sales Nett*/     
+            sum(case     
+                /*non omi */     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') then trjd_nominalamt/1.11     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') then trjd_nominalamt/1     
+                when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') then trjd_nominalamt/(-1.11)     
+                when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') then trjd_nominalamt/(-1)     
+                /*omi */     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N' )='Y') and (nvl(cus_kodeoutlet,'6')='4')  then trjd_nominalamt*1     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')='4')  then trjd_nominalamt*1     
+                end) as S_NETT,     
+                
+           /*Margin*/     
+           sum(case     
+                /*non omi */     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit<>'KG') then (trjd_nominalamt/1.11 - (trjd_baseprice * trjd_quantity))     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit<>'KG') then (trjd_nominalamt/1   - (trjd_baseprice * trjd_quantity))     
+                when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit<>'KG') then (trjd_nominalamt/1.11 - (trjd_baseprice * trjd_quantity))*(-1)     
+                when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit<>'KG') then (trjd_nominalamt/1   - (trjd_baseprice * trjd_quantity))*(-1)     
+                /*pengecualian untuk unit KG*/     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit ='KG') then (trjd_nominalamt/1.11 - (trjd_baseprice * trjd_quantity/1000))     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit ='KG') then (trjd_nominalamt/1   - (trjd_baseprice * trjd_quantity/1000))     
+                when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit ='KG') then (trjd_nominalamt/1.11 - (trjd_baseprice * trjd_quantity/1000))*(-1)    
+                when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit ='KG') then (trjd_nominalamt/1   - (trjd_baseprice * trjd_quantity/1000))*(-1)    
+          /*omi */     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N') ='Y') and (nvl(cus_kodeoutlet,'6') ='4')                      then trjd_nominalamt*1 - (trjd_baseprice * trjd_quantity)     
+                when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N')<>'Y') and (nvl(cus_kodeoutlet,'6') ='4')                      then trjd_nominalamt*1 - (trjd_baseprice * trjd_quantity)     
+                end) as MARGIN
+            
+ FROM tbtr_jualdetail    
+ LEFT JOIN tbmaster_customer on trjd_cus_kodemember=cus_kodemember    
+ LEFT JOIN tbmaster_customercrm on trjd_cus_kodemember=crm_kodemember    
+ LEFT JOIN tbmaster_segmentasi on crm_idsegment=seg_id    
+ LEFT JOIN tbmaster_prodmast on trjd_prdcd=prd_prdcd    
+ LEFT JOIN TBTR_OBI_H 
+   ON trjd_cus_kodemember         =obi_kdmember
+   AND trjd_cashierstation        =obi_kdstation     
+   AND TRUNC(trjd_transactiondate)=TRUNC(obi_tglstruk)     
+   AND trjd_transactionno         =obi_nostruk     
+   AND trjd_create_by             =obi_modifyby  
+ where trunc(trjd_transactiondate)  between to_date('$tglAwal','YYYY-MM-DD') and to_date('$tglAkhir','YYYY-MM-DD') 
+ $filtertran
+ $filtermember
+ $filteroutlet
+ $filterSegmen
+ $filterkodemember
+ $filterproduk
+ $filterdep
+ $filtersup
+ $filterplu
+ group by cus_kodemember, cus_namamember, to_char(trjd_transactiondate,'YYYY-MM-DD'), trjd_create_by||'.'||trjd_cashierstation||'.'||trjd_transactionno||'.'||trjd_transactiontype
+ order by TANGGAL"
+      );
+
+      $struk = $struk->getResultArray();
+    }
+
+      $data = [
+        'title' => 'Data '. $tglSekarang,
+        'jenistransaksi' => $jenisTransaksi,
+        'jenislaporan' => $jenisLaporan,
+        'jenismember' => $jenisMember,
+        'membertertentu' => $memberTertentu,
+        'tglawal' => $tglAwal,
+        'tglakhir' => $tglAkhir,
+        'jenisproduk' => $jenisProduk,
+        'segmentasi' => $segmentasi,
+        'tipeoutlet' => $tipeoutlet,
+        'member' => $permember,
+        'produk' => $produk,
+        'bulan' => $bulan,
+        'struk' => $struk
+      ];
+      d($data);
+      if($this->request->getVar('btn')=="tampil"){
+        return view('store/tampilsalesmember', $data);
+      }elseif($this->request->getVar('btn')=="xls"){
+        return view('store/tampilexcelsalesmember', $data);
+      }
+    }
+
+    public function salesperdep()
+    {
+      $data=[
+        'title' => 'Monitoring Sales perDepartement'
+      ];
+      return view('store/salesperdep',$data);
     }
 
     // public function export()

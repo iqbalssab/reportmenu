@@ -1,6 +1,7 @@
 <?php $this->extend('layout/template'); ?>
 <?php $this->section('content'); ?>
 
+<?php $now = date('Y-m-d'); ?>
 <div class="container mt-3">
     <div class="card">
         <div class="card-header bg-primary">
@@ -22,9 +23,9 @@
                     <p class="fw-medium">- PLU tertentu *</p>
                 </div>
                 <div class="col-md-10 justify-content-md-start">
-                <form action="/store/salesmember/tampildatasales" method="post">
-                    <input type="date" name="tglawal" id="tglawal"> s/d <input type="date" name="tglakhir" id="tglakhir">
-                    <select class="form-select form-select-sm mt-2 border border-1 border-black" name="jenislaporan" aria-label="Small select example">
+                <form action="/store/salesmember/tampilsalesmember" method="post" target="_blank">
+                    <input type="date" name="tglawal" id="tglawal" value="<?= old('tglawal')? old('tglawal') : $now ; ?>"> s/d <input type="date" name="tglakhir" id="tglakhir" value="<?= old('tglakhir')? old('tglakhir') : $now ; ?>">
+                    <select class="form-select form-select-sm mt-2 border border-1 border-black w-50" name="jenislaporan" aria-label="Small select example">
                         <option value="tipeoutlet" selected>Sales Per Tipe Outlet</option>
                         <option value="member">Sales Per Member</option>
                         <option value="produk">Sales Per Produk</option>
@@ -32,32 +33,68 @@
                         <option value="struk">Sales Per Struk Member Tertentu</option>
                     </select>
                     <select class="form-select w-50 form-select-sm mt-2 border border-1 border-black" name="jenistransaksi" aria-label="Small select example">
-                        <option value="">A</option>
-                        <option value="">B</option>
-                        <option value="">C</option>
+                        <option value="all">Semua</option>
+                        <option value="reguler">Reguler</option>
+                        <option value="klik">Klik</option>
                     </select>
                     <br><br>
-                    <select class="form-select w-50 form-select-sm border border-1 border-black" name="jenismember" aria-label="Small select example">
-                        <option value=""></option>
+                    <select class="form-select w-25 form-select-sm border border-1 border-black d-inline" name="jenismember" aria-label="Small select example">
+                        <option value="all">All Member</option>
+                        <option value="nontmi">All Member Non TMI</option>
                         <option value="mm">Member Merah</option>
+                        <option value="mmtmi">- Member Merah TMI</option>
+                        <option value="mmnontmi">- Member Merah non TMI</option>
+                        <option value="mmhoreka">- Member Merah Horeka</option>
                         <option value="mb">Member Biru</option>
+                        <option value="mbend">- Member Biru End User</option>
+                        <option value="mbomi">- Member OMI</option>
                     </select>
-                    <input type="text" name="membertertentu" id="membertertentu" class="w-50 mt-2 border border-1 border-black rounded" placeholder="CONTOH = A4632,B3871,C91347">
+
+                    <select class="form-select form-select-sm border-1 border-black w-25 d-inline" name="outlet" id="outlet" aria-label="Small select example">
+                        <?php $kodeoutlet = 0; ?>
+                        <?php foreach($outlet as $o): ?>
+                            <?php if($o['OUT_KODEOUTLET'] == $kodeoutlet): ?>
+                                <option value="all"></option>
+                                <option value="<?= $o['OUT_KODEOUTLET']; ?>"><?= $o['OUT_NAMAOUTLET']; ?></option>
+                                <?php $kodeoutlet ++; ?>
+                            <?php endif; ?>
+                            <option value="<?= $o['OUT_KODEOUTLET'].$o['SUB_KODESUBOUTLET']; ?>"><?= $o['OUT_KODEOUTLET']. '-'. $o['SUB_KODESUBOUTLET'] . ' : '. $o['SUB_NAMASUBOUTLET']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+
+                    <select class="form-select form-select-sm border-1 border-black w-25 d-inline" name="segmentasi" id="segmentasi" aria-label="Small select example">
+                            <option value="0"></option>
+                            <option value="1">1 Reguler</option>
+                            <option value="2">2 Silver</option>
+                            <option value="3">3 Gold 1</option>
+                            <option value="4">4 Gold 2</option>
+                            <option value="5">5 Gold 3</option>
+                            <option value="6">6 Platinum</option>
+                            <option value="7">7 Biru</option>
+                            <option value="8">8 Biru Plus</option>
+                    </select>
+
+                    <input type="text" name="membertertentu" id="membertertentu" class="w-50 mt-3 border border-1 border-black rounded" placeholder="CONTOH = A4632,B3871,C91347">
                     <br><br>
                     <select class="form-select w-50 mt-4 form-select-sm border border-1 border-black" name="jenisproduk" aria-label="Small select example">
                         <option value="all">Semua Produk</option>
-                        <option value="1">1</option>
-                        <option value="2">2 Produk</option>
+                        <option value="itempromo">Hanya Item Larangan</option>
+                        <option value="itemnonpromo">Diluar Item Larangan</option>
                     </select>
-                    <select class="form-select w-50 mt-3 form-select-sm border border-1 border-black" name="departement" aria-label="Small select example">
-                        <option value="all"></option>
-                        <option value="food">FOOD</option>
-                        <option value="nonfood">NON-FOOD</option>
-                        <option value="gms">General Merchandising</option>
+                    <select class="form-select w-50 mt-3 form-select-sm border border-1 border-black" name="departement" id="departement" aria-label="Small select example">
+                        <?php $divisi = 1; ?>
+                        <?php foreach($departement as $dp): ?>
+                            <?php if($dp['DEP_KODEDIVISI']==$divisi): ?>
+                                <option value="all"></option>
+                                <option value="<?= $dp['DEP_KODEDIVISI']; ?>"><?= $dp['DIV_NAMADIVISI']; ?></option>
+                                <?php $divisi++; ?>
+                            <?php endif; ?>
+                            <option value="<?= $dp['DEP_KODEDIVISI'].$dp['DEP_KODEDEPARTEMENT']; ?>"><?= $dp['DEP_KODEDIVISI']." - ".$dp['DEP_KODEDEPARTEMENT']." : ". $dp['DEP_NAMADEPARTEMENT']; ?></option>
+                        <?php endforeach; ?>
                     </select>
                     <input type="text" name="supplier" id="supplier" class="w-25 mt-2 border border-1 border-black rounded">
                     <br>
-                    <input type="text" name="plu" id="plu" class="w-25 mt-3 border border-1 border-black rounded" placeholder="CONTOH = 0000850, 0000240, 0060140, DLL">
+                    <input type="text" name="plu" id="plu" class="w-25 mt-2 border border-1 border-black rounded" placeholder="CONTOH = 0000850, 0000240, 0060140, DLL">
                     <br><br>
                     <button type="submit" name="btn" value="tampil" class="btn btn-primary">Tampil</button>
                     <button type="submit" name="btn" value="xls" class="btn btn-success">Export XLS</button>

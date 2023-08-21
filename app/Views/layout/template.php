@@ -18,11 +18,16 @@
     <link rel="stylesheet" href="/css/style.css">
     <!-- Kalo gapake Laragon/XAMPP -->
     <!-- <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css"> -->
+
+        <!-- Favicons -->
+    <link href="assets/img/igr2.png" rel="icon">
+
 </head>
 
 <body>
-    
+
     <?= $this->include('layout/navbar')?>
+
 
     <?= $this->renderSection('content'); ?>
 

@@ -2,15 +2,21 @@
 <?php $this->section('content'); ?>
 
 <?php $now = date('Y-m-d'); ?>
-<div class="container  mt-3">
+<?php if (session()->getFlashdata('Error')) : ?>
+        <div class="alert alert-danger" role="alert">
+            <?= session()->getFlashdata('Error'); ?>
+        </div>
+<?php endif; ?>
+<div class="container mt-3">
     <div class="row d-flex justify-content-center">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="card">
                 <div class="card-header bg-primary">
-                    <h6>HISTORY TRANSAKSI PRODUK</h6>
+                    <h6 class="text-center text-light fw-semibold">HISTORY TRANSAKSI PRODUK</h6>
                 </div>
-                <div class="card-body">
-                    <form action="/store/transaksiproduk/transaksi" method="get">
+                <div class="card-body px-4">
+                    <form action="/store/transaksiproduk/transaksi" method="get" target="_blank">
+                        <?php csrf_field(); ?>
                         <label for="plu">PLU :</label>
                         <input type="text" name="plu" id="plu" class="w-100 mt-1">
                         <p class="fw-bold mt-2">Periode Transaksi :</p>

@@ -36,7 +36,10 @@ $routes->get('/store/previewkasir', 'Store::previewkasir');
 $routes->get('/store/cekpromo', 'Store::cekpromo');
 $routes->get('/store/monitoringpromo/(:segment)', 'Store::tampildatapromo/$1');
 
-// $routes->get('/store/monitoringpromo/export', 'Store::export');
+$routes->get('/store/transaksiproduk/transaksi', 'Store::transaksi');   
+
+$routes->get('/store/salesmember/tampilsalesmember', 'Store::tampilsalesmember');
+$routes->post('/store/salesmember/tampilsalesmember', 'Store::tampilsalesmember');
 
 /*
  * --------------------------------------------------------------------

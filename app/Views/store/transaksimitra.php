@@ -62,7 +62,7 @@
                                     <td><?= $dtl['CUS_NAMAMEMBER']; ?></td>
                                     <td><?= $dtl['JENIS_MEMBER']; ?></td>
                                     <td><?= $dtl['DPP_NOHP']; ?></td>
-                                    <td><?= $dtl['DPP_JUMLAHDEPOSIT']; ?></td>
+                                    <td><?= number_format($dtl['DPP_JUMLAHDEPOSIT']); ?></td>
                                 </tr>
                                 <?php $totalNilai += $dtl['DPP_JUMLAHDEPOSIT']; ?>
                             <?php endforeach; ?>

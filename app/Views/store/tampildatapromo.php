@@ -163,17 +163,19 @@
                 <h5 class="d-inline">Kode Promo :</h5><span class=" d-inline fw-bold fs-6 fst-italic"><?= $kodepromo; ?></span><br>
                 <h5 class="d-inline">Tanggal Akhir Promo :</h5><span class=" d-inline fw-bold fs-6 fst-italic"><?= $tglakhir; ?></span>
         </div>
-        <table class="table table-bordered">
+        <table class="table table-responsive table-bordered">
             <thead>
-                <tr>No.</tr>
-                <tr>KdPromo</tr>
-                <tr>NamaPromo</tr>
-                <tr>KdMember</tr>
-                <tr>NamaMember</tr>
-                <tr>TglTransaksi</tr>
-                <tr>NoStruk</tr>
-                <tr>Qty_CB</tr>
-                <tr>Nilai_CB</tr>
+                <tr>
+                    <th class="bg-primary text-light">No.</th>
+                    <th class="bg-primary text-light">KdPromo</th>
+                    <th class="bg-primary text-light">NamaPromo</th>
+                    <th class="bg-primary text-light">KdMember</th>
+                    <th class="bg-primary text-light">NamaMember</th>
+                    <th class="bg-primary text-light">TglTransaksi</th>
+                    <th class="bg-primary text-light">NoStruk</th>
+                    <th class="bg-primary text-light">Qty_CB</th>
+                    <th class="bg-primary text-light">Nilai_CB</th>
+                </tr>
             </thead>
             <tbody>
                 <?= $i = 1; ?>

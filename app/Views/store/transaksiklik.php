@@ -54,7 +54,7 @@
                                     <td><?= $metodebayar; ?></td>
                                     <td><?= $k['TIPE']; ?> | <?= $k['NO_PB']; ?></td>
                                     <?php if($k['TIPE']=="WebMM" || $k['TIPE']=="TMI"): ?>
-                                    <td><button class="btn btn-danger btn-sm" disabled="disabled"></button></td>
+                                    <td><button class="btn btn-danger btn-sm" disabled="disabled"><i class="fa-solid fa-x"></i></button></td>
                                     <?php else: ?>
                                     <td><a href="/struk" class="btn btn-primary btn-sm" target="_blank"><i class="fa-regular fa-folder"></i></a></td>
                                     <?php endif; ?>

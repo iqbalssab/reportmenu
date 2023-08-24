@@ -3,7 +3,7 @@
 
 <?php $now = date('Y-m-d'); ?>
 <?php if (session()->getFlashdata('Error')) : ?>
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-danger text-center fw-bold" role="alert">
             <?= session()->getFlashdata('Error'); ?>
         </div>
 <?php endif; ?>
@@ -38,7 +38,7 @@
                         <label class="form-check-label" for="flexRadioDefault1">
                             MEMBER BIRU
                         </label>
-                        <label for="kodemember">Kode Member :</label>
+                        <label class="d-block" for="kodemember">Kode Member :</label>
                         <input type="text" name="kodemember" id="kodemember">
                         <button type="submit" class="btn btn-primary mt-3 w-100">Tampil</button>
                     </form>

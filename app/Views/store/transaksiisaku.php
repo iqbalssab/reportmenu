@@ -43,12 +43,14 @@
                         <tbody>
                             <?php if(!empty($cashin)): ?>
                                 <?php 
+                                $i=1;
                                 $totalamount = 0;
                                 $totalfee = 0;
                                 $grandtotal = 0; 
                                 ?>
                                 <?php foreach($cashin as $ci): ?>
                             <tr>
+                                <td><?= $i++; ?></td>
                                 <td><?= $ci['KASA']; ?></td>
                                 <td><?= $ci['ID_KASIR']; ?></td>
                                 <td><?= $ci['NAMAKASIR']; ?></td>
@@ -70,18 +72,21 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><?= number_format($totalamount); ?></td>
-                                <td><?= number_format($totalfee) ; ?></td>
-                                <td><?= number_format($grandtotal) ; ?></td>
+                                <td></td>
+                                <td class="fw-bold"><?= number_format($totalamount); ?></td>
+                                <td class="fw-bold"><?= number_format($totalfee) ; ?></td>
+                                <td class="fw-bold"><?= number_format($grandtotal) ; ?></td>
                             </tr>
                             <?php elseif(!empty($cashout)): ?>
                                 <?php 
+                                $i = 1;
                                 $totalamount = 0;
                                 $totalfee = 0;
                                 $grandtotal = 0; 
                                 ?>
                                 <?php foreach($cashout as $co): ?>
                             <tr>
+                                <td><?= $i++; ?></td>
                                 <td><?= $co['KASA']; ?></td>
                                 <td><?= $co['ID_KASIR']; ?></td>
                                 <td><?= $co['NAMAKASIR']; ?></td>
@@ -103,9 +108,10 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><?= number_format($totalamount) ; ?></td>
-                                <td><?= number_format($totalfee) ; ?></td>
-                                <td><?= number_format($grandtotal); ?></td>
+                                <td></td>
+                                <td class="fw-bold"><?= number_format($totalamount) ; ?></td>
+                                <td class="fw-bold"><?= number_format($totalfee) ; ?></td>
+                                <td class="fw-bold"><?= number_format($grandtotal); ?></td>
                             </tr>
                             <?php elseif(!empty($purchase)): ?>
                                 <?php 
@@ -139,9 +145,9 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><?= number_format($totalamount) ; ?></td>
-                                <td><?= number_format($totalfee) ; ?></td>
-                                <td><?= number_format($grandtotal); ?></td>
+                                <td class="fw-bold"><?= number_format($totalamount) ; ?></td>
+                                <td class="fw-bold"><?= number_format($totalfee) ; ?></td>
+                                <td class="fw-bold"><?= number_format($grandtotal); ?></td>
                             </tr>
                             <?php endif; ?>
                         </tbody>

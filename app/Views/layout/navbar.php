@@ -27,6 +27,8 @@
             <li><a class="dropdown-item" href="/store/transaksiproduk">History Transaksi Produk</a></li>
             <li><a class="dropdown-item">_____________________</a></li>
             <li><a class="dropdown-item" href="/store/salesmember">Laporan Sales Member</a></li>
+            <li><a class="dropdown-item" href="/store/salesperdep">Monitoring Sales PerHari</a></li>
+            <li><a class="dropdown-item" href="/store/kompetisikasir">Kompetisi Kasir</a></li>
           </ul>
         </li>
     </div>

@@ -596,10 +596,10 @@ class Store extends BaseController
 
         // cek input kodepromosi
         if($kdPromosi == "") {
-          $filterkodepromo = "";
+          $filterkodepromo = "kd_promosi='00000' ";
           $judul_filterkodepromo = " belum diinput! ";
         }else{
-          $filterkodepromo = "and kd_promosi='$kdPromosi' ";
+          $filterkodepromo = " kd_promosi='$kdPromosi' ";
           $judul_filterkodepromo = " $kdPromosi ";
         }
       
@@ -1080,8 +1080,10 @@ class Store extends BaseController
      $tglTrans = $this->request->getVar('tglawal');
      $perolehan = $penukaran = [];
      $dbProd = db_connect('production');
+     $judul = "TRANSAKSI MYPOIN";
 
      if ($this->request->getVar('btn')=="perolehan") {
+      $judul = "PEROLEHAN MYPOIN";
       $perolehan = $dbProd->query(
         "SELECT to_char(por_create_dt,'yyyy-mm-dd hh24:mi:ss') as TRXDATE,
         por_kodetransaksi,
@@ -1094,6 +1096,7 @@ class Store extends BaseController
 
       $perolehan = $perolehan->getResultArray();
      }elseif ($this->request->getVar('btn')=="penukaran") {
+      $judul = "PENUKARAN MYPOIN";
       $penukaran = $dbProd->query(
         "SELECT to_char(pot_create_dt,'yyyy-mm-dd hh24:mi:ss') as TRXDATE,
         pot_kodetransaksi,
@@ -1109,7 +1112,8 @@ class Store extends BaseController
      $data = [
       'title' => 'Transaksi MyPoin',
       'perolehan' => $perolehan,
-      'penukaran' => $penukaran
+      'penukaran' => $penukaran,
+      'judul' => $judul
      ];
 
       return view('store/transmypoint', $data);
@@ -1248,7 +1252,7 @@ class Store extends BaseController
 
       $filtermember = $filtermember2 = "";
       
-      if (isset($isiplu)) {
+      if (!empty($isiplu)) {
         if (is_numeric($isiplu)) {
             switch (strlen($isiplu)) {
                 case 1:
@@ -1285,6 +1289,9 @@ class Store extends BaseController
             $plu3 = substr($pluplusnol, 0, 6).'3';
             
           }
+          
+        }else{
+          return redirect()->to('/store/transaksiproduk')->with('Error', 'Masukkan PLU!!')->withInput();
         }
 
         if($jenisMember=="mm") {
@@ -1338,7 +1345,6 @@ class Store extends BaseController
         'title' => 'transaksi produk',
         'transaksi' => $transaksi
       ];
-      d($data);
       return view('store/transaksi', $data);
     }
 
@@ -1916,7 +1922,7 @@ class Store extends BaseController
         'bulan' => $bulan,
         'struk' => $struk
       ];
-      d($data);
+      
       if($this->request->getVar('btn')=="tampil"){
         return view('store/tampilsalesmember', $data);
       }elseif($this->request->getVar('btn')=="xls"){
@@ -1926,12 +1932,520 @@ class Store extends BaseController
 
     public function salesperdep()
     {
+      $dbProd = db_connect('production');
+      $daftarDepartement = $dbProd->query(
+        "SELECT dep_kodedivisi,div_namadivisi,div_singkatannamadivisi,dep_kodedepartement, dep_namadepartement 
+        from tbmaster_departement 
+        left join tbmaster_divisi on div_kodedivisi=dep_kodedivisi
+        order by dep_kodedivisi,dep_kodedepartement"
+      );
+
+      $daftarDepartement = $daftarDepartement->getResultArray();
       $data=[
-        'title' => 'Monitoring Sales perDepartement'
+        'title' => 'Monitoring Sales perDepartement',
+        'departement' => $daftarDepartement,
       ];
       return view('store/salesperdep',$data);
     }
 
+    public function tampilsalesperdep()
+    { 
+      $now = date('d-m-Y H:i:s');
+      $dbProd = db_connect('production');
+      $tglAwal = $this->request->getVar('tglawal');
+      $tglAkhir = $this->request->getVar('tglakhir');
+      $departement = $this->request->getVar('departement');
+      $jenisLap = $this->request->getVar('jenislap');
+      $jmlHari = date('d');
+      $dsi = 0;
+      $kd_sup = strtoupper("");
+      $jenisSales = "detail";
+
+      switch ($jenisLap) {
+        case '01':
+          $jenisLap = "(sls_qtynomi + sls_qtyomi)";$jenisSales="Sales QTY IGR + OMI";
+          break;
+        case '02':
+          $jenisLap = "(sls_qtynomi)";$jenisSales="Sales QTY IGR Only";
+          break;
+        case '03':
+          $jenisLap = "(sls_qtyomi)";$jenisSales="Sales QTY IGR to OMI";
+          break;
+        case "04": $jenisLap = "(sls_netnomi + sls_netomi)";$jenisSales="Sales Nett IGR + OMI";break;
+        case "05": $jenisLap = "(sls_netnomi)";$jenisSales="Sales Nett IGR Only";break;
+        case "06": $jenisLap = "(sls_netomi)";$jenisSales="Sales Nett IGR to OMI";break;
+        case "07": $jenisLap = "(sls_marginnomi + sls_marginomi)";$jenisSales="Margin IGR + OMI";break;
+        case "08": $jenisLap = "(sls_marginnomi)";$jenisSales="Margin IGR Only";break;
+        case "09": $jenisLap = "(sls_marginomi)";$jenisSales="Margin IGR to OMI";break;
+        default : $jenisLap="(sls_qtynomi + sls_qtyomi)"; 
+      }
+
+      // set filter data
+
+      if ($kd_sup=="") {
+        $filterdata1 = "and prd_kodedepartement='$departement' ";
+      }elseif ($kd_sup=="ALL") {
+        $filterdata1 = "";
+      }else{
+        $filterdata1 = "and hgb_kodesupplier='$kd_sup' ";
+      }
+
+      //set bulan untuk avgsales
+      $bln = date("m");
+      $bln_1 = date("m",strtotime("-3 month"));
+      $bln_2 = date("m",strtotime("-2 month"));
+      $bln_3 = date("m",strtotime("-1 month"));
+      $bln1= sprintf("%02s",$bln_1);
+      $bln2= sprintf("%02s",$bln_2);
+      $bln3= sprintf("%02s",$bln_3);
+      
+      $dataQuery = $dbProd->query(
+        "SELECT 
+        prd_kodedivisi as DIV,
+        prd_kodedepartement as DEP,
+        prd_kodekategoribarang as KAT,
+        prd_prdcd as PLU,
+        prd_deskripsipanjang as DESKRIPSI,
+        prd_unit as UNIT,
+        prd_frac as FRAC,
+        prd_kodetag as TAG,
+        sum(case when to_char(sls_periode,'DD')='01' then $jenisLap end )as T01,
+        sum(case when to_char(sls_periode,'DD')='02' then $jenisLap end )as T02,
+        sum(case when to_char(sls_periode,'DD')='03' then $jenisLap end )as T03,
+        sum(case when to_char(sls_periode,'DD')='04' then $jenisLap end )as T04,
+        sum(case when to_char(sls_periode,'DD')='05' then $jenisLap end )as T05,
+        sum(case when to_char(sls_periode,'DD')='06' then $jenisLap end )as T06,
+        sum(case when to_char(sls_periode,'DD')='07' then $jenisLap end )as T07,
+        sum(case when to_char(sls_periode,'DD')='08' then $jenisLap end )as T08,
+        sum(case when to_char(sls_periode,'DD')='09' then $jenisLap end )as T09,
+        sum(case when to_char(sls_periode,'DD')='10' then $jenisLap end )as T10,
+        sum(case when to_char(sls_periode,'DD')='11' then $jenisLap end )as T11,
+        sum(case when to_char(sls_periode,'DD')='12' then $jenisLap end )as T12,
+        sum(case when to_char(sls_periode,'DD')='13' then $jenisLap end )as T13,
+        sum(case when to_char(sls_periode,'DD')='14' then $jenisLap end )as T14,
+        sum(case when to_char(sls_periode,'DD')='15' then $jenisLap end )as T15,
+        sum(case when to_char(sls_periode,'DD')='16' then $jenisLap end )as T16,
+        sum(case when to_char(sls_periode,'DD')='17' then $jenisLap end )as T17,
+        sum(case when to_char(sls_periode,'DD')='18' then $jenisLap end )as T18,
+        sum(case when to_char(sls_periode,'DD')='19' then $jenisLap end )as T19,
+        sum(case when to_char(sls_periode,'DD')='20' then $jenisLap end )as T20,
+        sum(case when to_char(sls_periode,'DD')='21' then $jenisLap end )as T21,
+        sum(case when to_char(sls_periode,'DD')='22' then $jenisLap end )as T22,
+        sum(case when to_char(sls_periode,'DD')='23' then $jenisLap end )as T23,
+        sum(case when to_char(sls_periode,'DD')='24' then $jenisLap end )as T24,
+        sum(case when to_char(sls_periode,'DD')='25' then $jenisLap end )as T25,
+        sum(case when to_char(sls_periode,'DD')='26' then $jenisLap end )as T26,
+        sum(case when to_char(sls_periode,'DD')='27' then $jenisLap end )as T27,
+        sum(case when to_char(sls_periode,'DD')='28' then $jenisLap end )as T28,
+        sum(case when to_char(sls_periode,'DD')='29' then $jenisLap end )as T29,
+        sum(case when to_char(sls_periode,'DD')='30' then $jenisLap end )as T30,
+        sum(case when to_char(sls_periode,'DD')='31' then $jenisLap end )as T31,
+        sum($jenisLap) as Total
+        
+        from tbtr_sumsales
+        left join tbmaster_prodmast on prd_prdcd=sls_prdcd
+        left join tbmaster_stock on st_prdcd=prd_prdcd
+        left join tbmaster_hargabeli on hgb_prdcd=prd_prdcd
+        where st_lokasi='01'
+        and trunc(sls_periode) between to_date('$tglAwal','YYYY-MM-DD') and to_date('$tglAkhir','YYYY-MM-DD')
+        $filterdata1
+        group by prd_kodedivisi, prd_kodedepartement, prd_kodekategoribarang, prd_prdcd, prd_deskripsipanjang, prd_unit, prd_frac, prd_kodetag
+        order by prd_deskripsipanjang"
+      );
+
+      $dataQuery = $dataQuery->getResultArray();
+      
+      $data=[
+        'title' => 'Data '.$now,
+        'tglawal' => $tglAwal,
+        'tglakhir' => $tglAkhir,
+        'departement' => $departement,
+        'jenissales' => $jenisSales,
+        'datas' => $dataQuery
+      ];
+      
+      return view('store/tampilsalesperdep', $data);
+    }
+
+    public function kompetisikasir()
+    {
+      $data=[
+        'title' => 'Monitoring Kompetisi Kasir'
+      ];
+      return view('store/kompetisikasir', $data);
+    }
+
+    public function tampilkompkasir()
+    {
+      $dbProd = db_connect('production');
+      $plu = $this->request->getVar('plu');
+      $tglawal = $this->request->getVar('tglawal');
+      $tglakhir = $this->request->getVar('tglakhir');
+      $jenismember = $this->request->getVar('jenismember');
+      $minstruk = $this->request->getVar('minstruk');
+      $button = $this->request->getVar('btn');
+      $pluFokus = "";
+
+      $itemfokus = $kompetisi = $rekapkasir = $rinciankasir = $memberbelanja = $rekapplu = $rekapplutotal = [];
+      if($plu==""){
+        echo "Masukkan PLU terlebih dahulu";
+      }else{
+        $pluex = explode(",",$plu);
+        foreach ($pluex as $plu0) {
+          $plu0 = sprintf("%07s",$plu0);
+          $plu123 = "'".substr($plu0,0,6)."0'".",'".substr($plu0,0,6)."1'".",'".substr($plu0,0,6)."2'".",'".substr($plu0,0,6)."3',";
+          $pluFokus .= $plu123;
+          $panjangstr = strlen($pluFokus)-1;
+        }
+        $plugab = substr($pluFokus,0,$panjangstr);
+      }
+
+      // pilih jenis member
+      if($jenismember=="MM"){
+        $filtermember= " and nvl(cus_flagmemberkhusus,'N')='Y' ";
+        $judullap2 = "MEMBER MERAH";
+      }else if($jenismember=="MB"){
+        $filtermember= " and nvl(cus_flagmemberkhusus,'N')!='Y' ";
+        $judullap2 = "MEMBER BIRU";
+      }else if($jenismember="ALL"){
+        $filtermember= "";
+        $judullap2 = "ALL MEMBER";
+      }
+
+      if ($button=="viewrinci") {
+        $judullap1 = "KOMPETISI KASIR";
+        $itemfokus = $dbProd->query(
+          "SELECT * from tbmaster_prodmast 
+          where prd_prdcd in ($plugab) and prd_prdcd like '%0'"
+        );
+        $itemfokus = $itemfokus->getResultArray();
+
+        $kompetisi = $dbProd->query(
+          "SELECT IDKASIR,NAMAKASIR,STRUKALL,STRUKFOKUS,JMLMEMBER,JMLITEM,QTYSALES,RPHSALES 
+          from (
+          -- hitung struk all
+          select distinct jh_cashierid as IDKASIR,username as NAMAKASIR,count(jh_transactionno) as STRUKALL
+          from tbtr_jualheader 
+          left join tbmaster_user on userid=jh_cashierid
+          left join tbmaster_customer on jh_cus_kodemember=cus_kodemember
+          where jh_transactiontype='S'
+          and trunc(jh_transactiondate) between to_date('$tglawal','YYYY-MM-DD') and to_date('$tglakhir','YYYY-MM-DD')
+          and cus_flagmemberkhusus='Y'
+          group by jh_cashierid, username)
+          left join (
+          -- hitung strukfokus dan jmlmember
+          select idkasir1,count(distinct strukfokus) as STRUKFOKUS, 
+          count(distinct trjd_cus_kodemember) as JMLMEMBER,
+          count(distinct substr(trjd_prdcd,0,6)) as JMLITEM,
+          sum(QTYSALES) as QTYSALES,
+          sum(RPHSALES) as RPHSALES
+          from(
+          select trjd_create_by as idkasir1,trjd_cus_kodemember,
+                 concat(trjd_create_by,concat(trjd_cashierstation,concat(trjd_transactionno,concat('.',trjd_transactiondate)))) as STRUKFOKUS,
+                 trjd_prdcd,trjd_prd_deskripsipendek,trjd_quantity*prd_frac as QTYSALES,trjd_nominalamt as RPHSALES
+          from tbtr_jualdetail
+          left join tbmaster_customer on trjd_cus_kodemember=cus_kodemember
+          left join tbmaster_prodmast on prd_prdcd=trjd_prdcd
+          where trunc(trjd_transactiondate)  between to_date('$tglawal','YYYY-MM-DD') and to_date('$tglakhir','YYYY-MM-DD')
+          and trjd_transactiontype='S'
+          and trjd_nominalamt>=$minstruk
+          $filtermember
+          and trjd_prdcd in ($plugab))group by idkasir1)on idkasir=idkasir1
+          order by idkasir"
+        );
+
+        $kompetisi = $kompetisi->getResultArray();
+      }elseif($button=="viewrekapkasir"){
+        $judullap1 = "REKAP PENCAPAIAN PERKASIR";
+        $itemfokus = $dbProd->query(
+          "SELECT * from tbmaster_prodmast 
+          where prd_prdcd in ($plugab) and prd_prdcd like '%0'"
+        );
+        $itemfokus = $itemfokus->getResultArray();
+
+        $rekapkasir = $dbProd->query(
+          "SELECT idkasir,namakasir,count(distinct kdmember) as JML_MEMBER,sum(qty_pcs) as QTY_SALES 
+          from (
+            SELECT 
+              trjd_transactiondate as tgltrans,
+              to_char(trjd_transactiondate,'yyyymmdd')||'-'||trjd_create_by||'.'||trjd_cashierstation||'.'||trjd_transactionno as STRUK,
+              trjd_create_by as idkasir,
+              username as namakasir,
+              trjd_cus_kodemember as kdmember,
+              cus_namamember as namamember,
+              sum(trjd_quantity*prd_frac) as qty_pcs
+            from tbtr_jualdetail
+            left join tbmaster_prodmast on prd_prdcd=trjd_prdcd
+            left join tbmaster_customer on cus_kodemember=trjd_cus_kodemember
+            left join tbmaster_user on userid=trjd_create_by
+            where trunc(trjd_transactiondate)  between to_date('$tglawal','YYYY-MM-DD') and to_date('$tglakhir','YYYY-MM-DD')
+              and trjd_transactiontype='S'
+              $filtermember
+              and trjd_prdcd in ($plugab)
+            group by trjd_transactiondate, to_char(trjd_transactiondate,'yyyymmdd')||'-'||trjd_create_by||'.'||trjd_cashierstation||'.'||trjd_transactionno, trjd_create_by, username, trjd_cus_kodemember, cus_namamember
+            ) 
+          where qty_pcs>=$minstruk 
+          group by idkasir, namakasir
+          order by idkasir"
+                  );
+            $rekapkasir = $rekapkasir->getResultArray();
+      }elseif($button=="viewrinciankasir"){
+        $judullap1 = "RINCIAN STRUK PERKASIR";
+        $itemfokus = $dbProd->query(
+          "SELECT * from tbmaster_prodmast 
+          where prd_prdcd in ($plugab) and prd_prdcd like '%0'"
+        );
+        $itemfokus = $itemfokus->getResultArray();
+
+        $rinciankasir = $dbProd->query(
+          "SELECT * 
+          from (
+            select 
+              trjd_transactiondate as tgltrans,
+              to_char(trjd_transactiondate,'yyyymmdd')||'-'||trjd_create_by||'.'||trjd_cashierstation||'.'||trjd_transactionno as STRUK,
+              trjd_create_by as idkasir,
+              username as namakasir,
+              trjd_cus_kodemember as kdmember,
+              cus_namamember as namamember,
+              sum(trjd_quantity*prd_frac) as qty_pcs
+            from tbtr_jualdetail
+            left join tbmaster_prodmast on prd_prdcd=trjd_prdcd
+            left join tbmaster_customer on cus_kodemember=trjd_cus_kodemember
+            left join tbmaster_user on userid=trjd_create_by
+            where trunc(trjd_transactiondate)  between to_date('$tglawal', 'YYYY-MM-DD') and to_date('$tglakhir','YYYY-MM-DD')
+              and trjd_transactiontype='S'
+              $filtermember
+              and trjd_prdcd in ($plugab)
+            group by trjd_transactiondate,to_char(trjd_transactiondate,'yyyymmdd')||'-'||trjd_create_by||'.'||trjd_cashierstation||'.'||trjd_transactionno, trjd_create_by, username, trjd_cus_kodemember, cus_namamember
+            ) 
+          where qty_pcs>=$minstruk 
+          order by idkasir,namamember,struk"
+        );
+        $rinciankasir = $rinciankasir->getResultArray();
+      }elseif($button=="viewdatamember"){
+        $judullap1 = "DATA MEMBER BELANJA";
+        $itemfokus = $dbProd->query(
+          "SELECT * from tbmaster_prodmast 
+          where prd_prdcd in ($plugab) and prd_prdcd like '%0'"
+        );
+        $itemfokus = $itemfokus->getResultArray();
+
+        $memberbelanja = $dbProd->query(
+          "SELECT kdmember,namamember,count(struk) as count_struk,sum(qty_pcs) as sum_qty_pcs 
+          from (
+            select 
+              trjd_transactiondate as tgltrans,
+              to_char(trjd_transactiondate,'yyyymmdd')||'-'||trjd_create_by||'.'||trjd_cashierstation||'.'||trjd_transactionno as STRUK,
+              trjd_create_by as idkasir,
+              username as namakasir,
+              trjd_cus_kodemember as kdmember,
+              cus_namamember as namamember,
+              sum(trjd_quantity*prd_frac) as qty_pcs
+            from tbtr_jualdetail
+            left join tbmaster_prodmast on prd_prdcd=trjd_prdcd
+            left join tbmaster_customer on cus_kodemember=trjd_cus_kodemember
+            left join tbmaster_user on userid=trjd_create_by
+            where trunc(trjd_transactiondate)  between to_date('$tglawal', 'YYYY-MM-DD') and to_date('$tglakhir','YYYY-MM-DD')
+              and trjd_transactiontype='S'
+              $filtermember
+              and trjd_prdcd in ($plugab)
+            group by trjd_transactiondate, to_char(trjd_transactiondate,'yyyymmdd')||'-'||trjd_create_by||'.'||trjd_cashierstation||'.'||trjd_transactionno, trjd_create_by, username, trjd_cus_kodemember, cus_namamember
+            ) 
+          where qty_pcs>=$minstruk 
+          group by kdmember, namamember 
+          order by namamember"
+        );
+
+        $memberbelanja = $memberbelanja->getResultArray();
+      }elseif($button=="viewglobal"){
+        $judullap1 = "REKAP PER-PLU";
+
+        $rekapplu = $dbProd->query(
+          "SELECT concat(rpad(trjd_prdcd,6),'0') as PLU, 
+          prd_deskripsipanjang as DESKRIPSI, 
+          count(distinct trjd_cus_kodemember) as JML_MEMBER,        
+          /*Qty Sales */ 
+          sum (case 
+           when trjd_transactiontype='S' and prd_unit<>'KG' then (trjd_quantity * prd_frac)*1 
+           when trjd_transactiontype='R' and prd_unit<>'KG' then (trjd_quantity * prd_frac)*(-1) 
+           when trjd_transactiontype='S' and prd_unit='KG' then (trjd_quantity / prd_frac)*1 
+           when trjd_transactiontype='R' and prd_unit='KG' then (trjd_quantity / prd_frac)*(-1) 
+           end) as QTY_SALES, 
+          /*Sales Gross*/ 
+            sum(case 
+              when (trjd_transactiontype='S')and(cus_kodeoutlet='4') and(trjd_flagtax1='Y') then trjd_nominalamt*1.11 
+              when trjd_transactiontype='S' then trjd_nominalamt*1 
+              when trjd_transactiontype='R' then trjd_nominalamt*(-1) 
+              end) as RPH_GROSS, 
+          /*Sales Nett*/   
+            sum(case   
+              /*non omi */   
+              when (trjd_transactiontype='S')and(nvl(trjd_flagtax1,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') then trjd_nominalamt/1.11   
+              when (trjd_transactiontype='S')and(nvl(trjd_flagtax1,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') then trjd_nominalamt/1   
+              when (trjd_transactiontype='R')and(nvl(trjd_flagtax1,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') then trjd_nominalamt/(-1.11)   
+              when (trjd_transactiontype='R')and(nvl(trjd_flagtax1,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') then trjd_nominalamt/(-1)   
+              /*omi */   
+              when (trjd_transactiontype='S')and(nvl(trjd_flagtax1,'N' )='Y') and (nvl(cus_kodeoutlet,'6')='4')  then trjd_nominalamt*1   
+              when (trjd_transactiontype='S')and(nvl(trjd_flagtax1,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')='4')  then trjd_nominalamt*1   
+              end) as S_NETT,   
+            
+           /*Margin*/   
+           sum(case   
+              /*non omi */   
+              when (trjd_transactiontype='S')and(nvl(trjd_flagtax1,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit<>'KG') then (trjd_nominalamt/1.11 - (trjd_baseprice * trjd_quantity))   
+              when (trjd_transactiontype='S')and(nvl(trjd_flagtax1,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit<>'KG') then (trjd_nominalamt/1   - (trjd_baseprice * trjd_quantity))   
+              when (trjd_transactiontype='R')and(nvl(trjd_flagtax1,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit<>'KG') then (trjd_nominalamt/1.11 - (trjd_baseprice * trjd_quantity))*(-1)   
+              when (trjd_transactiontype='R')and(nvl(trjd_flagtax1,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit<>'KG') then (trjd_nominalamt/1   - (trjd_baseprice * trjd_quantity))*(-1)   
+              /*pengecualian untuk unit KG*/   
+              when (trjd_transactiontype='S')and(nvl(trjd_flagtax1,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit ='KG') then (trjd_nominalamt/1.11 - (trjd_baseprice * trjd_quantity/1000))   
+              when (trjd_transactiontype='S')and(nvl(trjd_flagtax1,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit ='KG') then (trjd_nominalamt/1   - (trjd_baseprice * trjd_quantity/1000))   
+              /*omi */   
+              when (trjd_transactiontype='S')and(nvl(trjd_flagtax1,'N') ='Y') and (nvl(cus_kodeoutlet,'6') ='4')                      then trjd_nominalamt*1 - (trjd_baseprice * trjd_quantity)   
+              when (trjd_transactiontype='S')and(nvl(trjd_flagtax1,'N')<>'Y') and (nvl(cus_kodeoutlet,'6') ='4')                      then trjd_nominalamt*1 - (trjd_baseprice * trjd_quantity)   
+              end) as MARGIN, 
+              count(distinct TO_DATE(TRJD_TRANSACTIONDATE,'DD-MM-YYYY')) as HARISALES 
+     from tbtr_jualdetail 
+     left join tbmaster_prodmast on trjd_prdcd=prd_prdcd 
+     left join tbmaster_customer on trjd_cus_kodemember=cus_kodemember 
+     where trunc(trjd_transactiondate)  between to_date('$tglawal','YYYY-MM-DD') and to_date('$tglakhir','YYYY-MM-DD')
+     $filtermember
+     and trjd_prdcd in ($plugab)
+     and trjd_nominalamt>=$minstruk 
+     group by concat(rpad(trjd_prdcd,6),'0'), prd_deskripsipanjang
+     order by plu"
+        );
+
+        $rekapplu = $rekapplu->getResultArray();
+
+        $rekapplutotal = $dbProd->query(
+          "SELECT trjd_kodeigr,cab_namacabang,
+          count(distinct trjd_cus_kodemember) as JML_MEMBER,        
+          /*Qty Sales */ 
+          sum (case 
+           when trjd_transactiontype='S' and prd_unit<>'KG' then (trjd_quantity * prd_frac)*1 
+           when trjd_transactiontype='R' and prd_unit<>'KG' then (trjd_quantity * prd_frac)*(-1) 
+           when trjd_transactiontype='S' and prd_unit='KG' then (trjd_quantity / prd_frac)*1 
+           when trjd_transactiontype='R' and prd_unit='KG' then (trjd_quantity / prd_frac)*(-1) 
+           end) as QTY_SALES, 
+          /*Sales Gross*/ 
+            sum(case 
+              when (trjd_transactiontype='S')and(cus_kodeoutlet='4') and(trjd_flagtax1='Y') then trjd_nominalamt*1.11 
+              when trjd_transactiontype='S' then trjd_nominalamt*1 
+              when trjd_transactiontype='R' then trjd_nominalamt*(-1) 
+              end) as RPH_GROSS, 
+          /*Sales Nett*/   
+            sum(case   
+              /*non omi */   
+              when (trjd_transactiontype='S')and(nvl(trjd_flagtax1,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') then trjd_nominalamt/1.11   
+              when (trjd_transactiontype='S')and(nvl(trjd_flagtax1,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') then trjd_nominalamt/1   
+              when (trjd_transactiontype='R')and(nvl(trjd_flagtax1,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') then trjd_nominalamt/(-1.11)   
+              when (trjd_transactiontype='R')and(nvl(trjd_flagtax1,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') then trjd_nominalamt/(-1)   
+              /*omi */   
+              when (trjd_transactiontype='S')and(nvl(trjd_flagtax1,'N' )='Y') and (nvl(cus_kodeoutlet,'6')='4')  then trjd_nominalamt*1   
+              when (trjd_transactiontype='S')and(nvl(trjd_flagtax1,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')='4')  then trjd_nominalamt*1   
+              end) as S_NETT,   
+            
+           /*Margin*/   
+           sum(case   
+              /*non omi */   
+              when (trjd_transactiontype='S')and(nvl(trjd_flagtax1,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit<>'KG') then (trjd_nominalamt/1.11 - (trjd_baseprice * trjd_quantity))   
+              when (trjd_transactiontype='S')and(nvl(trjd_flagtax1,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit<>'KG') then (trjd_nominalamt/1   - (trjd_baseprice * trjd_quantity))   
+              when (trjd_transactiontype='R')and(nvl(trjd_flagtax1,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit<>'KG') then (trjd_nominalamt/1.11 - (trjd_baseprice * trjd_quantity))*(-1)   
+              when (trjd_transactiontype='R')and(nvl(trjd_flagtax1,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit<>'KG') then (trjd_nominalamt/1   - (trjd_baseprice * trjd_quantity))*(-1)   
+              /*pengecualian untuk unit KG*/   
+              when (trjd_transactiontype='S')and(nvl(trjd_flagtax1,'N') ='Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit ='KG') then (trjd_nominalamt/1.11 - (trjd_baseprice * trjd_quantity/1000))   
+              when (trjd_transactiontype='S')and(nvl(trjd_flagtax1,'N')<>'Y') and (nvl(cus_kodeoutlet,'6')<>'4') and (prd_unit ='KG') then (trjd_nominalamt/1   - (trjd_baseprice * trjd_quantity/1000))   
+              /*omi */   
+              when (trjd_transactiontype='S')and(nvl(trjd_flagtax1,'N') ='Y') and (nvl(cus_kodeoutlet,'6') ='4')                      then trjd_nominalamt*1 - (trjd_baseprice * trjd_quantity)   
+              when (trjd_transactiontype='S')and(nvl(trjd_flagtax1,'N')<>'Y') and (nvl(cus_kodeoutlet,'6') ='4')                      then trjd_nominalamt*1 - (trjd_baseprice * trjd_quantity)   
+              end) as MARGIN, 
+              count(distinct TO_DATE(TRJD_TRANSACTIONDATE,'DD-MM-YYYY')) as HARISALES 
+     from tbtr_jualdetail 
+     left join tbmaster_prodmast on trjd_prdcd=prd_prdcd 
+     left join tbmaster_customer on trjd_cus_kodemember=cus_kodemember 
+     left join tbmaster_cabang on cab_kodecabang=trjd_kodeigr
+     where trunc(trjd_transactiondate)  between to_date('$tglawal','YYYY-MM-DD') and to_date('$tglakhir','YYYY-MM-DD')
+     $filtermember
+     and trjd_prdcd in ($plugab)
+     and trjd_nominalamt>=$minstruk
+     group by trjd_kodeigr,cab_namacabang"
+        );
+
+        $rekapplutotal = $rekapplutotal->getResultArray();
+      }
+
+      $data=[
+        'title' => 'Monitoring Kompetisi Kasir',
+        'tglawal' => $tglawal,
+        'tglakhir' => $tglakhir,
+        'plu' => $plu,
+        'jenismember' => $jenismember,
+        'judul1' => $judullap1,
+        'judul2' => $judullap2,
+        'itemfokus' => $itemfokus,
+        'minstruk' => $minstruk,
+        'kompetisi' => $kompetisi,
+        'plugab' => $plugab,
+        'rekapkasir' => $rekapkasir,
+        'rinciankasir' => $rinciankasir,
+        'memberbelanja' => $memberbelanja,
+        'rekapplu' => $rekapplu,
+        'rekapplutotal' => $rekapplutotal,
+      ];
+      return view('store/tampilkompkasir',$data);
+    }
+
+    public function detailitemfokus()
+    {
+      $dbProd = db_connect('production');
+      $tglawal = $this->request->getGet('tglawal');
+      $tglakhir = $this->request->getGet('tglakhir');
+      $plugab = $this->request->getGet('plugab');
+      $idkasir = $this->request->getGet('idkasir');
+      $namakasir = $this->request->getGet('namakasir');
+
+      if ($idkasir=="all") {
+        $filteridkasir = "";
+      }else{
+        $filteridkasir="and (trjd_create_by='$idkasir')";
+      }
+
+      if($namakasir=="all") {
+        $filternamakasir="";
+      }else{
+        $filternamakasir="ALL";
+      }
+
+      $jualdetail = $dbProd->query(
+        "SELECT trjd_create_by, 
+        trjd_cashierstation, 
+        trjd_transactionno, 
+        trjd_transactiondate, 
+        trjd_transactiontype,
+        trjd_prdcd,
+        trjd_prd_deskripsipendek, 
+        trjd_quantity, 
+        trjd_nominalamt, 
+        trjd_cus_kodemember,
+        cus_flagmemberkhusus
+        from tbtr_jualdetail left join tbmaster_customer on trjd_cus_kodemember=cus_kodemember
+        where trunc(trjd_transactiondate) between to_date('$tglawal','YYYY-MM-DD') and to_date('$tglakhir','YYYY-MM-DD')
+           and trjd_transactiontype='S'
+           $filteridkasir
+           and (trjd_prdcd IN($plugab))
+          order by trjd_create_dt,trjd_transactionno"
+      );
+
+      $jualdetail = $jualdetail->getResultArray();
+
+      $data = [
+        "title" => 'Detail Item Fokus',
+        'jualdetail' => $jualdetail,
+        'idkasir' => $idkasir,
+        'namakasir' => $namakasir
+      ];
+      return view('store/detailitemfokus', $data);
+    }
     // public function export()
     // {
     //   $spreadsheet = new Spreadsheet();

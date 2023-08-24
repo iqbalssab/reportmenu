@@ -4,7 +4,7 @@
 <div class="container-fluid mt-3">
     <table class="table table-responsive table-hover table-bordered">
         <thead>
-            <tr class="">
+            <tr class="border border-black">
                 <th class="bg-success-subtle">Tanggal</th>
                 <th class="bg-success-subtle">No Struk</th>
                 <th class="bg-success-subtle">PLU</th>

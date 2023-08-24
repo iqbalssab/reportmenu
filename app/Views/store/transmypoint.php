@@ -22,10 +22,10 @@
             </div>
         </div>
         <div class="col-md-9">
-            <div class="card-header bg-primary-subtle">
-                <h5>DATA TRANSAKSI MYPOIN</h5>
-            </div>
             <div class="card mt-3">
+                <div class="card-header bg-primary-subtle">
+                    <h5 class="text-primary"><?= $judul; ?></h5>
+                </div>
             <div class="card-body">
                 <?php if(!empty($perolehan)): ?>
                 <table class="table table-hover table-bordered table-responsive">

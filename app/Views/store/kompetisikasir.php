@@ -10,7 +10,7 @@
                     <h6 class="fw-bold text-center">Monitoring Kompetisi Kasir</h6>
                 </div>
                 <div class="card-body p-3">
-                    <form action="/store/kompetisikasir/tampilkompkasir" method="post" target="_blank">
+                    <form action="<?= base_url(); ?>store/kompetisikasir/tampilkompkasir" method="post" target="_blank">
                         <label for="plu">PLU Item Fokus :</label> <input class="w-50 mb-3" type="text" name="plu" id="plu" placeholder="CONTOH : 0000850,0010460,10024587"> 
                         <br>
                         <label class="mb-3 me-1" for="">Periode Sales :</label> <input type="date" name="tglawal" id="tglawal" class="w-25 ms-3" value="<?= $now; ?>"> s/d <input type="date" name="tglakhir" id="tglakhir" class="w-25" value="<?= $now; ?>">

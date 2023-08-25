@@ -1,26 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php $ip = "http://".$_SERVER['SERVER_NAME']."/reportmenu/"; ?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title ?></title>
 
     <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="<?= base_url('fontawesome/css/fontawesome.css'); ?>">
-    <link rel="stylesheet" href="<?= base_url('fontawesome/css/brands.css'); ?>">
-    <link rel="stylesheet" href="<?= base_url('fontawesome/css/solid.css'); ?>">
-    <link rel="stylesheet" href="<?= base_url('fontawesome/css/regular.css'); ?>">
+    <link rel="stylesheet" href="<?= $ip; ?>public/fontawesome/css/fontawesome.css">
+    <link rel="stylesheet" href="<?= $ip; ?>public/fontawesome/css/brands.css">
+    <link rel="stylesheet" href="<?= $ip; ?>public/fontawesome/css/solid.css">
+    <link rel="stylesheet" href="<?= $ip; ?>public/fontawesome/css/regular.css">
     <!-- Laragon -->
-    <link rel="stylesheet" href="<?= base_url('bootstrap/dist/css/bootstrap.min.css'); ?>">
+    <link rel="stylesheet" href="<?= $ip; ?>public/bootstrap/dist/css/bootstrap.min.css">
 
     <!-- Style CSS -->
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="<?= $ip; ?>public/css/style.css">
     <!-- Kalo gapake Laragon/XAMPP -->
     <!-- <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css"> -->
 
         <!-- Favicons -->
-    <link href="assets/img/igr2.png" rel="icon">
+    <link href="<?= $ip; ?>public/assets/img/igr2.png" rel="icon">
 
 </head>
 
@@ -28,12 +29,11 @@
 
     <?= $this->include('layout/navbar')?>
 
-
     <?= $this->renderSection('content'); ?>
 
-    <script src="<?=base_url('jquery-3.7.0.min.js');?>"></script>
+    <script src="<?= $ip; ?>public/jquery-3.7.0.min.js"></script>
     <!-- <script src="jquery-3.7.0.min.js"></script> -->
-    <script src="<?=base_url('bootstrap/dist/js/bootstrap.bundle.min.js')?>"></script>
+    <script src="<?=$ip?>public/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <!-- <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script> -->
 
     <script>

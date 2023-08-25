@@ -502,6 +502,7 @@ class Store extends BaseController
             'cariproduk' => $cariProduk,
             'desk1' => $isidesk1,
             'desk2' => $isidesk2,
+          
         ];
         redirect()->to('/store/cekpromo')->withInput();
         return view('store/cekpromo', $data);
@@ -509,8 +510,10 @@ class Store extends BaseController
 
     public function monitoringpromo()
     {
+        $ip = $_SERVER['SERVER_NAME']."/store/";
         $data = [
-          'title' => 'Monitoring Promo IGR'
+          'title' => 'Monitoring Promo IGR',
+          'ip' => $ip,
         ];
 
         return view('store/monitoringpromo', $data);
@@ -596,7 +599,11 @@ class Store extends BaseController
 
         // cek input kodepromosi
         if($kdPromosi == "") {
-          $filterkodepromo = "kd_promosi='00000' ";
+          if($jenis=="cb"){
+            $filterkodepromo = "";
+          }else{
+            $filterkodepromo = "kd_promosi='00000' ";
+          }
           $judul_filterkodepromo = " belum diinput! ";
         }else{
           $filterkodepromo = " kd_promosi='$kdPromosi' ";

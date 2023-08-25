@@ -35,6 +35,9 @@ $routes->get('/', 'Home::index');
 $routes->get('/store/previewkasir', 'Store::previewkasir');
 $routes->get('/store/cekpromo', 'Store::cekpromo');
 $routes->get('/store/monitoringpromo/(:segment)', 'Store::tampildatapromo/$1');
+$routes->get('/ms/cekmember/(:segment)', 'Ms::tampildatatransaksi/$1');
+$routes->get('/logistik/lppvsplanodetail/(:segment)', 'Ms::tampildatalppplanodetail/$1');
+$routes->get('/logistik/lppvsplanodetail/(:segment)', 'Ms::tampildatalppdetail2/$1');
 
 $routes->get('/store/transaksiproduk/transaksi', 'Store::transaksi');   
 

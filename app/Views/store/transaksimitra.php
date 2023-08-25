@@ -10,11 +10,11 @@
                     <h6 class="text-center text-light fw-bolder">Transaksi Topup Mitra</h6>
                 </div>
                 <div class="card-body py-2">
-                    <form action="/store/transaksimitra" method="get">
+                    <form action="transaksimitra" method="get">
                         <label for="tglawal">Tgl Awal :</label>
-                        <input class="mb-2 w-100" type="date" name="tglawal" id="tglawal" value="<?= $now; ?>">
+                        <input class="mb-2 w-100" type="date" name="tglawal" id="tglawal" value="<?= $tglawal ? $tglawal : $now; ?>">
                         <label for="tglawal">Tgl Akhir :</label>
-                        <input class="mb-2 w-100" type="date" name="tglakhir" id="tglakhir" value="<?= $now; ?>">
+                        <input class="mb-2 w-100" type="date" name="tglakhir" id="tglakhir" value="<?= $tglakhir ? $tglakhir : $now; ?>">
                         <label for="jenismember">Jenis Member</label>
                         
                         <select class="form-select form-select-sm" name="jenismember" aria-label="Small select example">

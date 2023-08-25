@@ -12,7 +12,7 @@ class Ms extends BaseController
     public function cekmember()
     {
         $status = $this->request->getVar('statuscari');
-        $cari = $this->request->getVar('cari');
+        $cari = strtoupper($this->request->getVar('cari'));
         $aksi = $this->request->getVar('tombol');
         $dbProd = db_connect('production');
         $member = [];
@@ -146,7 +146,7 @@ class Ms extends BaseController
       
     public function transaksimember() {
       date_default_timezone_set("Asia/Jakarta");
-      $kode = $this->request->getVar('kode');
+      $kode = strtoupper($this->request->getVar('kode'));
       $awal = $this->request->getVar('awal');
       $akhir = $this->request->getVar('akhir');
       $aksi = $this->request->getVar('tombol');
@@ -210,7 +210,7 @@ class Ms extends BaseController
           'akhir' => $akhir,
       ];
       
-      redirect()->to('/ms/trxmbr')->withInput();
+      redirect()->to('trxmbr')->withInput();
       return view('ms/trxmbr',$data);
 
     }

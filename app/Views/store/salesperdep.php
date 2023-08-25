@@ -11,7 +11,7 @@
                     <p><i>**Menggunakan data H-1**</i></p>
                 </div>
                 <div class="card-body p-2">
-                    <form action="/store/salesperdep/tampilsalesperdep" method="post" target="_blank">
+                    <form action="salesperdep/tampilsalesperdep" method="post" target="_blank">
                         <fieldset class="p-2 border border-dark-subtle">
                             <legend class="fw-bold fs-5">Tampil Data per-Departement</legend>
                             <label class="d-block" for="">Periode Sales :</label>

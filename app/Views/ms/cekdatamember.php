@@ -12,7 +12,7 @@ echo $this->section('content'); ?>
                     <h5 class=" fw-bold">Cek Data Member</h5>
                 </div>
                 <div class="card-body ">
-                    <form method="get" action="/ms/cekmember">
+                    <form method="get" action="cekmember">
                         <?= csrf_field(); ?>
                         <select class="form-select form-select-sm mb-3" name="statuscari" aria-label="Small select example">
                             <option value="ksg">Search by</option>

@@ -12,7 +12,7 @@ echo $this->section('content'); ?>
                     <h6 class="text-center fw-bold">Cek Barang Tertinggal</h6>
                 </div>
                 <div class="card-body">
-                    <form method="get" action="/edp/tampildatabrghlg" target="_blank">
+                    <form method="get" action="tampildatabrghlg" target="_blank">
                         <?= csrf_field(); ?>
                         <label class="fw-bold mb-2" for="ks">KASSA :</label>
                         <input type="text" name="kassa" id="kassa" class="w-100 mb-3 form-control" value="<?= old('kassa'); ?>">

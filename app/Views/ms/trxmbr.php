@@ -8,7 +8,7 @@ echo $this->section('content'); ?>
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"> -->
 <!-- CSS Bootstrap Datepicker -->
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css"> -->
-
+<?php $now = date('Y-m-d'); ?>
 <div class="container-fluid mt-2">
     <div class="row">
         <div class="col-md-3">
@@ -18,15 +18,15 @@ echo $this->section('content'); ?>
                     <h6 class="text-warning text-center">** Menggunakan Data H-1 **</h6>
                 </div>
                 <div class="card-body">
-                    <form method="get" action="/ms/transaksimember">
+                    <form method="get" action="transaksimember">
                         <?= csrf_field(); ?>
                         <label class="fw-bold" for="kd">KODE MEMBER  : </label>
                         <input type="text" name="kode" id="kode" class="w-100 mb-3 form-control input-sm" value="<?= old('kode'); ?>" require autofocus>
                         <label class="fw-bold mb-1" for="prd">PERIODE TRANSAKSI  : </label><br>
                         <label class="" for="awal">Tanggal Awal</label>
-                        <input type="date" name="awal" id="awal" class="w-100 mb-3 form-control" value="<?= old('awal'); ?>">
+                        <input type="date" name="awal" id="awal" class="w-100 mb-3 form-control" value="<?= $awal ? $awal : $now; ?>">
                         <label class="" for="akhir">Tanggal Akhir</label>
-                        <input type="date" name="akhir" id="akhir" class="w-100 mb-3 form-control" value="<?= old('akhir'); ?>">
+                        <input type="date" name="akhir" id="akhir" class="w-100 mb-3 form-control" value="<?= $akhir ? $akhir : $now; ?>">
                         <button type="submit" name="tombol" value="btntrxmbr" class="text-light btn w-30 mb-2 d-block fw-bold" style=" background-color: #0040ff;">Tampil</button>
                     </form>
                 </div>

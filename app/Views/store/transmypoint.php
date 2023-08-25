@@ -10,7 +10,7 @@
                     <p class="fw-lighter text-center" style="color: yellow;">**Menggunakan Data H-1**</p>
                 </div>
                 <div class="card-body">
-                    <form action="/store/transaksimypoint">
+                    <form action="transaksimypoint">
                     <?php csrf_field(); ?>
                     <label for="tglawal">TGL TRANSAKSI</label>
                     <input type="date" class="mb-4 w-100" name="tglawal" id="tglawal" value="<?= $now; ?>">

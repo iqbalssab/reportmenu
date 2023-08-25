@@ -21,7 +21,7 @@
 
                     </div>
                     <div class="col-md-5 justify-content-md-start">
-                    <form action="<?= base_url(); ?>store/monitoringpromo/tampildatapromo" method="get" target="_blank">
+                    <form action="tampildatapromo" method="get" target="_blank">
                         <?= csrf_field(); ?>
                         <br>
                     <select class="form-select form-select-sm" name="jenisLaporan" aria-label="Small select example">

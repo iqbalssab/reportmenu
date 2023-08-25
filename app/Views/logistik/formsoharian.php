@@ -12,7 +12,7 @@ echo $this->section('content'); ?>
                     <h6 class="text-center fw-bold">FORM SO HARIAN</h6>
                 </div>
                 <div class="card-body">
-                    <form method="get" action="/logistik/tampildatasoharian" target="_blank">
+                    <form method="get" action="tampildatasoharian" target="_blank">
                         <?= csrf_field(); ?>
                         <label class="fw-bold mb-2" for="txtplu">Input PLU :</label>
                         <textarea class="form-control input-sm w-100 mb-2" name="plu" cols="55" rows="3" placeholder="850,60410,357330"></textarea>

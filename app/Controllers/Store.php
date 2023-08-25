@@ -1191,7 +1191,9 @@ class Store extends BaseController
       $data = [
         'title' => 'Data Transaksi Mitra',
         'detail' => $detail,
-        'akumulasi' => $akumulasi
+        'akumulasi' => $akumulasi,
+        'tglawal' => $tglAwal,
+        'tglakhir' => $tglAkhir,
       ];
       return view('store/transaksimitra', $data);
     }
@@ -1233,7 +1235,9 @@ class Store extends BaseController
       $klik = $klik->getResultArray();
       $data = [
         'title' => 'History Transaksi Klik',
-        'klik' => $klik
+        'klik' => $klik,
+        'tglawal' => $tglAwal,
+        'tglakhir' => $tglAkhir,
       ];
       return view('store/transaksiklik', $data);
     }

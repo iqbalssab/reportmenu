@@ -37,7 +37,7 @@
                 <td><?= number_format($kom['JMLITEM']); ?></td>
                 <td><?= number_format($kom['QTYSALES']); ?></td>
                 <td><?= number_format($kom['RPHSALES']); ?></td>
-                <td><a href="/store/kompetisikasir/detailitemfokus?tglawal=<?= $tglawal; ?>&tglakhir=<?= $tglakhir; ?>&plugab=<?= $plugab; ?>&idkasir=<?= $kom['IDKASIR']; ?>&namakasir=<?= $kom['NAMAKASIR']; ?>">Detail</a></td>
+                <td><a href="detailitemfokus?tglawal=<?= $tglawal; ?>&tglakhir=<?= $tglakhir; ?>&plugab=<?= $plugab; ?>&idkasir=<?= $kom['IDKASIR']; ?>&namakasir=<?= $kom['NAMAKASIR']; ?>">Detail</a></td>
             </tr>
             <?php $totalqty += $kom['QTYSALES']; ?>
             <?php $totalrph += $kom['RPHSALES']; ?>
@@ -51,7 +51,7 @@
                 <td></td>
                 <td><?= number_format($totalqty); ?></td>
                 <td><?= number_format($totalrph); ?></td>
-                <td><a href="/store/kompetisikasir/detailitemfokus?tglawal=<?= $tglawal; ?>&tglakhir=<?= $tglakhir; ?>&plugab=<?= $plugab; ?>&idkasir=all&namakasir=all">Detail</a></td>
+                <td><a href="detailitemfokus?tglawal=<?= $tglawal; ?>&tglakhir=<?= $tglakhir; ?>&plugab=<?= $plugab; ?>&idkasir=all&namakasir=all">Detail</a></td>
             </tr>
         </tbody>
     </table>

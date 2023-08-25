@@ -10,12 +10,12 @@
                     <h6 class="text-light text-center fw-bolder">History Transaksi Klik</h6>
                 </div>
                 <div class="card-body py-2">
-                    <form action="/store/transaksiklik" method="get">
+                    <form action="transaksiklik" method="get">
                         <p class="mb-1 fw-bold">PERIODE</p>
                         <label for="tglawal">Tanggal Awal</label>
-                        <input type="date" name="tglawal" id="tglawal" class="mb-2 w-100" value="<?= old('tglawal') ? old('tglawal') : $now; ?>">
+                        <input type="date" name="tglawal" id="tglawal" class="mb-2 w-100" value="<?= $tglawal ? $tglawal : $now; ?>">
                         <label for="tglakhir">Tanggal Akhir</label>
-                        <input type="date" name="tglakhir" id="tglakhir" class="mb-2 w-100" value="<?= old('tglakhir') ? old('tglakhir') : $now; ?>">
+                        <input type="date" name="tglakhir" id="tglakhir" class="mb-2 w-100" value="<?= $tglakhir ? $tglakhir : $now; ?>">
 
                         <button type="submit" class="btn btn-primary mt-2 w-100"><i class="fa-solid fa-eye"></i> TAMPIL</button>
                     </form>

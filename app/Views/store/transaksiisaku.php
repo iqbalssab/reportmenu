@@ -9,7 +9,7 @@
                     <h6 class="text-center fw-bolder text-primary">Transaksi I-Saku</h6>
                 </div>
                 <div class="card-body">
-                    <form action="/store/transaksiisaku" method="get">
+                    <form action="transaksiisaku" method="get">
                         <?php csrf_field(); ?>
                         <label for="tglawal" class="fw-bold mb-1">TGL Transaksi :</label>
                         <input class="d-block mb-4 w-100" type="date" name="tglawal" id="tglawal" value="<?= $now; ?>">

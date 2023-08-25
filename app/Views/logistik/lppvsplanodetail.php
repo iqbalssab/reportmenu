@@ -12,7 +12,7 @@ echo $this->section('content'); ?>
                     <h6 class="text-center fw-bold">LPP vs PLano Detail</h6>
                 </div>
                 <div class="card-body">
-                    <form method="get" action="/logistik/tampildatalppplanodetail" target="_blank">
+                    <form method="get" action="tampildatalppplanodetail" target="_blank">
                         <?= csrf_field(); ?>
                         <table class="table table-borderless">
 							<tr>

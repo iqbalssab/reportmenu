@@ -13,8 +13,6 @@
             <div class="card">
                 <div class="card-header bg-success">
                 <h5 class="text-center text-light fw-bold">Preview Transaksi Kasir || <?= $tanggal; ?> - <?= $waktu; ?></h5>
-                <?php $ip = "http://".$_SERVER['SERVER_NAME']."/reportmenu/"; ?>
-                <p><?= $ip." DAN ". base_url(); ?></p>
                 </div>
                 <div class="card-body">
                 <table class="table table-sm mb-3">

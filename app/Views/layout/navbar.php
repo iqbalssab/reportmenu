@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg" style="background-color: darkblue;">
+<nav class="navbar navbar-expand-lg" style="background-color: blue;">
   <div class="container-fluid">
   <?php $ip = "http://".$_SERVER['SERVER_NAME']."/reportmenu/"; ?>
     <a class="navbar-brand text-light" href="<?= $ip; ?>"><b>Report Menu IGR-PWT</b></a>
@@ -12,7 +12,7 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle fw-bold text-light" href="<?= $ip; ?>ms" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            MS
+          <i class="fa-solid fa-user me-1"></i> MS
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="<?= $ip; ?>ms/cekmember">Cek Data Member</a></li>
@@ -23,8 +23,8 @@
             
           </ul>
           <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="<?= $ip; ?>store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Store
+          <a class="nav-link fw-bold text-light dropdown-toggle" href="<?= $ip; ?>store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa-solid fa-cart-shopping me-1"></i>Store
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="<?= $ip; ?>store/previewkasir">Preview Transaksi Kasir</a></li>
@@ -46,7 +46,7 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle fw-bold text-light" href="/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Logistik
+          <i class="fa-solid fa-box me-1"></i>Logistik
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="<?= $ip; ?>logistik/formsoharian">Form SO Harian</a></li>
@@ -57,7 +57,7 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle fw-bold text-light" href="/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            EDP
+          <i class="fa-solid fa-computer me-1"></i>EDP
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="<?= $ip; ?>edp/barangtertinggal">Cek Barang Tertinggal</a></li>
@@ -65,7 +65,7 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle fw-bold text-light" href="/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Link External
+          <i class="fa-solid fa-list me-1"></i> Link External
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="http://192.168.240.179/mypoincs/public/">Verifikasi No HP Member</a></li>

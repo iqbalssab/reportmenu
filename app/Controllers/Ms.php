@@ -69,7 +69,7 @@ class Ms extends BaseController
                   'member' => $member,
                   'aksi' => $aksi,
                 ];
-                redirect()->to('/ms/cekdatamember')->withInput();
+                redirect()->to('cekdatamember')->withInput();
                 return view('/ms/cekdatamember',$data);
             } else if($status == "ktp") {
                 $member = $dbProd->query(
@@ -406,6 +406,71 @@ class Ms extends BaseController
           
         return view('ms/tampildatasso',$data);
       };
+    }
+
+    public function membertidur(){
+      $dbSim = db_connect();
+      $jenis = $this->request->getVar('jenismember');
+
+      $filtermember = "";
+      if ($jenis=="mm") {
+        $filtermember = "and nvl(cus_flagmemberkhusus,'T')='Y'";
+      }elseif ($jenis=="mb") {
+        $filtermember = "and nvl(cus_flagmemberkhusus,'T')!='Y'";
+      }elseif($jenis=="all"){
+        $filtermember = " ";
+      }
+
+      $tidur = $dbSim->query(
+        "SELECT distinct cabang, 
+        kodemember, 
+        namamember, 
+        alamat1, 
+        alamat2, 
+        alamat3, 
+        alamat4, 
+        outlet, 
+        suboutlet, 
+        kartumember, 
+        hpmember, 
+        ktp from (
+          select
+            cus_kodeigr as cabang,
+            cus_kodemember as kodemember, 
+            cus_namamember as namamember, 
+            cus_alamatmember1 as alamat1, 
+            cus_alamatmember2 as alamat2, 
+            cus_alamatmember3 as alamat3, 
+            cus_alamatmember4 as alamat4, 
+            cus_kodeoutlet as outlet, 
+            cus_kodesuboutlet as suboutlet, 
+            cus_nokartumember as kartumember,
+            cus_hpmember as hpmember,
+            cus_tglregistrasi as tglreg,
+            cus_noktp as ktp
+          from tbmaster_customer
+          join (select distinct jh_transactiondate, jh_cus_kodemember  
+                      from tbtr_jualheader 
+                      where trunc(sysdate) - trunc(jh_transactiondate) > 90
+                      and trunc(sysdate) - trunc(jh_transactiondate) < 365
+                      and jh_recordid is null
+                      order by jh_transactiondate desc
+                      ) on cus_kodemember = jh_cus_kodemember
+          where cus_recordid is null
+          and cus_kodeigr ='25'
+          $filtermember
+          order by jh_transactiondate desc)"
+      );
+
+      $tidur = $tidur->getResultArray();
+      d($tidur);
+      $data = [
+        'title' => 'Cari Member Tidur',
+        'tidur' => $tidur,
+        'jenis' => $jenis
+      ];
+
+      return view('ms/membertidur', $data);
     }
 
     

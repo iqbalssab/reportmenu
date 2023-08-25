@@ -39,7 +39,13 @@ $routes->get('/ms/cekmember/(:segment)', 'Ms::tampildatatransaksi/$1');
 $routes->get('/logistik/lppvsplanodetail/(:segment)', 'Ms::tampildatalppplanodetail/$1');
 $routes->get('/logistik/lppvsplanodetail/(:segment)', 'Ms::tampildatalppdetail2/$1');
 
-// $routes->get('/store/monitoringpromo/export', 'Store::export');
+$routes->get('/store/transaksiproduk/transaksi', 'Store::transaksi');   
+
+$routes->get('/store/salesmember/tampilsalesmember', 'Store::tampilsalesmember');
+$routes->post('/store/salesmember/tampilsalesmember', 'Store::tampilsalesmember');
+$routes->post('/store/salesperdep/tampilsalesperdep', 'Store::tampilsalesperdep');
+$routes->post('/store/kompetisikasir/tampilkompkasir', 'Store::tampilkompkasir');
+$routes->get('/store/kompetisikasir/detailitemfokus', 'Store::detailitemfokus');
 
 /*
  * --------------------------------------------------------------------

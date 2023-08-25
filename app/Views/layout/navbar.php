@@ -32,6 +32,17 @@
             <li><a class="dropdown-item" href="/store/cekpromo">Cek Promo</a></li>
             <li><a class="dropdown-item" href="/store/monitoringpromo">Monitoring Promo</a></li>
             <li><a class="dropdown-item" href="/store/diskonminus">Cek Diskon Minus</a></li>
+            <li><a class="dropdown-item" href="/store/marginminus">Cek Margin Minus</a></li>
+            <li><a class="dropdown-item">____________________</a></li>
+            <li><a class="dropdown-item" href="/store/transaksiisaku">Data Transaksi i-Saku</a></li>
+            <li><a class="dropdown-item" href="/store/transaksimypoint">Data Transaksi MyPoin</a></li>
+            <li><a class="dropdown-item" href="/store/transaksimitra">Data Transaksi Mitra</a></li>
+            <li><a class="dropdown-item" href="/store/transaksiklik">Data Transaksi Klik</a></li>
+            <li><a class="dropdown-item" href="/store/transaksiproduk">History Transaksi Produk</a></li>
+            <li><a class="dropdown-item">_____________________</a></li>
+            <li><a class="dropdown-item" href="/store/salesmember">Laporan Sales Member</a></li>
+            <li><a class="dropdown-item" href="/store/salesperdep">Monitoring Sales PerHari</a></li>
+            <li><a class="dropdown-item" href="/store/kompetisikasir">Kompetisi Kasir</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">

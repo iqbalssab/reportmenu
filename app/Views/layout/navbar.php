@@ -11,19 +11,19 @@
           <a class="nav-link active" aria-current="page" href="<?= $ip; ?>">Dashboard</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle fw-bold text-light" href="/ms" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle fw-bold text-light" href="<?= $ip; ?>ms" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             MS
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/ms/cekmember">Cek Data Member</a></li>
-            <li><a class="dropdown-item" href="/ms/transaksimember">History Transaksi Member</a></li>
-            <li><a class="dropdown-item" href="/ms/pengeluaranhadiah">Pengeluaran Hadiah</a></li>
-            <li><a class="dropdown-item" href="/ms/monitoringchecker">Monitoring Checker</a></li>
-            <li><a class="dropdown-item" href="/ms/cetaksso">Cetak SSO</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>ms/cekmember">Cek Data Member</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>ms/transaksimember">History Transaksi Member</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>ms/pengeluaranhadiah">Pengeluaran Hadiah</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>ms/monitoringchecker">Monitoring Checker</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>ms/cetaksso">Cetak SSO</a></li>
             
           </ul>
           <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="<?= $ip; ?>store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Store
           </a>
           <ul class="dropdown-menu">
@@ -49,10 +49,10 @@
             Logistik
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/logistik/formsoharian">Form SO Harian</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>logistik/formsoharian">Form SO Harian</a></li>
             <hr>
-            <li><a class="dropdown-item" href="/logistik/lppvsplanodetail">LPP vs Plano Detail</a></li>
-            <li><a class="dropdown-item" href="/logistik/lppvsplanorekap">LPP vs Plano Rekap</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>logistik/lppvsplanodetail">LPP vs Plano Detail</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>logistik/lppvsplanorekap">LPP vs Plano Rekap</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -60,7 +60,7 @@
             EDP
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/edp/barangtertinggal">Cek Barang Tertinggal</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>edp/barangtertinggal">Cek Barang Tertinggal</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">

@@ -352,7 +352,7 @@ class Logistik extends BaseController
                     ||'.'    
                     ||lks_kodesubrak    
                     ||'.'    
-                    ||lks_tiperak    
+                    ||lks_tiperak  `  
                     ||'.'    
                     ||lks_shelvingrak    
                     || '.'    

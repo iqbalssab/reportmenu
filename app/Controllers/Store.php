@@ -144,7 +144,7 @@ class Store extends BaseController
                 $plu0 = substr($pluplusnol, 0, 6).'0';
                 $dbProd = db_connect('production');
 
-                if($aksi == "btnpromomd"){
+                if($aksi == "btnpromomd" && strlen($isiplu) < 8){
                 $promomd = $dbProd->query(
                     "SELECT prd_prdcd as PLU,
                     prd_deskripsipanjang as DESKRIPSI,
@@ -170,7 +170,7 @@ class Store extends BaseController
                 where prd_prdcd like '$pluCari%' order by prd_prdcd"); 
                 
                 $promomd = $promomd->getResultArray();                
-                }elseif($aksi == "btnpromocb"){
+                }elseif($aksi == "btnpromocb" && strlen($isiplu) < 8){
                 $promocb = $dbProd->query(
                     "SELECT cbd_prdcd as PLU,
 					prd_deskripsipendek as DESKRIPSI,
@@ -386,7 +386,7 @@ class Store extends BaseController
                     $hargamm = $hargamm->getResultArray();
                     $hargaplt = $hargaplt->getResultArray();
 
-                }elseif($aksi== "btnpromogift"){
+                }elseif($aksi== "btnpromogift" && strlen($isiplu) < 8){
                 $promogift = $dbProd->query(
                     "SELECT KODE,
                     NAMA_PROMO,
@@ -426,7 +426,7 @@ class Store extends BaseController
                     where trunc(gfh_tglakhir) >= trunc(sysdate) and gfd_prdcd = '$plu0') --> ganti plu");
 
                     $promogift = $promogift->getResultArray();
-                }elseif($aksi == "btnnk"){
+                }elseif($aksi == "btnnk" && strlen($isiplu) < 8){
                     $promonk = $dbProd->query(
                         "SELECT 
                         NKH_KODEPROMOSI AS KDPROMO,

@@ -29,6 +29,7 @@ abstract class BaseController extends Controller
      */
     protected $request;
     protected $tglsekarang;
+    protected $ip;
 
     /**
      * An array of helpers to be loaded automatically upon
@@ -58,5 +59,6 @@ abstract class BaseController extends Controller
         // E.g.: $this->session = \Config\Services::session();
         session();
         $this->tglsekarang = Time::now();
+        $this->ip = "http://".$_SERVER['SERVER_NAME']."/reportmenu/";
     }
 }

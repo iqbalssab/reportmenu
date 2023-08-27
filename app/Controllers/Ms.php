@@ -433,6 +433,7 @@ class Ms extends BaseController
         suboutlet, 
         kartumember, 
         hpmember, 
+        KUNJUNGAN_TERAKHIR
         ktp from (
           select
             cus_kodeigr as cabang,
@@ -447,14 +448,14 @@ class Ms extends BaseController
             cus_nokartumember as kartumember,
             cus_hpmember as hpmember,
             cus_tglregistrasi as tglreg,
-            cus_noktp as ktp
+            cus_noktp as ktp,
+            KUNJUNGAN_TERAKHIR
           from tbmaster_customer
-          join (select distinct jh_transactiondate, jh_cus_kodemember  
-                      from tbtr_jualheader 
-                      where trunc(sysdate) - trunc(jh_transactiondate) > 90
-                      and trunc(sysdate) - trunc(jh_transactiondate) < 365
-                      and jh_recordid is null
-                      order by jh_transactiondate desc
+          join (select jh_cus_kodemember, max(jh_transactiondate) as KUNJUNGAN_TERAKHIR   
+                from tbtr_jualheader 
+                where trunc(jh_transactiondate)>=trunc(sysdate)-365 
+                and trunc(jh_transactiondate)<=trunc(sysdate)-90
+                group by jh_cus_kodemember
                       ) on cus_kodemember = jh_cus_kodemember
           where cus_recordid is null
           and cus_kodeigr ='25'

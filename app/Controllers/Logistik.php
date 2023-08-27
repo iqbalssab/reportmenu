@@ -729,4 +729,192 @@ class Logistik extends BaseController
         redirect()->to('/logistik/lppvsplanorekap')->withInput();
         return view('/logistik/lppvsplanorekap',$data);
     }
+
+    // Livecks Belum selesai
+    public function livecks()
+    {
+        $dbProd = db_connect('production');
+        $plu = sprintf("%07s", $this->request->getVar('plu')) ;
+        $btn = $this->request->getVar('btn');
+        $koderak = strtoupper($this->request->getVar('koderak'));
+        $kodesubrak = strtoupper($this->request->getVar('kodesubrak'));
+
+        $plu1 = substr($plu,0,6)."%";
+		$plu0 = substr($plu,0,6)."0";
+
+        // Tampil data plano ALL
+        if (empty($koderak) || empty($kodesubrak)) {
+            $err = "Masukkan Kode Rak dan Subrak...";
+        }else{
+            // Filter Kategori
+            if ($btn=="all") {
+                $filterkategori = "";
+            }elseif($btn=="display"){
+                $filterkategori = "AND LKS_TIPERAK<>'S' ";
+            }elseif($btn=="storage"){
+                $filterkategori= "AND LKS_TIPERAK='S'";
+            }
+
+            $dataplano = $dbProd->query(
+                "SELECT 
+                CASE 
+                  WHEN LKS_TIPERAK != 'S' THEN 'Display'
+                  WHEN LKS_TIPERAK = 'S' AND LKS_SHELVINGRAK LIKE 'C%' THEN 'Storage_C'
+                  WHEN LKS_TIPERAK = 'S' AND LKS_SHELVINGRAK LIKE 'K%' THEN 'Storage_K'
+                  WHEN LKS_TIPERAK = 'S' AND LKS_SHELVINGRAK LIKE 'S%' THEN 'Storage_S'
+                  END AS KATEGORI,
+                LKS_KODERAK||'.'||LKS_KODESUBRAK||'.'||LKS_TIPERAK||'.'||LKS_SHELVINGRAK||'.'||LKS_NOURUT AS LOKASI,
+                LKS_JENISRAK as JENISRAK,
+                LKS_NOID as NOID,
+                LKS_PRDCD AS PLU,
+                PRD_DESKRIPSIPENDEK AS DESKRIPSI,
+                PRD_FRAC AS FRAC,
+                PRD_UNIT AS UNIT,
+                LKS_QTY AS QTYPLANO,
+                LKS_MAXPLANO MAXPLANO,
+                LKS_MAXDISPLAY AS MAXDIS,
+                LKS_MINPCT as MINPCT,
+                case 
+                    when nvl(prd_flagigr,'N')='Y' and nvl(prd_flagomi,'N')='Y' then 'IGR+OMI'
+                    when nvl(prd_flagigr,'N')='Y' and nvl(prd_flagomi,'N')!='Y' then 'IGR Only'
+                    when nvl(prd_flagigr,'N')!='Y' and nvl(prd_flagomi,'N')='Y' then 'OMI Only'
+                    else 'TIDAK JUAL'
+                end as FLAGJUAL,
+                case
+                    when DISPLAY_REG is not null and DISPLAY_DPD is null then 'Display IGR'
+                    when DISPLAY_REG is null and DISPLAY_DPD is not null then 'Display OMI'
+                    when DISPLAY_REG is not null and DISPLAY_DPD is not null then 'Display IGR+OMI'
+                end as FLAGDISPLAY
+                FROM TBMASTER_LOKASI 
+                LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD=LKS_PRDCD
+                left join (
+                SELECT 
+                  LKS_PRDCD as plur,
+                  LKS_KODERAK||'.'||LKS_KODESUBRAK||'.'||LKS_TIPERAK||'.'||LKS_SHELVINGRAK||'.'||LKS_NOURUT AS DISPLAY_REG,
+                  LKS_JENISRAK as JENIS_ITEM
+                FROM TBMASTER_LOKASI
+                where substr(lks_koderak,0,1) IN ('R','O') and substr(lks_tiperak,0,1) <>'S' ) on plur=prd_prdcd
+                left join (
+                SELECT 
+                  LKS_PRDCD as plud,
+                  LKS_KODERAK||'.'||LKS_KODESUBRAK||'.'||LKS_TIPERAK||'.'||LKS_SHELVINGRAK||'.'||LKS_NOURUT AS DISPLAY_DPD
+                FROM TBMASTER_LOKASI
+                where substr(lks_koderak,0,1) IN ('D') and substr(lks_tiperak,0,1) <>'S' ) 
+                on plud=prd_prdcd
+                WHERE LKS_KODERAK='$koderak' 
+                AND LKS_KODESUBRAK='$kodesubrak' 
+                $filterkategori
+                ORDER BY KATEGORI,LKS_KODERAK,LKS_KODESUBRAK,LKS_TIPERAK,LKS_SHELVINGRAK,LKS_NOURUT"
+            );
+
+            $dataplano = $dataplano->getResultArray();
+        }
+
+
+
+
+
+        $data = [
+            'title' => 'Live CKS'
+        ];
+        return view('logistik/livecks', $data);
+    }
+
+    public function kesegaran()
+    {
+        $dbProd = db_connect('production');
+        $isiplu = $this->request->getVar('plu');
+        $desk1 = strtoupper($this->request->getVar('desk1'));
+        $desk2 = strtoupper($this->request->getVar('desk2'));
+
+        $kesegaran = $cariproduk = [];
+
+        if (isset($isiplu)) {
+            if (is_numeric($isiplu)) {
+                switch (strlen($isiplu)) {
+                    case 1:
+                        redirect()->to('/store/cekpromo')->with('Error', 'Data yang anda masukkan tidak valid!');
+                    case 2:
+                        $pluplusnol = '00000'. $isiplu;
+                        break;
+                    case 3:
+                        $pluplusnol = '0000' . $isiplu;
+                        break;
+                    case 4:
+                        $pluplusnol = '000' . $isiplu;
+                        break;
+                    case 5:
+                        $pluplusnol = '00' . $isiplu;
+                        break;
+                    case 6:
+                        $pluplusnol = '0' . $isiplu;
+                        break;
+                    case 7 :
+                        $pluplusnol = $isiplu;
+                        break;
+                    case $isiplu > 7: 
+                        redirect()->to('/store/cekpromo')->with('Error', 'PLU maksimal 7 Digit!!')->withInput();
+                        break;
+                    default:
+                        redirect()->to('/store/cekpromo')->with('Error', 'Data yang anda masukkan tidak valid!!')->withInput();
+                        break;
+                }
+            }
+
+                $pluCari = substr($pluplusnol, 0, 6);
+                $plu0 = substr($pluplusnol, 0, 6).'0';
+                $plu1 =  substr($pluplusnol,0,6)."%";
+
+                $kesegaran = $dbProd->query(
+                    "select * from (
+                        select 
+                        row_number() over (partition by slp_prdcd order by slp_id desc) as URUTSLP,
+                        prd_prdcd,prd_deskripsipanjang,btr_flag_kesegaran,
+                        btr_umur_brg,btr_sat_umur_brg,ubr_max_umur_brg_dci,ubr_max_umur_brg_dci_s,
+                        slp_id,slp_create_dt as SLP_TERAKHIR,
+                        slp_expdate as EXPDATE_TERAKHIR,
+                        case 
+                          when ubr_max_umur_brg_dci_s='B' then (ubr_max_umur_brg_dci*30)+sysdate 
+                          when ubr_max_umur_brg_dci_s='H' then (ubr_max_umur_brg_dci)+sysdate 
+                        end as MINIMAL_DITERIMA,
+                        case 
+                          when ubr_max_umur_brg_s='B' then (ubr_max_umur_brg*30)+sysdate 
+                          when ubr_max_umur_brg_s='H' then (ubr_max_umur_brg)+sysdate 
+                        end as MAKSIMAL_DITERIMA
+                        from tbmaster_prodmast 
+                        left join IGRBGR.tbmaster_batasretur on btr_prdcd=prd_prdcd
+                        left join IGRBGR.tbtr_umurbarang on ubr_prdcd=prd_prdcd
+                        left join IGRBGR.tbtr_slp on slp_prdcd=prd_prdcd
+                        where prd_prdcd like '$plu0'
+                        )where urutslp='1' "
+                );
+
+                $kesegaran = $kesegaran->getResultArray();
+        }   
+
+        if (!empty($desk1) || !empty($desk2)) {
+            $cariproduk = $dbProd->query(
+                "SELECT prd_prdcd,
+                prd_deskripsipanjang,
+                prd_unit,
+                prd_kodetag,
+                prd_hrgjual,
+                st_saldoakhir 
+                from tbmaster_prodmast 
+                left join tbmaster_stock on st_prdcd=prd_prdcd
+                where st_lokasi='01' and prd_prdcd like '%0' and prd_deskripsipanjang like '%$desk1%' and prd_deskripsipanjang like '%$desk2%'
+                order by prd_prdcd"
+            );
+            $cariproduk = $cariproduk->getResultArray();
+        }
+
+        $data =[
+            'title' => 'Cek Kesegaran Produk',
+            'kesegaran' => $kesegaran,
+            'cariproduk' => $cariproduk,
+            'desk1' => $desk1,
+            'desk2' => $desk2,
+        ];
+        return view('logistik/kesegaran', $data);
+    }
 }

@@ -20,6 +20,7 @@
             <li><a class="dropdown-item" href="<?= $ip; ?>ms/pengeluaranhadiah">Pengeluaran Hadiah</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>ms/monitoringchecker">Monitoring Checker</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>ms/cetaksso">Cetak SSO</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>ms/efaktur">Monitoring Efaktur</a></li>
             
           </ul>
           <li class="nav-item dropdown">

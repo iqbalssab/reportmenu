@@ -58,7 +58,7 @@ abstract class BaseController extends Controller
 
         // E.g.: $this->session = \Config\Services::session();
         session();
-        $this->tglsekarang = Time::now();
+        $this->tglsekarang = date('Y-m-d H:i:s');
         $this->ip = "http://".$_SERVER['SERVER_NAME']."/reportmenu/";
     }
 }

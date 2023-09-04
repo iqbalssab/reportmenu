@@ -917,4 +917,149 @@ class Logistik extends BaseController
         ];
         return view('logistik/kesegaran', $data);
     }
+
+    // Stok per departemen
+    public function stokdep(){
+
+        $dbProd = db_connect('production');
+        $tgl = $this->request->getVar('tgl');
+        $departement = $this->request->getVar('departement');
+
+        $dep = $dbProd->query(
+            "SELECT dep_kodedivisi,div_namadivisi,div_singkatannamadivisi,dep_kodedepartement, dep_namadepartement 
+			from tbmaster_departement 
+			left join tbmaster_divisi on div_kodedivisi=dep_kodedivisi
+			order by dep_kodedivisi,dep_kodedepartement"
+        );
+
+        $dep = $dep->getResultArray();
+
+        $data = [
+            'title' => 'Stok per Departemen',
+            'dep' => $dep,
+        ];
+        return view('logistik/stokdep', $data);
+    }
+
+    public function tampilstokdep(){
+        $dbProd = db_connect('production');
+        $tgl = $this->request->getVar('tgl');
+        $departement = $this->request->getVar('departement');
+        $tglsekarang = date('d-m-Y');
+        $jmlhari = date('d');
+        $dsi = 0;
+        $supplier = strtoupper($this->request->getVar('supplier'));
+
+        
+        // Pilih Departement
+        $kodedivisi      = substr($departement,0,1);
+        $kodedepartement = substr($departement,1,2);
+        
+        if ($departement=="all") {
+            $filterdep = " and prd_kodedivisi='0' ";
+            $judul_filterdep = "Pilih Divisi / Departement !";
+        }elseif ($departement="") {
+            $filterdep       = " and prd_kodedivisi='$kodedivisi' " ; 
+	        $judul_filterdep = "DIV $kodedivisi";
+        }else{
+            $filterdep       = " and prd_kodedivisi='$kodedivisi' and prd_kodedepartement ='$kodedepartement' " ; 
+	        $judul_filterdep = "DIV $kodedivisi DEP $kodedepartement";
+        }
+
+        // Filter Data Supplier
+        if($supplier=="") {
+            $filtersup = " ";
+            $judullap = "<h2>Monitoring Stok $tglsekarang <br/> $judul_filterdep</h2>";
+        }else{
+            $filtersup = " and sup_kodesupplier='$supplier' ";
+            $judullap = "<h2>Monitoring Stok $tglsekarang <br/>Supplier : $supplier</h2>";
+        }
+
+        //set bulan untuk avgsales
+        $bln = date("m");
+        switch ($bln) {
+            case "1": $bln1="10";$bln2="11";$bln3="12";break;
+            case "2": $bln1="11";$bln2="12";$bln3="01";break;
+            case "3": $bln1="12";$bln2="01";$bln3="02";break;
+            case "4": $bln1="01";$bln2="02";$bln3="03";break;
+            case "5": $bln1="02";$bln2="03";$bln3="04";break;
+            case "6": $bln1="03";$bln2="04";$bln3="05";break;
+            case "7": $bln1="04";$bln2="05";$bln3="06";break;
+            case "8": $bln1="05";$bln2="06";$bln3="07";break;
+            case "9": $bln1="06";$bln2="07";$bln3="08";break;
+            case "10": $bln1="07";$bln2="08";$bln3="09";break;
+            case "11": $bln1="08";$bln2="09";$bln3="10";break;
+            case "12": $bln1="09";$bln2="10";$bln3="11";break;
+            default : $bln1="10";$bln2="11";$bln3="12";
+        }
+
+        $stokdep = $dbProd->query(
+            "SELECT sup_kodesupplier as KDSUPPLIER,
+            sup_namasupplier as NAMASUPPLIER,
+            prd_kodedivisi as DIV,
+            prd_kodedepartement as DEPT,
+            prd_kodekategoribarang as KATB,
+            prd_prdcd as PLU,
+            prd_deskripsipanjang as DESKRIPSI,
+            prd_frac as FRAC,
+            prd_kodetag as TAG,
+            prd_flagbkp2 as BKP,
+            nvl(st_saldoawal,0) as STOCKAWAL,
+            nvl(ST_TRFIN,0) as TRFIN, 
+            nvl(ST_TRFOUT,0) as TRFOUT, 
+            nvl(ST_SALES,0) as SALES, 
+            nvl(ST_RETUR,0) as RETUR, 
+            nvl(ST_ADJ,0) as ADJ,
+            nvl(ST_INTRANSIT,0) as INTRANSIT,
+            nvl(ST_SALDOAKHIR,0) as STOCKAKHIR,
+            QTYREALISASI as PICKING_OMI,
+            (nvl(sls_qty_$bln1,0) + nvl(sls_qty_$bln2,0) + nvl(sls_qty_$bln3,0))/3 as AVGSALES,
+            prd_avgcost as ACOST,
+            prd_hrgjual as HRGNORMAL,
+            case when prd_flagbkp2='Y' then ((prd_hrgjual - (prd_avgcost*1.1))/prd_hrgjual)*100 else ((prd_hrgjual - prd_avgcost)/prd_hrgjual)*100 end as MRG1,
+            prmd_hrgjual as HRGPROMO,
+          case when prd_flagbkp2='Y' then ((prmd_hrgjual - (prd_avgcost*1.1))/prd_hrgjual)*100 else ((prmd_hrgjual - prd_avgcost)/prd_hrgjual)*100 end as MRG2,
+            lks_display
+            
+     from tbmaster_prodmast
+     left join (select * from tbmaster_stock where st_lokasi='01') on prd_prdcd=st_prdcd
+     left join tbtr_salesbulanan on sls_prdcd=prd_prdcd
+     left join (select * from tbmaster_hargabeli where hgb_tipe='2') on hgb_prdcd=prd_prdcd
+     left join (select prmd_prdcd,prmd_hrgjual from tbtr_promomd where trunc(prmd_tglakhir)>=trunc(sysdate))on prmd_prdcd=prd_prdcd
+     LEFT JOIN TBMASTER_SUPPLIER ON SUP_KODESUPPLIER=HGB_KODESUPPLIER
+     left join (
+     select pbo_pluigr,sum(pbo_qtyorder) as QTYORDER,sum(nvl(pbo_qtyrealisasi,0))as QTYREALISASI        
+     from tbmaster_pbomi         
+     left join tbmaster_prodmast on pbo_pluigr=prd_prdcd        
+     where trunc(pbo_create_dt)=to_date('$tgl','YYYY-MM-DD') group by pbo_pluigr) on substr(st_prdcd,0,6)=substr(pbo_pluigr,0,6)
+     left join ( select lks_prdcd,lks_koderak||'.'||lks_kodesubrak||'.'||lks_tiperak||'.'||lks_shelvingrak||'.'||lks_nourut as lks_display
+     from tbmaster_lokasi where substr(lks_koderak,0,1) IN ('O','R') and substr(lks_tiperak,0,1) <>'S' ) on lks_prdcd=prd_prdcd
+     where (prd_kodecabang='25' or prd_kategoritoko in ('01','02','03')) and prd_prdcd like '%0' and prd_kodetag not in ('N','X') and st_lokasi='01'
+     $filterdep
+     $filtersup
+     order by DIV,DEPT,DESKRIPSI"
+        );
+
+        $stokdep = $stokdep->getResultArray();
+
+        $data = [
+            'title' => 'STOK DEPARTEMENT',
+            'stokdep' => $stokdep,
+            'dsi' => $dsi,
+            'jmlhari' => $jmlhari,
+            'judul' => $judullap,
+            'tgl' => $tgl,
+            'tglskg' => $tglsekarang,
+            'departement' => $departement
+        ];
+    if($this->request->getVar('btn')=="tampil"){
+        return view('logistik/tampilstokdep', $data);
+    }elseif($this->request->getVar('btn')=="xls"){
+        $tanggalSekarang = $this->tglsekarang;
+        $filename = "datapromo $tanggalSekarang.xls";
+        header("Content-Disposition: attachment; filename=\"$filename\"");
+        header("Content-Type: application/vnd.ms-excel");
+        return view('logistik/excelstokdep', $data);
+    }
+    }
 }

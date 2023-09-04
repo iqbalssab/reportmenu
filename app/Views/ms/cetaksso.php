@@ -12,7 +12,7 @@ echo $this->section('content'); ?>
                     <h6 class="text-center fw-bold">CETAK STRUK SSO</h6>
                 </div>
                 <div class="card-body">
-                    <form method="get" action="/ms/tampildatasso">
+                    <form method="get" action="tampildatasso">
                         <?= csrf_field(); ?>
                         <label class="mb-2 fw-bold text-start" for="nostr">NO STRUK :</label><br>
                         <input type="text" name="notrx" id="notrx" style="text-transform: uppercase;" class="w-100 mb-2 form-control"  value="<?= old('notrx'); ?>">

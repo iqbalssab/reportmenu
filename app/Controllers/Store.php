@@ -1937,6 +1937,10 @@ class Store extends BaseController
       if($this->request->getVar('btn')=="tampil"){
         return view('store/tampilsalesmember', $data);
       }elseif($this->request->getVar('btn')=="xls"){
+        $tanggalSekarang = $this->tglsekarang;
+        $filename = "datapromo $tanggalSekarang.xls";
+        header("Content-Disposition: attachment; filename=\"$filename\"");
+        header("Content-Type: application/vnd.ms-excel");
         return view('store/tampilexcelsalesmember', $data);
       }
     }

@@ -53,6 +53,8 @@
             <hr>
             <li><a class="dropdown-item" href="<?= $ip; ?>logistik/lppvsplanodetail">LPP vs Plano Detail</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>logistik/lppvsplanorekap">LPP vs Plano Rekap</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>logistik/kesegaran">Cek Data Kesegaran</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>logistik/stokdep">Stok Per Departement</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">

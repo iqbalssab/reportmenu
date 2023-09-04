@@ -46,6 +46,7 @@ $routes->post('/store/salesmember/tampilsalesmember', 'Store::tampilsalesmember'
 $routes->post('/store/salesperdep/tampilsalesperdep', 'Store::tampilsalesperdep');
 $routes->post('/store/kompetisikasir/tampilkompkasir', 'Store::tampilkompkasir');
 $routes->get('/store/kompetisikasir/detailitemfokus', 'Store::detailitemfokus');
+$routes->post('/logistik/stokdep/tampilstokdep', 'Logistik::tampilstokdep');
 
 /*
  * --------------------------------------------------------------------

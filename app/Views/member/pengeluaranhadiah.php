@@ -12,7 +12,7 @@ echo $this->section('content'); ?>
                     <h6 class="text-center fw-bold">Pengeluaran Hadiah</h6>
                 </div>
                 <div class="card-body">
-                    <form method="get" action="/ms/pengeluaranhadiah">
+                    <form method="get" action="/member/pengeluaranhadiah">
                         <?= csrf_field(); ?>
                         <label class="fw-bold mb-2" for="prd">PERIODE :</label><br>
                         <label class="mb-2" for="start">Tanggal Awal</label>

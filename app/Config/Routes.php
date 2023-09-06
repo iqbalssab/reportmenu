@@ -35,17 +35,17 @@ $routes->get('/', 'Home::index');
 $routes->get('/store/previewkasir', 'Store::previewkasir');
 $routes->get('/store/cekpromo', 'Store::cekpromo');
 $routes->get('/store/monitoringpromo/(:segment)', 'Store::tampildatapromo/$1');
-$routes->get('/ms/cekmember/(:segment)', 'Ms::tampildatatransaksi/$1');
-$routes->get('/logistik/lppvsplanodetail/(:segment)', 'Ms::tampildatalppplanodetail/$1');
-$routes->get('/logistik/lppvsplanodetail/(:segment)', 'Ms::tampildatalppdetail2/$1');
-
 $routes->get('/store/transaksiproduk/transaksi', 'Store::transaksi');   
-
-$routes->get('/store/salesmember/tampilsalesmember', 'Store::tampilsalesmember');
-$routes->post('/store/salesmember/tampilsalesmember', 'Store::tampilsalesmember');
-$routes->post('/store/salesperdep/tampilsalesperdep', 'Store::tampilsalesperdep');
 $routes->post('/store/kompetisikasir/tampilkompkasir', 'Store::tampilkompkasir');
 $routes->get('/store/kompetisikasir/detailitemfokus', 'Store::detailitemfokus');
+
+$routes->get('/member/cekmember/(:segment)', 'Member::tampildatatransaksi/$1');
+$routes->get('/member/salesmember/tampilsalesmember', 'Member::tampilsalesmember');
+$routes->post('/member/salesperdep/tampilsalesperdep', 'Member::tampilsalesperdep');
+
+$routes->get('/logistik/lppvsplanodetail/(:segment)', 'Logistik::tampildatalppplanodetail/$1');
+
+
 
 /*
  * --------------------------------------------------------------------

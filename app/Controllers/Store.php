@@ -2446,12 +2446,7 @@ class Store extends BaseController
       ];
       return view('store/detailitemfokus', $data);
     }
-    // public function export()
-    // {
-    //   $spreadsheet = new Spreadsheet();
-    //   $activeWorksheet = $spreadsheet->getActiveSheet();
+    
 
-    //   $writer = new Xls($spreadsheet);
-    //   $writer->save('Data '.Time::now().'.xls');
-    // }
+    
 }

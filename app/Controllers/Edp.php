@@ -84,4 +84,87 @@ class Edp extends BaseController
         
         return view('edp/tampildatabrghlg',$data);
     }
+
+    public function cetaksso() {
+        $data = [
+          'title' => 'Cetak SSO',
+        ];
+  
+        // redirect()->to('/edp/cetaksso')->withInput();
+        return view('edp/cetaksso',$data);
+    }
+  
+    public function tampildatasso() {
+        $dbProd = db_connect("production");
+        $aksi = $this->request->getVar('tombol');
+        $nostruk = $this->request->getVar('notrx');
+        $sso = $filename = [];
+  
+        $sso = $dbProd->query(
+          "select * from tbtr_kasir_sso
+          where kode_trans = '$nostruk'
+          order by seqno asc"
+        );
+  
+        $sso = $sso->getResultArray();
+  
+        $data = [
+          'title' => 'Data '.$nostruk,
+          'nostruk' => $nostruk,
+          'sso' => $sso,
+        ];
+  
+        if($aksi == "btnsso") {
+          $filename = "$nostruk.xls";
+          header("Content-Disposition: attachment; filename=\"$filename\"");
+          header("Content-Type: application/vnd.ms-excel");
+            
+          return view('edp/tampildatasso',$data);
+        };
+      }
+  
+      public function serahterimahdh() {
+        $data = [
+          'title' => 'Cetak Serah Terima Hadiah',
+        ];
+  
+        redirect()->to('/edp/serahterimahdh')->withInput();
+        return view('edp/serahterimahdh',$data);
+      }
+
+      public function monitoringchecker() {
+      
+        $data = [
+          'title' => 'Monitoring Checker'
+        ];
+  
+        return view('edp/monitoringchecker',$data);
+      }
+  
+      public function tampildatachecker() {
+        $dbProd = db_connect("production");
+        $aksi = $this->request->getVar('tombol');
+        $tanggal = $this->request->getVar('tgl');
+        $checker = $filename = [];
+  
+        $checker = $dbProd->query(
+          "select * from tbtr_checker_header where trunc(transactiondate)= to_date('$tanggal','YYYY-MM-DD')"
+        );
+  
+        $checker = $checker->getResultArray();
+  
+        $data = [
+          'title' => 'Data '.$tanggal,
+          'tanggal' => $tanggal,
+          'checker' => $checker,
+        ];
+  
+        if($aksi == "btnmc") {
+        //   $filename = "Monitoring Checker $tanggal.xls";
+        //   header("Content-Disposition: attachment; filename=\"$filename\"");
+        //   header("Content-Type: application/vnd.ms-excel");
+            
+          return view('edp/tampildatachecker',$data);
+        };
+    }
 }

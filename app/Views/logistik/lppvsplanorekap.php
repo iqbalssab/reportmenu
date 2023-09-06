@@ -14,7 +14,7 @@ echo $this->section('content'); ?>
     <div class="row">
         <div class="col-md-6">
             <h6 class="fw-bold">REKAP LPP vs PLANO</h6>    
-            <table class="table mb-3 table-bordered table-responsive" style="width: 750px;">
+            <table class="table mb-3 table-bordered table-responsive" style="width: 750px;" style="font-size: 15px;">
                 <thead class="table-success">
                     <tr>
                         <th class="text-center">QTY LPP</th>
@@ -40,7 +40,7 @@ echo $this->section('content'); ?>
             </table>
             <br>
             <h6 class="fw-bold">REKAP LPP vs PLANO Plus Minus</h6>    
-            <table class="table mb-3 table-bordered table-responsive" style="width: 750px;">
+            <table class="table mb-3 table-bordered table-responsive" style="width: 750px;" style="font-size: 15px;">
                 <thead class="table-success">
                     <tr>
                         <th class="text-center">SELISIH PLUS</th>
@@ -60,7 +60,7 @@ echo $this->section('content'); ?>
             </table>
             <br>
             <h6 class="fw-bold">REKAP LPP vs PLANO Plus Terbesar</h6>    
-            <table class="table mb-3 table-bordered table-responsive table-hover" style="width: 1300px;">
+            <table class="table mb-3 table-bordered table-responsive table-hover" style="width: 1300px; font-size: 15px;">
                 <thead class="table-success">
                     <tr>
                         <th class="text-center">PLU</th>
@@ -90,7 +90,7 @@ echo $this->section('content'); ?>
             </table>
             <br>
             <h6 class="fw-bold">REKAP LPP vs PLANO Minus Terbesar</h6>    
-            <table class="table mb-3 table-bordered table-responsive table-hover" style="width: 1300px;">
+            <table class="table mb-3 table-bordered table-responsive table-hover" style="width: 1300px; font-size: 15px;">
                 <thead class="table-success">
                     <tr>
                         <th class="text-center">PLU</th>

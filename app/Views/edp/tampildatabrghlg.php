@@ -13,7 +13,7 @@
                     <br>
                 </div>
             </div>
-            <table class="table table-bordered table-hover table-sm border-dark table-responsive">
+            <table class="table table-bordered table-hover table-sm border-dark table-responsive" style="font-size: 14px;">
                 <thead class="table-success border-dark">
                     <tr>
                         <th class="text-center">TANGGAL</th>

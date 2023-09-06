@@ -17,10 +17,10 @@ echo $this->section('content'); ?>
                         <table class="table table-borderless">
 							<tr>
 								<td class="text-end mb-2" style="width: 200px;">
-									<label class="fw-bold" for="txtdept">Pilih Departement :</label>
+									<label class="fw-bold" for="txtdept" style="font-size: 15px;">Pilih Departement :</label>
 								</td>
 								<td colspan="2" style="width: 300px;" class=" mb-2">
-									<select class="form-select form-select-sm" name="dept" aria-label="Small select example" autofocus>
+									<select class="form-select form-select-sm" name="dept" aria-label="Small select example" style="font-size: 15px;" autofocus>
 										<option value=""></option>
 										<option value="1">FOOD</option>
 										<option value="2">NON-FOOD</option>
@@ -35,10 +35,10 @@ echo $this->section('content'); ?>
 								</td>
 							</tr>
 							<tr>
-								<td class="text-end mb-2">
+								<td class="text-end mb-2" style="font-size: 15px;">
 									<label class="fw-bold" for="txtsort">Sort By :</label>
 								</td>
-								<td class=" mb-2">
+								<td class=" mb-2" style="font-size: 15px;">
 									<select class="form-select form-select-sm" name="sortby" id="sortby" aria-label="Small select example" style="width: 150px;">
 										<option value="qty">QTY SELISIH</option>
 										<option value="rph">RPH SELISIH</option>
@@ -47,10 +47,10 @@ echo $this->section('content'); ?>
 								<td></td>
 							</tr>
 							<tr>
-								<td class="text-end mb-2">
+								<td class="text-end mb-2" style="font-size: 15px;">
 									<label class="fw-bold" for="txtver">Versi :</label>
 								</td>
-								<td class=" mb-2">
+								<td class=" mb-2" style="font-size: 15px;">
 									<select class="form-select form-select-sm" name="ver" id="ver" aria-label="Small select example" style="width: 150px;">
 										<option value="ver1">VERSI 1</option>
 										<option value="ver2">VERSI 2</option>
@@ -61,7 +61,7 @@ echo $this->section('content'); ?>
 							<tr>
 								<td></td>
 								<td class=" mb-2">
-									<button type="submit" name="tombol" value="btnlpp1" class="btn w-40 d-block text-light fw-bold" style="background-color: #0040ff; width: 150px;">Tampilkan</button>
+									<button type="submit" name="tombol" value="btnlpp1" class="btn w-40 d-block text-light fw-bold" style="background-color: #6528F7; width: 150px;">Tampilkan</button>
 								</td>
 								<td class=" mb-2">
 									<button type="submit" name="tombol" value="btnlpp2" class="btn w-40 d-block text-light fw-bold" style="background-color: #33cc33; width: 150px;">Download</button>

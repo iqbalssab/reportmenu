@@ -18,7 +18,7 @@ echo $this->section('content'); ?>
                     <h6 class="text-warning text-center">** Menggunakan Data H-1 **</h6>
                 </div>
                 <div class="card-body">
-                    <form method="get" action="/ms/transaksimember">
+                    <form method="get" action="/member/transaksimember">
                         <?= csrf_field(); ?>
                         <label class="fw-bold" for="kd" style="font-size: 15px;">KODE MEMBER  : </label>
                         <input type="text" name="kode" id="kode" class="w-100 mb-3 form-control input-sm" value="<?= old('kode'); ?>" style="font-size: 15px;" require autofocus>
@@ -38,7 +38,7 @@ echo $this->section('content'); ?>
                     <div class="card-header bg-info text-dark">
                         <h6 class="fw-bold">Hasil Pencarian Member : <?= $kode; ?>  |  Periode : <?= date('d M Y',strtotime($awal)); ?> s/d <?= date('d M Y',strtotime($akhir)); ?> </h6>
                     </div>
-                    <form action="/ms/cekmember/tampildatatransaksi" method="get" target="_blank">
+                    <form action="/member/cekmember/tampildatatransaksi" method="get" target="_blank">
                         <div class="card-body">
                             <table class="table mb-3" style="font-size: 14px;">
                                 <thead>

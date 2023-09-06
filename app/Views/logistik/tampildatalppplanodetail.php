@@ -22,7 +22,7 @@
                             <h5 class="fw-bold">Divisi : <?=$judul; ?></h5>
                         </div>
                     </div>
-                    <table class="table table-bordered border-dark table-sm">
+                    <table class="table table-bordered border-dark table-sm" style="font-size: 14px;">
                         <thead>
                             <tr>
                                 <th class="text-center">DIV</th>
@@ -92,7 +92,7 @@
                             <h5 class="fw-bold">Divisi : <?=$judul; ?></h5>
                         </div>
                     </div>
-                    <table class="table table-bordered border-dark table-sm">
+                    <table class="table table-bordered border-dark table-sm" style="font-size: 14px;">
                         <thead>
                             <tr>
                                 <th class="text-center">DIV</th>

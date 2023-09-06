@@ -408,5 +408,12 @@ class Ms extends BaseController
       };
     }
 
-    
+    public function serahterimahdh() {
+      $data = [
+        'title' => 'Cetak Serah Terima Hadiah',
+      ];
+
+      redirect()->to('/ms/serahterimahdh')->withInput();
+      return view('ms/serahterimahdh',$data);
+    }
 }

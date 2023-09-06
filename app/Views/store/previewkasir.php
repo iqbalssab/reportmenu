@@ -9,7 +9,7 @@
                 ?>
 <div class="container-fluid mt-2 mx-auto fs-6 text-small">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-9">
             <div class="card">
                 <div class="card-header bg-success">
                 <h5 class="text-center text-light fw-bold">Preview Transaksi Kasir || <?= $tanggal; ?> - <?= $waktu; ?></h5>
@@ -18,15 +18,15 @@
                 <table class="table table-sm mb-3">
     <thead>
       <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Nama Kasir</th>
-          <th scope="col">Kassa</th>
-          <th scope="col">Total Transaksi</th>
-          <th scope="col">Tunai</th>
-          <th scope="col">K Debit</th>
-          <th scope="col">K Kredit</th>
-          <th scope="col">Kredit</th>
-          <th scope="col">Status</th>
+          <th scope="col" class="text-center">ID</th>
+          <th scope="col" class="text-center">Nama Kasir</th>
+          <th scope="col" class="text-center">Kassa</th>
+          <th scope="col" class="text-center">Total Transaksi</th>
+          <th scope="col" class="text-center">Tunai</th>
+          <th scope="col" class="text-center">K Debit</th>
+          <th scope="col" class="text-center">K Kredit</th>
+          <th scope="col" class="text-center">Kredit</th>
+          <th scope="col" class="text-center">Status</th>
         </tr>
     </thead>
     <tbody>
@@ -35,13 +35,13 @@
     <tr>
       <th scope="row"><?= $transaksi['ID_KASIR'] ?></th>
       <td><?= $transaksi['NAMA_KASIR']; ?></td> 
-      <td><?= $transaksi['KASSA']; ?></td>
-      <td>Rp. <?= number_format($transaksi['TOTAL_TRANSAKSI'],'0',',','.') ; ?></td>
-      <td>Rp. <?= number_format($transaksi['TUNAI'],'0',',','.') ; ?></td>
-      <td><?= $transaksi['KDEBIT']; ?></td>
-      <td><?= $transaksi['KKREDIT']; ?></td>
-      <td><?= $transaksi['KREDIT']; ?></td>
-      <td>
+      <td class="text-center"><?= $transaksi['KASSA']; ?></td>
+      <td class="text-end"><?= number_format($transaksi['TOTAL_TRANSAKSI'],'0',',','.') ; ?></td>
+      <td class="text-end"><?= number_format($transaksi['TUNAI'],'0',',','.') ; ?></td>
+      <td class="text-end"><?= number_format($transaksi['KDEBIT'],'0',',','.'); ?></td>
+      <td class="text-end"><?= number_format($transaksi['KKREDIT'],'0',',','.'); ?></td>
+      <td class="text-end"><?= number_format($transaksi['KREDIT'],'0',',','.'); ?></td>
+      <td class="text-center">
         <?php if($transaksi['STATUS']=='Aktif'){ ?>
         <span class="badge text-bg-success">
             <?= $transaksi['STATUS']; ?>
@@ -59,7 +59,7 @@
         <td class="fw-bold">Total Transaksi</td>
         <td></td>
         <?php foreach($totalTransaksi as $total): ?>
-        <td class="fw-bold">Rp. <?= number_format($total,0,',','.'); ?></td>
+        <td class="fw-bold text-end"><?= number_format($total,0,',','.'); ?></td>
         <?php endforeach; ?>
     </tr>
     </tbody>
@@ -67,7 +67,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="row ">
                 <div class="col">
                 <!-- Member Belanja -->
@@ -79,15 +79,15 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">Kategori</th>
-                                <th scope="col">Jumlah</th>
+                                <th scope="col" class="text-center">Kategori</th>
+                                <th scope="col" class="text-center">Jumlah</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach($members->getResultArray() as $member): ?>
                             <tr>
                                 <td><?= $member['TIPEMBR']; ?></td>
-                                <td><?= $member['JMLMBR']; ?></td>
+                                <td class="text-end"><?= number_format($member['JMLMBR'],'0',',','.'); ?></td>
                             </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -106,9 +106,9 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col">Tahun</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Jumlah</th>
+                                    <th scope="col" class="text-center">Tahun</th>
+                                    <th scope="col" class="text-center">Status</th>
+                                    <th scope="col" class="text-center">Jumlah</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -116,7 +116,7 @@
                                 <tr>
                                     <td><?= $faktur['ALK_TAHUNPAJAK']; ?></td>
                                     <td><?= $faktur['STATUS']; ?></td>
-                                    <td><?= $faktur['ALOKASI']; ?></td>
+                                    <td class="text-end"><?= number_format($faktur['ALOKASI'],'0',',','.'); ?></td>
                                 </tr>
                             </tbody>
                             <?php endforeach; ?>

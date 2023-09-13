@@ -6,6 +6,7 @@
 
 <h5>Sales <?= $jenissales; ?></h5>
 
+<div class="overflow-auto">
 <table class="table table-responsive table-bordered">
     <thead>
         <tr>
@@ -98,5 +99,6 @@
         <?php endforeach; ?>
     </tbody>
 </table>
+</div>
 
 <?php $this->endSection(); ?>

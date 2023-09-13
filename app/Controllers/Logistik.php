@@ -638,6 +638,59 @@ class Logistik extends BaseController
         return view('/logistik/lppvsplanorekap',$data);
     }
 
+    public function planominus()
+    {
+      $dbProd = db_connect('production');
+      $plano = $this->request->getVar('plano');
+      $jenis = $this->request->getVar('jenis');
+
+      $planominus = [];
+
+      if ($plano=="all") {
+        $filterplano = "";
+      }elseif($plano == "toko"){
+        $filterplano = " WHERE JENIS ='Toko'";
+      }elseif($plano == "gudang"){
+        $filterplano = " WHERE JENIS ='Gudang'";
+      }
+      if ($jenis=="1") {
+        
+        $planominus = $dbProd->query(
+          " SELECT * FROM (
+            select * from (
+            SELECT LKS_KODERAK     AS RAK,
+              LKS_KODESUBRAK       AS SUB,
+              LKS_TIPERAK          AS TIPE,
+              LKS_SHELVINGRAK      AS SHELV,
+              LKS_PRDCD            AS PLU,
+              PRD_DESKRIPSIPANJANG AS DESK,
+              LKS_QTY              AS QTYPLANO,
+              case when (LKS_KODERAK LIKE 'D%' OR LKS_KODERAK LIKE 'G%') then 'Gudang' else 'Toko' end AS JENIS
+            FROM TBMASTER_LOKASI 
+            LEFT JOIN TBMASTER_PRODMAST
+            ON LKS_PRDCD =PRD_PRDCD
+            WHERE LKS_QTY<0
+            ORDER BY LKS_KODERAK ,
+              LKS_KODESUBRAK ,
+              LKS_TIPERAK ,
+              LKS_SHELVINGRAK
+             )  
+             $filterplano
+             order by RAK asc) 
+             ORDER BY 1, 2, 3, 4, 5 "
+        );
+        $planominus = $planominus->getResultArray();     
+      }
+
+
+      $data = [
+        'title' => 'Plano Minus '.$this->tglsekarang,
+        'planominus' => $planominus
+      ];
+
+      return view('logistik/planominus', $data);
+    }
+
     public function livecks() {
         $dbProd = db_connect('production');
         $plu = $this->request->getVar('inputplu');
@@ -651,9 +704,9 @@ class Logistik extends BaseController
         if($aksi == "btnall") {
             $filter = "";
         } elseif($aksi == "btndsp") {
-            $filter = " and lks_tiperak <> 'S'";
+            $filter = " AND lks_tiperak <> 'S'";
         } elseif($aksi == "btnstr") {
-            $filter = " and lks_tiperak = 'S'";
+            $filter = " AND lks_tiperak = 'S'";
         }
 
         $display = $dbProd->query(
@@ -719,7 +772,7 @@ class Logistik extends BaseController
         if(!empty($filter)) {
 
             $trflokasi = $dbProd->query(
-                "select * from (
+                "SELECT * from (
                     select FMKRAK||'.'||FMSRAK||'.'||FMTIPE||'.'||FMSELV||'.'||FMNOUR as LOKASI_TRANSFER, 
                       FMKPLU as PLU_TRANSFER,
                       PRD_DESKRIPSIPENDEK as DESKRIPSI_TRANSFER,

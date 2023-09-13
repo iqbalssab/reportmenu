@@ -41,14 +41,14 @@
                         <td><?= $marmin['TAG']; ?></td>
                         <td><?= $marmin['FRAC']; ?></td>
                         <td><?= $marmin['UNIT']; ?></td>
-                        <td><?= $marmin['STOK']; ?></td>
-                        <td><?= $marmin['ACOST']; ?></td>
+                        <td><?= number_format($marmin['STOK']); ?></td>
+                        <td><?= number_format($marmin['ACOST']); ?></td>
                         <td><?= $marmin['FLAGBKP1']; ?></td>
                         <td><?= $marmin['FLAGBKP2']; ?></td>
-                        <td><?= $marmin['HRG_NORMAL']; ?></td>
-                        <td><?= $marmin['HRG_PROMO']; ?></td>
-                        <td><?= $marmin['MARGIN']; ?></td>
-                        <td><?= $marmin['MRG']; ?></td>
+                        <td><?= number_format($marmin['HRG_NORMAL']); ?></td>
+                        <td><?= number_format($marmin['HRG_PROMO']); ?></td>
+                        <td><?= number_format($marmin['MARGIN']); ?></td>
+                        <td><?= number_format($marmin['MRG']); ?>%</td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>

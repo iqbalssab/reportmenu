@@ -12,7 +12,7 @@ echo $this->section('content'); ?>
                     <h6 class="text-center fw-bold">Monitoring Checker :</h6>
                 </div>
                 <div class="card-body">
-                    <form method="get" action="/edp/tampildatachecker">
+                    <form method="get" action="tampildatachecker">
                         <?= csrf_field(); ?>
                         <label class="mb-2 fw-bold text-start" for="prd">TANGGAL :</label><br>
                         <input type="date" name="tgl" id="tgl" class="w-100 mb-4 form-control"  value="<?= old('tgl'); ?>">

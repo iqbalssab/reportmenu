@@ -12,14 +12,14 @@ echo $this->section('content'); ?>
                     <h6 class="fw-bold " style="font-size: 15px;">Inquiry Plano</h6>
                 </div>
                 <div class="card-body">
-                    <form class="form" method="post" role="form" action="/logistik/livecks">
+                    <form class="form" method="post" role="form" action="livecks">
                         <?= csrf_field(); ?>
                         <div class="fw-bold text-center mb-2" style="font-size: 14px;">.:: Input PLU ::.</div>
                         <input type="text" name="inputplu" id="inputplu" class="mb-3 text-center form-control input-sm" style="font-size: 14px;" value="<?= old('inputplu'); ?>" required autofocus>
                         <button type="submit" name="tombol" value="btnbh" class="btn btn-sm w-100 mb-1 d-block text-light fw-bold" style="background-color: #33cc33;" style="font-size: 14px;">Tampilkan Data</button>
                     </form>
                 <hr>
-                    <form class="form" role="form" method="post" action="/logistik/livecks">
+                    <form class="form" role="form" method="post" action="livecks">
                         <?= csrf_field(); ?>
                         <div class="fw-bold text-center mb-2" style="font-size: 14px;">.:: Kode Rak ::.</div>
                         <input type="text" name="koderak" id="koderak" class="mb-3 text-center form-control input-sm" style="font-size: 14px;" value="<?= old('koderak'); ?>" required>
@@ -36,7 +36,7 @@ echo $this->section('content'); ?>
                     <h6 class="fw-bold " style="font-size: 15px;">Antrian TrfLokasi</h6>
                 </div>
                 <div class="card-body">
-                    <form class="form" method="post" role="form" action="/logistik/livecks">
+                    <form class="form" method="post" role="form" action="livecks">
                         <?= csrf_field(); ?>
                         <div class="fw-bold text-center mb-2" style="font-size: 14px;">View Antrian</div>
                         <button type="submit" name="tombol" value="btndsp2" class="btn w-100 mb-1 d-block text-light fw-bold btn-sm" style="background-color: #6C3428;font-size: 14px">DISPLAY</button>
@@ -45,7 +45,6 @@ echo $this->section('content'); ?>
                 </div>
             </div>
         </div>
-<<<<<<< HEAD
         <div class="col-md-10 mx-auto">
             <!-- Data monitoring PLano -->
             <?php if(!empty($display)) {?>

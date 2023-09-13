@@ -12,7 +12,7 @@ echo $this->section('content'); ?>
                     <h5 class="text-start fw-bold">Data Stock All</h5>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="/logistik/tampilstock" target="_blank" role="form" class="form-inline">
+                    <form method="post" action="tampilstock" target="_blank" role="form" class="form-inline">
                         <?= csrf_field(); ?>
                         <table>
                             <tr>

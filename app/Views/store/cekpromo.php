@@ -53,8 +53,8 @@
                     <div class="card-header bg-primary text-light">
                         <h6>Promo MD</h6>
                     </div>
-                    <div class="card-body">
-                        <table class="table mb-3">
+                    <div class="card-body overflow-auto">
+                        <table class="table table-responsive-sm mb-3">
                             <thead>
                                 <tr>
                                     <th>PLU</th>
@@ -395,9 +395,9 @@
                                     <td><?= $prd['PRD_HRGJUAL'] ?></td>
                                     <td><?= $prd['ST_SALDOAKHIR'] ?></td>
                                     <td>
-                                        <a href="/store/cekpromo?plu=<?= $prd['PRD_PRDCD']; ?>&tombol=btnpromocb" class="badge rounded bg-success">CB</a>
-                                        <a href="/store/cekpromo?plu=<?= $prd['PRD_PRDCD']; ?>&tombol=btnpromogift" class="badge rounded bg-success">GF</a>
-                                        <a href="/store/cekpromo?plu=<?= $prd['PRD_PRDCD']; ?>&tombol=btnnk" class="badge rounded bg-warning">NK</a>
+                                        <a href="cekpromo?plu=<?= $prd['PRD_PRDCD']; ?>&tombol=btnpromocb" class="badge rounded bg-success">CB</a>
+                                        <a href="cekpromo?plu=<?= $prd['PRD_PRDCD']; ?>&tombol=btnpromogift" class="badge rounded bg-success">GF</a>
+                                        <a href="cekpromo?plu=<?= $prd['PRD_PRDCD']; ?>&tombol=btnnk" class="badge rounded bg-warning">NK</a>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>

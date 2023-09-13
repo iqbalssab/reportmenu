@@ -11,7 +11,7 @@ class Member extends BaseController
 
     public function cekmember()
     {
-        $status = $this->request->getVar('statuscari');
+        $status = strtoupper($this->request->getVar('statuscari'));
         $cari = $this->request->getVar('cari');
         $aksi = $this->request->getVar('tombol');
         $dbProd = db_connect('production');
@@ -41,9 +41,11 @@ class Member extends BaseController
                   'title' => 'Cek Data Member',
                   'member' => $member,
                   'aksi' => $aksi,
+                  'cari' => $cari,
                 ];
-                redirect()->to('/member/cekmember')->withInput();
-                return view('/member/cekmember',$data);
+                d($data);
+                redirect()->to('cekmember')->withInput();
+                return view('member/cekmember',$data);
             } else if($status == "kode") {
                 $member = $dbProd->query(
                     "select 
@@ -140,13 +142,14 @@ class Member extends BaseController
             'member' => $member,
             'aksi' => $aksi,
         ];
-        // redirect()->to('/member/cekmember')->withInput();
-        return view('/member/cekmember',$data);
+        d($data);
+        redirect()->to('cekmember')->withInput();
+        return view('member/cekmember',$data);
     }
 
     public function transaksimember() {
         date_default_timezone_set("Asia/Jakarta");
-        $kode = $this->request->getVar('kode');
+        $kode = strtoupper($this->request->getVar('kode'));
         $awal = $this->request->getVar('awal');
         $akhir = $this->request->getVar('akhir');
         $aksi = $this->request->getVar('tombol');
@@ -210,7 +213,7 @@ class Member extends BaseController
             'akhir' => $akhir,
         ];
         
-        redirect()->to('/member/trxmbr')->withInput();
+        redirect()->to('trxmbr')->withInput();
         return view('member/trxmbr',$data);  
     }
 
@@ -329,7 +332,7 @@ class Member extends BaseController
         ];
   
         
-        redirect()->to('member/pengeluaranhadiah')->withInput();
+        redirect()->to('pengeluaranhadiah')->withInput();
         return view('member/pengeluaranhadiah',$data);
     }
 

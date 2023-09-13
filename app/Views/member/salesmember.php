@@ -23,7 +23,7 @@
                     <p class="fw-medium">- PLU tertentu *</p>
                 </div>
                 <div class="col-md-10 justify-content-md-start">
-                <form action="/store/salesmember/tampilsalesmember" method="post" target="_blank">
+                <form action="tampilsalesmember" method="post" target="_blank">
                     <input type="date" name="tglawal" id="tglawal" value="<?= old('tglawal')? old('tglawal') : $now ; ?>"> s/d <input type="date" name="tglakhir" id="tglakhir" value="<?= old('tglakhir')? old('tglakhir') : $now ; ?>">
                     <select class="form-select form-select-sm mt-2 border border-1 border-black w-50" name="jenislaporan" aria-label="Small select example">
                         <option value="tipeoutlet" selected>Sales Per Tipe Outlet</option>

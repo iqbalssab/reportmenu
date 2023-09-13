@@ -13,7 +13,7 @@ echo $this->section('content'); ?>
                     <a class="text-warning fw-bold" style="font-size: 14px;">** Data Terbaru / Hari ini **</a>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="/logistik/tampilproduk" target="_blank" role="form" class="form-inline">
+                    <form method="post" action="tampilproduk" target="_blank" role="form" class="form-inline">
                         <?= csrf_field(); ?>
                         <table style="width: 100%;">
                             <thead>
@@ -56,7 +56,7 @@ echo $this->section('content'); ?>
                         </table>
                     </form>
                     <hr>
-                    <form method="post" action="/logistik/tampilprodukbtb" target="_blank" role="form" class="form-inline">
+                    <form method="post" action="tampilprodukbtb" target="_blank" role="form" class="form-inline">
                         <?= csrf_field(); ?>
                         <table style="width: 100%;" class=" text-center">
                             <thead>

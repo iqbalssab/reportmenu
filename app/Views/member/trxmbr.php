@@ -18,7 +18,7 @@ echo $this->section('content'); ?>
                     <h6 class="text-warning text-center">** Menggunakan Data H-1 **</h6>
                 </div>
                 <div class="card-body">
-                    <form method="get" action="/member/transaksimember">
+                    <form method="get" action="transaksimember">
                         <?= csrf_field(); ?>
                         <label class="fw-bold" for="kd" style="font-size: 15px;">KODE MEMBER  : </label>
                         <input type="text" name="kode" id="kode" class="w-100 mb-3 form-control input-sm" value="<?= old('kode'); ?>" style="font-size: 15px;" require autofocus>

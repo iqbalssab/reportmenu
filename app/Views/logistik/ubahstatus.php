@@ -12,7 +12,7 @@ echo $this->section('content'); ?>
                     <h6 class="text-light fw-bold">MONITORING DATA PERUBAHAN STATUS</h6>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="/logistik/tampilubahstatus" target="_blank" role="form" class="form-inline">
+                    <form method="post" action="tampilubahstatus" target="_blank" role="form" class="form-inline">
                         <?= csrf_field(); ?>
                         <table>
                             <tr>

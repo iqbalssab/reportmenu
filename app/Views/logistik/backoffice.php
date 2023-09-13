@@ -12,7 +12,7 @@ echo $this->section('content'); ?>
                     <h5 class="text-start fw-bold">Laporan Back Office</h5>
                 </div>
                 <div class="card-body">
-                    <form method="get" action="/logistik/tampildatabo" target="_blank" role="form" class="form-inline">
+                    <form method="get" action="tampildatabo" target="_blank" role="form" class="form-inline">
                         <?= csrf_field(); ?>
                         <table class="">
                             <tr>

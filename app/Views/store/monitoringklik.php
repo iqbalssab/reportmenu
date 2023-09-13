@@ -165,6 +165,61 @@
                             </tbody>
                         </table>
                     <?php endif; ?>
+                    <?php if($detailtanggal): ?>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Tanggal</th>
+                                    <th>Nomor</th>
+                                    <th>Ktegori</th>
+                                    <th>Member</th>
+                                    <th>NilaiPB</th>
+                                    <th>JmlItem</th>
+                                    <th>Service</th>
+                                    <th>Keterangan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach($detailtanggal as $dt): ?>
+                                    <tr>
+                                        <td><?= $dt['TGLTRANS']; ?></td>
+                                        <td><?= $dt['NOTRANS']; ?></td>
+                                        <td><?= $dt['KODEMEMBER']; ?></td>
+                                        <td><?= $dt['ATTRIBUT']; ?></td>
+                                        <td><?= number_format($dt['RPHORDER']); ?></td>
+                                        <td><?= number_format($dt['ITEMORDER']); ?></td>
+                                        <td>
+                                        <?php if($dt['SERVICE']=="Sameday"): ?>
+                                            <p class="text-danger"><?= $dt['SERVICE']; ?></p>
+                                        <?php elseif($dt['SERVICE']=="Nextday"): ?>
+                                            <p class="text-success"><?= $dt['SERVICE']; ?></p>
+                                        <?php endif; ?>
+                                        </td>
+                                        <td>
+                                        <?php if($dt['KETERANGAN']=="Siap Send HH"): ?>
+                                            <span class="badge rounded-pill text-bg-danger mb-1"><?= $dt['KETERANGAN']; ?></span>
+                                        <?php elseif($dt['KETERANGAN']=="Siap Picking"): ?>
+                                            <span class="badge rounded-pill text-bg-primary mb-1"><?= $dt['KETERANGAN']; ?></span>
+                                        <?php elseif($dt['KETERANGAN']=="Siap Packing"): ?>
+                                            <span class="badge rounded-pill text-bg-info mb-1"><?= $dt['KETERANGAN']; ?></span>
+                                        <?php elseif($dt['KETERANGAN']=="Siap Draft Struk"): ?>
+                                            <span class="badge rounded-pill text-bg-warning mb-1"><?= $dt['KETERANGAN']; ?></span>
+                                        <?php elseif($dt['KETERANGAN']=="Konfirmasi Pembayaran"): ?>
+                                            <span class="badge rounded-pill text-bg-danger mb-1"><?= $dt['KETERANGAN']; ?></span>
+                                        <?php elseif($dt['KETERANGAN']=="Siap Struk"): ?>
+                                            <span class="badge rounded-pill text-bg-success mb-1"><?= $dt['KETERANGAN']; ?></span>
+                                        <?php endif; ?>
+                                        <?php if($dt['TIPEBAYAR']=="COD"): ?>
+                                            <span class="badge rounded-pill text-bg-secondary">COD</span>
+                                        <?php else: ?>
+
+                                        <?php endif; ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

@@ -24,6 +24,7 @@
             <li><a class="dropdown-item" href="<?= $ip; ?>/store/transaksimypoint">Data Transaksi MyPoin</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/store/transaksimitra">Data Transaksi Mitra</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/store/transaksiklik">Data Transaksi Klik</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/store/monitoringklik">Monitoring Transaksi Klik</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/store/transaksiproduk">History Transaksi Produk</a></li>
             <hr>
             <li><a class="" style="font-size: 14px; color:gray">Promo</a></li>
@@ -62,6 +63,7 @@
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/tampillppblnlalu">LPP Bulan Sebelumnya</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/lppvsplanodetail">LPP vs Plano Detail</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/lppvsplanorekap">LPP vs Plano Rekap</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/planominus">Plano Minus</a></li>
             <hr>
             <li><a class="" style="font-size: 14px; color:gray">Monitoring</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/formsoharian">SO Harian</a></li>
@@ -73,6 +75,7 @@
             <hr>
             <li><a class="" style="font-size: 14px; color:gray">Transaksi</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/backoffice">Laporan Back Office</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/pertemanan">Monitoring Pertemanan</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">

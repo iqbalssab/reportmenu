@@ -1,7 +1,32 @@
-<?php $this->extend('layout/template'); ?>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tampil Data Stock Harian</title>
 
-<?php $this->section('content'); ?>
-    
+        <link rel="stylesheet" href="<?= base_url('bootstrap/dist/css/bootstrap.min.css'); ?>">
+        <style>
+            .container {border:3px solid #666;padding:10px;margin:0 auto;width:500px}
+            input {margin:5px;}
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+                margin:0 0 10px;
+                width:auto;
+                font-size:12px;
+            }
+            th{
+            background:#66CCFF;
+            padding:5px;
+            font-weight:400;
+            }
+            td{
+            padding:2px 5px;
+            }
+        </style>
+    </head>
+    <body>
     <?php if(!empty($barang)): ?>
         <div class="container-fluid mt-3">
             <div class="row mb-2">
@@ -13,35 +38,35 @@
                     <br>
                 </div>
             </div>
-            <table class="table table-bordered table-hover table-sm border-dark table-responsive" style="font-size: 14px;">
+            <table class="table table-bordered table-striped table-hover table-sm border-dark table-responsive" style="font-size: 14px;">
                 <thead class="table-success border-dark">
                     <tr>
                         <th class="text-center">TANGGAL</th>
                         <th class="text-center">JAM</th>
-                        <th class="text-center">NO_STRUK</th>
-                        <th class="text-center">ID_KASIR</th>
+                        <th class="text-center text-nowrap">NO STRUK</th>
+                        <th class="text-center text-nowrap">ID KASIR</th>
                         <th class="text-center">KASSA</th>
-                        <th class="text-center">KD_MEMBER</th>
+                        <th class="text-center text-nowrap">KD MEMBER</th>
                         <th class="text-center">DESKRIPSI</th>
                         <th class="text-center">QTY</th>
-                        <th class="text-center">NAMA_MEMBER</th>
+                        <th class="text-center text-nowrap">NAMA MEMBER</th>
                         <th class="text-center">ALAMAT</th>
-                        <th class="text-center">NO_HP</th>
+                        <th class="text-center text-nowrap">NO HP</th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
                     <?php foreach($barang as $brg) : ?>
                     <tr>
-                        <td class="text-center"><?=$brg['TANGGAL']; ?></td>
+                        <td class="text-center text-nowrap"><?=$brg['TANGGAL']; ?></td>
                         <td class="text-center"><?=$brg['JAM']; ?></td>
                         <td class="text-center"><?=$brg['NO_STRUK']; ?></td>
                         <td class="text-center"><?=$brg['ID_KASIR']; ?></td>
                         <td class="text-center"><?=$brg['KASSA']; ?></td>
                         <td class="text-center"><?=$brg['KODE_MEMBER']; ?></td>
-                        <td class="text-start"><?=$brg['NAMA_BARANG']; ?></td>
+                        <td class="text-start text-nowrap"><?=$brg['NAMA_BARANG']; ?></td>
                         <td class="text-end"><?=$brg['QTY']; ?></td>
-                        <td class="text-start"><?=$brg['NAMA_MEMBER']; ?></td>
-                        <td class="text-start"><?=$brg['ALAMAT']; ?></td>
+                        <td class="text-start text-nowrap"><?=$brg['NAMA_MEMBER']; ?></td>
+                        <td class="text-start text-nowrap"><?=$brg['ALAMAT']; ?></td>
                         <td class="text-start"><?=$brg['NO_HP']; ?></td>
                     </tr>
                     <?php endforeach ?>
@@ -52,5 +77,5 @@
             </div>
         </div>
     <?php endif; ?>
-
-<?php $this->endSection(); ?>
+    </body>
+</html>

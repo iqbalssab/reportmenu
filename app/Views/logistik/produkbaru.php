@@ -4,12 +4,12 @@ echo $this->extend('layout/template'); ?>
 <?php 
 echo $this->section('content'); ?>
 
-<div class="container-fluid mt-3">
+<div class="container-fluid mt-3 overflow-auto">
     <div class="row justify-content-center">
         <div class="col-md-4">
             <div class="card w-40 mb-3 mx-auto">
                 <div class="card-header text-center " style="background-color: #0040ff;">
-                    <h6 class="text-light fw-bold">TARIK DATA PRODUK BARU</h6>
+                    <h5 class="text-light fw-bold">TARIK DATA PRODUK BARU</h5>
                     <a class="text-warning fw-bold" style="font-size: 14px;">** Data Terbaru / Hari ini **</a>
                 </div>
                 <div class="card-body">

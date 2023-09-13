@@ -4,12 +4,12 @@ echo $this->extend('layout/template'); ?>
 <?php 
 echo $this->section('content'); ?>
 
-<div class="container-fluid mt-3">
+<div class="container-fluid mt-3 overflow-auto">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card mb-3 mx-auto" style="width: 550px;">
                 <div class="card-header text-light" style="background-color: #0040ff;">
-                    <h6 class="text-center fw-bold">LPP vs PLano Detail</h6>
+                    <h6 class="text-start fw-bold">LPP vs PLano Detail</h6>
                 </div>
                 <div class="card-body">
                     <form method="get" action="/logistik/tampildatalppplanodetail" target="_blank">
@@ -21,16 +21,16 @@ echo $this->section('content'); ?>
 								</td>
 								<td colspan="2" style="width: 300px;" class=" mb-2">
 									<select class="form-select form-select-sm" name="dept" aria-label="Small select example" style="font-size: 15px;" autofocus>
-										<option value=""></option>
-										<option value="1">FOOD</option>
-										<option value="2">NON-FOOD</option>
-										<option value="3">GENERAL MERCHANDISHING</option>
-										<option value="4">PERISHABLE</option>
-										<option value="5">COUNTER & PROMOTION</option>
-										<option value="6">FAST FOOD</option>
-										<option value="7">I-FASHION</option>
-										<option value="8">I-TECH</option>
-										<option value="9">I-TRONIK</option>
+										<option value="">Pilih Divisi</option>
+										<option value="1">1. FOOD</option>
+										<option value="2">2. NON-FOOD</option>
+										<option value="3">3. GENERAL MERCHANDISHING</option>
+										<option value="4">4. PERISHABLE</option>
+										<option value="5">5. COUNTER & PROMOTION</option>
+										<option value="6">6. FAST FOOD</option>
+										<option value="7">7. I-FASHION</option>
+										<option value="8">8. I-TECH</option>
+										<option value="9">9. I-TRONIK</option>
 									</select>
 								</td>
 							</tr>

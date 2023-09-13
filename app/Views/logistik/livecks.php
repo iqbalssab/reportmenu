@@ -4,12 +4,12 @@ echo $this->extend('layout/template'); ?>
 <?php 
 echo $this->section('content'); ?>
 
-<div class="container-fluid mt-2">
+<div class="container-fluid mt-2 overflow-auto">
     <div class="row">
         <div class="col-md-2" style="width: 200px;">
             <div class="card w-100 mb-1">
                 <div class="card-header text-light mb-2 text-center" style="background-color: #0040ff;">
-                    <h6 class="fw-bold " style="font-size: 15px;">INQUIRY PLANO</h6>
+                    <h6 class="fw-bold " style="font-size: 15px;">Inquiry Plano</h6>
                 </div>
                 <div class="card-body">
                     <form class="form" method="post" role="form" action="/logistik/livecks">

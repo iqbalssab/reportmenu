@@ -4,12 +4,12 @@ echo $this->extend('layout/template'); ?>
 <?php 
 echo $this->section('content'); ?>
 
-<div class="container-fluid mt-3">
+<div class="container-fluid mt-3 overflow-auto">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card w-60 mb-3 mx-auto">
                 <div class="card-header text-light" style="background-color: #0040ff;">
-                    <h6 class="text-center fw-bold">FORM SO HARIAN</h6>
+                    <h6 class="text-start fw-bold">Form SO Harian</h6>
                 </div>
                 <div class="card-body">
                     <form method="get" action="/logistik/tampildatasoharian" target="_blank" role="form" class="form-inline">

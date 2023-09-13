@@ -25,11 +25,6 @@
             padding:2px 5px;
             }
         </style>
-
-        <!-- Style CSS -->
-        <link rel="stylesheet" href="/css/style.css">
-        <!-- Kalo gapake Laragon/XAMPP -->
-        <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
     </head>
     <body>
         <?php $rphGross = $rphDiscount = $rphPPN = $jumlahItem = 0 ?>
@@ -605,7 +600,15 @@
                     <table class="table table-striped table-hover table-bordered border-dark">
                         <thead class="table-group-divider">
                             <tr>
-                                <th class="fw-bold text-center bg-info">#</th>
+                                <th rowspan="2" class="fw-bold text-center bg-info">#</th>
+                                <th colspan="2" class="fw-bold text-center bg-info">OMI</th>
+                                <th colspan="4" class="fw-bold text-center bg-info">Dokumen</th>
+                                <th colspan="3" class="fw-bold text-center bg-info">Divisi</th>
+                                <th colspan="5" class="fw-bold text-center bg-info">Produk</th>
+                                <th rowspan="2" class="fw-bold text-center bg-info">Qty</th>
+                                <th rowspan="2" class="fw-bold text-center bg-info">Rupiah</th>
+                            </tr>
+                            <tr>
                                 <th class="fw-bold text-center bg-info">Kode_OMI</th>
                                 <th class="fw-bold text-center bg-info">Nama_OMI</th>
                                 <th class="fw-bold text-center bg-info">No_Dokumen</th>
@@ -620,8 +623,6 @@
                                 <th class="fw-bold text-center bg-info">BKP</th>
                                 <th class="fw-bold text-center bg-info">Unit</th>
                                 <th class="fw-bold text-center bg-info">Frac</th>
-                                <th class="fw-bold text-center bg-info">Qty</th>
-                                <th class="fw-bold text-center bg-info">Rupiah</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -629,7 +630,7 @@
                                 <tr>
                                     <td class="text-end"><?= $no++; ?></td>
                                     <td class="text-center"><?= $bo['KODEOMI']; ?></td>
-                                    <td class="text-center text-nowrap"><?= $bo['NAMAOMI']; ?></td>
+                                    <td class="text-start text-nowrap"><?= $bo['NAMAOMI']; ?></td>
                                     <td class="text-center"><?= $bo['NODOKUMEN']; ?></td>
                                     <td class="text-center"><?= $bo['TGLDOKUMEN']; ?></td>
                                     <td class="text-center"><?= $bo['NOREFERENSI']; ?></td>
@@ -657,9 +658,15 @@
                     <table class="table table-striped table-hover table-bordered border-dark">
                         <thead class="table-group-divider">
                             <tr>
-                                <th class="fw-bold text-center bg-info">#</th>
-                                <th class="fw-bold text-center bg-info">Tanggal</th>
-                                <th class="fw-bold text-center bg-info">No_SO</th>
+                                <th rowspan="2" class="fw-bold text-center bg-info">#</th>
+                                <th rowspan="2" class="fw-bold text-center bg-info">Tanggal</th>
+                                <th rowspan="2" class="fw-bold text-center bg-info">No. SO</th>
+                                <th colspan="3" class="fw-bold text-center bg-info">Divisi</th>
+                                <th colspan="6" class="fw-bold text-center bg-info">Produk</th>
+                                <th rowspan="2" class="fw-bold text-center bg-info">Qty</th>
+                                <th rowspan="2" class="fw-bold text-center bg-info">Rupiah</th>
+                            </tr>
+                            <tr>
                                 <th class="fw-bold text-center bg-info">Div</th>
                                 <th class="fw-bold text-center bg-info">Dept</th>
                                 <th class="fw-bold text-center bg-info">Katb</th>
@@ -669,8 +676,6 @@
                                 <th class="fw-bold text-center bg-info">Frac</th>
                                 <th class="fw-bold text-center bg-info">Tag</th>
                                 <th class="fw-bold text-center bg-info">Flag_Jual</th>
-                                <th class="fw-bold text-center bg-info">Qty</th>
-                                <th class="fw-bold text-center bg-info">Rupiah</th>
                             </tr>
                         </thead>
                         <tbody class="table-group-divider">
@@ -703,9 +708,18 @@
                     <table class="table table-striped table-hover table-bordered border-dark">
                         <thead class="table-group-divider">
                             <tr>
-                                <th class="fw-bold text-center bg-info">#</th>
+                                <th rowspan="2" class="fw-bold text-center bg-info">#</th>
+                                <th colspan="2" class="fw-bold text-center bg-info">Supplier</th>
+                                <th colspan="3" class="fw-bold text-center bg-info">Divisi</th>
+                                <th colspan="5" class="fw-bold text-center bg-info">Produk</th>
+                                <th colspan="4" class="fw-bold text-center bg-info">Data PO</th>
+                                <th colspan="4" class="fw-bold text-center bg-info">Data BTB</th>
+                                <th rowspan="2" class="fw-bold text-center bg-info">Selisih_QTY</th>
+                                <th rowspan="2" class="fw-bold text-center bg-info">Selisih_Rph</th>
+                            </tr>
+                            <tr>
                                 <th class="fw-bold text-center bg-info">Kd_Supplier</th>
-                                <th class="fw-bold text-center bg-info">Nm_Supplier</th>
+                                <th class="fw-bold text-center bg-info">Nama Supplier</th>
                                 <th class="fw-bold text-center bg-info">Div</th>
                                 <th class="fw-bold text-center bg-info">Dept</th>
                                 <th class="fw-bold text-center bg-info">Katb</th>
@@ -714,16 +728,14 @@
                                 <th class="fw-bold text-center bg-info">Unit</th>
                                 <th class="fw-bold text-center bg-info">Frac</th>
                                 <th class="fw-bold text-center bg-info">Tag</th>
-                                <th class="fw-bold text-center bg-info">No_PO</th>
-                                <th class="fw-bold text-center bg-info">Tgl_PO</th>
+                                <th class="fw-bold text-center bg-info">No PO</th>
+                                <th class="fw-bold text-center bg-info">Tgl PO</th>
                                 <th class="fw-bold text-center bg-info">Qty_PO</th>
-                                <th class="fw-bold text-center bg-info">Rph_PO</th>
-                                <th class="fw-bold text-center bg-info">No_BTB</th>
-                                <th class="fw-bold text-center bg-info">Tgl_BTB</th>
+                                <th class="fw-bold text-center bg-info">Rph PO</th>
+                                <th class="fw-bold text-center bg-info">No BTB</th>
+                                <th class="fw-bold text-center bg-info">Tgl BTB</th>
                                 <th class="fw-bold text-center bg-info">Qty_BTB</th>
-                                <th class="fw-bold text-center bg-info">Rph_BTB</th>
-                                <th class="fw-bold text-center bg-info">Selisih_Qty</th>
-                                <th class="fw-bold text-center bg-info">Selisih_Rph</th>
+                                <th class="fw-bold text-center bg-info">Rph BTB</th>
                             </tr>
                         </thead>
                         <tbody class="table-group-divider">

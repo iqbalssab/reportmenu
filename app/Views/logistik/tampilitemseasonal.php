@@ -32,47 +32,50 @@
         <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
     </head>
     <body>
+        <?php $no = 1; ?>
         <?php if($seasonal) { ?> 
             <h2>DATA ITEM SEASONAL - <?= date('d M Y',strtotime($awal)); ?> s/d <?= date('d M Y',strtotime($akhir)); ?></h2>
-            <table>
-                <thead>
+            <table class="table table-responsive table-striped table-hover table-bordered border-dark">
+                <thead class="table-group-divider">
                     <tr>
-                        <th class="text-center">KODESUP</th>
-                        <th class="text-center">NAMASUPPLIER</th>
-                        <th class="text-center">DIV</th>
-                        <th class="text-center">DEP</th>
-                        <th class="text-center">KAT</th>
-                        <th class="text-center">PLU</th>
-                        <th class="text-center">DESKRIPSI</th>
-                        <th class="text-center">UNIT</th>
-                        <th class="text-center">FRAC</th>
-                        <th class="text-center">FLAGJUAL</th>
-                        <th class="text-center">ACOST</th>
-                        <th class="text-center">LCOST</th>
-                        <th class="text-center">STOK</th>
-                        <th class="text-center">RPH_STOK</th>
-                        <th class="text-center">LAST_BPB</th>
-                        <th class="text-center">LAST_PO</th>
-                        <th class="text-center">PO_OUTSTANDING</th>
-                        <th class="text-center">DISPLAY</th>
-                        <th class="text-center">QTY_DISPLAY</th>
-                        <th class="text-center">HRG_PLU0</th>
-                        <th class="text-center">HRG_PLU1</th>
-                        <th class="text-center">HRG_PLU2</th>
-                        <th class="text-center">HRG_PLU3</th>
-                        <th class="text-center">HRG_PROMO</th>
+                        <th class="text-center fw-bold bg-info">#</th>
+                        <th class="text-center fw-bold bg-info">KODESUP</th>
+                        <th class="text-center fw-bold bg-info">NAMASUPPLIER</th>
+                        <th class="text-center fw-bold bg-info">DIV</th>
+                        <th class="text-center fw-bold bg-info">DEP</th>
+                        <th class="text-center fw-bold bg-info">KAT</th>
+                        <th class="text-center fw-bold bg-info">PLU</th>
+                        <th class="text-center fw-bold bg-info">DESKRIPSI</th>
+                        <th class="text-center fw-bold bg-info">UNIT</th>
+                        <th class="text-center fw-bold bg-info">FRAC</th>
+                        <th class="text-center fw-bold bg-info">FLAGJUAL</th>
+                        <th class="text-center fw-bold bg-info">ACOST</th>
+                        <th class="text-center fw-bold bg-info">LCOST</th>
+                        <th class="text-center fw-bold bg-info">STOK</th>
+                        <th class="text-center fw-bold bg-info">RPH_STOK</th>
+                        <th class="text-center fw-bold bg-info">LAST_BPB</th>
+                        <th class="text-center fw-bold bg-info">LAST_PO</th>
+                        <th class="text-center fw-bold bg-info">PO_OUTSTANDING</th>
+                        <th class="text-center fw-bold bg-info">DISPLAY</th>
+                        <th class="text-center fw-bold bg-info">QTY_DISPLAY</th>
+                        <th class="text-center fw-bold bg-info">HRG_PLU0</th>
+                        <th class="text-center fw-bold bg-info">HRG_PLU1</th>
+                        <th class="text-center fw-bold bg-info">HRG_PLU2</th>
+                        <th class="text-center fw-bold bg-info">HRG_PLU3</th>
+                        <th class="text-center fw-bold bg-info">HRG_PROMO</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="table-group-divider">
                     <?php foreach($seasonal as $sea) : ?>
                         <tr>
+                            <td class="text-end"><?=$no++; ?></td>
                             <td class="text-center"><?=$sea['KDSUP']; ?></td>
-                            <td class="text-center"><?=$sea['NAMASUP']; ?></td>
+                            <td class="text-start text-nowrap"><?=$sea['NAMASUP']; ?></td>
                             <td class="text-center"><?=$sea['DIV']; ?></td>
                             <td class="text-center"><?=$sea['DEP']; ?></td>
                             <td class="text-center"><?=$sea['KAT']; ?></td>
                             <td class="text-center"><?=$sea['PLU']; ?></td>
-                            <td class="text-start"><?=$sea['DESKRIPSI']; ?></td>
+                            <td class="text-start text-nowrap"><?=$sea['DESKRIPSI']; ?></td>
                             <td class="text-center"><?=$sea['UNIT']; ?></td>
                             <td class="text-center"><?=$sea['FRAC']; ?></td>
                             <td class="text-center"><?=$sea['FLAGJUAL']; ?></td>
@@ -80,8 +83,8 @@
                             <td class="text-end"><?=number_format($sea['LCOST'],'0',',','.'); ?></td>
                             <td class="text-end"><?=number_format($sea['STOK'],'0',',','.'); ?></td>
                             <td class="text-end"><?=number_format($sea['RPHSTOK'],'0',',','.'); ?></td>
-                            <td class="text-center"><?=$sea['LASTBPB']; ?></td>
-                            <td class="text-center"><?=$sea['LASTPO']; ?></td>
+                            <td class="text-center text-nowrap"><?=$sea['LASTBPB']; ?></td>
+                            <td class="text-center text-nowrap"><?=$sea['LASTPO']; ?></td>
                             <td class="text-end"><?=number_format($sea['QTY_PO_OUTSTANDING'],'0',',','.'); ?></td>
                             <td class="text-start"><?=$sea['ALAMATDISPLAY']; ?></td>
                             <td class="text-end"><?=number_format($sea['LKS_QTY'],'0',',','.'); ?></td>

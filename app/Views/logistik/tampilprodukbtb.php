@@ -25,11 +25,6 @@
             padding:2px 5px;
             }
         </style>
-
-        <!-- Style CSS -->
-        <link rel="stylesheet" href="/css/style.css">
-        <!-- Kalo gapake Laragon/XAMPP -->
-        <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
     </head>
     <body>
         <?php if(!empty($perprd)) { ?>

@@ -4,12 +4,12 @@ echo $this->extend('layout/template'); ?>
 <?php 
 echo $this->section('content'); ?>
 
-<div class="container-fluid mt-3">
+<div class="container-fluid mt-3 overflow-auto">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card w-60 mb-3 mx-auto" style="width: 600px;">
                 <div class="card-header text-light" style="background-color: #0040ff;">
-                    <h5 class="text-center fw-bold">LAPORAN BACK OFFICE</h5>
+                    <h5 class="text-start fw-bold">Laporan Back Office</h5>
                 </div>
                 <div class="card-body">
                     <form method="get" action="/logistik/tampildatabo" target="_blank" role="form" class="form-inline">
@@ -103,6 +103,9 @@ echo $this->section('content'); ?>
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td colspan="4"><br><label class="fw-bold text-danger" style="font-size: 12px;">** Untuk RETUR OMI, RESET SO IC, dan PO vs BTB per Supplier, kosongkan pilihan <b>Jenis Laporan</b>**</label></td>
+                                </tr>
+                                <tr>
                                     <td colspan="4"><hr></td>
                                 </tr>
                                 <tr>
@@ -124,4 +127,5 @@ echo $this->section('content'); ?>
     </div>
 </div>
 
+<!--  onclick="window.print()" -->
 <?= $this->endSection(); ?>

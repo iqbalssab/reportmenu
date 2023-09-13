@@ -52,19 +52,23 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle fw-bold text-light" href="/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Logistik
+            Inventory
           </a>
           <ul class="dropdown-menu">
             <li><a class="" style="font-size: 14px; color:gray">LPP</a></li>
+            <li><a class="dropdown-item" href="/logistik/informasiproduk">Informasi Produk</a></li>
+            <li><a class="dropdown-item" href="/logistik/lppsaatini">LPP Saat Ini</a></li>
+            <li><a class="dropdown-item" href="/logistik/tampillppblnlalu">LPP Bulan Sebelumnya</a></li>
             <li><a class="dropdown-item" href="/logistik/lppvsplanodetail">LPP vs Plano Detail</a></li>
             <li><a class="dropdown-item" href="/logistik/lppvsplanorekap">LPP vs Plano Rekap</a></li>
             <hr>
             <li><a class="" style="font-size: 14px; color:gray">Monitoring</a></li>
             <li><a class="dropdown-item" href="/logistik/formsoharian">SO Harian</a></li>
+            <li><a class="dropdown-item" href="/logistik/stockharian">Stock Harian</a></li>
             <li><a class="dropdown-item" href="/logistik/livecks">Live CKS</a></li>
-            <li><a class="dropdown-item" href="/logistik/produkbaru">Monitoring Produk Baru</a></li>
-            <li><a class="dropdown-item" href="/logistik/ubahstatus">Monitoring Perubahan Status</a></li>
-            <li><a class="dropdown-item" href="/logistik/itemseasonal">Monitoring Item Seasonal</a></li>
+            <li><a class="dropdown-item" href="/logistik/produkbaru">Produk Baru</a></li>
+            <li><a class="dropdown-item" href="/logistik/ubahstatus">Perubahan Status</a></li>
+            <li><a class="dropdown-item" href="/logistik/itemseasonal">Item Seasonal</a></li>
             <hr>
             <li><a class="" style="font-size: 14px; color:gray">Transaksi</a></li>
             <li><a class="dropdown-item" href="/logistik/backoffice">Laporan Back Office</a></li>
@@ -96,6 +100,12 @@
             <li><a class="dropdown-item" href="http://172.20.28.17/monitoring-inquiry/public/login">Inquiry Master Member</a></li>
             <li><a class="dropdown-item" href="http://172.31.27.68/login">CMS TMI</a></li>
             <li><a class="dropdown-item" href="http://172.20.28.17/WebLaporanKasir/public/login">Web Laporan Refund</a></li>
+            <hr>
+            <li><a class="" style="font-size: 14px; color:gray">KLIK</a></li>
+            <li><a class="dropdown-item" href="https://klikindogrosir.com/">Klik Indogrosir (User)</a></li>
+            <li><a class="dropdown-item" href="https://b2b.klikindogrosir.com/admin">Klik Indogrosir (Admin)</a></li>
+            <li><a class="dropdown-item" href="http://172.31.27.67:81/login">Klik Indogrosir (MS)</a></li>
+            <li><a class="dropdown-item" href="http://172.20.28.17/serah-terima-ipp/public/">Serah Terima IPP</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">

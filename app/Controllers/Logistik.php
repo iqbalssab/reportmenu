@@ -1538,6 +1538,7 @@ class Logistik extends BaseController
                 ORDER BY trn_type, trn_div, trn_dept, trn_katb, trn_prdcd"
             );
             $databo = $databo->getResultArray();
+            $lap0 = 'per PRODUK';
         } else if($lap == "1B") {
             $databo = $dbProd->query(
                 "SELECT trn_type,
@@ -1572,6 +1573,7 @@ class Logistik extends BaseController
                 ORDER BY trn_tgldoc,trn_type, trn_div, trn_dept, trn_katb, trn_prdcd"
             );
             $databo = $databo->getResultArray();
+            $lap0 = 'per PRODUK DETAIL';
         } else if($lap == "2") {
             $databo = $dbProd->query(
                 "SELECT trn_type,
@@ -1593,6 +1595,7 @@ class Logistik extends BaseController
                 ORDER BY trn_type, trn_kode_supplier, trn_nama_supplier"
             );
             $databo = $databo->getResultArray();
+            $lap0 = 'per SUPPLIER';
         } else if($lap == "3") {
             $databo = $dbProd->query(
                 "SELECT trn_type,
@@ -1617,6 +1620,7 @@ class Logistik extends BaseController
                 ORDER BY trn_type, trn_div"
             );
             $databo = $databo->getResultArray();
+            $lap0 = 'per DIVISI';
         } else if($lap == "4") {
             $databo = $dbProd->query(
                 "SELECT trn_type,
@@ -1639,6 +1643,7 @@ class Logistik extends BaseController
                 ORDER BY trn_type, trn_div,trn_dept"
             );
             $databo = $databo->getResultArray();
+            $lap0 = 'per DEPARTEMENT';
         } else if($lap == "5") {
             $databo = $dbProd->query(
                 "SELECT trn_type,
@@ -1662,6 +1667,7 @@ class Logistik extends BaseController
                 ORDER BY trn_type, trn_div,trn_dept,trn_katb"
             );
             $databo = $databo->getResultArray();
+            $lap0 = 'per KATEGORI';
         } else if($lap == "6") {
             $databo = $dbProd->query(
                 "SELECT trn_type,
@@ -1683,6 +1689,7 @@ class Logistik extends BaseController
                 ORDER BY trn_tgldoc, trn_type"
             );
             $databo = $databo->getResultArray();
+            $lap0 = 'per HARI';
         } else if($lap == "0") {
             if($jenis == "RETUROMI") {
                 $databo = $dbProd->query(
@@ -1712,6 +1719,7 @@ class Logistik extends BaseController
                     order by rom_tgldokumen,tko_kodeomi,rom_nodokumen"
                 );
                 $databo = $databo->getResultArray();
+                $lap0 = 'RETUR OMI';
             } else if($jenis == "SOIC") {
                 $databo = $dbProd->query(
                     "select     
@@ -1742,6 +1750,7 @@ class Logistik extends BaseController
                     order by tanggal,DIV,DEP,DESKRIPSI"
                 );
                 $databo = $databo->getResultArray();
+                $lap0 = 'RESET SO IC';
             } else if($jenis == "POBTBSUP") {
                 $databo = $dbProd->query(
                     "select       
@@ -1775,6 +1784,7 @@ class Logistik extends BaseController
                     order by prd_deskripsipanjang,tpod_tglpo"
                 );
                 $databo = $databo->getResultArray();
+                $lap0 = 'PO vs BTB per SUPPLIER';
             };
         };       
         
@@ -1784,15 +1794,2031 @@ class Logistik extends BaseController
             'databo' => $databo,
             'awal' => $awal,
             'akhir' => $akhir,
-            // 'jenistrx' => $jenistrx,
-            // 'kdplu' => $kdplu,
-            // 'kdsup' => $kdsup,
-            // 'div' => $div,
             'lap' => $lap,
             'jenis' => $jenis,
         ];
+
+        if($aksi == 'btnxls') {
+            $filename = "LAPORAN ".$lap0." ".date('d M Y',strtotime($awal))." sd ".date('d M Y',strtotime($akhir)).".xls";
+            header("Content-Disposition: attachment; filename=\"$filename\"");
+            header("Content-Type: application/vnd.ms-excel");
+        
+            return view('logistik/tampildatabo',$data);
+        };
   
-        redirect()->to('/logistik/tampildatabo')->withInput();
+        // redirect()->to('/logistik/tampildatabo')->withInput();
         return view('logistik/tampildatabo',$data);
+    }
+
+    public function stockharian() {
+        $dbProd = db_connect("production");
+        $dep = [];
+
+        $dep = $dbProd->query(
+            "SELECT dep_kodedivisi,div_namadivisi,div_singkatannamadivisi,dep_kodedepartement, dep_namadepartement 
+            from tbmaster_departement 
+            left join tbmaster_divisi on div_kodedivisi=dep_kodedivisi
+            order by dep_kodedivisi,dep_kodedepartement"
+        );
+        $dep = $dep->getResultArray();
+
+        $data = [
+            'title' => 'Stock Harian',
+            'dep' => $dep,
+        ];
+  
+        redirect()->to('/logistik/stockharian')->withInput();
+        return view('logistik/stockharian',$data);
+    }
+
+    public function tampilstock() {
+        $dbProd = db_connect("production");
+        $divisi = $this->request->getVar('divisi');
+        $departemen = $this->request->getVar('dep');
+        $tag = $this->request->getVar('tag');
+        $jnslap = $this->request->getVar('lap');
+        $stok = $dept = $filename = [];
+        $aksi = $this->request->getVar('tombol');
+
+        if($divisi == "All") {
+            $dvs = "";
+        } else {
+            $dvs = " and prd_kodedivisi='$divisi' ";
+        };
+
+        if($departemen == "All") {
+            $dep = "";
+        } else {
+            $dep = " and prd_kodedepartement = '$departemen' ";
+        };
+
+        if($tag == "All") {
+            $kdtag = "";
+        } else if($tag == "1") {
+            $kdtag = " and prd_kodetag not in ('H','O','A','X','N','T') ";
+        } else if($tag == "2") {
+            $kdtag = " and prd_kodetag in ('H','O','A','X','N','T') ";
+        } else {
+            $kdtag = "";
+        };
+
+        $bln = date("m");
+        switch ($bln) {
+            case "1": $bln1="10";$bln2="11";$bln3="12";break;
+            case "2": $bln1="11";$bln2="12";$bln3="01";break;
+            case "3": $bln1="12";$bln2="01";$bln3="02";break;
+            case "4": $bln1="01";$bln2="02";$bln3="03";break;
+            case "5": $bln1="02";$bln2="03";$bln3="04";break;
+            case "6": $bln1="03";$bln2="04";$bln3="05";break;
+            case "7": $bln1="04";$bln2="05";$bln3="06";break;
+            case "8": $bln1="05";$bln2="06";$bln3="07";break;
+            case "9": $bln1="06";$bln2="07";$bln3="08";break;
+            case "10": $bln1="07";$bln2="08";$bln3="09";break;
+            case "11": $bln1="08";$bln2="09";$bln3="10";break;
+            case "12": $bln1="09";$bln2="10";$bln3="11";break;
+            default : $bln1="10";$bln2="11";$bln3="12";
+        };
+
+        if($jnslap == "0") {
+            $stok = $dbProd->query(
+                "select 
+                prd_kodedivisi as DIV,
+                prd_kodedepartement as DEP,
+                prd_kodekategoribarang as KAT,
+                prd_plumcg as PLU_MCG,
+                prd_prdcd as PLU_IGR,
+                prc_pluomi as PLU_OMI,
+                prd_deskripsipanjang as DESKRIPSI,
+                prd_unit as UNIT,
+                prd_frac as FRAC,
+                prd_kodetag as TAG_IGR,
+                prc_kodetag as TAG_OMI,
+                pkm_minorder as MINOR,
+                pkm_mindisplay as MINDIS,
+                prd_flagbkp2 as BKP,
+                st_avgcost*prd_frac as ACOST,
+                st_lastcost*prd_frac as LCOST,
+                prd_hrgjual as HRGJUAL,
+                hgb_hrgbeli*prd_frac as HRGBELI,
+                case when trunc(hgb_tglakhirdisc01)>=trunc(sysdate) then hgb_persendisc01 else 0 end as DISC1,
+                case when trunc(hgb_tglakhirdisc02)>=trunc(sysdate) then hgb_persendisc02 else 0 end as DISC2,
+                hgb_statusbarang as STATUS,
+                st_saldoakhir/prd_frac as STOCK_IN_CTN,
+                st_saldoakhir as STOCK_IN_PCS,
+                CASE WHEN PRD_UNIT='KG' THEN (ST_SALDOAKHIR*ST_AVGCOST)/PRD_FRAC  ELSE ST_SALDOAKHIR*ST_AVGCOST END AS STOCK_RPH,
+                hgb_kodesupplier as KODESUP,
+                sup_namasupplier as NAMASUPPLIER,
+                
+                sls_qty_01 as JAN,
+                sls_qty_02 as PEB,
+                sls_qty_03 as MAR,
+                sls_qty_04 as APR,
+                sls_qty_05 as MEI,
+                sls_qty_06 as JUN,
+                sls_qty_07 as JUL,
+                sls_qty_08 as AGS,
+                sls_qty_09 as SEP,
+                sls_qty_10 as OKT,
+                sls_qty_11 as NOV,
+                sls_qty_12 as DES,
+                st_sales as BLN_INI,
+                pkm_pkm as PKM,
+                pkmp_qtyminor as MPLUS,
+                pkm_pkmt as PKMT,
+                pkm_leadtime as LT,
+                pkm_qtyaverage as PKM_AVGSALES,
+                case when st_saldoakhir>0 and (sls_qty_$bln1 + sls_qty_$bln2 + sls_qty_$bln3) > 0 then st_saldoakhir / ((sls_qty_$bln1 + sls_qty_$bln2 + sls_qty_$bln3)/90) else 0 end as DSI_AVG_SLS,
+                case when st_saldoakhir>0 and st_sales>0 then round((((nvl(st_saldoawal,1) + nullif(st_saldoakhir,0))/2)/nullif(st_sales,0)) * (extract(day from sysdate))) else 0 end as DSI_BLN_INI,
+                LASTPO,
+                FIRSTBPB,
+                LASTBPB,
+                QTY_PO,
+                jml_po,
+                mpt_maxqty as MAXPALET,
+                case 
+                    when nvl(prd_flagigr,'N')='Y' and nvl(prd_flagomi,'N')='Y' then 'IGR+OMI'
+                    when nvl(prd_flagigr,'N')='Y' and nvl(prd_flagomi,'N')!='Y' then 'IGR ONLY'
+                    when nvl(prd_flagigr,'N')!='Y' and nvl(prd_flagomi,'N')='Y' then 'OMI ONLY'
+                    else 'TIDAK BISA JUAL'
+                  end as FLAG_JUAL,
+                Display_REG,MAXPLANO_REG,MINPCT_REG,
+                Display_DPD,MAXPLANO_DPD,
+                JENIS_ITEM,
+                case 
+                    when nvl(JENIS_CKS,'N') = 'S' then 'SB'
+                    when nvl(JENIS_CKS,'N') = 'K' then 'SK'
+                    when nvl(JENIS_CKS,'N') = 'C' then 'SC'
+                end as JENIS_CKS,
+                st_trfin,
+                st_trfout,
+                st_sales,
+                st_retur,
+                st_adj,
+                st_intransit,
+                AVGSLS_IGR,
+                AVGSLS_OMI,
+                AVGSLS_MM,
+                prd_tgldiscontinue
+                from tbmaster_prodmast
+                left join (select * from tbmaster_stock where st_lokasi='01') on prd_prdcd=st_prdcd
+                left join tbmaster_prodcrm on prc_pluigr=prd_prdcd
+                left join tbmaster_kkpkm on pkm_prdcd=prd_prdcd
+                left join tbmaster_pkmplus on pkmp_prdcd=prd_prdcd
+                left join (select * from tbmaster_hargabeli where hgb_tipe='2') on hgb_prdcd=prd_prdcd
+                left join tbmaster_supplier on sup_kodesupplier=hgb_kodesupplier
+                left join tbtr_salesbulanan on sls_prdcd=prd_prdcd
+                left join TBMASTER_MAXPALET on mpt_prdcd=prd_prdcd
+                left join ( 
+                select tpod_prdcd AS PLUPOAKHIR,max(tpod_tglpo)as LASTPO
+                    from tbtr_po_d group by tpod_prdcd
+                )on PLUPOAKHIR=prd_prdcd 
+                left join ( 
+                select mstd_prdcd AS PLUBPBAKHIR,min(mstd_tgldoc)as FIRSTBPB,max(mstd_tgldoc)as LASTBPB
+                    from tbtr_mstran_d where mstd_typetrn='B' group by mstd_prdcd
+                )on PLUBPBAKHIR=prd_prdcd 
+                left join (
+                    select tpod_prdcd as PLUPO,count(tpod_nopo) as jml_po,sum(tpod_qtypo) as QTY_PO
+                    from tbtr_po_d 
+                    left join tbtr_po_h on tpod_nopo=tpoh_nopo
+                    where trunc(tpoh_tglpo)+tpoh_jwpb>=trunc(sysdate)
+                    and tpoh_recordid is null group by tpod_prdcd) on PRD_PRDCD=plupo
+                left join (
+                SELECT 
+                  LKS_PRDCD as plur,
+                  LKS_KODERAK||'.'||LKS_KODESUBRAK||'.'||LKS_TIPERAK||'.'||LKS_SHELVINGRAK||'.'||LKS_NOURUT AS DISPLAY_REG,
+                  LKS_JENISRAK as JENIS_ITEM,lks_maxplano as MAXPLANO_REG,lks_minpct as MINPCT_REG
+                FROM TBMASTER_LOKASI
+                where substr(lks_koderak,0,1) IN ('R','O') and substr(lks_tiperak,0,1) <>'S' ) on plur=prd_prdcd
+                left join (
+                SELECT 
+                  LKS_PRDCD as plud,
+                  LKS_KODERAK||'.'||LKS_KODESUBRAK||'.'||LKS_TIPERAK||'.'||LKS_SHELVINGRAK||'.'||LKS_NOURUT AS DISPLAY_DPD,
+                  LKS_JENISRAK as JENIS_ITEM_DPD,lks_maxplano as MAXPLANO_DPD,lks_minpct as MINPCT_DPD
+                FROM TBMASTER_LOKASI
+                where substr(lks_koderak,0,1) IN ('D') and substr(lks_tiperak,0,1) <>'S' ) 
+                on plud=prd_prdcd
+                left join (
+                    select distinct lks_prdcd as plu_cks,substr(lks_shelvingrak,0,1) as jenis_cks
+                    from tbmaster_lokasi where lks_tiperak='S'
+                ) on prd_prdcd=plu_cks
+                left join (
+                select rsl_prdcd,
+                  sum(case when rsl_group='01' then (nvl(rsl_qty_$bln1,0) + nvl(rsl_qty_$bln2,0) + nvl(rsl_qty_$bln3,0))/3 end) as AVGSLS_IGR,
+                  sum(case when rsl_group='02' then (nvl(rsl_qty_$bln1,0) + nvl(rsl_qty_$bln2,0) + nvl(rsl_qty_$bln3,0))/3 end) as AVGSLS_OMI,
+                  sum(case when rsl_group='03' then (nvl(rsl_qty_$bln1,0) + nvl(rsl_qty_$bln2,0) + nvl(rsl_qty_$bln3,0))/3 end) as AVGSLS_MM
+                from tbtr_rekapsalesbulanan group by rsl_prdcd
+                ) on rsl_prdcd=prd_prdcd
+                
+                where (prd_kodecabang='25' or prd_kategoritoko in ('01','02','03')) and prd_prdcd like '%0' 
+                $dvs
+                $dep
+                $kdtag
+                order by DIV,DEP,DESKRIPSI"
+            );
+            $stok = $stok->getResultArray();
+            $jns = "per PRODUK DETAIL";
+        } else if($jnslap == "1") {
+            $stok = $dbProd->query(
+                "select DIV,NMDIV,SUM(STOCK_IN_CTN) as CTN,SUM(STOCK_IN_PCS) as PCS,SUM(STOCK_RPH) as RPH,
+                SUM(JAN) as SJAN,SUM(PEB) as SFEB,SUM(MAR) as SMAR,SUM(APR) as SAPR,SUM(MEI) as SMEI,SUM(JUN) as SJUN,SUM(JUL) as SJUL,SUM(AGS) as SAGS,
+                SUM(SEP) as SSEP,SUM(OKT) as SOKT,SUM(NOV) as SNOV,SUM(DES) as SDES,SUM(BLN_INI) as SBLN,
+                SUM(AVGSLS_IGR) as IGR,SUM(AVGSLS_OMI) as OMI,SUM(AVGSLS_MM) as MM
+                from (
+                select 
+                prd_kodedivisi as DIV,
+                div_namadivisi as NMDIV,
+                prd_kodedepartement as DEP,
+                dep_namadepartement as NMDEP,
+                prd_kodekategoribarang as KAT,
+                prd_plumcg as PLU_MCG,
+                prd_prdcd as PLU_IGR,
+                prc_pluomi as PLU_OMI,
+                prd_deskripsipanjang as DESKRIPSI,
+                prd_unit as UNIT,
+                prd_frac as FRAC,
+                prd_kodetag as TAG_IGR,
+                prc_kodetag as TAG_OMI,
+                pkm_minorder as MINOR,
+                pkm_mindisplay as MINDIS,
+                prd_flagbkp2 as BKP,
+                st_avgcost*prd_frac as ACOST,
+                st_lastcost*prd_frac as LCOST,
+                prd_hrgjual as HRGJUAL,
+                hgb_hrgbeli*prd_frac as HRGBELI,
+                case when trunc(hgb_tglakhirdisc01)>=trunc(sysdate) then hgb_persendisc01 else 0 end as DISC1,
+                case when trunc(hgb_tglakhirdisc02)>=trunc(sysdate) then hgb_persendisc02 else 0 end as DISC2,
+                hgb_statusbarang as STATUS,
+                st_saldoakhir/prd_frac as STOCK_IN_CTN,
+                st_saldoakhir as STOCK_IN_PCS,
+                CASE WHEN PRD_UNIT='KG' THEN (ST_SALDOAKHIR*ST_AVGCOST)/PRD_FRAC  ELSE ST_SALDOAKHIR*ST_AVGCOST END AS STOCK_RPH,
+                hgb_kodesupplier as KODESUP,
+                sup_namasupplier as NAMASUPPLIER,
+                
+                sls_qty_01 as JAN,
+                sls_qty_02 as PEB,
+                sls_qty_03 as MAR,
+                sls_qty_04 as APR,
+                sls_qty_05 as MEI,
+                sls_qty_06 as JUN,
+                sls_qty_07 as JUL,
+                sls_qty_08 as AGS,
+                sls_qty_09 as SEP,
+                sls_qty_10 as OKT,
+                sls_qty_11 as NOV,
+                sls_qty_12 as DES,
+                st_sales as BLN_INI,
+                pkm_pkm as PKM,
+                pkmp_qtyminor as MPLUS,
+                pkm_pkmt as PKMT,
+                pkm_leadtime as LT,
+                pkm_qtyaverage as PKM_AVGSALES,
+                case when st_saldoakhir>0 and (sls_qty_$bln1 + sls_qty_$bln2 + sls_qty_$bln3) > 0 then st_saldoakhir / ((sls_qty_$bln1 + sls_qty_$bln2 + sls_qty_$bln3)/90) else 0 end as DSI_AVG_SLS,
+                case when st_saldoakhir>0 and st_sales>0 then round((((nvl(st_saldoawal,1) + nullif(st_saldoakhir,0))/2)/nullif(st_sales,0)) * (extract(day from sysdate))) else 0 end as DSI_BLN_INI,
+                LASTPO,
+                FIRSTBPB,
+                LASTBPB,
+                QTY_PO,
+                jml_po,
+                mpt_maxqty as MAXPALET,
+                case 
+                    when nvl(prd_flagigr,'N')='Y' and nvl(prd_flagomi,'N')='Y' then 'IGR+OMI'
+                    when nvl(prd_flagigr,'N')='Y' and nvl(prd_flagomi,'N')!='Y' then 'IGR ONLY'
+                    when nvl(prd_flagigr,'N')!='Y' and nvl(prd_flagomi,'N')='Y' then 'OMI ONLY'
+                    else 'TIDAK BISA JUAL'
+                  end as FLAG_JUAL,
+                Display_REG,MAXPLANO_REG,MINPCT_REG,
+                Display_DPD,MAXPLANO_DPD,
+                JENIS_ITEM,
+                case 
+                    when nvl(JENIS_CKS,'N') = 'S' then 'SB'
+                    when nvl(JENIS_CKS,'N') = 'K' then 'SK'
+                    when nvl(JENIS_CKS,'N') = 'C' then 'SC'
+                end as JENIS_CKS,
+                st_trfin,
+                st_trfout,
+                st_sales,
+                st_retur,
+                st_adj,
+                st_intransit,
+                AVGSLS_IGR,
+                AVGSLS_OMI,
+                AVGSLS_MM,
+                prd_tgldiscontinue
+                from tbmaster_prodmast
+                left join (select * from tbmaster_stock where st_lokasi='01') on prd_prdcd=st_prdcd
+                left join tbmaster_prodcrm on prc_pluigr=prd_prdcd
+                left join tbmaster_kkpkm on pkm_prdcd=prd_prdcd
+                left join tbmaster_pkmplus on pkmp_prdcd=prd_prdcd
+                left join (select * from tbmaster_hargabeli where hgb_tipe='2') on hgb_prdcd=prd_prdcd
+                left join tbmaster_supplier on sup_kodesupplier=hgb_kodesupplier
+                left join tbtr_salesbulanan on sls_prdcd=prd_prdcd
+                left join TBMASTER_MAXPALET on mpt_prdcd=prd_prdcd
+                left join ( 
+                select tpod_prdcd AS PLUPOAKHIR,max(tpod_tglpo)as LASTPO
+                    from tbtr_po_d group by tpod_prdcd
+                )on PLUPOAKHIR=prd_prdcd 
+                left join ( 
+                select mstd_prdcd AS PLUBPBAKHIR,min(mstd_tgldoc)as FIRSTBPB,max(mstd_tgldoc)as LASTBPB
+                    from tbtr_mstran_d where mstd_typetrn='B' group by mstd_prdcd
+                )on PLUBPBAKHIR=prd_prdcd 
+                left join (
+                    select tpod_prdcd as PLUPO,count(tpod_nopo) as jml_po,sum(tpod_qtypo) as QTY_PO
+                    from tbtr_po_d 
+                    left join tbtr_po_h on tpod_nopo=tpoh_nopo
+                    where trunc(tpoh_tglpo)+tpoh_jwpb>=trunc(sysdate)
+                    and tpoh_recordid is null group by tpod_prdcd) on PRD_PRDCD=plupo
+                left join (
+                SELECT 
+                  LKS_PRDCD as plur,
+                  LKS_KODERAK||'.'||LKS_KODESUBRAK||'.'||LKS_TIPERAK||'.'||LKS_SHELVINGRAK||'.'||LKS_NOURUT AS DISPLAY_REG,
+                  LKS_JENISRAK as JENIS_ITEM,lks_maxplano as MAXPLANO_REG,lks_minpct as MINPCT_REG
+                FROM TBMASTER_LOKASI
+                where substr(lks_koderak,0,1) IN ('R','O') and substr(lks_tiperak,0,1) <>'S' ) on plur=prd_prdcd
+                left join (
+                SELECT 
+                  LKS_PRDCD as plud,
+                  LKS_KODERAK||'.'||LKS_KODESUBRAK||'.'||LKS_TIPERAK||'.'||LKS_SHELVINGRAK||'.'||LKS_NOURUT AS DISPLAY_DPD,
+                  LKS_JENISRAK as JENIS_ITEM_DPD,lks_maxplano as MAXPLANO_DPD,lks_minpct as MINPCT_DPD
+                FROM TBMASTER_LOKASI
+                where substr(lks_koderak,0,1) IN ('D') and substr(lks_tiperak,0,1) <>'S' ) 
+                on plud=prd_prdcd
+                left join (
+                    select distinct lks_prdcd as plu_cks,substr(lks_shelvingrak,0,1) as jenis_cks
+                    from tbmaster_lokasi where lks_tiperak='S'
+                ) on prd_prdcd=plu_cks
+                left join (
+                select rsl_prdcd,
+                  sum(case when rsl_group='01' then (nvl(rsl_qty_$bln1,0) + nvl(rsl_qty_$bln2,0) + nvl(rsl_qty_$bln3,0))/3 end) as AVGSLS_IGR,
+                  sum(case when rsl_group='02' then (nvl(rsl_qty_$bln1,0) + nvl(rsl_qty_$bln2,0) + nvl(rsl_qty_$bln3,0))/3 end) as AVGSLS_OMI,
+                  sum(case when rsl_group='03' then (nvl(rsl_qty_$bln1,0) + nvl(rsl_qty_$bln2,0) + nvl(rsl_qty_$bln3,0))/3 end) as AVGSLS_MM
+                from tbtr_rekapsalesbulanan group by rsl_prdcd
+                ) on rsl_prdcd=prd_prdcd
+                left join tbmaster_divisi on div_kodedivisi = prd_kodedivisi
+                left join tbmaster_departement on dep_kodedepartement = prd_kodedepartement
+                
+                where (prd_kodecabang='25' or prd_kategoritoko in ('01','02','03')) and prd_prdcd like '%0' 
+                $dvs
+                --$dep
+                $kdtag
+                )
+                group by DIV,NMDIV
+                order by DIV,NMDIV"
+            );
+            $stok = $stok->getResultArray();
+            $jns = "per DIVISI";
+        } else if($jnslap == "2") {
+            $stok = $dbProd->query(
+                "select DIV,NMDIV,DEP,NMDEP,SUM(STOCK_IN_CTN) as CTN,SUM(STOCK_IN_PCS) as PCS,SUM(STOCK_RPH) as RPH,
+                SUM(JAN) as SJAN,SUM(PEB) as SFEB,SUM(MAR) as SMAR,SUM(APR) as SAPR,SUM(MEI) as SMEI,SUM(JUN) as SJUN,SUM(JUL) as SJUL,SUM(AGS) as SAGS,
+                SUM(SEP) as SSEP,SUM(OKT) as SOKT,SUM(NOV) as SNOV,SUM(DES) as SDES,SUM(BLN_INI) as SBLN,
+                SUM(AVGSLS_IGR) as IGR,SUM(AVGSLS_OMI) as OMI,SUM(AVGSLS_MM) as MM
+                from (
+                select 
+                prd_kodedivisi as DIV,
+                div_namadivisi as NMDIV,
+                prd_kodedepartement as DEP,
+                dep_namadepartement as NMDEP,
+                prd_kodekategoribarang as KAT,
+                prd_plumcg as PLU_MCG,
+                prd_prdcd as PLU_IGR,
+                prc_pluomi as PLU_OMI,
+                prd_deskripsipanjang as DESKRIPSI,
+                prd_unit as UNIT,
+                prd_frac as FRAC,
+                prd_kodetag as TAG_IGR,
+                prc_kodetag as TAG_OMI,
+                pkm_minorder as MINOR,
+                pkm_mindisplay as MINDIS,
+                prd_flagbkp2 as BKP,
+                st_avgcost*prd_frac as ACOST,
+                st_lastcost*prd_frac as LCOST,
+                prd_hrgjual as HRGJUAL,
+                hgb_hrgbeli*prd_frac as HRGBELI,
+                case when trunc(hgb_tglakhirdisc01)>=trunc(sysdate) then hgb_persendisc01 else 0 end as DISC1,
+                case when trunc(hgb_tglakhirdisc02)>=trunc(sysdate) then hgb_persendisc02 else 0 end as DISC2,
+                hgb_statusbarang as STATUS,
+                st_saldoakhir/prd_frac as STOCK_IN_CTN,
+                st_saldoakhir as STOCK_IN_PCS,
+                CASE WHEN PRD_UNIT='KG' THEN (ST_SALDOAKHIR*ST_AVGCOST)/PRD_FRAC  ELSE ST_SALDOAKHIR*ST_AVGCOST END AS STOCK_RPH,
+                hgb_kodesupplier as KODESUP,
+                sup_namasupplier as NAMASUPPLIER,
+                
+                sls_qty_01 as JAN,
+                sls_qty_02 as PEB,
+                sls_qty_03 as MAR,
+                sls_qty_04 as APR,
+                sls_qty_05 as MEI,
+                sls_qty_06 as JUN,
+                sls_qty_07 as JUL,
+                sls_qty_08 as AGS,
+                sls_qty_09 as SEP,
+                sls_qty_10 as OKT,
+                sls_qty_11 as NOV,
+                sls_qty_12 as DES,
+                st_sales as BLN_INI,
+                pkm_pkm as PKM,
+                pkmp_qtyminor as MPLUS,
+                pkm_pkmt as PKMT,
+                pkm_leadtime as LT,
+                pkm_qtyaverage as PKM_AVGSALES,
+                case when st_saldoakhir>0 and (sls_qty_$bln1 + sls_qty_$bln2 + sls_qty_$bln3) > 0 then st_saldoakhir / ((sls_qty_$bln1 + sls_qty_$bln2 + sls_qty_$bln3)/90) else 0 end as DSI_AVG_SLS,
+                case when st_saldoakhir>0 and st_sales>0 then round((((nvl(st_saldoawal,1) + nullif(st_saldoakhir,0))/2)/nullif(st_sales,0)) * (extract(day from sysdate))) else 0 end as DSI_BLN_INI,
+                LASTPO,
+                FIRSTBPB,
+                LASTBPB,
+                QTY_PO,
+                jml_po,
+                mpt_maxqty as MAXPALET,
+                case 
+                    when nvl(prd_flagigr,'N')='Y' and nvl(prd_flagomi,'N')='Y' then 'IGR+OMI'
+                    when nvl(prd_flagigr,'N')='Y' and nvl(prd_flagomi,'N')!='Y' then 'IGR ONLY'
+                    when nvl(prd_flagigr,'N')!='Y' and nvl(prd_flagomi,'N')='Y' then 'OMI ONLY'
+                    else 'TIDAK BISA JUAL'
+                  end as FLAG_JUAL,
+                Display_REG,MAXPLANO_REG,MINPCT_REG,
+                Display_DPD,MAXPLANO_DPD,
+                JENIS_ITEM,
+                case 
+                    when nvl(JENIS_CKS,'N') = 'S' then 'SB'
+                    when nvl(JENIS_CKS,'N') = 'K' then 'SK'
+                    when nvl(JENIS_CKS,'N') = 'C' then 'SC'
+                end as JENIS_CKS,
+                st_trfin,
+                st_trfout,
+                st_sales,
+                st_retur,
+                st_adj,
+                st_intransit,
+                AVGSLS_IGR,
+                AVGSLS_OMI,
+                AVGSLS_MM,
+                prd_tgldiscontinue
+                from tbmaster_prodmast
+                left join (select * from tbmaster_stock where st_lokasi='01') on prd_prdcd=st_prdcd
+                left join tbmaster_prodcrm on prc_pluigr=prd_prdcd
+                left join tbmaster_kkpkm on pkm_prdcd=prd_prdcd
+                left join tbmaster_pkmplus on pkmp_prdcd=prd_prdcd
+                left join (select * from tbmaster_hargabeli where hgb_tipe='2') on hgb_prdcd=prd_prdcd
+                left join tbmaster_supplier on sup_kodesupplier=hgb_kodesupplier
+                left join tbtr_salesbulanan on sls_prdcd=prd_prdcd
+                left join TBMASTER_MAXPALET on mpt_prdcd=prd_prdcd
+                left join ( 
+                select tpod_prdcd AS PLUPOAKHIR,max(tpod_tglpo)as LASTPO
+                    from tbtr_po_d group by tpod_prdcd
+                )on PLUPOAKHIR=prd_prdcd 
+                left join ( 
+                select mstd_prdcd AS PLUBPBAKHIR,min(mstd_tgldoc)as FIRSTBPB,max(mstd_tgldoc)as LASTBPB
+                    from tbtr_mstran_d where mstd_typetrn='B' group by mstd_prdcd
+                )on PLUBPBAKHIR=prd_prdcd 
+                left join (
+                    select tpod_prdcd as PLUPO,count(tpod_nopo) as jml_po,sum(tpod_qtypo) as QTY_PO
+                    from tbtr_po_d 
+                    left join tbtr_po_h on tpod_nopo=tpoh_nopo
+                    where trunc(tpoh_tglpo)+tpoh_jwpb>=trunc(sysdate)
+                    and tpoh_recordid is null group by tpod_prdcd) on PRD_PRDCD=plupo
+                left join (
+                SELECT 
+                  LKS_PRDCD as plur,
+                  LKS_KODERAK||'.'||LKS_KODESUBRAK||'.'||LKS_TIPERAK||'.'||LKS_SHELVINGRAK||'.'||LKS_NOURUT AS DISPLAY_REG,
+                  LKS_JENISRAK as JENIS_ITEM,lks_maxplano as MAXPLANO_REG,lks_minpct as MINPCT_REG
+                FROM TBMASTER_LOKASI
+                where substr(lks_koderak,0,1) IN ('R','O') and substr(lks_tiperak,0,1) <>'S' ) on plur=prd_prdcd
+                left join (
+                SELECT 
+                  LKS_PRDCD as plud,
+                  LKS_KODERAK||'.'||LKS_KODESUBRAK||'.'||LKS_TIPERAK||'.'||LKS_SHELVINGRAK||'.'||LKS_NOURUT AS DISPLAY_DPD,
+                  LKS_JENISRAK as JENIS_ITEM_DPD,lks_maxplano as MAXPLANO_DPD,lks_minpct as MINPCT_DPD
+                FROM TBMASTER_LOKASI
+                where substr(lks_koderak,0,1) IN ('D') and substr(lks_tiperak,0,1) <>'S' ) 
+                on plud=prd_prdcd
+                left join (
+                    select distinct lks_prdcd as plu_cks,substr(lks_shelvingrak,0,1) as jenis_cks
+                    from tbmaster_lokasi where lks_tiperak='S'
+                ) on prd_prdcd=plu_cks
+                left join (
+                select rsl_prdcd,
+                  sum(case when rsl_group='01' then (nvl(rsl_qty_$bln1,0) + nvl(rsl_qty_$bln2,0) + nvl(rsl_qty_$bln3,0))/3 end) as AVGSLS_IGR,
+                  sum(case when rsl_group='02' then (nvl(rsl_qty_$bln1,0) + nvl(rsl_qty_$bln2,0) + nvl(rsl_qty_$bln3,0))/3 end) as AVGSLS_OMI,
+                  sum(case when rsl_group='03' then (nvl(rsl_qty_$bln1,0) + nvl(rsl_qty_$bln2,0) + nvl(rsl_qty_$bln3,0))/3 end) as AVGSLS_MM
+                from tbtr_rekapsalesbulanan group by rsl_prdcd
+                ) on rsl_prdcd=prd_prdcd
+                left join tbmaster_divisi on div_kodedivisi = prd_kodedivisi
+                left join tbmaster_departement on dep_kodedepartement = prd_kodedepartement
+                
+                where (prd_kodecabang='25' or prd_kategoritoko in ('01','02','03')) and prd_prdcd like '%0' 
+                $dvs
+                $dep
+                $kdtag
+                )
+                group by DIV,NMDIV,DEP,NMDEP
+                order by DIV,NMDIV,DEP,NMDEP"
+            );
+            $stok = $stok->getResultArray();
+            $jns = "per DEPARTEMENT";
+        };
+        
+
+        $dept = $dbProd->query(
+            "SELECT dep_kodedivisi,div_namadivisi,div_singkatannamadivisi,dep_kodedepartement, dep_namadepartement 
+            from tbmaster_departement 
+            left join tbmaster_divisi on div_kodedivisi=dep_kodedivisi
+            order by dep_kodedivisi,dep_kodedepartement"
+        );
+        $dept = $dept->getResultArray();
+
+        $data = [
+            'title' => 'Tampil Stock Harian',
+            'departemen' => $departemen,
+            'divisi' => $divisi,
+            'tag' => $tag,
+            'stok' => $stok,
+            'dept' => $dept,
+            'jnslap' => $jnslap,
+            'jns' => $jns,
+        ];
+
+        if($aksi == 'btnxls') {
+            $filename = "Laporan $jns".date('d M Y').".xls";
+            header("Content-Disposition: attachment; filename=\"$filename\"");
+            header("Content-Type: application/vnd.ms-excel");
+        
+            return view('logistik/tampilstock',$data);
+        };
+
+        // d($data);
+        // redirect()->to('/logistik/tampilstock')->withInput();
+        return view('logistik/tampilstock',$data);
+    }
+
+    public function lppsaatini() {
+        $dbProd = db_connect("production");
+        $departemen = $divisi = $kategori = [];
+
+        $divisi = $dbProd->query(
+            "SELECT div_kodedivisi, div_namadivisi FROM tbmaster_divisi ORDER BY div_kodedivisi"
+        );
+        $divisi = $divisi->getResultArray();
+
+        $departemen = $dbProd->query(
+            "SELECT dep_kodedivisi,div_namadivisi,div_singkatannamadivisi,dep_kodedepartement, dep_namadepartement 
+            from tbmaster_departement 
+            left join tbmaster_divisi on div_kodedivisi=dep_kodedivisi
+            order by dep_kodedivisi,dep_kodedepartement"
+        );
+        $departemen = $departemen->getResultArray();
+
+        $kategori = $dbProd->query(
+            "SELECT kat.kat_kodedepartement,
+            dep.dep_namadepartement AS kat_namadepartement,
+            kat.kat_kodekategori,
+            kat.kat_namakategori
+            FROM tbmaster_kategori kat,
+                tbmaster_departement dep
+            WHERE kat.kat_kodedepartement = dep.dep_kodedepartement (+)
+            ORDER BY kat_kodedepartement,
+                kat_kodekategori"
+        );
+        $kategori = $kategori->getResultArray();
+
+        $data = [
+            'title' => 'LPP Saat Ini',
+            'divisi' => $divisi,
+            'departemen' => $departemen,
+            'kategori' => $kategori,
+        ];
+  
+        redirect()->to('/logistik/lppsaatini')->withInput();
+        return view('logistik/lppsaatini',$data);
+    }
+
+    public function tampillpp() {
+        $dbProd = db_connect("production");
+        $aksi = $this->request->getVar('tombol');
+        $lppSaatIni = $dept = $dvs = $katb = $filename = [];
+           
+        // atur nilai default
+        $lokasiStock = "01";
+        $groupSales	 = $statusTag = $statusQty = "All";
+  
+        // barang, divisi, dep, kat
+        $kodePLU = $kodeDivisi = $kodeDepartemen = $kodeKategoriBarang = $jenisLaporan = $sortBy = "All";
+        $filterstok = $filtergrup = $filtertag = $filterdiv = $filterdep = $filterkat = $filterQty = "";
+
+        // Ambil variabel dr form
+        if(isset($_GET['stok'])) {if ($_GET['stok'] !=""){$lokasiStock = $_GET['stok']; }}
+        if ($lokasiStock != "All" AND $lokasiStock != "") {
+            $filterstok = " AND st_lokasi = '$lokasiStock' ";
+        } else if ($lokasiStock == "02" OR $lokasiStock == "03") {
+            $filterstok = " AND st_saldo_in_pcs <> 0 ";
+        }
+        if(isset($_GET['grup'])) {if ($_GET['grup'] !=""){$groupSales = $_GET['grup']; }}
+        if ($groupSales != "All" AND $groupSales != "") {
+            $filtergrup = " AND st_igr_idm = '$groupSales' ";
+        }
+        if(isset($_GET['statustag'])) {if ($_GET['statustag'] !=""){$statusTag = $_GET['statustag']; }}
+        if ($statusTag != "All" AND $statusTag != "") {
+            $filtertag = " AND st_status_tag = '$statusTag' ";
+        }
+        if(isset($_GET['divisi'])) {if ($_GET['divisi'] !=""){$kodeDivisi = $_GET['divisi']; }}
+        if ($kodeDivisi != "All" AND $kodeDivisi != "") {
+            $filterdiv = " AND st_div = '$kodeDivisi' ";
+        }
+        if(isset($_GET['dep'])) {if ($_GET['dep'] !=""){$kodeDepartemen = $_GET['dep']; }}
+        if ($kodeDepartemen != "All" AND $kodeDepartemen != "") {
+            $filterdep = " AND st_dept = '$kodeDepartemen' ";
+        }
+        if(isset($_GET['kat'])) {if ($_GET['kat'] !=""){$kodeKategoriBarang = $_GET['kat']; }}
+        if ($kodeKategoriBarang != "All" AND $kodeKategoriBarang != "") {
+            $filterkat = " AND st_dept || st_katb = '$kodeKategoriBarang' ";
+        }
+        if(isset($_GET['lap'])) {if ($_GET['lap'] !=""){$jenisLaporan = $_GET['lap']; }}
+
+        if(isset($_GET['statusqty'])) {if ($_GET['statusqty'] !=""){$statusQty = $_GET['statusqty']; }}
+        if ($statusQty != "All" AND $statusQty != "") {
+            switch ($statusQty) {
+                case "1":
+                  $filterQty = " AND st_saldo_in_pcs < 0 ";
+                  break;
+                case "2":
+                  $filterQty = " AND st_saldo_in_pcs = 0 ";
+                  break;
+                case "3":
+                  $filterQty = " AND st_saldo_in_pcs > 0 ";
+                  break;
+                case "4":
+                  $filterQty = " AND st_saldo_in_pcs < st_spd * 3 ";
+                  break;
+                case "5":
+                  $filterQty = " AND st_saldo_in_pcs < st_pkm ";
+                  break;
+            }
+        }
+
+        if($jenisLaporan == '1') {
+            $lap = 'LAPORAN per DIVISI';
+        } else if($jenisLaporan == '2') {
+            $lap = 'LAPORAN per DEPARTEMEN';
+        } else if($jenisLaporan == '3') {
+            $lap = 'LAPORAN per KATEGORI';
+        } else if($jenisLaporan == '4') {
+            $lap = 'LAPORAN per PRODUK';
+        } else if($jenisLaporan == '4B') {
+            $lap = 'LAPORAN PRODUK DISKON 2';
+        } else if($jenisLaporan == '4C') {
+            $lap = 'LAPORAN PRODUK DETAIL';
+        } else if($jenisLaporan == '5') {
+            $lap = 'LAPORAN per SUPPLIER';
+        } else if($jenisLaporan == '6') {
+            $lap = 'LAPORAN per KODE TAG';
+        } else if($jenisLaporan == '7') {
+            $lap = 'LAPORAN per Group Sales';
+        }
+
+        $bln_01 = date('m', strtotime('-3 month')) ;
+	    $bln_02 = date('m', strtotime('-2 month')) ;
+	    $bln_03 = date('m', strtotime('-1 month')) ;
+
+        $viewHargaBeli = "(SELECT hgb.hgb_prdcd,
+            hgb.hgb_hrgbeli,
+            hgb.hgb_statusbarang,
+            hgb.hgb_tglmulaidisc01,
+            hgb.hgb_tglakhirdisc01,
+            hgb.hgb_persendisc01,
+            hgb.hgb_rphdisc01,
+            hgb.hgb_flagdisc01,
+            hgb.hgb_tglmulaidisc02,
+            hgb.hgb_tglakhirdisc02,
+            hgb.hgb_persendisc02,
+            hgb.hgb_rphdisc02,
+            hgb.hgb_flagdisc02,
+            hgb.hgb_nilaidpp,
+            hgb.hgb_top,
+            hgb.hgb_kodesupplier,
+            sup.sup_namasupplier AS hgb_namasupplier,
+            sup.sup_jangkawaktukirimbarang AS hgb_lead_time,
+            sup.sup_minrph as hgb_minrph
+            FROM   tbmaster_hargabeli hgb,
+                    tbmaster_supplier sup
+            WHERE  hgb.hgb_tipe = '2'
+                    AND hgb.hgb_kodesupplier = sup.sup_kodesupplier (+))";
+        
+        $viewPOOutstanding = "(SELECT tpod_prdcd,
+            SUM(tpod_qtypo)  AS tpod_qtypo,
+            Count(tpod_nopo) AS tpod_nopo
+            FROM   (SELECT tpod_prdcd,
+                tpod_qtypo,
+                tpod_nopo
+                FROM   tbtr_po_d
+                WHERE  tpod_nopo IN (SELECT tpoh_nopo
+                    FROM   tbtr_po_h
+                    WHERE  tpoh_recordid IS NULL
+                    AND Trunc(tpoh_tglpo + tpoh_jwpb) >= Trunc(SYSDATE)
+                )
+                        -- revisi sesuai permintaan Bp MAO
+                        -- PO Out tidak memperhitungkan PB Outstansding
+                        -- 19-11-2015 10:45
+                        --UNION ALL
+                        --SELECT pbd_prdcd,
+                        --       pbd_qtypb,
+                        --       pbd_nopb
+                        --FROM   tbtr_pb_d
+                        --WHERE  pbd_recordid IS NULL
+            )
+            GROUP  BY tpod_prdcd) ";
+
+        $viewSalesPerDay = " (SELECT sls_prdcd                               AS spd_prdcd,
+            Nvl(sls_qty_" . $bln_01  .", 0)                      AS spd_qty_1,
+            Nvl(sls_qty_" . $bln_02  .", 0)                      AS spd_qty_2,
+            Nvl(sls_qty_" . $bln_03  .", 0)                      AS spd_qty_3,
+            Trunc(( Nvl(sls_qty_" . $bln_01  .", 0) + Nvl(sls_qty_" . $bln_02  .", 0) + Nvl(sls_qty_" . $bln_03  .", 0) ) / 90, 5) AS spd_qty,
+            Nvl(sls_rph_" . $bln_01  .", 0)                      AS spd_rph_1,
+            Nvl(sls_rph_" . $bln_02  .", 0)                      AS spd_rph_2,
+            Nvl(sls_rph_" . $bln_03  .", 0)                      AS spd_rph_3,
+            Trunc(( Nvl(sls_rph_" . $bln_01  .", 0) + Nvl(sls_rph_" . $bln_02  .", 0) + Nvl(sls_rph_" . $bln_03  .", 0) ) / 90, 5) AS spd_rph
+            FROM   tbtr_salesbulanan   ) ";
+
+        $viewStatusIgrIdm = " (SELECT 
+            PRD_PRDCD,
+            CASE WHEN FLAG = 'NAS-IGR+K.IGR' THEN 'IGR-ONLY'
+            WHEN FLAG = 'NAS' THEN 'IGR-ONLY'
+            WHEN FLAG = 'IGR+K.IGR' THEN 'IGR-ONLY'
+            WHEN FLAG = 'IGR' THEN 'IGR-ONLY'
+             
+            WHEN FLAG = 'NAS-OMI' THEN 'OMI-ONLY'
+            WHEN FLAG = 'OMI' THEN 'OMI-ONLY'
+            ELSE 'IGR-OMI' END AS STATUS_IGR_IDM 
+             
+             
+            FROM (SELECT PRD_PRDCD ,
+                CASE
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYYYYY' THEN 'NAS-IGR+IDM+OMI+MR.BRD+K.IGR+DEPO'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYYYYN' THEN 'NAS-IGR+IDM+OMI+MR.BRD+K.IGR'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYYYNN' THEN 'NAS-IGR+IDM+OMI+MR.BRD'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYYNYY' THEN 'NAS-IGR+IDM+OMI+K.IGR+DEPO'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYYNYN' THEN 'NAS-IGR+IDM+OMI+K.IGR'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYYNNY' THEN 'NAS-IGR+IDM+OMI+DEPO'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYYNNN' THEN 'NAS-IGR+IDM+OMI'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYNYYY' THEN 'NAS-IGR+IDM+MR.BRD+K.IGR+DEPO'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYNNYY' THEN 'NAS-IGR+IDM+K.IGR+DEPO'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYNNYN' THEN 'NAS-IGR+IDM+K.IGR'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYNNNY' THEN 'NAS-IGR+IDM+DEPO'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYNNNN' THEN 'NAS-IGR+IDM'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNYNYY' THEN 'NAS-IGR+OMI+K.IGR+DEPO'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNYNYN' THEN 'NAS-IGR+OMI+K.IGR'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNYNNY' THEN 'NAS-IGR+OMI+DEPO'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNYNNN' THEN 'NAS-IGR+OMI'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNNYYN' THEN 'NAS-IGR+MR.BRD+K.IGR'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNNYNN' THEN 'NAS-IGR+MR.BRD'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNNNYY' THEN 'NAS-IGR+K.IGR+DEPO'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNNNYN' THEN 'NAS-IGR+K.IGR'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNNNNY' THEN 'NAS-IGR+DEPO'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNNNNN' THEN 'NAS-IGR'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNYYNYY' THEN 'NAS-IDM+OMI+K.IGR+DEPO'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNYYNYN' THEN 'NAS-IDM+OMI+K.IGR'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNYYNNY' THEN 'NAS-IDM+OMI+DEPO'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNYYNNN' THEN 'NAS-IDM+OMI'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNYNNYY' THEN 'NAS-IDM+K.IGR+DEPO'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNYNNYN' THEN 'NAS-IDM+K.IGR'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNYNNNY' THEN 'NAS-IDM+DEPO'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNYNNNN' THEN 'NAS-IDM'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNNYYNN' THEN 'NAS-OMI+MR.BRD'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNNYNYN' THEN 'NAS-OMI+K.IGR'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNNYNNN' THEN 'NAS-OMI'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNNNYNN' THEN 'NAS-MR.BRD'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNNNNYN' THEN 'NAS-K.IGR'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNNNNNN' THEN 'NAS'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYYYNYY' THEN 'IGR+IDM+OMI+K.IGR+DEPO'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYYYNYN' THEN 'IGR+IDM+OMI+K.IGR'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYYYNNY' THEN 'IGR+IDM+OMI+DEPO'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYYYNNN' THEN 'IGR+IDM+OMI'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYYNNYY' THEN 'IGR+IDM+K.IGR+DEPO'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYYNNYN' THEN 'IGR+IDM+K.IGR'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYYNNNY' THEN 'IGR+IDM+DEPO'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYYNNNN' THEN 'IGR+IDM'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYNYNYY' THEN 'IGR+OMI+K.IGR+DEPO'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYNYNYN' THEN 'IGR+OMI+K.IGR'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYNYNNN' THEN 'IGR+OMI'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYNNYYN' THEN 'IGR+MR.BRD+K.IGR'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYNNNYY' THEN 'IGR+K.IGR+DEPO'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYNNNYN' THEN 'IGR+K.IGR'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYNNNNY' THEN 'IGR+DEPO'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYNNNNN' THEN 'IGR'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNYYNYY' THEN 'IDM+OMI+K.IGR+DEPO'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNYYNYN' THEN 'IDM+OMI+K.IGR'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNYYNNY' THEN 'IDM+OMI+DEPO'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNYYNNN' THEN 'IDM+OMI'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNYNNYY' THEN 'IDM+K.IGR+DEPO'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNYNNYN' THEN 'IDM+K.IGR'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNYNNNY' THEN 'IDM+DEPO'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNYNNNN' THEN 'IDM'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNNYNYN' THEN 'OMI+K.IGR'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNNYNNN' THEN 'OMI'
+                    WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNNNNNN' THEN 'BELUM ADA FLAG'
+                    ELSE 'BELUM ADA FLAG'
+                END AS FLAG
+                FROM (SELECT prd_prdcd,prd_plumcg,
+                    nvl(PRD_FLAGNAS,'N') AS NAS,
+                    nvl(PRD_FLAGIGR,'N') AS IGR,
+                    nvl(PRD_FLAGIDM,'N') AS IDM,
+                    nvl(PRD_FLAGOMI,'N') AS OMI,
+                    nvl(PRD_FLAGBRD,'N') AS BRD,
+                    nvl(PRD_FLAGOBI,'N') AS K_IGR,
+                    case when prd_plumcg in (select PLUIDM from DEPO_LIST_IDM ) THEN 'Y' ELSE 'N' END AS DEPO
+                    FROM TBMASTER_PRODMAST 
+                    WHERE PRD_PRDCD LIKE '%0' 
+                    AND PRD_DESKRIPSIPANJANG IS NOT NULL))) ";
+
+        $viewLppSaatIni = "(SELECT prd.prd_kodedivisi    AS st_div,
+            div.div_namadivisi         AS st_div_nama,
+            prd.prd_kodedepartement    AS st_dept,
+            dep.dep_namadepartement    AS st_dept_nama,
+            prd.prd_kodekategoribarang AS st_katb,
+            kat.kat_namakategori       AS st_katb_nama,
+            prd.prd_prdcd              AS st_prdcd,
+            prd.prd_deskripsipanjang   AS st_deskripsi,
+            prd.prd_unit               AS st_unit,
+            prd.prd_frac               AS st_frac,
+            NVL(prd.prd_kodetag,' ')   AS st_kodetag,
+            CASE
+            WHEN NVL(prd.prd_kodetag,' ') IN ('A','R','N','H','O','T','X')
+            THEN 'Discontinue'
+            ELSE 'Active'
+            END st_status_tag,
+            stk.st_lokasi                         AS st_lokasi,
+            (NVL(stk.st_saldoakhir,0) - MOD(NVL(stk.st_saldoakhir,0),prd.prd_frac)) /prd.prd_frac AS st_saldo_ctn,
+            --FLOOR(NVL(stk.st_saldoakhir,0)/prd.prd_frac) AS st_saldo_ctn,
+            MOD(NVL(stk.st_saldoakhir,0),prd.prd_frac)   AS st_saldo_pcs,
+            stk.st_saldoakhir                     AS st_saldo_in_pcs,
+            stk.ST_AVGCOST                       AS st_avgcost,
+            CASE
+            WHEN prd.prd_unit='KG' AND prd.prd_frac =1000
+            THEN stk.st_saldoakhir * stk.st_avgcost/1000
+            ELSE stk.st_saldoakhir * stk.st_avgcost
+            END st_saldo_rph,
+            
+            stk.st_lastcost                       AS st_lastcost,
+            CASE
+            WHEN prd.prd_unit='KG' AND prd.prd_frac =1000
+            THEN stk.st_saldoakhir * stk.st_lastcost/1000
+            ELSE stk.st_saldoakhir * stk.st_lastcost
+            END st_saldo_rph_lastcost,
+            
+            pkm.pkm_pkmt                          AS st_pkm,
+            spd.spd_qty                           AS st_spd,
+            CASE
+            WHEN NVL(spd.spd_qty,0) > 0
+            THEN ROUND(stk.st_saldoakhir / spd.spd_qty)
+            ELSE 999999
+            END st_dsi,
+            poo.tpod_qtypo          AS st_po_qty,
+            sii.status_igr_idm      AS st_igr_idm,
+            spd.spd_qty_1 as st_sales_bln_1,
+            spd.spd_qty_2 as st_sales_bln_2,
+            spd.spd_qty_3 as st_sales_bln_3,
+            stk.st_sales  as st_sales_bln_ini,
+            NVL(hgb.hgb_kodesupplier,'Z9999')    AS st_supp_kode,
+            NVL(hgb.hgb_namasupplier,'Z9999 Tidak diketahui')    AS st_supp_nama,
+            prd.prd_perlakuanbarang AS st_perlakuan_barang,
+            hgb.hgb_hrgbeli * prd.prd_frac  as st_harga_beli,
+            hgb.hgb_nilaidpp * prd.prd_frac as st_harga_beli_netto,
+            hgb.hgb_nilaidpp                as st_harga_beli_omi,
+            hgb.hgb_tglmulaidisc01 as st_disc_1_mulai,
+            hgb.hgb_tglakhirdisc01 as st_disc_1_selesai,
+            hgb.hgb_persendisc01 as st_disc_1_persen,
+            hgb.hgb_rphdisc01 as st_disc_1_rph,
+            hgb.hgb_flagdisc01 as st_disc_1_flag,
+            
+            hgb.hgb_tglmulaidisc02 as st_disc_2_mulai,
+            hgb.hgb_tglakhirdisc02 as st_disc_2_selesai,
+            hgb.hgb_persendisc02 as st_disc_2_persen,
+            hgb.hgb_rphdisc02 as st_disc_2_rph,
+            hgb.hgb_flagdisc02 as st_disc_2_flag
+            
+            FROM tbmaster_prodmast prd,
+                tbmaster_stock stk,
+                tbmaster_kkpkm pkm,
+                tbmaster_divisi div,
+                tbmaster_departement dep,
+                " . $viewHargaBeli ." hgb,
+                (SELECT kat_kodedepartement || kat_kodekategori AS kat_kodekategori, kat_namakategori FROM tbmaster_kategori) kat,
+                " . $viewSalesPerDay  . " spd,
+                " . $viewPOOutstanding  ." poo,
+                " . $viewStatusIgrIdm  . " sii
+            WHERE prd.prd_prdcd         = stk.st_prdcd (+)
+            AND prd.prd_prdcd           = pkm.pkm_prdcd (+)
+            AND prd.prd_prdcd           = hgb.hgb_prdcd (+)
+            AND prd.prd_kodedivisi      = div.div_kodedivisi (+)
+            AND prd.prd_kodedepartement = dep.dep_kodedepartement (+)
+            AND prd.prd_kodedepartement || prd.prd_kodekategoribarang = kat.kat_kodekategori (+)
+            AND prd.prd_prdcd           = spd.spd_prdcd (+)
+            AND prd.prd_prdcd           = poo.tpod_prdcd (+)
+            AND prd.prd_prdcd           = sii.prd_prdcd (+)
+            AND prd.prd_prdcd LIKE '%0') ";
+
+        if($jenisLaporan == "1") {
+            $lppSaatIni = $dbProd->query(
+                "SELECT st_div,
+                st_div_nama,
+                COUNT(st_prdcd)               AS st_item_produk,
+                SUM(st_saldo_in_pcs)          AS st_saldo_in_pcs,
+                SUM(st_saldo_rph)             AS st_saldo_rph,
+                SUM(st_saldo_rph_lastcost)    AS st_saldo_rph_lastcost,
+                COUNT(DISTINCT(st_supp_kode)) AS st_supp_jumlah
+                FROM " . $viewLppSaatIni . "
+                WHERE st_prdcd IS NOT NULL 
+                $filterstok
+                $filtergrup
+                $filtertag
+                $filterQty
+                $filterdiv
+                $filterdep
+                $filterkat
+                GROUP BY st_div,st_div_nama
+			    ORDER BY st_div"
+            );
+            $lppSaatIni = $lppSaatIni->getResultArray();
+        } else if($jenisLaporan == "2") {
+            $lppSaatIni = $dbProd->query(
+                "SELECT st_div,
+                st_div_nama,
+                st_dept,
+                st_dept_nama,
+                COUNT(st_prdcd)               AS st_item_produk,
+                SUM(st_saldo_in_pcs)          AS st_saldo_in_pcs,
+                SUM(st_saldo_rph)             AS st_saldo_rph,
+                SUM(st_saldo_rph_lastcost)    AS st_saldo_rph_lastcost,
+                COUNT(DISTINCT(st_supp_kode)) AS st_supp_jumlah
+                FROM " . $viewLppSaatIni . "
+                WHERE st_prdcd IS NOT NULL 
+                $filterstok
+                $filtergrup
+                $filterQty
+                $filtertag
+                $filterdiv
+                $filterdep
+                $filterkat
+                GROUP BY st_div,
+				st_div_nama,
+				st_dept,
+				st_dept_nama
+			    ORDER BY st_div,st_dept"
+            );
+            $lppSaatIni = $lppSaatIni->getResultArray();
+        } else if($jenisLaporan == "3") {
+            $lppSaatIni = $dbProd->query(
+                "SELECT st_div,
+                st_div_nama,
+                st_dept,
+                st_dept_nama,
+                st_katb,
+                st_katb_nama,
+                COUNT(st_prdcd)               AS st_item_produk,
+                SUM(st_saldo_in_pcs)          AS st_saldo_in_pcs,
+                SUM(st_saldo_rph)             AS st_saldo_rph,
+                SUM(st_saldo_rph_lastcost)    AS st_saldo_rph_lastcost,
+                COUNT(DISTINCT(st_supp_kode)) AS st_supp_jumlah
+                FROM " . $viewLppSaatIni . "
+                WHERE st_prdcd IS NOT NULL 
+                $filterstok
+                $filtergrup
+                $filterQty
+                $filtertag
+                $filterdiv
+                $filterdep
+                $filterkat
+                GROUP BY st_div,
+				st_div_nama,
+				st_dept,
+				st_dept_nama,
+			  	st_katb,
+			  	st_katb_nama
+			    ORDER BY st_div,st_dept,st_katb"
+            );
+            $lppSaatIni = $lppSaatIni->getResultArray();
+        } else if($jenisLaporan == "4") {
+            $lppSaatIni = $dbProd->query(
+                "SELECT * FROM " . $viewLppSaatIni . "
+                WHERE st_prdcd IS NOT NULL
+                $filterstok
+                $filtergrup
+                $filterQty
+                $filtertag
+                $filterdiv
+                $filterdep
+                $filterkat
+                order by st_div,st_dept,st_katb"
+            );
+            $lppSaatIni = $lppSaatIni->getResultArray();
+        } else if($jenisLaporan == "4B") {
+            $lppSaatIni = $dbProd->query(
+                "SELECT * FROM " . $viewLppSaatIni . "
+                WHERE st_prdcd IS NOT NULL 
+                AND st_disc_2_mulai IS NOT NULL
+                $filterstok
+                $filtergrup
+                $filterQty
+                $filtertag
+                $filterdiv
+                $filterdep
+                $filterkat
+                order by st_div,st_dept,st_katb"
+            );
+            $lppSaatIni = $lppSaatIni->getResultArray();
+        } else if($jenisLaporan == "5") {
+            $lppSaatIni = $dbProd->query(
+                "SELECT st_supp_kode,
+                st_supp_nama,
+                COUNT(st_prdcd)               AS st_item_produk,
+                SUM(st_saldo_in_pcs)          AS st_saldo_in_pcs,
+                SUM(st_saldo_rph)             AS st_saldo_rph,
+                SUM(st_saldo_rph_lastcost)    AS st_saldo_rph_lastcost
+                
+                FROM " . $viewLppSaatIni . "
+                WHERE st_prdcd IS NOT NULL 
+                $filterstok
+                $filtergrup
+                $filterQty
+                $filtertag
+                $filterdiv
+                $filterdep
+                $filterkat
+                GROUP BY st_supp_kode,
+				st_supp_nama
+			    ORDER BY st_saldo_rph desc"
+            );
+            $lppSaatIni = $lppSaatIni->getResultArray();
+        } else if($jenisLaporan == "6") {
+            $lppSaatIni = $dbProd->query(
+                "SELECT st_kodetag,
+                COUNT(st_prdcd)               AS st_item_produk,
+                SUM(st_saldo_in_pcs)          AS st_saldo_in_pcs,
+                SUM(st_saldo_rph)             AS st_saldo_rph,
+                COUNT(DISTINCT(st_supp_kode)) AS st_supp_jumlah
+                FROM " . $viewLppSaatIni . "
+                WHERE st_prdcd IS NOT NULL 
+                $filterstok
+                $filtergrup
+                $filterQty
+                $filtertag
+                $filterdiv
+                $filterdep
+                $filterkat
+                GROUP BY st_kodetag
+			    ORDER BY st_kodetag"
+            );
+            $lppSaatIni = $lppSaatIni->getResultArray();
+        } else if($jenisLaporan == "7") {
+            $lppSaatIni = $dbProd->query(
+                "SELECT st_igr_idm,
+                COUNT(st_prdcd)               AS st_item_produk,
+                SUM(st_saldo_in_pcs)          AS st_saldo_in_pcs,
+                SUM(st_saldo_rph)             AS st_saldo_rph,
+                COUNT(DISTINCT(st_supp_kode)) AS st_supp_jumlah
+                FROM " . $viewLppSaatIni . "
+                WHERE st_prdcd IS NOT NULL
+                $filterstok
+                $filtergrup
+                $filterQty
+                $filtertag
+                $filterdiv
+                $filterdep
+                $filterkat
+                GROUP BY st_igr_idm
+			    ORDER BY st_igr_idm"
+            );
+            $lppSaatIni = $lppSaatIni->getResultArray();
+        };
+
+        $dept = $dbProd->query(
+            "SELECT dep_kodedivisi,div_namadivisi,div_singkatannamadivisi,dep_kodedepartement, dep_namadepartement 
+            from tbmaster_departement 
+            left join tbmaster_divisi on div_kodedivisi=dep_kodedivisi
+            order by dep_kodedivisi,dep_kodedepartement"
+        );
+        $dept = $dept->getResultArray();
+
+        $katb = $dbProd->query(
+            "SELECT kat.kat_kodedepartement,
+            dep.dep_namadepartement AS kat_namadepartement,
+            kat.kat_kodekategori,
+            kat.kat_namakategori
+            FROM tbmaster_kategori kat,
+                tbmaster_departement dep
+            WHERE kat.kat_kodedepartement = dep.dep_kodedepartement (+)
+            ORDER BY kat_kodedepartement,
+                kat_kodekategori"
+        );
+        $katb = $katb->getResultArray();
+
+        $data = [
+            'title' => 'Data LPP Saat Ini',
+            'lokasiStock' => $lokasiStock,
+            'groupSales' => $groupSales,
+            'statusTag' => $statusTag,
+            'statusQty' => $statusQty,
+            'kodeDivisi' => $kodeDivisi,
+            'kodeDepartemen' => $kodeDepartemen,
+            'kodeKategoriBarang' => $kodeKategoriBarang,
+            'jenisLaporan' => $jenisLaporan,
+            'lppSaatIni' => $lppSaatIni,
+            'dept' => $dept,
+            'dvs' => $dvs,
+            'katb' => $katb,
+        ];
+
+        if($aksi == 'btnxls') {
+            $filename = $lap.date('d M Y').".xls";
+            header("Content-Disposition: attachment; filename=\"$filename\"");
+            header("Content-Type: application/vnd.ms-excel");
+        
+            return view('logistik/tampillpp',$data);
+        };
+  
+        // redirect()->to('/logistik/tampillpp')->withInput();
+        return view('logistik/tampillpp',$data);
+    }
+
+    public function tampillppblnlalu() {
+        $dbProd = db_connect("production");
+        $lppBaik = $lppRetur = $lppRusak = [];
+
+        $viewLpp = "(SELECT   lpp_tgl1,
+            lpp_tgl2,
+            lpp_kodedivisi,
+            lpp_kodedepartemen,
+            lpp_kategoribrg,
+            lpp_prdcd,
+            prd_deskripsipanjang,
+            prd_unit,
+            prd_frac,
+            NVL(prd_kodetag,' ')                                                                                                                                                                                                                                                                                                                                                              AS prd_kodetag,
+            NVL(lpp_rphbegbal,0)                                                                                                                                                                                                                                                                                                                                                              AS lpp_rphbegbal,
+            NVL(lpp_rphbeli,0)                                                                                                                                                                                                                                                                                                                                                                AS lpp_rphbeli,
+            NVL(lpp_rphbonus,0)                                                                                                                                                                                                                                                                                                                                                               AS lpp_rphbonus,
+            NVL(lpp_rphtrmcb,0)                                                                                                                                                                                                                                                                                                                                                               AS lpp_rphtrmcb,
+            NVL(lpp_rphretursales,0)                                                                                                                                                                                                                                                                                                                                                          AS lpp_rphretursales,
+            NVL(lpp_rphrafak,0)                                                                                                                                                                                                                                                                                                                                                               AS lpp_rphrafak,
+            NVL(lpp_rphrepack,0)                                                                                                                                                                                                                                                                                                                                                              AS lpp_rphrepack,
+            NVL(lpp_rphlainin,0)                                                                                                                                                                                                                                                                                                                                                              AS lpp_rphlainin,
+            NVL(lpp_rphsales,0)                                                                                                                                                                                                                                                                                                                                                               AS lpp_rphsales,
+            NVL(lpp_rphkirim,0)                                                                                                                                                                                                                                                                                                                                                               AS lpp_rphkirim,
+            NVL(lpp_rphprepacking,0)                                                                                                                                                                                                                                                                                                                                                          AS lpp_rphprepacking,
+            NVL(lpp_rphhilang,0)                                                                                                                                                                                                                                                                                                                                                              AS lpp_rphhilang,
+            NVL(lpp_rphlainout,0)                                                                                                                                                                                                                                                                                                                                                             AS lpp_rphlainout,
+            NVL(lpp_rphintransit,0)                                                                                                                                                                                                                                                                                                                                                           AS lpp_rphintransit,
+            NVL(lpp_rphadj,0)                                                                                                                                                                                                                                                                                                                                                                 AS lpp_rphadj,
+            NVL(lpp_rphakhir,0)                                                                                                                                                                                                                                                                                                                                                               AS lpp_rphakhir,
+            NVL(lpp_rphakhir,0) - ( NVL(lpp_rphbegbal,0) + NVL(lpp_rphbeli,0) + NVL(lpp_rphbonus,0) + NVL(lpp_rphtrmcb,0) + NVL(lpp_rphretursales,0) + NVL(lpp_rphrafak,0) + NVL(lpp_rphrepack,0) + NVL(lpp_rphlainin,0) - NVL(lpp_rphsales,0) - NVL(lpp_rphkirim,0) - NVL(lpp_rphprepacking,0) - NVL(lpp_rphhilang,0) - NVL(lpp_rphlainout,0) + NVL(lpp_rphintransit,0) + NVL(lpp_rphadj,0)) AS lpp_koreksi
+            FROM    tbtr_lpp,
+                    tbmaster_prodmast
+            WHERE   lpp_prdcd = prd_prdcd (+))";
+
+        $viewLppSummary = "( SELECT   lpp_tgl1,
+            lpp_tgl2,
+            Sum(lpp_koreksi)       AS LPP_KOREKSI,
+            Sum(lpp_rphbegbal)     AS LPP_RPHBEGBAL,
+            Sum(lpp_rphbeli)       AS LPP_RPHBELI,
+            Sum(lpp_rphbonus)      AS LPP_RPHBONUS,
+            Sum(lpp_rphtrmcb)      AS LPP_RPHTRMCB,
+            Sum(lpp_rphretursales) AS LPP_RPHRETURSALES,
+            Sum(lpp_rphrafak)      AS LPP_RPHRAFAK,
+            Sum(lpp_rphrepack)     AS LPP_RPHREPACK,
+            Sum(lpp_rphlainin)     AS LPP_RPHLAININ,
+            Sum(lpp_rphsales)      AS LPP_RPHSALES,
+            Sum(lpp_rphkirim)      AS LPP_RPHKIRIM,
+            Sum(lpp_rphprepacking) AS LPP_RPHPREPACKING,
+            Sum(lpp_rphhilang)     AS LPP_RPHHILANG,
+            Sum(lpp_rphlainout)    AS LPP_RPHLAINOUT,
+            Sum(lpp_rphintransit)  AS LPP_RPHINTRANSIT,
+            Sum(lpp_rphadj)        AS LPP_RPHADJ,
+            Sum(lpp_rphakhir)      AS LPP_RPHAKHIR
+            FROM   {$viewLpp}
+            GROUP  BY lpp_tgl1,
+                    lpp_tgl2
+            ORDER  BY lpp_tgl1 DESC )";
+        
+        $viewLpprtSummary = "(SELECT lrt_tgl1,
+            lrt_tgl2,
+            SUM(NVL(lrt_rphakhir,0)) - (SUM(NVL(lrt_rphbegbal,0)) + SUM(NVL(lrt_rphbaik,0)) + SUM(NVL(lrt_rphrusak,0)) - SUM(NVL(lrt_rphsupplier,0)) - SUM(NVL(lrt_rphhilang,0)) - SUM(NVL(lrt_rphlbaik,0)) - SUM(NVL(lrt_rphlrusak,0)) + SUM(NVL(lrt_rphadj,0))) AS lrt_koreksi,
+            SUM(NVL(lrt_rphbegbal,0))                                                                                                                                                                                                                             AS lrt_rphbegbal,
+            SUM(NVL(lrt_rphbaik,0))                                                                                                                                                                                                                               AS lrt_rphbaik,
+            SUM(NVL(lrt_rphrusak,0))                                                                                                                                                                                                                              AS lrt_rphrusak,
+            SUM(NVL(lrt_rphsupplier,0))                                                                                                                                                                                                                           AS lrt_rphsupplier,
+            SUM(NVL(lrt_rphhilang,0))                                                                                                                                                                                                                             AS lrt_rphhilang,
+            SUM(NVL(lrt_rphlbaik,0))                                                                                                                                                                                                                              AS lrt_rphlbaik,
+            SUM(NVL(lrt_rphlrusak,0))                                                                                                                                                                                                                             AS lrt_rphlrusak,
+            SUM(NVL(lrt_rphadj,0))                                                                                                                                                                                                                                AS lrt_rphadj,
+            SUM(NVL(lrt_rphakhir,0))                                                                                                                                                                                                                              AS lrt_rphakhir
+            FROM tbtr_lpprt
+            GROUP BY lrt_tgl1,
+                lrt_tgl2
+            ORDER BY lrt_tgl1 DESC,
+                lrt_tgl2)";
+
+        $viewLpprsSummary = "(SELECT    lrs_tgl1,
+            lrs_tgl2,
+            SUM(Nvl(lrs_rphakhir, 0)) 
+            - ( 
+                SUM(Nvl(lrs_rphbegbal, 0))
+            + SUM(Nvl(lrs_rphbaik, 0))
+            + SUM(Nvl(lrs_rphretur, 0)) 
+                - SUM(Nvl(lrs_rphmusnah, 0)) 
+                - SUM(Nvl(lrs_rphhilang, 0)) 
+                - SUM(Nvl(lrs_rphlbaik, 0))
+            - SUM(Nvl(lrs_rphlretur, 0)) 
+                + SUM(Nvl(lrs_rphadj, 0)) 
+                ) 											   AS lrs_koreksi,
+            SUM(Nvl(lrs_rphbegbal, 0))                          AS lrs_rphbegbal,
+            SUM(Nvl(lrs_rphbaik, 0))                            AS lrs_rphbaik,
+            SUM(Nvl(lrs_rphretur, 0))                           AS lrs_rphretur,
+            SUM(Nvl(lrs_rphmusnah, 0))                          AS lrs_rphmusnah,
+            SUM(Nvl(lrs_rphhilang, 0))                          AS lrs_rphhilang,
+            SUM(Nvl(lrs_rphlbaik, 0))                           AS lrs_rphlbaik,
+            SUM(Nvl(lrs_rphlretur, 0))                          AS lrs_rphlretur,
+            SUM(Nvl(lrs_rphadj, 0))                             AS lrs_rphadj,
+            SUM(Nvl(lrs_rphakhir, 0))                           AS lrs_rphakhir
+            FROM   tbtr_lpprs
+            GROUP  BY lrs_tgl1,
+                    lrs_tgl2
+            ORDER  BY lrs_tgl1 DESC)";
+
+        $lppBaik = $dbProd->query(
+            "SELECT * FROM " . $viewLppSummary. ""
+        );
+        $lppBaik = $lppBaik->getResultArray();
+        
+        $lppRetur = $dbProd->query(
+            "SELECT * FROM " . $viewLpprtSummary. ""
+        );
+        $lppRetur = $lppRetur->getResultArray();
+
+        $lppRusak = $dbProd->query(
+            "SELECT * FROM " . $viewLpprsSummary. ""
+        );
+        $lppRusak = $lppRusak->getResultArray();
+
+        $data = [
+            'title' => 'LPP Bulan Sebelumnya',
+            'lppBaik' => $lppBaik,
+            'lppRetur' => $lppRetur,
+            'lppRusak' => $lppRusak,
+        ];
+  
+        redirect()->to('/logistik/tampillppblnlalu')->withInput();
+        return view('logistik/tampillppblnlalu',$data);
+    }
+
+    public function informasiproduk() {
+        $dbProd = db_connect("production");
+        $promoMD = $departemen = $divisi = $kategori = [];
+
+        $promoMD = $dbProd->query(
+            "SELECT prmd_tglawal, prmd_tglakhir, to_char(prmd_tglawal,'yyyymmdd') || to_char(prmd_tglakhir,'yyyymmdd') as prmd_tanggal
+            FROM tbtr_promomd
+            WHERE TRUNC(sysdate) BETWEEN TRUNC(prmd_tglawal) AND TRUNC(prmd_tglakhir)
+            GROUP BY prmd_tglawal, prmd_tglakhir, to_char(prmd_tglawal,'yyyymmdd') || to_char(prmd_tglakhir,'yyyymmdd')
+            ORDER BY prmd_tglawal, prmd_tglakhir"
+        );
+        $promoMD = $promoMD->getResultArray();
+
+        $divisi = $dbProd->query(
+            "SELECT div_kodedivisi, div_namadivisi FROM tbmaster_divisi ORDER BY div_kodedivisi"
+        );
+        $divisi = $divisi->getResultArray();
+
+        $departemen = $dbProd->query(
+            "SELECT dep_kodedivisi,div_namadivisi,div_singkatannamadivisi,dep_kodedepartement, dep_namadepartement 
+            from tbmaster_departement 
+            left join tbmaster_divisi on div_kodedivisi=dep_kodedivisi
+            order by dep_kodedivisi,dep_kodedepartement"
+        );
+        $departemen = $departemen->getResultArray();
+
+        $kategori = $dbProd->query(
+            "SELECT kat.kat_kodedepartement,
+            dep.dep_namadepartement AS kat_namadepartement,
+            kat.kat_kodekategori,
+            kat.kat_namakategori
+            FROM tbmaster_kategori kat,
+                tbmaster_departement dep
+            WHERE kat.kat_kodedepartement = dep.dep_kodedepartement (+)
+            ORDER BY kat_kodedepartement,
+                kat_kodekategori"
+        );
+        $kategori = $kategori->getResultArray();
+
+        $data = [
+            'title' => 'Informasi Produk',
+            'promoMD' => $promoMD,
+            'divisi' => $divisi,
+            'departemen' => $departemen,
+            'kategori' => $kategori,
+        ];
+  
+        redirect()->to('/logistik/informasiproduk')->withInput();
+        return view('logistik/informasiproduk',$data);
+    }
+
+    public function tampilinfoproduk() {
+        $dbProd = db_connect("production");
+        $aksi = $this->request->getVar('tombol');
+        $lap = $this->request->getVar('jenisLaporan');
+        $infoproduk = $divisi = $dept = $katb = [];
+
+        // atur nilai default
+        $lokasiStock = "01";
+        $statusTag = $satuanJual = $kodeDivisi = $kodeDepartemen = $kodeKategoriBarang = $tanggalPromosi = $jenisMarginNegatif   = "All";
+        $itemOMI = $discount2 = $promoMD = $marginNegatif = $hargaJualNol = $promoMahal = $poOutstanding = $stockKosong = $lokasiTidakAda = "Off";
+        $filterTag = $filterSatuan = $filterdiv = $filterdep = $filterkat = $filteromi = $filterdisc = $filtermd = $filtermhl = $filterjual0 = $filterpo = $filterstok0 = $filterlok = $filtermargin = "";
+
+        if(isset($_GET['statusTag'])) {if ($_GET['statusTag'] !=""){$statusTag = $_GET['statusTag']; }}
+        if ($statusTag != "All" AND $statusTag != "") {
+            $filterTag = " AND st_status_tag = '$statusTag' ";
+        }
+        if(isset($_GET['satuanJual'])) {if ($_GET['satuanJual'] !=""){$satuanJual = $_GET['satuanJual']; }}
+        if ($satuanJual != "All" AND $satuanJual != "") {
+            $filterSatuan = " AND st_prdcd LIKE '$satuanJual' ";
+        }
+        if(isset($_GET['divisi'])) {if ($_GET['divisi'] !=""){$kodeDivisi = $_GET['divisi']; }}
+        if ($kodeDivisi != "All" AND $kodeDivisi != "") {
+            $filterdiv = " AND st_div = '$kodeDivisi' ";
+        }
+        if(isset($_GET['dep'])) {if ($_GET['dep'] !=""){$kodeDepartemen = $_GET['dep']; }}
+        if ($kodeDepartemen != "All" AND $kodeDepartemen != "") {
+            $filterdep = " AND st_dept = '$kodeDepartemen' ";
+        }
+        if(isset($_GET['kat'])) {if ($_GET['kat'] !=""){$kodeKategoriBarang = $_GET['kat']; }}
+        if ($kodeKategoriBarang != "All" AND $kodeKategoriBarang != "") {
+            $filterkat = " AND st_dept || st_katb = '$kodeKategoriBarang' ";
+        }
+        if(isset($_GET['itemOMI'])) {if ($_GET['itemOMI'] !=""){$itemOMI = $_GET['itemOMI']; }}
+        if (strtoupper($itemOMI) == "ON") {
+            $filteromi = " AND st_pluomi != '0000000' ";
+        }
+        if(isset($_GET['discount2'])) {if ($_GET['discount2'] !=""){$discount2 = $_GET['discount2']; }}
+        if (strtoupper($discount2)  == "ON") {
+            $filterdisc = " AND NVL(st_disc_2_rph,0) > 0 ";
+        }
+        if(isset($_GET['promoMD'])) {if ($_GET['promoMD'] !=""){$promoMD = $_GET['promoMD']; }}
+        if (strtoupper($promoMD) == "ON") {
+            $filtermd = " AND NVL(st_promomd_harga,0) > 0 ";
+    
+            // filter : tanggal promosi
+            if ($tanggalPromosi != "All" AND $tanggalPromosi != "") {
+                $filtermd = " AND to_char(st_promomd_mulai,'yyyymmdd') || to_char(st_promomd_selesai,'yyyymmdd') = $tanggalPromosi ";
+            }
+        }
+        if(isset($_GET['marginNegatif'])) {if ($_GET['marginNegatif'] !=""){$marginNegatif = $_GET['marginNegatif']; }}
+        if (strtoupper($marginNegatif) == "ON") {
+		
+            //defenisikan query sesuai jenis laporan
+          switch ($jenisMarginNegatif) {
+              case "1":
+                  $filtermargin = " AND (st_avgcost > st_harga_netto
+                                    OR st_avgcost > st_promomd_harga_netto) ";	
+                  break;
+              case "2":
+                  $filtermargin = " AND (st_lastcost > st_harga_netto
+                                   OR st_lastcost > st_promomd_harga_netto) ";
+                  break;
+              case "3":
+                  $filtermargin = " AND (st_harga_beli_netto > st_harga_netto
+                                   OR st_harga_beli_netto > st_promomd_harga_netto) ";
+                  break;
+              default:
+                  $filtermargin = " AND (st_avgcost > st_harga_netto 
+                           OR st_lastcost > st_harga_netto
+                           OR st_harga_beli_netto > st_harga_netto
+                           OR st_avgcost > st_promomd_harga_netto
+                           OR st_lastcost > st_promomd_harga_netto
+                           OR st_harga_beli_netto > st_promomd_harga_netto) ";
+          }
+      }
+        if(isset($_GET['hargaJualNol'])) {if ($_GET['hargaJualNol'] !=""){$hargaJualNol = $_GET['hargaJualNol']; }}
+        if (strtoupper($hargaJualNol) == "ON") {
+            $filterjual0 = " AND NVL(st_harga_jual,0) = 0 ";
+        }
+        if(isset($_GET['promoMahal'])) {if ($_GET['promoMahal'] !=""){$promoMahal = $_GET['promoMahal']; }}
+        if (strtoupper($promoMahal) == "ON") {
+            $filtermhl = " AND NVL(st_harga_jual,0) - NVL(st_promomd_harga,0) < 0 ";
+        }
+        if(isset($_GET['poOutstanding'])) {if ($_GET['poOutstanding'] !=""){$poOutstanding = $_GET['poOutstanding']; }}
+        if (strtoupper($poOutstanding) == "ON") {
+            $filterpo = " AND NVL(st_po_qty,0) > 0 ";
+        }
+        if(isset($_GET['stockKosong'])) {if ($_GET['stockKosong'] !=""){$stockKosong = $_GET['stockKosong']; }}
+        if (strtoupper($stockKosong) == "ON") {
+            $filterstok0 = " AND NVL(st_saldo_in_pcs,0) < 0 ";
+        }
+        if(isset($_GET['lokasiTidakAda'])) {if ($_GET['lokasiTidakAda'] !=""){$lokasiTidakAda = $_GET['lokasiTidakAda']; }}
+        if (strtoupper($lokasiTidakAda) == "ON") {
+            $filterlok = " AND st_prdcd NOT IN (SELECT lks_prdcd
+                                          FROM tbmaster_lokasi
+                                          WHERE lks_tiperak NOT IN ('S','Z')
+                                          AND lks_koderak NOT LIKE 'D%'
+                                          AND lks_prdcd IS NOT NULL) 
+    
+                        AND st_tag NOT IN ('A','R','N','O','T','H','X') ";
+        }
+        if(isset($_GET['tanggalPromosi'])) {if ($_GET['tanggalPromosi'] !=""){$tanggalPromosi = $_GET['tanggalPromosi']; }}
+        if(isset($_GET['jenisMarginNegatif'])) {if ($_GET['jenisMarginNegatif'] !=""){$jenisMarginNegatif = $_GET['jenisMarginNegatif']; }}
+        if(isset($_GET['kodeTag'])) {if ($_GET['kodeTag'] !=""){$kodeTag = $_GET['kodeTag']; }}
+
+        $viewHargaBeli = "(SELECT hgb.hgb_prdcd,
+        hgb.hgb_hrgbeli,
+        hgb.hgb_statusbarang,
+        hgb.hgb_tglmulaidisc01,
+        hgb.hgb_tglakhirdisc01,
+        hgb.hgb_persendisc01,
+        hgb.hgb_rphdisc01,
+        hgb.hgb_flagdisc01,
+        hgb.hgb_tglmulaidisc02,
+        hgb.hgb_tglakhirdisc02,
+        hgb.hgb_persendisc02,
+        hgb.hgb_rphdisc02,
+        hgb.hgb_flagdisc02,
+        hgb.hgb_nilaidpp,
+        hgb.hgb_top,
+        hgb.hgb_kodesupplier,
+        sup.sup_namasupplier AS hgb_namasupplier,
+        sup.sup_jangkawaktukirimbarang AS hgb_lead_time,
+        sup.sup_minrph as hgb_minrph
+        FROM   tbmaster_hargabeli hgb,
+                tbmaster_supplier sup
+        WHERE  hgb.hgb_tipe = '2'
+                AND hgb.hgb_kodesupplier = sup.sup_kodesupplier (+))";
+
+        $bln_01 = date('m', strtotime('-3 month')) ;
+        $bln_02 = date('m', strtotime('-2 month')) ;
+        $bln_03 = date('m', strtotime('-1 month')) ;
+
+        $viewSalesPerDay = "(SELECT sls_prdcd                               AS spd_prdcd,
+		    Nvl(sls_qty_" . $bln_01  .", 0)                      AS spd_qty_1,
+		    Nvl(sls_qty_" . $bln_02  .", 0)                      AS spd_qty_2,
+		    Nvl(sls_qty_" . $bln_03  .", 0)                      AS spd_qty_3,
+		    Trunc(( Nvl(sls_qty_" . $bln_01  .", 0) + Nvl(sls_qty_" . $bln_02  .", 0) + Nvl(sls_qty_" . $bln_03  .", 0) ) / 90, 5) AS spd_qty,
+		    Nvl(sls_rph_" . $bln_01  .", 0)                      AS spd_rph_1,
+		    Nvl(sls_rph_" . $bln_02  .", 0)                      AS spd_rph_2,
+		    Nvl(sls_rph_" . $bln_03  .", 0)                      AS spd_rph_3,
+		    Trunc(( Nvl(sls_rph_" . $bln_01  .", 0) + Nvl(sls_rph_" . $bln_02  .", 0) + Nvl(sls_rph_" . $bln_03  .", 0) ) / 90, 5) AS spd_rph
+		    FROM   tbtr_salesbulanan   )";
+        
+        $viewPOOutstanding = "(SELECT tpod_prdcd,
+            SUM(tpod_qtypo)  AS tpod_qtypo,
+            Count(tpod_nopo) AS tpod_nopo
+            FROM   (SELECT tpod_prdcd,
+                            tpod_qtypo,
+                            tpod_nopo
+                    FROM   tbtr_po_d
+                    WHERE  tpod_nopo IN (SELECT tpoh_nopo
+                                        FROM   tbtr_po_h
+                                        WHERE  tpoh_recordid IS NULL
+                                                AND Trunc(tpoh_tglpo + tpoh_jwpb) >= Trunc(
+                                                    SYSDATE)
+                                        )
+                    -- revisi sesuai permintaan Bp MAO
+                    -- PO Out tidak memperhitungkan PB Outstansding
+                    -- 19-11-2015 10:45
+                    --UNION ALL
+                    --SELECT pbd_prdcd,
+                    --       pbd_qtypb,
+                    --       pbd_nopb
+                    --FROM   tbtr_pb_d
+                    --WHERE  pbd_recordid IS NULL
+                    )
+            GROUP  BY tpod_prdcd)";
+
+        $viewStatusIgrIdm = "(SELECT 
+            PRD_PRDCD,
+            CASE WHEN FLAG = 'NAS-IGR+K.IGR' THEN 'IGR-ONLY'
+            WHEN FLAG = 'NAS' THEN 'IGR-ONLY'
+            WHEN FLAG = 'IGR+K.IGR' THEN 'IGR-ONLY'
+            WHEN FLAG = 'IGR' THEN 'IGR-ONLY'
+            
+            WHEN FLAG = 'NAS-OMI' THEN 'OMI-ONLY'
+            WHEN FLAG = 'OMI' THEN 'OMI-ONLY'
+            ELSE 'IGR-OMI' END AS STATUS_IGR_IDM 
+            
+            
+            FROM (
+            SELECT PRD_PRDCD ,
+            
+            CASE
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYYYYY' THEN 'NAS-IGR+IDM+OMI+MR.BRD+K.IGR+DEPO'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYYYYN' THEN 'NAS-IGR+IDM+OMI+MR.BRD+K.IGR'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYYYNN' THEN 'NAS-IGR+IDM+OMI+MR.BRD'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYYNYY' THEN 'NAS-IGR+IDM+OMI+K.IGR+DEPO'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYYNYN' THEN 'NAS-IGR+IDM+OMI+K.IGR'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYYNNY' THEN 'NAS-IGR+IDM+OMI+DEPO'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYYNNN' THEN 'NAS-IGR+IDM+OMI'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYNYYY' THEN 'NAS-IGR+IDM+MR.BRD+K.IGR+DEPO'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYNNYY' THEN 'NAS-IGR+IDM+K.IGR+DEPO'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYNNYN' THEN 'NAS-IGR+IDM+K.IGR'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYNNNY' THEN 'NAS-IGR+IDM+DEPO'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYNNNN' THEN 'NAS-IGR+IDM'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNYNYY' THEN 'NAS-IGR+OMI+K.IGR+DEPO'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNYNYN' THEN 'NAS-IGR+OMI+K.IGR'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNYNNY' THEN 'NAS-IGR+OMI+DEPO'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNYNNN' THEN 'NAS-IGR+OMI'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNNYYN' THEN 'NAS-IGR+MR.BRD+K.IGR'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNNYNN' THEN 'NAS-IGR+MR.BRD'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNNNYY' THEN 'NAS-IGR+K.IGR+DEPO'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNNNYN' THEN 'NAS-IGR+K.IGR'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNNNNY' THEN 'NAS-IGR+DEPO'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNNNNN' THEN 'NAS-IGR'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNYYNYY' THEN 'NAS-IDM+OMI+K.IGR+DEPO'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNYYNYN' THEN 'NAS-IDM+OMI+K.IGR'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNYYNNY' THEN 'NAS-IDM+OMI+DEPO'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNYYNNN' THEN 'NAS-IDM+OMI'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNYNNYY' THEN 'NAS-IDM+K.IGR+DEPO'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNYNNYN' THEN 'NAS-IDM+K.IGR'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNYNNNY' THEN 'NAS-IDM+DEPO'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNYNNNN' THEN 'NAS-IDM'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNNYYNN' THEN 'NAS-OMI+MR.BRD'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNNYNYN' THEN 'NAS-OMI+K.IGR'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNNYNNN' THEN 'NAS-OMI'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNNNYNN' THEN 'NAS-MR.BRD'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNNNNYN' THEN 'NAS-K.IGR'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNNNNNN' THEN 'NAS'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYYYNYY' THEN 'IGR+IDM+OMI+K.IGR+DEPO'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYYYNYN' THEN 'IGR+IDM+OMI+K.IGR'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYYYNNY' THEN 'IGR+IDM+OMI+DEPO'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYYYNNN' THEN 'IGR+IDM+OMI'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYYNNYY' THEN 'IGR+IDM+K.IGR+DEPO'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYYNNYN' THEN 'IGR+IDM+K.IGR'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYYNNNY' THEN 'IGR+IDM+DEPO'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYYNNNN' THEN 'IGR+IDM'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYNYNYY' THEN 'IGR+OMI+K.IGR+DEPO'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYNYNYN' THEN 'IGR+OMI+K.IGR'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYNYNNN' THEN 'IGR+OMI'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYNNYYN' THEN 'IGR+MR.BRD+K.IGR'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYNNNYY' THEN 'IGR+K.IGR+DEPO'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYNNNYN' THEN 'IGR+K.IGR'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYNNNNY' THEN 'IGR+DEPO'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYNNNNN' THEN 'IGR'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNYYNYY' THEN 'IDM+OMI+K.IGR+DEPO'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNYYNYN' THEN 'IDM+OMI+K.IGR'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNYYNNY' THEN 'IDM+OMI+DEPO'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNYYNNN' THEN 'IDM+OMI'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNYNNYY' THEN 'IDM+K.IGR+DEPO'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNYNNYN' THEN 'IDM+K.IGR'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNYNNNY' THEN 'IDM+DEPO'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNYNNNN' THEN 'IDM'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNNYNYN' THEN 'OMI+K.IGR'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNNYNNN' THEN 'OMI'
+            
+            WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNNNNNN' THEN 'BELUM ADA FLAG'
+            
+            ELSE 'BELUM ADA FLAG'
+            
+            END AS FLAG
+            
+            FROM
+            
+            (SELECT prd_prdcd,prd_plumcg,
+            
+            nvl(PRD_FLAGNAS,'N') AS NAS,
+            
+            nvl(PRD_FLAGIGR,'N') AS IGR,
+            
+            nvl(PRD_FLAGIDM,'N') AS IDM,
+            
+            nvl(PRD_FLAGOMI,'N') AS OMI,
+            
+            nvl(PRD_FLAGBRD,'N') AS BRD,
+            
+            nvl(PRD_FLAGOBI,'N') AS K_IGR,
+            
+            case when prd_plumcg in (select PLUIDM from DEPO_LIST_IDM ) THEN 'Y' ELSE 'N' END AS DEPO
+            
+            FROM TBMASTER_PRODMAST WHERE PRD_PRDCD LIKE '%0' AND PRD_DESKRIPSIPANJANG IS NOT NULL)))";
+
+        $viewSalesRekap = "(SELECT rsl_prdcd,
+            SUM(CASE WHEN rsl_group = '01' THEN rsl_qty_09 + rsl_qty_10 + rsl_qty_11 END) / 3 rekap_biru,
+            SUM(CASE WHEN rsl_group = '02' THEN rsl_qty_09 + rsl_qty_10 + rsl_qty_11 END) / 3 rekap_omi,
+            SUM(CASE WHEN rsl_group = '03' THEN rsl_qty_09 + rsl_qty_10 + rsl_qty_11 END) / 3 rekap_merah
+            FROM   tbtr_rekapsalesbulanan
+            GROUP  BY rsl_prdcd)";
+
+        $viewExpiredInfo = "(SELECT e.lks_prdcd    AS exp_prdcd,
+            e.lks_expdate  AS exp_tanggal,
+            SUM(l.lks_qty) AS exp_qty
+            FROM   tbmaster_lokasi l,
+                    (
+                    SELECT lks_prdcd,
+                            Min(lks_expdate) AS lks_expdate
+                    FROM   tbmaster_lokasi
+                    WHERE  lks_prdcd IS NOT NULL
+                            AND Nvl(lks_qty, 0) <> 0
+                    GROUP  BY lks_prdcd) e
+            WHERE  l.lks_prdcd = e.lks_prdcd
+                    AND l.lks_expdate = e.lks_expdate
+            GROUP  BY e.lks_prdcd,
+                    e.lks_expdate)";
+
+        $viewLokasiDisplayToko = "(SELECT lks_prdcd,
+            lks_koderak,
+            lks_kodesubrak,
+            lks_tiperak,
+            lks_shelvingrak,
+            lks_nourut,
+            lks_maxdisplay,
+            lks_qty,
+            ( Nvl(lks_tirkirikanan, 0) * Nvl(lks_tirdepanbelakang, 0) *
+            Nvl(lks_tiratasbawah, 0) ) lks_mindisplay,
+            lks_maxplano
+            FROM   tbmaster_lokasi
+            WHERE  ( lks_koderak LIKE 'R%'
+                    OR lks_koderak LIKE 'O%' )
+                    AND lks_koderak NOT LIKE '%C'
+                    AND lks_tiperak <> 'S')";
+
+        $viewLokasiDPD = "(SELECT lks_prdcd as dpd_prdcd,
+            lks_koderak as dpd_koderak,
+            lks_kodesubrak as dpd_kodesubrak,
+            lks_tiperak as dpd_tiperak,
+            lks_shelvingrak as dpd_shelvingrak,
+            lks_nourut as dpd_nourut,
+            lks_maxdisplay as dpd_maxdisplay,
+            lks_qty as dpd_qty,
+            ( Nvl(lks_tirkirikanan, 0) * Nvl(lks_tirdepanbelakang, 0) *
+            Nvl(lks_tiratasbawah, 0) ) as dpd_mindisplay,
+            lks_maxplano as dpd_maxplano,
+            lks_noid as dpd_noid
+            FROM   tbmaster_lokasi
+            WHERE  lks_koderak LIKE 'D%'
+                    and lks_koderak not like '%C'
+                    and lks_tiperak <> 'S'
+                --and to_number(substr(lks_koderak,2,2),'99') between 1 and 99
+                and lks_prdcd is not null)";
+
+        $viewProdukInformasi = "( SELECT   prd.prd_kodedivisi         AS st_div,
+            div.div_namadivisi         AS st_div_nama,
+            prd.prd_kodedepartement    AS st_dept,
+            dep.dep_namadepartement    AS st_dept_nama,
+            prd.prd_kodekategoribarang AS st_katb,
+            kat.kat_namakategori       AS st_katb_nama,
+            prd.prd_plumcg             AS st_plumcg,
+            prd.prd_prdcd              AS st_prdcd,
+            prd.prd_deskripsipanjang   AS st_nama_barang,
+            prd.prd_unit               AS st_unit,
+            prd.prd_frac               AS st_frac,
+            Nvl(prd.prd_kodetag,' ')   AS st_tag,
+            prd.prd_tgldiscontinue     AS st_tgldiscontinue,
+            prd.prd_hrgjual            AS st_harga_jual,
+            prd.prd_minorder           AS st_minimum_order,
+            prd.prd_flagigr            AS st_flagigr,
+            CASE
+                WHEN Nvl(prd.prd_kodetag,' ') IN ('A',
+                                                    'R',
+                                                    'N',
+                                                    'H',
+                                                    'O',
+                                                    'T',
+                                                    'X') THEN 'Discontinue'
+                ELSE 'Active'
+            END st_status_tag,
+            CASE
+                WHEN prd.prd_unit='KG'
+                AND    prd.prd_frac =1000 THEN stk.st_avgcost * prd.prd_frac/1000
+                ELSE stk.st_avgcost                           * prd.prd_frac
+            END st_avgcost,
+            CASE
+                WHEN prd.prd_unit='KG'
+                AND    prd.prd_frac =1000 THEN stk.st_lastcost * prd.prd_frac/1000
+                ELSE stk.st_lastcost                           * prd.prd_frac
+            END st_lastcost,
+            CASE
+                WHEN Nvl(prd.prd_flagbkp1,'T') ='Y' THEN prd.prd_hrgjual / 11 * 10
+                ELSE prd.prd_hrgjual
+            END                  st_harga_netto,
+            NVL(stk.st_saldoakhir,0) AS st_saldo_in_pcs,
+            CASE
+                WHEN prd.prd_unit='KG'
+                AND    prd.prd_frac =1000 THEN NVL(stk.st_saldoakhir,0) * stk.st_avgcost/1000
+                ELSE NVL(stk.st_saldoakhir,0)                           * stk.st_avgcost
+            END                 st_saldo_rph,
+            prm.prmd_hrgjual  AS st_promomd_harga,
+            prm.prmd_tglawal  AS st_promomd_mulai,
+            prm.prmd_tglakhir AS st_promomd_selesai,
+            CASE
+                WHEN Nvl(prd.prd_flagbkp1,'T') ='Y' THEN prm.prmd_hrgjual / 11 * 10
+                ELSE prm.prmd_hrgjual
+            END             st_promomd_harga_netto,
+            pkm.pkm_pkmt AS st_pkm,
+            spd.spd_qty  AS st_spd,
+            CASE
+                WHEN Nvl(spd.spd_qty,0) > 0 THEN Round(Nvl(stk.st_saldoakhir,0) / spd.spd_qty)
+                ELSE 999999
+            END st_dsi_avgsales,
+            CASE
+                WHEN Nvl(stk.st_sales,0) != 0 THEN (NVL(stk.st_saldoawal,0) + NVL(stk.st_saldoakhir,0)) / 2 / stk.st_sales *
+                        (
+                                SELECT To_char(SYSDATE,'DD')
+                                FROM   dual)
+                ELSE 0
+            END                                               st_dsi_bulan_ini,
+            poo.tpod_qtypo                                    AS st_po_qty,
+            sii.status_igr_idm                                AS st_igr_idm,
+            spd.spd_qty_1                                     AS st_sales_bln_1,
+            spd.spd_qty_2                                     AS st_sales_bln_2,
+            spd.spd_qty_3                                     AS st_sales_bln_3,
+            stk.st_sales                                      AS st_sales_bln_ini,
+
+            spd.spd_rph_1                                     AS st_sales_rph_bln_1,
+            spd.spd_rph_2                                     AS st_sales_rph_bln_2,
+            spd.spd_rph_3                                     AS st_sales_rph_bln_3,
+
+            rek.rekap_biru                                    AS st_rekap_biru,
+            rek.rekap_omi                                     AS st_rekap_omi,
+            rek.rekap_merah                                   AS st_rekap_merah,
+            Nvl(hgb.hgb_kodesupplier,'Z9999')                 AS st_kode_supplier,
+            Nvl(hgb.hgb_namasupplier,'Z9999 Tidak diketahui') AS st_nama_supplier,
+            Nvl(hgb.hgb_lead_time,0)                          AS st_lead_time,
+            prd.prd_perlakuanbarang                           AS st_perlakuan_barang,
+            hgb.hgb_hrgbeli  * prd.prd_frac                    AS st_harga_beli,
+            hgb.hgb_nilaidpp * prd.prd_frac                    AS st_harga_beli_netto,
+            hgb.hgb_nilaidpp                                   AS st_harga_beli_omi,
+            hgb.hgb_tglmulaidisc01                             AS st_disc_1_mulai,
+            hgb.hgb_tglakhirdisc01                             AS st_disc_1_selesai,
+            hgb.hgb_persendisc01                               AS st_disc_1_persen,
+            hgb.hgb_rphdisc01                                  AS st_disc_1_rph,
+            hgb.hgb_flagdisc01                                 AS st_disc_1_flag,
+            hgb.hgb_tglmulaidisc02                             AS st_disc_2_mulai,
+            hgb.hgb_tglakhirdisc02                             AS st_disc_2_selesai,
+            hgb.hgb_persendisc02                               AS st_disc_2_persen,
+            hgb.hgb_rphdisc02                                  AS st_disc_2_rph,
+            hgb.hgb_flagdisc02                                 AS st_disc_2_flag,
+            hgb.hgb_top                                        AS st_top,	
+            hgb.hgb_minrph                                     AS st_minrph,		       
+            Nvl(omi.prc_pluomi,'0000000')                      AS st_pluomi,
+            Nvl(omi.prc_kodetag,' ')                           AS st_tag_omi,
+            exp.exp_tanggal                                    AS st_exp_tanggal,
+            exp.exp_qty                                        AS st_exp_qty,
+            lks.lks_koderak                                    AS st_lks_koderak,
+            lks.lks_kodesubrak 								  AS st_lks_kodesubrak,
+            lks.lks_tiperak 									  AS st_lks_tiperak,
+            lks.lks_shelvingrak 								  AS st_lks_shelvingrak, 
+            lks.lks_nourut 									  AS st_lks_nourut,
+
+            dpd.dpd_koderak                                    AS st_dpd_koderak,
+            dpd.dpd_kodesubrak 								  AS st_dpd_kodesubrak,
+            dpd.dpd_tiperak 									  AS st_dpd_tiperak,
+            dpd.dpd_shelvingrak 								  AS st_dpd_shelvingrak, 
+            dpd.dpd_nourut 									  AS st_dpd_nourut,
+            dpd.dpd_noid 									  AS st_dpd_noid,
+
+            kph.ksl_mean                                       AS st_kph_mean,
+            bpb.mstd_bpb_pertama 							  AS mstd_bpb_pertama,	
+            bpb.mstd_bpb_terakhir							  AS mstd_bpb_terakhir
+            FROM   tbmaster_prodmast prd,
+                    (
+                        SELECT *
+                        FROM   tbmaster_stock
+                        WHERE  st_lokasi = '01') stk,
+                    (
+                        SELECT prmd_prdcd,
+                                prmd_hrgjual,
+                                prmd_tglawal,
+                                prmd_tglakhir
+                        FROM   tbtr_promomd
+                        WHERE  Trunc(SYSDATE) BETWEEN Trunc(prmd_tglawal) AND    Trunc(prmd_tglakhir)) prm,
+                    tbmaster_kkpkm pkm,
+                    tbmaster_divisi div,
+                    tbmaster_departement dep,
+                    (select * from tbmaster_kph where pid = '102016') kph,
+                    {$viewHargaBeli} hgb,
+                    (
+                        SELECT kat_kodedepartement
+                                        || kat_kodekategori AS kat_kodekategori,
+                                kat_namakategori
+                        FROM   tbmaster_kategori) kat,
+                    {$viewSalesPerDay} spd,
+                    {$viewPOOutstanding} poo,
+                    {$viewStatusIgrIdm} sii,
+                    (
+                                    SELECT DISTINCT prc_pluigr,
+                                                    prc_pluomi,
+                                                    prc_kodetag
+                                    FROM            tbmaster_prodcrm
+                                    WHERE           prc_group = 'O') omi,
+                    {$viewSalesRekap} rek,
+                    {$viewExpiredInfo} exp,
+                    {$viewLokasiDisplayToko} lks,
+                    {$viewLokasiDPD} dpd,
+                    (SELECT mstd_prdcd,
+                        MIN(mstd_create_dt) AS mstd_bpb_pertama,
+                        MAX(mstd_create_dt) AS mstd_bpb_terakhir
+                        FROM tbtr_mstran_d 
+                        WHERE mstd_recordid IS NULL AND mstd_typetrn ='B'
+                        GROUP BY mstd_prdcd) bpb
+
+            WHERE  substr(prd.prd_prdcd,1,6)
+                        || '0' = stk.st_prdcd (+)
+            AND    prd.prd_prdcd = prm.prmd_prdcd (+)
+            AND    prd.prd_plumcg = kph.prdcd (+)
+            AND    prd.prd_prdcd = pkm.pkm_prdcd (+)
+            AND    substr(prd.prd_prdcd,1,6)
+                        || '0' = hgb.hgb_prdcd (+)
+            AND    prd.prd_kodedivisi = div.div_kodedivisi (+)
+            AND    prd.prd_kodedepartement = dep.dep_kodedepartement (+)
+            AND    prd.prd_kodedepartement
+                        || prd.prd_kodekategoribarang = kat.kat_kodekategori (+)
+            AND    prd.prd_prdcd = spd.spd_prdcd (+)
+            AND    substr(prd.prd_prdcd,1,6)
+                        || '0' = poo.tpod_prdcd (+)
+            AND    prd.prd_prdcd = sii.prd_prdcd (+)
+            AND    substr(prd.prd_prdcd,1,6)
+                        || '0' = omi.prc_pluigr (+)
+            AND    prd.prd_prdcd = rek.rsl_prdcd (+)
+            AND    prd.prd_prdcd = exp.exp_prdcd (+)  
+            AND    prd.prd_prdcd = lks.lks_prdcd (+)  
+            AND    prd.prd_prdcd = dpd.dpd_prdcd (+)  
+            AND    prd.prd_prdcd = bpb.mstd_prdcd (+)  
+            AND    prd.prd_frac IS NOT NULL )";
+
+        if($lap == "1A") {
+            $infoproduk = $dbProd->query(
+                "SELECT *
+                FROM " . $viewProdukInformasi . "
+                WHERE st_prdcd IS NOT NULL
+                $filterTag
+                $filterSatuan
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filteromi
+                $filterdisc
+                $filtermd
+                $filtermhl
+                $filterjual0
+                $filterpo
+                $filterstok0
+                $filterlok
+                $filtermargin
+                ORDER BY st_div , st_dept, st_katb, st_nama_barang,st_prdcd"
+            );
+            $infoproduk = $infoproduk->getResultArray();
+        } else if($lap == "1B") {
+            $infoproduk = $dbProd->query(
+                "SELECT *
+                FROM " . $viewProdukInformasi . "
+                WHERE st_prdcd IS NOT NULL 
+                -- stock > avg sales 14 hari
+                AND TRUNC(st_saldo_in_pcs /st_frac) > (TRUNC(st_sales_bln_1 /st_frac) + TRUNC(st_sales_bln_2 /st_frac) + TRUNC(st_sales_bln_3 /st_frac)) / 6 
+                -- satuan jual nol saja
+                AND st_prdcd LIKE '%0'
+                $filterTag
+                $filterSatuan
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filteromi
+                $filterdisc
+                $filtermd
+                $filtermhl
+                $filterjual0
+                $filterpo
+                $filterstok0
+                $filterlok
+                $filtermargin
+                ORDER BY st_div , st_dept, st_katb, st_nama_barang,st_prdcd"
+            );
+            $infoproduk = $infoproduk->getResultArray();
+        } else if($lap == "1C") {
+            $infoproduk = $dbProd->query(
+                "SELECT *
+                FROM " . $viewProdukInformasi . "
+                WHERE st_prdcd IS NOT NULL
+                $filterTag
+                $filterSatuan
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filteromi
+                $filterdisc
+                $filtermd
+                $filtermhl
+                $filterjual0
+                $filterpo
+                $filterstok0
+                $filterlok
+                $filtermargin
+                ORDER BY st_div , st_dept, st_katb, st_nama_barang,st_prdcd"
+            );
+            $infoproduk = $infoproduk->getResultArray();
+        };
+
+        $divisi = $dbProd->query(
+            "SELECT div_kodedivisi, div_namadivisi FROM tbmaster_divisi ORDER BY div_kodedivisi"
+        );
+        $divisi = $divisi->getResultArray();
+
+        $dept = $dbProd->query(
+            "SELECT dep_kodedivisi,div_namadivisi,div_singkatannamadivisi,dep_kodedepartement, dep_namadepartement 
+            from tbmaster_departement 
+            left join tbmaster_divisi on div_kodedivisi=dep_kodedivisi
+            order by dep_kodedivisi,dep_kodedepartement"
+        );
+        $dept = $dept->getResultArray();
+
+        $katb = $dbProd->query(
+            "SELECT kat.kat_kodedepartement,
+            dep.dep_namadepartement AS kat_namadepartement,
+            kat.kat_kodekategori,
+            kat.kat_namakategori
+            FROM tbmaster_kategori kat,
+                tbmaster_departement dep
+            WHERE kat.kat_kodedepartement = dep.dep_kodedepartement (+)
+            ORDER BY kat_kodedepartement,
+                kat_kodekategori"
+        );
+        $katb = $katb->getResultArray();
+
+        $data = [
+            'title' => 'Data Informasi Produk',
+            'infoproduk' => $infoproduk,
+            'kodeDivisi' => $kodeDivisi,
+            'kodeDepartemen' => $kodeDepartemen,
+            'kodeKategoriBarang' => $kodeKategoriBarang,
+            'divisi' =>$divisi,
+            'dept' => $dept,
+            'katb' => $katb,
+            'lap' => $lap,
+            'itemOMI' => $itemOMI,
+            'discount2' => $discount2,
+            'promoMD' => $promoMD,
+            'marginNegatif' => $marginNegatif,
+            'hargaJualNol' => $hargaJualNol,
+            'promoMahal' => $promoMahal,
+            'stockKosong' => $stockKosong,
+            'poOutstanding' => $poOutstanding,
+        ];
+  
+        // d($data);
+        redirect()->to('/logistik/tampilinfoproduk')->withInput();
+        return view('logistik/tampilinfoproduk',$data);
     }
 }

@@ -59,6 +59,25 @@
             <h2>DATA PRODUK BARU [<?= $div; ?>] - <?= $kd ?></h2>
             <table>
                 <tr>
+                    <th colspan="3" class="text-center">Divisi</th>
+                    <th colspan="19" class="text-center">Produk</th>
+                    <th colspan="2" class="text-center">Supplier</th>
+                    <th colspan="13" class="text-center">Sales Bulanan</th>                    
+                    <th rowspan="2" class="text-center">PKM</th>
+                    <th rowspan="2" class="text-center">MPLUS</th>
+                    <th rowspan="2" class="text-center">PKMT</th>
+                    <th rowspan="2" class="text-center">LT</th>
+                    <th rowspan="2" class="text-center">DSI</th>
+                    <th rowspan="2" class="text-center">LAST PO</th>
+                    <th rowspan="2" class="text-center">LAST BPB</th>
+                    <th rowspan="2" class="text-center">QTY PO</th>
+                    <th rowspan="2" class="text-center">JML PO</th>
+                    <th rowspan="2" class="text-center">TGL AKTIF</th>
+                    <th rowspan="2" class="text-center">DISPLAY REG</th>
+                    <th rowspan="2" class="text-center">DISPLAY DPD</th>
+                    <th rowspan="2" class="text-center">FLAG JUAL</th>
+                </tr>
+                <tr>
                     <th class="text-center">DIV</th>
                     <th class="text-center">DEP</th>
                     <th class="text-center">KAT</th>
@@ -96,19 +115,6 @@
                     <th class="text-center">SALES NOV</th>
                     <th class="text-center">SALES DEC</th>
                     <th class="text-center">SALES BLN INI</th>
-                    <th class="text-center">PKM</th>
-                    <th class="text-center">MPLUS</th>
-                    <th class="text-center">PKMT</th>
-                    <th class="text-center">LT</th>
-                    <th class="text-center">DSI</th>
-                    <th class="text-center">LAST PO</th>
-                    <th class="text-center">LAST BPB</th>
-                    <th class="text-center">QTY PO</th>
-                    <th class="text-center">JML PO</th>
-                    <th class="text-center">TGL AKTIF</th>
-                    <th class="text-center">DISPLAY REG</th>
-                    <th class="text-center">DISPLAY DPD</th>
-                    <th class="text-center">FLAG JUAL</th>
                 </tr>
                 <?php foreach($perdiv as $pd) : ?>
                 <tr>

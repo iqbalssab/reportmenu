@@ -15,7 +15,7 @@
                     <h6 class="text-center text-light fw-semibold">HISTORY TRANSAKSI PRODUK</h6>
                 </div>
                 <div class="card-body px-4">
-                    <form action="/store/transaksiproduk/transaksi" method="get" target="_blank">
+                    <form action="transaksiproduk/transaksi" method="get" target="_blank">
                         <?php csrf_field(); ?>
                         <label for="plu">PLU :</label>
                         <input type="text" name="plu" id="plu" class="w-100 mt-1">

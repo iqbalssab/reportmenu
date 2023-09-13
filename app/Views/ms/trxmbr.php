@@ -8,7 +8,7 @@ echo $this->section('content'); ?>
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"> -->
 <!-- CSS Bootstrap Datepicker -->
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css"> -->
-
+<?php $now = date('Y-m-d'); ?>
 <div class="container-fluid mt-2">
     <div class="row">
         <div class="col-md-3">
@@ -18,7 +18,7 @@ echo $this->section('content'); ?>
                     <h6 class="text-warning text-center">** Menggunakan Data H-1 **</h6>
                 </div>
                 <div class="card-body">
-                    <form method="get" action="/ms/transaksimember">
+                    <form method="get" action="transaksimember">
                         <?= csrf_field(); ?>
                         <label class="fw-bold" for="kd" style="font-size: 15px;">KODE MEMBER  : </label>
                         <input type="text" name="kode" id="kode" class="w-100 mb-3 form-control input-sm" value="<?= old('kode'); ?>" style="font-size: 15px;" require autofocus>

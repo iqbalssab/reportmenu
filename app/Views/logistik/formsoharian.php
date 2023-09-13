@@ -12,7 +12,7 @@ echo $this->section('content'); ?>
                     <h6 class="text-start fw-bold">Form SO Harian</h6>
                 </div>
                 <div class="card-body">
-                    <form method="get" action="/logistik/tampildatasoharian" target="_blank" role="form" class="form-inline">
+                    <form method="get" action="tampildatasoharian" target="_blank">
                         <?= csrf_field(); ?>
                         <table style="width:100%;">
                             <tr>

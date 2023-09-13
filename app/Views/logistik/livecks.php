@@ -45,6 +45,7 @@ echo $this->section('content'); ?>
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
         <div class="col-md-10 mx-auto">
             <!-- Data monitoring PLano -->
             <?php if(!empty($display)) {?>

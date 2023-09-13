@@ -12,7 +12,7 @@ class Ms extends BaseController
     public function cekmember()
     {
         $status = $this->request->getVar('statuscari');
-        $cari = $this->request->getVar('cari');
+        $cari = strtoupper($this->request->getVar('cari'));
         $aksi = $this->request->getVar('tombol');
         $dbProd = db_connect('production');
         $member = [];
@@ -69,7 +69,7 @@ class Ms extends BaseController
                   'member' => $member,
                   'aksi' => $aksi,
                 ];
-                redirect()->to('/ms/cekdatamember')->withInput();
+                redirect()->to('cekdatamember')->withInput();
                 return view('/ms/cekdatamember',$data);
             } else if($status == "ktp") {
                 $member = $dbProd->query(
@@ -146,7 +146,7 @@ class Ms extends BaseController
       
     public function transaksimember() {
       date_default_timezone_set("Asia/Jakarta");
-      $kode = $this->request->getVar('kode');
+      $kode = strtoupper($this->request->getVar('kode'));
       $awal = $this->request->getVar('awal');
       $akhir = $this->request->getVar('akhir');
       $aksi = $this->request->getVar('tombol');
@@ -210,7 +210,7 @@ class Ms extends BaseController
           'akhir' => $akhir,
       ];
       
-      redirect()->to('/ms/trxmbr')->withInput();
+      redirect()->to('trxmbr')->withInput();
       return view('ms/trxmbr',$data);
 
     }
@@ -416,4 +416,72 @@ class Ms extends BaseController
       redirect()->to('/ms/serahterimahdh')->withInput();
       return view('ms/serahterimahdh',$data);
     }
+    public function efaktur(){
+  $dbProd = db_connect('production');
+  $tglawal = $this->request->getVar('tglawal');
+  $tglakhir = $this->request->getVar('tglakhir');
+  // opsional
+  $idkasir = strtoupper($this->request->getVar('kasir'));
+  $kdmember = strtoupper($this->request->getVar('kdmember'));
+  $status = $this->request->getVar('status');
+
+  if(!empty($idkasir)){
+    $filterIdKasir = "AND fkt_kasir='$idkasir'";
+  }else{
+    $filterIdKasir = " ";
+  }
+
+  if(!empty($kdmember)){
+    $filterkdmember = "AND fkt_kodemember='$kdmember'";
+  }else{
+    $filterkdmember =" ";
+  }
+
+  if($status=="bu"){
+    $filterstatus = "WHERE fkt_status='BELUM UPLOAD'";
+  }elseif ($status=="suba") {
+    $filterstatus = "WHERE fkt_status='SUDAH UPLOAD, BELUM APPROVE'";
+  }elseif ($status=="sa") {
+    $filterstatus = "WHERE fkt_status='SUDAH APPROVE'";
+  }else{
+    $filterstatus = "";
+  }
+  
+
+  $monitor = $dbProd->query(
+    " SELECT * FROM   
+    (SELECT fkt_tipe,
+    fkt_tglfaktur,
+    fkt_station,
+    fkt_kasir,
+    fkt_notransaksi,
+    fkt_noseri,
+    fkt_kodemember,
+    cus_namamember as fkt_namamember,
+    CASE when nvl(pjk_recordid,'0') = '1' then 'SUDAH UPLOAD, BELUM APPROVE'
+         when nvl(pjk_recordid,'0') = '4' then 'SUDAH APPROVE' 
+         else 'BELUM UPLOAD' end fkt_status
+    FROM tbmaster_faktur
+    LEFT JOIN tbmaster_pajak  ON fkt_nofaktur = pjk_nofaktur
+    LEFT JOIN tbmaster_customer ON fkt_kodemember = cus_kodemember
+    WHERE trunc(fkt_tglfaktur) between to_date('$tglawal','yyyy-mm-dd') and to_date('$tglakhir','yyyy-mm-dd')
+    $filterIdKasir
+    $filterkdmember
+    order by fkt_tglfaktur)
+    $filterstatus"
+  );
+
+  $monitor = $monitor->getResultArray();
+
+
+  $data = [
+    'title' => 'Monitoring E-Faktur',
+    'monitor' => $monitor,
+    'tglawal' => $tglawal,
+    'tglakhir' => $tglakhir,
+    'status' => $status,
+  ];
+
+  return view('ms/efaktur', $data);
+}
 }

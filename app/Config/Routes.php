@@ -38,6 +38,11 @@ $routes->get('/store/monitoringpromo/(:segment)', 'Store::tampildatapromo/$1');
 $routes->get('/store/transaksiproduk/transaksi', 'Store::transaksi');   
 $routes->post('/store/kompetisikasir/tampilkompkasir', 'Store::tampilkompkasir');
 $routes->get('/store/kompetisikasir/detailitemfokus', 'Store::detailitemfokus');
+$routes->post('/logistik/stokdep/tampilstokdep', 'Logistik::tampilstokdep');
+$routes->post('/omi/monitoringpbomi/tampilmonitoringomi', 'Omi::tampilmonitoringomi');
+$routes->post('/omi/cekprosespbomi', 'Omi::cekprosespbomi');
+$routes->post('/omi/historybkl/tampilbkl', 'Omi::tampilbkl');
+$routes->post('/omi/slomi/tampilslomi', 'Omi::tampilslomi');
 
 $routes->get('/member/cekmember/(:segment)', 'Member::tampildatatransaksi/$1');
 $routes->get('/member/salesmember/tampilsalesmember', 'Member::tampilsalesmember');

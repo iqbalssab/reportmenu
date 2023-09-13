@@ -1,13 +1,14 @@
-<nav class="navbar navbar-expand-lg" style="background-color: darkblue;">
+<nav class="navbar navbar-expand-lg" style="background-color: blue;">
   <div class="container-fluid">
-    <a class="navbar-brand text-light" href="/"><b>Report Menu IGR-PWT</b></a>
+  <?php $ip = "http://".$_SERVER['SERVER_NAME']."/reportmenu"; ?>
+    <a class="navbar-brand text-light" href="<?= $ip; ?>"><b>Report Menu IGR-PWT</b></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active fw-bold text-light" aria-current="page" href="/">Dashboard</a>
+          <a class="nav-link active" aria-current="page" href="<?= $ip; ?>">Dashboard</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle fw-bold text-light" href="/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -15,21 +16,21 @@
           </a>
           <ul class="dropdown-menu">
             <li><a class="" style="font-size: 14px; color:gray">Kasir</a></li>
-            <li><a class="dropdown-item" href="/store/previewkasir">Preview Transaksi Kasir</a></li>            
-            <li><a class="dropdown-item" href="/store/kompetisikasir">Kompetisi Kasir</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/store/previewkasir">Preview Transaksi Kasir</a></li>            
+            <li><a class="dropdown-item" href="<?= $ip; ?>/store/kompetisikasir">Kompetisi Kasir</a></li>
             <hr>
             <li><a class="" style="font-size: 14px; color:gray">Transaksi</a></li>
-            <li><a class="dropdown-item" href="/store/transaksiisaku">Data Transaksi i-Saku</a></li>
-            <li><a class="dropdown-item" href="/store/transaksimypoint">Data Transaksi MyPoin</a></li>
-            <li><a class="dropdown-item" href="/store/transaksimitra">Data Transaksi Mitra</a></li>
-            <li><a class="dropdown-item" href="/store/transaksiklik">Data Transaksi Klik</a></li>
-            <li><a class="dropdown-item" href="/store/transaksiproduk">History Transaksi Produk</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/store/transaksiisaku">Data Transaksi i-Saku</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/store/transaksimypoint">Data Transaksi MyPoin</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/store/transaksimitra">Data Transaksi Mitra</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/store/transaksiklik">Data Transaksi Klik</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/store/transaksiproduk">History Transaksi Produk</a></li>
             <hr>
             <li><a class="" style="font-size: 14px; color:gray">Promo</a></li>
-            <li><a class="dropdown-item" href="/store/cekpromo">Cek Promo</a></li>
-            <li><a class="dropdown-item" href="/store/monitoringpromo">Monitoring Promo</a></li>
-            <li><a class="dropdown-item" href="/store/diskonminus">Cek Diskon Minus</a></li>
-            <li><a class="dropdown-item" href="/store/marginminus">Cek Margin Minus</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/store/cekpromo">Cek Promo</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/store/monitoringpromo">Monitoring Promo</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/store/diskonminus">Cek Diskon Minus</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/store/marginminus">Cek Margin Minus</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -38,16 +39,16 @@
           </a>
           <ul class="dropdown-menu">
             <li><a class="" style="font-size: 14px; color:gray">Data</a></li>
-            <li><a class="dropdown-item" href="/member/cekmember">Cek Data Member</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/member/cekmember">Cek Data Member</a></li>
             <hr>
             <li><a class="" style="font-size: 14px; color:gray">Transaksi</a></li>
-            <li><a class="dropdown-item" href="/member/transaksimember">History Transaksi Member</a></li>
-            <li><a class="dropdown-item" href="/member/pengeluaranhadiah">Pengeluaran Hadiah</a></li>
-            <li><a class="dropdown-item" href="/member/serahterimahdh">Serah Terima Hadiah *</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/member/transaksimember">History Transaksi Member</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/member/pengeluaranhadiah">Pengeluaran Hadiah</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/member/serahterimahdh">Serah Terima Hadiah *</a></li>
             <hr>
             <li><a class="" style="font-size: 14px; color:gray">Sales</a></li>
-            <li><a class="dropdown-item" href="/member/salesmember">Laporan Sales Member</a></li>
-            <li><a class="dropdown-item" href="/member/salesperdep">Monitoring Sales PerHari</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/member/salesmember">Laporan Sales Member</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/member/salesperdep">Monitoring Sales PerHari</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -56,37 +57,37 @@
           </a>
           <ul class="dropdown-menu">
             <li><a class="" style="font-size: 14px; color:gray">LPP</a></li>
-            <li><a class="dropdown-item" href="/logistik/informasiproduk">Informasi Produk</a></li>
-            <li><a class="dropdown-item" href="/logistik/lppsaatini">LPP Saat Ini</a></li>
-            <li><a class="dropdown-item" href="/logistik/tampillppblnlalu">LPP Bulan Sebelumnya</a></li>
-            <li><a class="dropdown-item" href="/logistik/lppvsplanodetail">LPP vs Plano Detail</a></li>
-            <li><a class="dropdown-item" href="/logistik/lppvsplanorekap">LPP vs Plano Rekap</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/informasiproduk">Informasi Produk</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/lppsaatini">LPP Saat Ini</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/tampillppblnlalu">LPP Bulan Sebelumnya</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/lppvsplanodetail">LPP vs Plano Detail</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/lppvsplanorekap">LPP vs Plano Rekap</a></li>
             <hr>
             <li><a class="" style="font-size: 14px; color:gray">Monitoring</a></li>
-            <li><a class="dropdown-item" href="/logistik/formsoharian">SO Harian</a></li>
-            <li><a class="dropdown-item" href="/logistik/stockharian">Stock Harian</a></li>
-            <li><a class="dropdown-item" href="/logistik/livecks">Live CKS</a></li>
-            <li><a class="dropdown-item" href="/logistik/produkbaru">Produk Baru</a></li>
-            <li><a class="dropdown-item" href="/logistik/ubahstatus">Perubahan Status</a></li>
-            <li><a class="dropdown-item" href="/logistik/itemseasonal">Item Seasonal</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/formsoharian">SO Harian</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/stockharian">Stock Harian</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/livecks">Live CKS</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/produkbaru">Produk Baru</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/ubahstatus">Perubahan Status</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/itemseasonal">Item Seasonal</a></li>
             <hr>
             <li><a class="" style="font-size: 14px; color:gray">Transaksi</a></li>
-            <li><a class="dropdown-item" href="/logistik/backoffice">Laporan Back Office</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/backoffice">Laporan Back Office</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle fw-bold text-light" href="/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            EDP
+          <a class="nav-link dropdown-toggle fw-bold text-light" href="<?= $ip; ?>/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa-solid fa-computer me-1"></i>EDP
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/edp/barangtertinggal">Cek Barang Tertinggal</a></li>
-            <li><a class="dropdown-item" href="/edp/monitoringchecker">Monitoring Checker</a></li>
-            <li><a class="dropdown-item" href="/edp/cetaksso">Cetak SSO</a></li>            
+            <li><a class="dropdown-item" href="<?= $ip; ?>/edp/barangtertinggal">Cek Barang Tertinggal</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/edp/monitoringchecker">Monitoring Checker</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/edp/cetaksso">Cetak SSO</a></li>            
           </ul>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle fw-bold text-light" href="/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Link External
+          <a class="nav-link dropdown-toggle fw-bold text-light" href="<?= $ip; ?>/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa-solid fa-list me-1"></i> Link External
           </a>
           <ul class="dropdown-menu">
             <li><a class="" style="font-size: 14px; color:gray">MS</a></li>
@@ -109,7 +110,7 @@
           </ul>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle fw-bold text-light" href="/ms" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle fw-bold text-light" href="<?= $ip; ?>/ms" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Program HO
           </a>
           <ul class="dropdown-menu">
@@ -126,6 +127,18 @@
             <li><a class="dropdown-item" href="http://192.168.240.179/simsoujipetik/public/auth/login">SO Uji Petik (Simulasi)</a></li>
             <li><a class="dropdown-item" href="http://172.20.28.17/monitoring-plano/public/laporan">Monitoring Plano</a></li>
             <li><a class="dropdown-item" href="http://172.20.28.28/#/account/login">Tarra E-Faktur</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle fw-bold text-light" href="/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa-solid fa-star me-1"></i> OMI
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="<?= $ip; ?>/omi/monitoringpbomi">Monitoring PB OMI</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/omi/cekprosespbomi">Cek Proses PB OMI</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/omi/cekprosessph">Cek Proses SPH</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/omi/historybkl">History BKL</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/omi/slomi">Service Level OMI</a></li>
           </ul>
         </li>
     </div>

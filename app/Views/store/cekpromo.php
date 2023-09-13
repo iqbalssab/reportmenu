@@ -16,7 +16,7 @@
                     <h6 class="">Cek Promo</h6>
                 </div>
                 <div class="card-body text-center align-content-center justify-content-center">
-                    <form method="get" action="/store/cekpromo">
+                    <form method="get" action="cekpromo">
                         <?= csrf_field(); ?>
                         <label class="" for="plu">Input PLU :</label><br>
                         <input type="text" name="plu" id="plu" class="text-center mb-3" value="<?= old('plu'); ?>" required autofocus>
@@ -34,7 +34,7 @@
                     <h6 class="">Cari Produk</h6>
                 </div>
                 <div class="card-body">
-                    <form action="/store/cekpromo" method="get">
+                    <form action="cekpromo" method="get">
                         <?= csrf_field(); ?>
                         <label for="desc1">Deskripsi 1 :</label>
                         <input type="text" name="desc1" id="desc1" class="w-100 d-block">

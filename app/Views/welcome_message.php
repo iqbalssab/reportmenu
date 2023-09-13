@@ -1,8 +1,8 @@
 <?php $this->extend('layout/template'); ?>
 <?php $this->section('content'); ?>
-
+<?php $ip = "http://".$_SERVER['SERVER_NAME']."/reportmenu/"; ?>
  <!-- ======= Hero Section ======= -->
- <section id="hero">
+ <section style="background-image: url('public/img/bg.jpg'); position:relative;" id="hero">
     <div class="hero">
       <h1 class="text-light ms-3">Welcome to INDOGROSIR</h1>
       <h2 class="text-light ms-5">MITRA USAHA TERPERCAYA</h2>

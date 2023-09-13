@@ -33,11 +33,21 @@
             <li><a class="dropdown-item" href="<?= $ip; ?>store/monitoringpromo">Monitoring Promo</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>store/diskonminus">Cek Diskon Minus</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>store/marginminus">Cek Margin Minus</a></li>
-            <li><a class="dropdown-item">____________________</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>store/planominus">Cek Plano Minus</a></li>
+            <li><hr class="dropdown-divider border-warning border-1"></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>store/transaksiisaku">Data Transaksi i-Saku</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>store/transaksimypoint">Data Transaksi MyPoin</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>store/transaksimitra">Data Transaksi Mitra</a></li>
-            <li><a class="dropdown-item" href="<?= $ip; ?>store/transaksiklik">Data Transaksi Klik</a></li>
+            <li><hr class="dropdown-divider border-warning border-1"></li>
+            <li><a class="dropdown-item dropend" href="<?= $ip; ?>store/transaksiklik">Data Transaksi Klik</a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="<?= $ip; ?>store/transaksiklik" class="dropdown-item">History Transaksi klik</a>
+              </li>
+            </ul>
+            </li>
+            <li><a href="<?= $ip; ?>store/monitoringklik" class="dropdown-item">Monitoring Proses Klik</a></li>
+              <li><hr class="dropdown-divider border-warning border-1"></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>store/transaksiproduk">History Transaksi Produk</a></li>
             <li><a class="dropdown-item">_____________________</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>store/salesmember">Laporan Sales Member</a></li>
@@ -56,6 +66,8 @@
             <li><a class="dropdown-item" href="<?= $ip; ?>logistik/lppvsplanorekap">LPP vs Plano Rekap</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>logistik/kesegaran">Cek Data Kesegaran</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>logistik/stokdep">Stok Per Departement</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>logistik/cekmd">Cek MD</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>logistik/pertemanan">Monitoring Pertemanan</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -81,6 +93,18 @@
             <li><a class="dropdown-item" href="http://172.20.28.17/monitoring-inquiry/public/login">Inquiry Master Member</a></li>
             <li><a class="dropdown-item" href="http://172.31.27.68/login">CMS TMI</a></li>
             <li><a class="dropdown-item" href="http://172.20.28.17/WebLaporanKasir/public/login">Web Laporan Refund</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle fw-bold text-light" href="/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa-solid fa-star me-1"></i> OMI
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="<?= $ip; ?>omi/monitoringpbomi">Monitoring PB OMI</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>omi/cekprosespbomi">Cek Proses PB OMI</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>omi/cekprosessph">Cek Proses SPH</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>omi/historybkl">History BKL</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>omi/slomi">Service Level OMI</a></li>
           </ul>
         </li>
     </div>

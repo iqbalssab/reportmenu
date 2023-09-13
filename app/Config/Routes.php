@@ -47,6 +47,10 @@ $routes->post('/store/salesperdep/tampilsalesperdep', 'Store::tampilsalesperdep'
 $routes->post('/store/kompetisikasir/tampilkompkasir', 'Store::tampilkompkasir');
 $routes->get('/store/kompetisikasir/detailitemfokus', 'Store::detailitemfokus');
 $routes->post('/logistik/stokdep/tampilstokdep', 'Logistik::tampilstokdep');
+$routes->post('/omi/monitoringpbomi/tampilmonitoringomi', 'Omi::tampilmonitoringomi');
+$routes->post('/omi/cekprosespbomi', 'Omi::cekprosespbomi');
+$routes->post('/omi/historybkl/tampilbkl', 'Omi::tampilbkl');
+$routes->post('/omi/slomi/tampilslomi', 'Omi::tampilslomi');
 
 /*
  * --------------------------------------------------------------------

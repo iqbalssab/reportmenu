@@ -2461,6 +2461,236 @@ class Store extends BaseController
       ];
       return view('store/detailitemfokus', $data);
     }
+
+    public function planominus()
+    {
+      $dbProd = db_connect('production');
+      $plano = $this->request->getVar('plano');
+      $jenis = $this->request->getVar('jenis');
+
+      $planominus = [];
+
+      if ($plano=="all") {
+        $filterplano = "";
+      }elseif($plano == "toko"){
+        $filterplano = " WHERE JENIS ='Toko'";
+      }elseif($plano == "gudang"){
+        $filterplano = " WHERE JENIS ='Gudang'";
+      }
+      if ($jenis=="1") {
+        
+        $planominus = $dbProd->query(
+          " SELECT * FROM (
+            select * from (
+            SELECT LKS_KODERAK     AS RAK,
+              LKS_KODESUBRAK       AS SUB,
+              LKS_TIPERAK          AS TIPE,
+              LKS_SHELVINGRAK      AS SHELV,
+              LKS_PRDCD            AS PLU,
+              PRD_DESKRIPSIPANJANG AS DESK,
+              LKS_QTY              AS QTYPLANO,
+              case when (LKS_KODERAK LIKE 'D%' OR LKS_KODERAK LIKE 'G%') then 'Gudang' else 'Toko' end AS JENIS
+            FROM TBMASTER_LOKASI 
+            LEFT JOIN TBMASTER_PRODMAST
+            ON LKS_PRDCD =PRD_PRDCD
+            WHERE LKS_QTY<0
+            ORDER BY LKS_KODERAK ,
+              LKS_KODESUBRAK ,
+              LKS_TIPERAK ,
+              LKS_SHELVINGRAK
+             )  
+             $filterplano
+             order by RAK asc) 
+             ORDER BY 1, 2, 3, 4, 5 "
+        );
+        $planominus = $planominus->getResultArray();     
+      }
+
+
+      $data = [
+        'title' => 'Plano Minus '.$this->tglsekarang,
+        'planominus' => $planominus
+      ];
+
+      return view('store/planominus', $data);
+    }
+
+    public function monitoringklik()
+    {
+      $dbProd = db_connect('production');
+      $tglawal = $this->request->getVar('tglawal');
+      $tglakhir = $this->request->getVar('tglakhir');
+      $tgltrans = $this->request->getVar('tgltrans');
+      $btn = $this->request->getVar('btn');
+
+      $semua = $proses = $pertanggal = $detailtanggal = [];
+
+      if($btn=="semua") {
+        $filterdata = "";
+        $semua =  $dbProd->query(
+          "SELECT ATTRIBUT,RECID,KETERANGAN,count(nopb) as JUMLAHPB from (
+            select 
+            obi_tgltrans as TGLTRANS,
+            obi_notrans as NOTRANS,
+            obi_nopb as NOPB,
+            case 
+              when obi_attribute2='KlikIGR' and cus_jenismember='T' then 'TMI'
+              when obi_attribute2='KlikIGR' and nvl(cus_flagmemberkhusus,'N')='Y' then 'Member Merah'
+              when obi_attribute2='KlikIGR' and nvl(cus_flagmemberkhusus,'N')!='Y' then 'Member Umum'
+              else obi_attribute2 
+            end as ATTRIBUT,
+            obi_kdmember as KDMEMBER,
+            obi_ttlorder as NILAIORDER,
+            obi_itemorder as ITEMORDER,
+            obi_sendpick as SENDHH,
+            obi_selesaipick as PICKING,
+            obi_selesaiscan as PACKING,
+            obi_draftstruk as DRAFTSTRUK,
+            obi_tglstruk as STRUK,
+            substr(obi_recid,0,1) as RECID,
+            case 
+              when obi_recid is null then 'Siap Send HH'
+              when obi_recid='0' then 'Siap Send HH'
+              when obi_recid='1' then 'Siap Picking'
+              when obi_recid='2' then 'Siap Packing'
+              when obi_recid='3' then 'Siap Draft Struk'
+              when obi_recid='4' then 'Konfirmasi Pembayaran'
+              when obi_recid='5' then 'Siap Struk'
+              when obi_recid='6' then 'Selesai Struk'
+              when obi_recid='7' then 'Set Ongkir'
+              when obi_recid like '%B%' then 'BATAL'
+            end as KETERANGAN
+            from tbtr_obi_h obih
+            left join tbmaster_customer on cus_kodemember=obi_kdmember
+            where trunc(obih.obi_tgltrans) between to_date('$tglawal','YYYY-MM-DD') and to_date('$tglakhir','YYYY-MM-DD') 
+            $filterdata
+            order by obi_tgltrans,obi_notrans
+            ) group by attribut,recid, keterangan
+            order by 1,2"
+        );
+        $semua = $semua->getResultArray();
+      }elseif($btn=="proses"){
+        $filterdata = " and nvl(obi_recid,0) in ('0','1','3','4','5','7') ";
+        $proses = $dbProd->query(
+          "SELECT ATTRIBUT,RECID,KETERANGAN,count(nopb) as JUMLAHPB from (
+            select 
+            obi_tgltrans as TGLTRANS,
+            obi_notrans as NOTRANS,
+            obi_nopb as NOPB,
+            case 
+              when obi_attribute2='KlikIGR' and cus_jenismember='T' then 'TMI'
+              when obi_attribute2='KlikIGR' and nvl(cus_flagmemberkhusus,'N')='Y' then 'Member Merah'
+              when obi_attribute2='KlikIGR' and nvl(cus_flagmemberkhusus,'N')!='Y' then 'Member Umum'
+              else obi_attribute2 
+            end as ATTRIBUT,
+            obi_kdmember as KDMEMBER,
+            obi_ttlorder as NILAIORDER,
+            obi_itemorder as ITEMORDER,
+            obi_sendpick as SENDHH,
+            obi_selesaipick as PICKING,
+            obi_selesaiscan as PACKING,
+            obi_draftstruk as DRAFTSTRUK,
+            obi_tglstruk as STRUK,
+            substr(obi_recid,0,1) as RECID,
+            case 
+              when obi_recid is null then 'Siap Send HH'
+              when obi_recid='0' then 'Siap Send HH'
+              when obi_recid='1' then 'Siap Picking'
+              when obi_recid='2' then 'Siap Packing'
+              when obi_recid='3' then 'Siap Draft Struk'
+              when obi_recid='4' then 'Konfirmasi Pembayaran'
+              when obi_recid='5' then 'Siap Struk'
+              when obi_recid='6' then 'Selesai Struk'
+              when obi_recid='7' then 'Set Ongkir'
+              when obi_recid like '%B%' then 'BATAL'
+            end as KETERANGAN
+            from tbtr_obi_h obih
+            left join tbmaster_customer on cus_kodemember=obi_kdmember
+            where trunc(obih.obi_tgltrans) between to_date('$tglawal','YYYY-MM-DD') and to_date('$tglakhir','YYYY-MM-DD') 
+            $filterdata
+            order by obi_tgltrans,obi_notrans
+            ) group by attribut,recid, keterangan
+            order by 1,2"
+        );
+        $proses = $proses->getResultArray();
+      }elseif($btn=="pertanggal"){
+        $pertanggal = $dbProd->query(
+          "SELECT obi_tgltrans as TGLTRANS,
+          count(obi_nopb) as JMLPB,
+          count(obi_sendpick) as SUDAH_SENDHH,
+          count(obi_selesaipick) as SUDAH_PICKING,
+          count(obi_selesaiscan) as SUDAH_PACKING,
+          count(obi_draftstruk) as SUDAH_DRAFTSTRUK,
+          count(obi_tglstruk) as SUDAH_STRUK
+          from tbtr_obi_h 
+          where trunc(obi_tgltrans) between to_date('$tglawal','YYYY-MM-DD') and to_date('$tglakhir','YYYY-MM-DD')
+          and nvl(obi_recid,0) in ('0','1','2','3','4','5','6','7')
+          group by obi_tgltrans
+          order by obi_tgltrans desc"
+        );
+        $pertanggal = $pertanggal->getResultArray();
+      }
+
+      if (!empty($tgltrans)) {
+        $detailtanggal = $dbProd->query(
+          "SELECT 
+          OBI_TGLTRANS as TGLTRANS,
+          OBI_NOTRANS as NOTRANS,
+          case 
+            when obi_attribute2='KlikIGR' and cus_jenismember='T' then 'TMI'
+            when obi_attribute2='KlikIGR' and nvl(cus_flagmemberkhusus,'N')='Y' then 'Mbr Merah'
+            when obi_attribute2='KlikIGR' and nvl(cus_flagmemberkhusus,'N')!='Y' then 'Mbr Umum'
+            else obi_attribute2 
+          end as ATTRIBUT,
+          OBI_KDMEMBER||' - '||CUS_NAMAMEMBER as KODEMEMBER,
+          OBI_TTLORDER as RPHORDER,
+          OBI_ITEMORDER as ITEMORDER,
+          OBI_SENDPICK as SENDHH,
+          OBI_SELESAIPICK as SELESAIPICK,
+          OBI_SELESAISCAN as SELESAISCAN,
+          case 
+            when obi_kdekspedisi like '%SAMEDAY%' then 'Sameday' 
+            when obi_kdekspedisi like '%Ambil di Toko%' then 'Ambil Toko' 
+            else 'Nextday' end as SERVICE,
+          case 
+            when nvl(obi_recid,0)='0' then 'Siap Send HH'
+            when nvl(obi_recid,0)='1' then 'Siap Picking'
+            when nvl(obi_recid,0)='2' then 'Siap Packing'
+            when nvl(obi_recid,0)='3' then 'Siap Draft Struk'
+            when nvl(obi_recid,0)='4' then 'Konfirmasi Pembayaran'
+            when nvl(obi_recid,0)='5' then 'Siap Struk'
+            when nvl(obi_recid,0)='6' then 'Selesai Struk'
+            when nvl(obi_recid,0)='7' then 'Set Ongkir'
+            when nvl(obi_recid,0) like '%B%' then 'BATAL'
+          end as KETERANGAN,
+          case
+            when obi_tipebayar ='COD' then 'COD'
+          end as TIPEBAYAR
+          from tbtr_obi_h 
+          left join tbmaster_customer on cus_kodemember=obi_kdmember
+          where trunc(obi_tgltrans) = '$tgltrans' 
+          and substr(nvl(obi_recid,0),0,1) not in ('6','B')
+          order by obi_tgltrans,SERVICE desc,obi_notrans"
+        );
+        $detailtanggal = $detailtanggal->getResultArray();
+      }
+
+
+      $data = [
+        'title' => 'Monitoring Klik IGR',
+        'tglawal' => $tglawal,
+        'tglakhir' => $tglakhir,
+        'semua' => $semua,
+        'proses' => $proses,
+        'pertanggal' => $pertanggal,
+        'tgltrans' => $tgltrans,
+        'detailtanggal' => $detailtanggal,
+      ];
+      d($data);
+
+      redirect()->to('monitoringklik')->withInput();
+      return view('store/monitoringklik',$data);
+    }
     // public function export()
     // {
     //   $spreadsheet = new Spreadsheet();

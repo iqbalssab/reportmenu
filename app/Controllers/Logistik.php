@@ -1062,4 +1062,302 @@ class Logistik extends BaseController
         return view('logistik/excelstokdep', $data);
     }
     }
+
+    public function cekmd()
+    {
+        $dbProd = db_connect('production');
+        $cekmd = $dbProd->query(
+            "SELECT PRMD_PRDCD,
+            PRD_DESKRIPSIPANJANG,
+            PRMD_TGLAWALBARU,
+            PRMD_TGLAKHIRBARU,
+            PRMD_HRGJUAL  HRG_LAMA,
+            PRMD_HRGJUALBARU HRG_BARU
+            from tbtr_promomd
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
+            WHERE TRUNC(PRMD_TGLAWALBARU)>= TRUNC(SYSDATE)"
+        );
+        $cekmd = $cekmd->getResultArray();
+        $data = [
+            'title' => 'CEK MD',
+            'cekmd' => $cekmd
+        ];
+
+        return view('logistik/cekmd', $data);
+    }
+
+    public function pertemanan()
+    {
+        $dbProd = db_connect('production');
+        $departement = $this->request->getVar('departement');
+        $status = $this->request->getVar('status');
+        $pluinput = $this->request->getVar('plu');
+        $btn = $this->request->getVar('btn');
+
+        // Bagi PLU ke PLU 0 dan PLU 1
+        if(isset($pluinput)){
+            $plu = sprintf("%07s",$pluinput);
+            $plu1 = substr($plu,0,6)."1";
+            $plu0 = substr($plu,0,6)."0";
+        }else{
+            $plu = "";
+            $plu1 = "";
+            $plu0 = "";
+        }
+
+        $judul = ""; 
+        $pertemanan = [];
+
+        // Pilih Status
+        if($status=="igr"){
+            $judul = "IGR ONLY";
+            $filterstatus = "AND STATUS='IGR-ONLY'";
+        }elseif($status=="omi"){
+            $judul = "IGR OMI";
+            $filterstatus = "AND STATUS='OMI-ONLY'";
+        }elseif($status=="igromi"){
+            $judul = "IGR-OMI";
+            $filterstatus = "AND STATUS='IGR-OMI'";
+        }else{
+            $judul = "ALL";
+            $filterstatus = " ";
+        }
+
+        // Pilih Departement
+        if(strlen($departement) == 1){
+            $filterdep = "AND DIV = '$departement'";
+        }elseif(strlen($departement)==2){
+            $filterdep = "AND DEP = '$departement'";
+        }elseif(strlen($departement)>2){
+            $filterdep = " ";
+        }
+
+        // Apakah PLU Diinput?
+        if($plu !='0000000'){
+            $filterplu = "AND PLU like '$plu'";
+        }else{
+            $filterplu = " ";
+        }
+
+        if ($btn=="tampil") {
+            $pertemanan = $dbProd->query(
+                "SELECT DIV,DEP,KAT,PLU,DESK,PERTEMANAN,PALET,STATUS 
+                FROM(SELECT PRD_KODEDIVISI DIV,
+                PRD_KODEDEPARTEMENT DEP,
+                PRD_KODEKATEGORIBARANG KAT,
+                PRD_PRDCD PLU,
+                PRD_DESKRIPSIPANJANG DESK,
+                PLA_KODERAK PERTEMANAN,
+                MPT_MAXQTY PALET,
+                STATUS_IGR_IDM STATUS
+                FROM TBMASTER_PRODMAST
+                LEFT JOIN (SELECT DISTINCT PLA_PRDCD, PLA_KODERAK FROM TBMASTER_PLANO) ON PLA_PRDCD= PRD_PRDCD
+                LEFT JOIN TBMASTER_MAXPALET ON MPT_PRDCD = PRD_PRDCD
+                LEFT JOIN (
+                SELECT 
+                PRD_PRDCD PLU,
+                CASE WHEN FLAG = 'NAS-IGR+K.IGR' THEN 'IGR-ONLY'
+                WHEN FLAG = 'NAS' THEN 'IGR-ONLY'
+                WHEN FLAG = 'IGR+K.IGR' THEN 'IGR-ONLY'
+                WHEN FLAG = 'IGR' THEN 'IGR-ONLY'
+                
+                WHEN FLAG = 'NAS-OMI' THEN 'OMI-ONLY'
+                WHEN FLAG = 'OMI' THEN 'OMI-ONLY'
+                ELSE 'IGR-OMI' END AS STATUS_IGR_IDM 
+                
+                
+                FROM (
+                SELECT PRD_PRDCD ,
+                
+                CASE
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYYYYY' THEN 'NAS-IGR+IDM+OMI+MR.BRD+K.IGR+DEPO'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYYYYN' THEN 'NAS-IGR+IDM+OMI+MR.BRD+K.IGR'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYYYNN' THEN 'NAS-IGR+IDM+OMI+MR.BRD'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYYNYY' THEN 'NAS-IGR+IDM+OMI+K.IGR+DEPO'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYYNYN' THEN 'NAS-IGR+IDM+OMI+K.IGR'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYYNNY' THEN 'NAS-IGR+IDM+OMI+DEPO'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYYNNN' THEN 'NAS-IGR+IDM+OMI'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYNYYY' THEN 'NAS-IGR+IDM+MR.BRD+K.IGR+DEPO'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYNNYY' THEN 'NAS-IGR+IDM+K.IGR+DEPO'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYNNYN' THEN 'NAS-IGR+IDM+K.IGR'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYNNNY' THEN 'NAS-IGR+IDM+DEPO'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYYNNNN' THEN 'NAS-IGR+IDM'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNYNYY' THEN 'NAS-IGR+OMI+K.IGR+DEPO'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNYNYN' THEN 'NAS-IGR+OMI+K.IGR'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNYNNY' THEN 'NAS-IGR+OMI+DEPO'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNYNNN' THEN 'NAS-IGR+OMI'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNNYYN' THEN 'NAS-IGR+MR.BRD+K.IGR'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNNYNN' THEN 'NAS-IGR+MR.BRD'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNNNYY' THEN 'NAS-IGR+K.IGR+DEPO'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNNNYN' THEN 'NAS-IGR+K.IGR'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNNNNY' THEN 'NAS-IGR+DEPO'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YYNNNNN' THEN 'NAS-IGR'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNYYNYY' THEN 'NAS-IDM+OMI+K.IGR+DEPO'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNYYNYN' THEN 'NAS-IDM+OMI+K.IGR'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNYYNNY' THEN 'NAS-IDM+OMI+DEPO'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNYYNNN' THEN 'NAS-IDM+OMI'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNYNNYY' THEN 'NAS-IDM+K.IGR+DEPO'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNYNNYN' THEN 'NAS-IDM+K.IGR'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNYNNNY' THEN 'NAS-IDM+DEPO'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNYNNNN' THEN 'NAS-IDM'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNNYYNN' THEN 'NAS-OMI+MR.BRD'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNNYNYN' THEN 'NAS-OMI+K.IGR'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNNYNNN' THEN 'NAS-OMI'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNNNYNN' THEN 'NAS-MR.BRD'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNNNNYN' THEN 'NAS-K.IGR'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='YNNNNNN' THEN 'NAS'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYYYNYY' THEN 'IGR+IDM+OMI+K.IGR+DEPO'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYYYNYN' THEN 'IGR+IDM+OMI+K.IGR'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYYYNNY' THEN 'IGR+IDM+OMI+DEPO'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYYYNNN' THEN 'IGR+IDM+OMI'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYYNNYY' THEN 'IGR+IDM+K.IGR+DEPO'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYYNNYN' THEN 'IGR+IDM+K.IGR'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYYNNNY' THEN 'IGR+IDM+DEPO'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYYNNNN' THEN 'IGR+IDM'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYNYNYY' THEN 'IGR+OMI+K.IGR+DEPO'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYNYNYN' THEN 'IGR+OMI+K.IGR'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYNYNNN' THEN 'IGR+OMI'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYNNYYN' THEN 'IGR+MR.BRD+K.IGR'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYNNNYY' THEN 'IGR+K.IGR+DEPO'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYNNNYN' THEN 'IGR+K.IGR'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYNNNNY' THEN 'IGR+DEPO'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NYNNNNN' THEN 'IGR'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNYYNYY' THEN 'IDM+OMI+K.IGR+DEPO'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNYYNYN' THEN 'IDM+OMI+K.IGR'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNYYNNY' THEN 'IDM+OMI+DEPO'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNYYNNN' THEN 'IDM+OMI'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNYNNYY' THEN 'IDM+K.IGR+DEPO'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNYNNYN' THEN 'IDM+K.IGR'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNYNNNY' THEN 'IDM+DEPO'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNYNNNN' THEN 'IDM'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNNYNYN' THEN 'OMI+K.IGR'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNNYNNN' THEN 'OMI'
+                
+                WHEN NAS||IGR||IDM||OMI||BRD||K_IGR||DEPO ='NNNNNNN' THEN 'BELUM ADA FLAG'
+                
+                ELSE 'BELUM ADA FLAG'
+                
+                END AS FLAG
+                
+                FROM
+                
+                (SELECT prd_prdcd,prd_plumcg,
+                
+                nvl(PRD_FLAGNAS,'N') AS NAS,
+                
+                nvl(PRD_FLAGIGR,'N') AS IGR,
+                
+                nvl(PRD_FLAGIDM,'N') AS IDM,
+                
+                nvl(PRD_FLAGOMI,'N') AS OMI,
+                
+                nvl(PRD_FLAGBRD,'N') AS BRD,
+                
+                nvl(PRD_FLAGOBI,'N') AS K_IGR,
+                
+                case when prd_plumcg in (select PLUIDM from DEPO_LIST_IDM ) THEN 'Y' ELSE 'N' END AS DEPO
+                
+                FROM TBMASTER_PRODMAST WHERE PRD_PRDCD LIKE '%0' AND PRD_DESKRIPSIPANJANG IS NOT NULL))) ON PLU = PRD_PRDCD
+                WHERE PRD_PRDCD LIKE '%0'
+                AND PRD_KODETAG NOT IN ('N','O','X')
+                AND PRD_KODEDIVISI NOT IN ('4','6'))
+                WHERE PERTEMANAN IS NOT NULL
+                $filterstatus
+                $filterdep
+                $filterplu
+                ORDER BY PLU ASC,PERTEMANAN ASC
+                "
+            );
+            $pertemanan = $pertemanan->getResultArray();
+        }elseif($btn=="reset"){
+            redirect()->to('pertemanan');
+        }
+
+
+
+        $daftarDepartement = $dbProd->query(
+            "SELECT dep_kodedivisi,div_namadivisi,div_singkatannamadivisi,dep_kodedepartement, dep_namadepartement 
+            from tbmaster_departement 
+            left join tbmaster_divisi on div_kodedivisi=dep_kodedivisi
+            order by dep_kodedivisi,dep_kodedepartement"
+          );
+    
+          $daftarDepartement = $daftarDepartement->getResultArray();
+        $data = [
+            'title' => 'Monitoring Pertemanan',
+            'departement' => $daftarDepartement,
+            'judul' => $judul,
+            'dep' => $departement,
+            'status' => $status,
+            'plu' => $plu,
+            'btn' => $btn,
+            'pertemanan' => $pertemanan,
+        ];
+
+        redirect()->to('pertemanan')->withInput();
+        return view('logistik/pertemanan', $data);
+    }
+
 }

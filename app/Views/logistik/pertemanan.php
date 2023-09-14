@@ -5,8 +5,8 @@
     <div class="row">
         <div class="col-md-3">
             <div class="card">
-                <div class="card-header bg-primary">
-                    <p class="text-light fw-bold">MONITORING PERTEMANAN</p>
+                <div class="card-header" style="background-color: #0040ff;">
+                    <p class="text-light fw-bold text start fs-6">MONITORING PERTEMANAN</p>
                 </div>
                 <div class="card-body">
                     <form action="pertemanan" method="get">
@@ -32,19 +32,19 @@
                 </select>
                 <label for="plu" class="d-block">PLU</label>    
                 <input type="text" name="plu" id="plu" class="w-50"> 
-                <button type="submit" name="btn" value="tampil" class="btn btn-primary w-100 mt-4"><i class="fa-solid fa-magnifying-glass me-1"></i> Tampil</button>
-                <button type="submit" name="btn" value="reset" class="btn btn-danger w-100 mt-1"><i class="fa-solid fa-rotate-right me-1"></i> Reset</button>
+                <button type="submit" name="btn" value="tampil" class="btn btn-primary w-100 mt-4" style="background-color: #6528F7;"><i class="fa-solid fa-magnifying-glass me-1"></i> Tampil</button>
+                <button type="submit" name="btn" value="reset" class="btn w-100 mt-1 btn-warning"><i class="fa-solid fa-rotate-right me-1"></i> Reset</button>
                 </form>                 
                 </div>
             </div>
         </div>
         <div class="col-md-9">
             <div class="card">
-                <div class="card-header bg-primary-subtle">
+                <div class="card-header bg-primary-subtle" style="height: 50px;">
                     <p class="fw-bold text-primary">Daftar Pertemanan</p>
                 </div>
                 <div class="card-body">
-                    <table class="table">
+                    <table class="table" style="font-size: 14px;">
                         <thead>
                             <tr>
                                 <th class="bg-primary text-light text-center">DIV</th>

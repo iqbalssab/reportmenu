@@ -4,147 +4,56 @@ namespace App\Controllers;
 
 class Member extends BaseController
 {
-    public function index()
-    {
+    public function index(){
         return view('member/cekmember');
     }
 
-    public function cekmember()
-    {
-        $status = strtoupper($this->request->getVar('statuscari'));
-        $cari = $this->request->getVar('cari');
-        $aksi = $this->request->getVar('tombol');
+    public function cekmember() {
         $dbProd = db_connect('production');
+        $status = $this->request->getVar('statuscari');
+        $cari = strtoupper($this->request->getVar('cari'));
+        $aksi = $this->request->getVar('tombol');
         $member = [];
-        if($aksi == "btncekmbr") {
-            if($status == "nama") {
-                $member = $dbProd->query(
-                    "select 
-                    cus_kodemember as kode,
-                    cus_namamember as nama_member,
-                    cus_alamatmember1 as alamat,
-                    cus_tlpmember || ' / ' || cus_hpmember as no_hp,
-                    case
-                    when cus_kodeoutlet = '2' then 'MEMBER MERAH'
-                    when cus_kodeoutlet = '5' then 'MEMBER MERAH'
-                    else 'MEMBER BIRU' end jns_mbr,
-                    case 
-                    when cus_recordid is null then 'AKTIF'
-                    else 'NON-AKTIF' end status
-                    from tbmaster_customer
-                    where cus_namamember like '%$cari%'       
-                    order by kode, nama_member asc"
-                );
+        $filtercari = "";
 
-                $member = $member->getResultArray();
-                $data = [
-                  'title' => 'Cek Data Member',
-                  'member' => $member,
-                  'aksi' => $aksi,
-                  'cari' => $cari,
-                ];
-                d($data);
-                redirect()->to('cekmember')->withInput();
-                return view('member/cekmember',$data);
-            } else if($status == "kode") {
-                $member = $dbProd->query(
-                    "select 
-                    cus_kodemember as kode,
-                    cus_namamember as nama_member,
-                    cus_alamatmember1 as alamat,
-                    cus_tlpmember || ' / ' || cus_hpmember as no_hp,
-                    case
-                    when cus_kodeoutlet = '2' then 'MEMBER MERAH'
-                    when cus_kodeoutlet = '5' then 'MEMBER MERAH'
-                    else 'MEMBER BIRU' end jns_mbr,
-                    case 
-                    when cus_recordid is null then 'AKTIF'
-                    else 'NON-AKTIF' end status
-                    from tbmaster_customer
-                    where cus_kodemember like '%$cari%'       
-                    order by kode, nama_member asc"
-                );
-                
-                $member = $member->getResultArray();
-                $data = [
-                  'title' => 'Cek Data Member',
-                  'member' => $member,
-                  'aksi' => $aksi,
-                ];
-                redirect()->to('/member/cekmember')->withInput();
-                return view('/member/cekmember',$data);
-            } else if($status == "ktp") {
-                $member = $dbProd->query(
-                    "select 
-                    cus_kodemember as kode,
-                    cus_namamember as nama_member,
-                    cus_alamatmember1 as alamat,
-                    cus_tlpmember || ' / ' || cus_hpmember as no_hp,
-                    case
-                    when cus_kodeoutlet = '2' then 'MEMBER MERAH'
-                    when cus_kodeoutlet = '5' then 'MEMBER MERAH'
-                    else 'MEMBER BIRU' end jns_mbr,
-                    case 
-                    when cus_recordid is null then 'AKTIF'
-                    else 'NON-AKTIF' end status
-                    from tbmaster_customer
-                    where cus_noktp like '%$cari%'       
-                    order by kode, nama_member asc"
-                );
-                
-                $member = $member->getResultArray();
-                $data = [
-                  'title' => 'Cek Data Member',
-                  'member' => $member,
-                  'aksi' => $aksi,
-                ];
-                redirect()->to('/member/cekmember')->withInput();
-                return view('/member/cekmember',$data);
-            } elseif($status == "hp") {
-              $member = $dbProd->query(
-                "select 
-                cus_kodemember as kode,
-                cus_namamember as nama_member,
-                cus_alamatmember1 as alamat,
-                cus_tlpmember || ' / ' || cus_hpmember as no_hp,
-                case
-                when cus_kodeoutlet = '2' then 'MEMBER MERAH'
-                when cus_kodeoutlet = '5' then 'MEMBER MERAH'
-                else 'MEMBER BIRU' end jns_mbr,
-                case 
-                when cus_recordid is null then 'AKTIF'
-                else 'NON-AKTIF' end status
-                from tbmaster_customer
-                where cus_hpmember like '%$cari%'       
-                order by kode, nama_member asc"
-              );
-              
-              $member = $member->getResultArray();
-              $data = [
-                'title' => 'Cek Data Member',
-                'member' => $member,
-                'aksi' => $aksi,
-              ];
-              redirect()->to('/member/cekmember')->withInput();
-              return view('/member/cekmember',$data);
-            } elseif($status == "ksg") {
-              $data = [
-                'title' => 'Cek Data Member',
-                'member' => $member,
-                'aksi' => $aksi,
-              ];
-              redirect()->to('/member/cekmember')->with('Error', 'Silahkan pilih jenis pencarian dulu')->withInput();
-              return view('/member/cekmember',$data);
-            }
+        if($status == "nama") {
+            $filtercari = " cus_namamember like '%$cari%'  ";
+        } else if($status == "kode") {
+            $filtercari = " cus_kodemember like '%$cari%'  ";
+        } else if($status == "ktp") {
+            $filtercari = " cus_noktp like '%$cari%'  ";
+        } else if($status == "hp") {
+            $filtercari = " cus_hpmember like '%$cari%'  ";
         }
-        $data = [
-            'title' => 'Cek Data Member',
-            'member' => $member,
-            'aksi' => $aksi,
-        ];
-        d($data);
-        redirect()->to('cekmember')->withInput();
-        return view('member/cekmember',$data);
+        
+        if($aksi == "btncekmbr") {
+          $member = $dbProd->query(
+            "select 
+            cus_kodemember as kode,
+            cus_namamember as nama_member,
+            cus_alamatmember1 as alamat,
+            cus_tlpmember || ' / ' || cus_hpmember as no_hp,
+            case
+              when cus_kodeoutlet = '2' then 'MEMBER MERAH'
+              when cus_kodeoutlet = '5' then 'MEMBER MERAH'
+            else 'MEMBER BIRU' end jns_mbr,
+            case 
+              when cus_recordid is null then 'AKTIF'
+            else 'NON-AKTIF' end status
+            from tbmaster_customer
+            where $filtercari       
+            order by kode, nama_member asc"
+          );
+          $member = $member->getResultArray();
+        };       
+
+      $data = [
+          'title' => 'Cek Data Member',
+          'member' => $member,
+      ];
+        
+      // redirect()->to('member/cekmember')->withInput();
+      return view('member/cekmember',$data);
     }
 
     public function transaksimember() {
@@ -336,9 +245,9 @@ class Member extends BaseController
         return view('member/pengeluaranhadiah',$data);
     }
 
-    public function salesmember()
-    {
+    public function salesmember() {
       $dbProd = db_connect('production');
+
       $daftarOutlet = $dbProd->query(
         "SELECT out_kodeoutlet, out_namaoutlet, sub_kodesuboutlet, sub_namasuboutlet 
         from tbmaster_outlet
@@ -363,8 +272,7 @@ class Member extends BaseController
       return view('member/salesmember', $data);
     }
 
-    public function tampilsalesmember()
-    {
+    public function tampilsalesmember() {
       $dbProd = db_connect('production');
       $tglSekarang = date('d-m-Y-H:i:s');
       $tglAwal = $this->request->getVar('tglawal');
@@ -380,7 +288,7 @@ class Member extends BaseController
       $supplier = strtoupper($this->request->getVar('supplier'));
       $plu = $this->request->getVar('plu');
 
-      $tipeoutlet = $permember = $produk = $bulan = $struk = [];
+      $tipeoutlet = $permember = $produk = $bulan = $struk = $filename = [];
       $filtertran = $filtermember = $filterkodemember = $filteroutlet = $filterSegmen = $filterproduk = $filterdep = $filterplu = $filtersup = "";
 
       // Set Filter Data
@@ -912,7 +820,10 @@ class Member extends BaseController
       if($this->request->getVar('btn')=="tampil"){
         return view('member/tampilsalesmember', $data);
       }elseif($this->request->getVar('btn')=="xls"){
-        return view('member/tampilexcelsalesmember', $data);
+        $filename = "Sales Member.xls";
+        header("Content-Disposition: attachment; filename=\"$filename\"");
+        header("Content-Type: application/vnd.ms-excel");
+        return view('member/tampilsalesmember', $data);
       }
     }
 

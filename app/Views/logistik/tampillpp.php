@@ -1,3 +1,4 @@
+<?php $ip = "http://".$_SERVER['SERVER_NAME']."/reportmenu/"; ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -5,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Data LPP Saat Ini</title>
 
-        <link rel="stylesheet" href="<?= base_url('bootstrap/dist/css/bootstrap.min.css'); ?>">
+        <link rel="stylesheet" href="<?= $ip; ?>public/bootstrap/dist/css/bootstrap.min.css">
         <style>
             .container {border:3px solid #666;padding:10px;margin:0 auto;width:500px}
             input {margin:5px;}
@@ -14,15 +15,27 @@
                 border-collapse: collapse;
                 margin:0 0 10px;
                 width:auto;
-                font-size:12px;
             }
             th{
-            background:#66CCFF;
-            padding:5px;
-            font-weight:400;
+                background:#66CCFF;
+                padding:5px;
+                font-weight:400;
+                font-size:12px;
             }
             td{
-            padding:2px 5px;
+                padding:2px 5px;
+                font-size:12px;
+                overflow: auto;
+                text-overflow: clip;
+            }
+            h1, h2, h3, h4, h5, h6{
+                font-weight: bold;
+            }
+            h3, h4 {
+                font-size: 18px;
+            }
+            h5, h6 {
+                font-size: 14px;
             }
         </style>
     </head>

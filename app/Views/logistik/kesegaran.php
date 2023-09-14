@@ -3,16 +3,16 @@
 
 <div class="container-fluid mt-3">
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-3" style="width: 300px;">
             <div class="card mb-3">
-                <div class="card-header bg-primary">
-                    <h6 class="text-center text-light fw-bold">Cek Data Kesegaran Produk</h6>
+                <div class="card-header" style="background-color: #0040ff;">
+                    <h4 class="text-start text-light fw-bold fs-5">Kesegaran Produk</h4>
                 </div>
                 <div class="card-body">
                     <form action="kesegaran" method="post">
                         <label for="plu" class="text-center fw-bold">Input PLU</label>
                         <input type="text" name="plu" id="plu" class="w-100 m-1 text-center">
-                        <button type="submit" class="btn btn-primary w-100 m-1"><i class="fa-solid fa-magnifying-glass"></i>View</button>
+                        <button type="submit" class="btn w-100 m-1 text-light" style=" background-color: #6528F7;"><i class="fa-solid fa-magnifying-glass"></i>Tampil</button>
                     </form>
                 </div>
             </div>
@@ -26,12 +26,12 @@
                         <input type="text" name="desk1" id="desk1" class="d-block w-100 m-1">
                         <label for="desk2">Deskripsi2</label>
                         <input type="text" name="desk2" id="desk2" class="d-block w-100 m-1">
-                        <button type="submit" class="btn btn-outline-success w-100 m-1"><i class="fa-solid fa-magnifying-glass"></i> Cari</button>
+                        <button type="submit" class="btn btn-success w-100 m-1"><i class="fa-solid fa-magnifying-glass"></i> Cari</button>
                     </form>
                 </div>
             </div>
         </div>
-        <div class="col-md 10">
+        <div class="col-md 9">
             <?php if(!empty($kesegaran)): ?>
                 <div class="card">
                     <div class="card-header bg-success-subtle">

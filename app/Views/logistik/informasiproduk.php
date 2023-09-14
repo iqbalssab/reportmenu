@@ -7,45 +7,45 @@ echo $this->section('content'); ?>
 <div class="container-fluid mt-3 overflow-auto">
     <div class="row justify-content-center">
         <div class="col-ms-auto">
-            <div class="card w-60 mb-3 mx-auto" style="width: 1250px;">
+            <div class="card w-60 mb-3 mx-auto" style="width: 960px;">
                 <div class="card-header text-light" style="background-color: #0040ff;">
-                    <h5 class="text-start fw-bold">Informasi Produk</h5>
+                    <h4 class="text-start fw-bold fs-5">Informasi Produk</h4>
                 </div>
                 <div class="card-body">
-                    <form method="get" action="/logistik/tampilinfoproduk" target="_blank" role="form" class="form-inline">
+                    <form method="get" action="tampilinfoproduk" target="_blank" role="form" class="form-inline">
                         <fieldset>
                             <div class="row">
                                 <!-- Kolom 1 -->
-                                <div class="col-sm-3 mx-auto">
+                                <div class="col-sm-3 ms-1">
                                     <div class="card mb-1 ms-1" style="width: 280px;">
-                                        <div class="card-header fw-bold">Status</div>
+                                        <div class="card-header fw-bold" style="font-size: 16px;">Status</div>
                                         <div class="card-body">
                                             <div class="form-group">
-                                                <label class="fw-bold">Satuan Jual</label>
+                                                <label class="fw-bold" style="font-size: 14px;">Satuan Jual</label>
                                                 <select class="form-select form-select-sm mb-3 mx-auto" name="satuanJual" id="satuanJual" style="font-size: 14px; width: 240px;">
                                                     <option value="All">All</option>
                                                     <option value="0">Satuan Jual 0</option>
                                                 </select>
-                                                <label class="fw-bold">Status Tag</label>
+                                                <label class="fw-bold" style="font-size: 14px;">Status Tag</label>
                                                 <select class="form-select form-select-sm mx-auto" name="statusTag" id="statusTag" style="font-size: 14px; width: 240px;">
                                                     <option value="All">All</option>
                                                     <option value="Active">Tag Aktif</option>
                                                     <option value="Discontinue">Tag Discontinue</option>
                                                 </select>
-                                                <p style="font-size: 12px; color: red;"><em>Discontinue: ARNHOTX</em></p>
+                                                <p style="font-size: 14px; color: red;"><em>Discontinue: ARNHOTX</em></p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card mb-1 ms-1" style="width: 280px;">
-                                        <div class="card-header fw-bold">Pilihan</div>
+                                        <div class="card-header fw-bold" style="font-size: 16px;">Pilihan</div>
                                         <div class="card-body">
                                             <div class="form-group">
                                                 <div class="checkbox">
-                                                    <label><input type="checkbox" name="itemOMI"> Item OMI saja</label><br>
-                                                    <label><input type="checkbox" name="discount2"> Ada Discount 2</label><br>
-                                                    <label><input type="checkbox" name="poOutstanding"> Ada PO Outstansding</label><br>
+                                                    <label style="font-size: 14px;"><input type="checkbox" name="itemOMI"> Item OMI saja</label><br>
+                                                    <label style="font-size: 14px;"><input type="checkbox" name="discount2"> Ada Discount 2</label><br>
+                                                    <label style="font-size: 14px;"><input type="checkbox" name="poOutstanding"> Ada PO Outstansding</label><br>
                                                 </div>
-                                                <label><input type="checkbox" name="promoMD"> Ada Promo MD :</label><br>
+                                                <label><input type="checkbox" name="promoMD" style="font-size: 14px;"> Ada Promo MD :</label><br>
                                                 <select class="form-select form-select-sm mx-auto" name="tanggalPromosi" id="tanggalPromosi" style="font-size: 14px; width: 240px;">
                                                     <option value="All">All</option>
                                                         <?php foreach($promoMD as $md) : ?>
@@ -58,18 +58,18 @@ echo $this->section('content'); ?>
                                     </div>
                                 </div>
                                 <!-- Kolom 2 -->
-                                <div class="col-sm-3 mx-auto">
+                                <div class="col-sm-3" style="margin-left: 80px;">
                                     <div class="card mb-3 ms-1" style="width: 280px;">
-                                        <div class="card-header fw-bold">Divisi</div>
+                                        <div class="card-header fw-bold" style="font-size: 16px;">Divisi</div>
                                         <div class="card-body">
-                                            <label class="fw-bold">Divisi</label>
+                                            <label class="fw-bold" style="font-size: 14px;">Divisi</label>
                                             <select class="form-select form-select-sm mb-3 mx-auto" name="divisi" id="divisi" style="font-size: 14px; width: 240px;">
                                                 <option value="All">All Divisi</option>
                                                 <?php foreach($divisi as $dv) : ?>
                                                     <option value="<?= $dv['DIV_KODEDIVISI']; ?>"><?= $dv['DIV_KODEDIVISI']; ?> <?= $dv['DIV_NAMADIVISI'];?></option>
                                                 <?php endforeach ?>
                                             </select>
-                                            <label class="fw-bold">Departemen</label>
+                                            <label class="fw-bold" style="font-size: 14px;">Departemen</label>
                                             <select class="form-select form-select-sm mb-3 mx-auto" name="dep" id="dep" style="font-size: 14px; width: 240px;">
                                                 <option value="All">All Departemen</option>
                                                 <?php $namaDivisi = "0. Tidak diketahui"; ?>
@@ -86,7 +86,7 @@ echo $this->section('content'); ?>
                                                 <?php endforeach ?>
                                                 </optgroup>
                                             </select>
-                                            <label class="fw-bold">Kategori</label>
+                                            <label class="fw-bold" style="font-size: 14px;">Kategori</label>
                                             <select class="form-select form-select-sm mb-3 mx-auto" name="kat" id="kat" style="font-size: 14px; width: 240px;">
                                                 <option value="All">All Kategori</option>
                                                 <?php $namaDepartemen = "0. Tidak diketahui"; ?>
@@ -107,17 +107,17 @@ echo $this->section('content'); ?>
                                     </div>
                                 </div>
                                 <!-- Kolom 3 -->
-                                <div class="col-sm-3 mx-auto">
-                                    <div class="card mb-3 ms-1" style="width: 280px;">
-                                        <div class="card-header fw-bold">Masalah</div>
+                                <div class="col-sm-3" style="margin-left: 80px;">
+                                    <div class="card mb-1 ms-1" style="width: 280px;">
+                                        <div class="card-header fw-bold" style="font-size: 16px;">Masalah</div>
                                         <div class="card-body">
                                             <div class="checkbox">
-                                                <label><input type="checkbox" name="hargaJualNol"> Harga Jual Belum Ada </label><br>
-                                                <label><input type="checkbox" name="promoMahal"> Harga Promo Lebih Mahal</label><br>
-                                                <label><input type="checkbox" name="stockKosong"> Stok Minus</label><br>
-                                                <label><input type="checkbox" name="lokasiTidakAda"> Master Lokasi Belum Ada</label><br>
+                                                <label style="font-size: 14px;"><input type="checkbox" name="hargaJualNol"> Harga Jual Belum Ada </label><br>
+                                                <label style="font-size: 14px;"><input type="checkbox" name="promoMahal"> Harga Promo Lebih Mahal</label><br>
+                                                <label style="font-size: 14px;"><input type="checkbox" name="stockKosong"> Stok Minus</label><br>
+                                                <label style="font-size: 14px;"><input type="checkbox" name="lokasiTidakAda"> Master Lokasi Belum Ada</label><br>
                                             </div>
-                                            <label><input type="checkbox" name="marginNegatif"> Margin Negatif :</label>
+                                            <label><input type="checkbox" name="marginNegatif" style="font-size: 14px;"> Margin Negatif :</label>
                                             <select class="form-select form-select-sm mb-3 mx-auto" name="jenisMarginNegatif" id="jenisMarginNegatif" style="font-size: 14px; width: 240px;">
                                                 <option value="All">All Kategori</option>
                                                 <option value="1">by Average Cost</option>
@@ -126,11 +126,8 @@ echo $this->section('content'); ?>
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- Kolom 3 -->
-                                <div class="col-sm-3 mx-auto">
                                     <div class="card mb-3 ms-1" style="width: 280px;">
-                                        <div class="card-header fw-bold">Jenis Laporan</div>
+                                        <div class="card-header fw-bold" style="font-size: 16px;">Jenis Laporan</div>
                                         <div class="card-body">
                                             <select class="form-select form-select-sm mb-3 mx-auto" name="jenisLaporan" id="jenisLaporan" style="font-size: 14px; width: 240px;">
                                                 <option value="1A">Laporan per Produk</option>
@@ -143,8 +140,8 @@ echo $this->section('content'); ?>
                             </div>
                             <hr>
                             <div class="row justify-content-end mt-3">
-                                <button type="submit" name="tombol" value="btnview" class="text-light btn d-block fw-bold" style=" background-color: #6528F7; width: 150px;">Tampil</button>
-                                <button type="submit" name="tombol" value="btnxls" class="text-light btn ms-2 me-3 d-block fw-bold" style="background-color: #00b300; width: 150px;">Download</button>
+                                <button type="submit" name="tombol" value="btnview" class="text-light btn d-block fw-bold" style=" background-color: #6528F7; width: 200px;">Tampil</button>
+                                <button type="submit" name="tombol" value="btnxls" class="text-light btn ms-2 me-3 d-block fw-bold" style="background-color: #00b300; width: 200px;">Download</button>
                             </div>
                         </fieldset>
                     </form>

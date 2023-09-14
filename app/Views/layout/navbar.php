@@ -63,19 +63,21 @@
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/tampillppblnlalu">LPP Bulan Sebelumnya</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/lppvsplanodetail">LPP vs Plano Detail</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/lppvsplanorekap">LPP vs Plano Rekap</a></li>
-            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/planominus">Plano Minus</a></li>
-            <hr>
-            <li><a class="" style="font-size: 14px; color:gray">Monitoring</a></li>
-            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/formsoharian">SO Harian</a></li>
-            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/stockharian">Stock Harian</a></li>
-            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/livecks">Live CKS</a></li>
-            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/produkbaru">Produk Baru</a></li>
-            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/ubahstatus">Perubahan Status</a></li>
-            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/itemseasonal">Item Seasonal</a></li>
             <hr>
             <li><a class="" style="font-size: 14px; color:gray">Transaksi</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/backoffice">Laporan Back Office</a></li>
+            <hr>
+            <li><a class="" style="font-size: 14px; color:gray">Monitoring</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/formsoharian">SO Harian</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/soic">SO IC</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/stockharian">Stock Harian</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/livecks">Live CKS</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/planominus">Plano Minus</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/produkbaru">Produk Baru</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/ubahstatus">Perubahan Status</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/itemseasonal">Item Seasonal</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/pertemanan">Monitoring Pertemanan</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/kesegaran">Cek Kesegaran Produk</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">

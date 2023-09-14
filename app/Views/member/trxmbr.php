@@ -14,19 +14,19 @@ echo $this->section('content'); ?>
         <div class="col-md-3">
             <div class="card w-100 mb-3">
                 <div class="card-header text-light" style="background-color: #0040ff;">
-                    <h6 class="text-center fw-bold">Transaksi Member</h6>
+                    <h3 class="text-center fw-bold">Transaksi Member</h3>
                     <h6 class="text-warning text-center">** Menggunakan Data H-1 **</h6>
                 </div>
                 <div class="card-body">
                     <form method="get" action="transaksimember">
                         <?= csrf_field(); ?>
-                        <label class="fw-bold" for="kd" style="font-size: 15px;">KODE MEMBER  : </label>
-                        <input type="text" name="kode" id="kode" class="w-100 mb-3 form-control input-sm" value="<?= old('kode'); ?>" style="font-size: 15px;" require autofocus>
-                        <label class="fw-bold mb-1" for="prd" style="font-size: 15px;">PERIODE TRANSAKSI  : </label><br>
-                        <label class="" for="awal" style="font-size: 15px;">Tanggal Awal</label>
-                        <input type="date" name="awal" id="awal" class="w-100 mb-3 form-control" value="<?= old('awal'); ?>" style="font-size: 15px;">
-                        <label class="" for="akhir" style="font-size: 15px;">Tanggal Akhir</label>
-                        <input type="date" name="akhir" id="akhir" class="w-100 mb-3 form-control" value="<?= old('akhir'); ?>" style="font-size: 15px;">
+                        <label class="fw-bold" for="kd" style="font-size: 18px;">KODE MEMBER  : </label>
+                        <input type="text" name="kode" id="kode" class="w-100 mb-3 form-control input-sm" value="<?= old('kode'); ?>" style="font-size: 18px;" require autofocus>
+                        <label class="fw-bold mb-1" for="prd" style="font-size: 18px;">PERIODE TRANSAKSI  : </label><br>
+                        <label class="" for="awal" style="font-size: 18px;">Tanggal Awal</label>
+                        <input type="date" name="awal" id="awal" class="w-100 mb-3 form-control" value="<?= old('awal'); ?>" style="font-size: 18px;">
+                        <label class="" for="akhir" style="font-size: 18px;">Tanggal Akhir</label>
+                        <input type="date" name="akhir" id="akhir" class="w-100 mb-3 form-control" value="<?= old('akhir'); ?>" style="font-size: 18px;">
                         <button type="submit" name="tombol" value="btntrxmbr" class="text-light btn w-30 mb-2 d-block fw-bold" style=" background-color: #6528F7;">Tampil</button>
                     </form>
                 </div>
@@ -36,11 +36,11 @@ echo $this->section('content'); ?>
             <?php if(!empty($trx)) {?>
                 <div class="card w-100 mb-3">
                     <div class="card-header bg-info text-dark">
-                        <h6 class="fw-bold">Hasil Pencarian Member : <?= $kode; ?>  |  Periode : <?= date('d M Y',strtotime($awal)); ?> s/d <?= date('d M Y',strtotime($akhir)); ?> </h6>
+                        <h5 class="fw-bold">Hasil Pencarian Member : <?= $kode; ?>  |  Periode : <?= date('d M Y',strtotime($awal)); ?> s/d <?= date('d M Y',strtotime($akhir)); ?> </h5>
                     </div>
                     <form action="/member/cekmember/tampildatatransaksi" method="get" target="_blank">
                         <div class="card-body">
-                            <table class="table mb-3" style="font-size: 14px;">
+                            <table class="table mb-3" style="font-size: 18px;">
                                 <thead>
                                     <tr>
                                         <th class="text-center">NO.</th>

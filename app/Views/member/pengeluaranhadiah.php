@@ -4,23 +4,23 @@ echo $this->extend('layout/template'); ?>
 <?php
 echo $this->section('content'); ?>
 
-<div class="container-fluid mt-2">
+<div class="container-fluid mt-3">
     <div class="row">
         <div class="col-md-2">
             <div class="card w-100 mb-3">
                 <div class="card-header text-light" style="background-color: #0040ff;">
-                    <h6 class="text-center fw-bold">Pengeluaran Hadiah</h6>
+                    <h5 class="text-center fw-bold">Pengeluaran Hadiah</h5>
                 </div>
                 <div class="card-body">
                     <form method="get" action="pengeluaranhadiah">
                         <?= csrf_field(); ?>
-                        <label class="fw-bold mb-2" for="prd">PERIODE :</label><br>
-                        <label class="mb-2" for="start">Tanggal Awal</label>
-                        <input type="date" name="awal" id="awal" class="w-100 mb-3 form-control" value="<?= old('awal'); ?>">
-                        <label class="mb-2" for="stop">Tanggal Akhir</label>
-                        <input type="date" name="akhir" id="akhir" class="w-100 mb-3 form-control" value="<?= old('akhir'); ?>">
-                        <button type="submit" name="tombol" value="btngift1" class="btn w-100 mb-2 d-block text-light fw-bold" style="background-color: #6528F7;">Detail</button>
-                        <button type="submit" name="tombol" value="btngift2" class="btn w-100 mb-2 d-block text-light fw-bold" style="background-color: #6C3428;">Rekap</button>
+                        <label class="fw-bold mb-2" for="prd" style="font-size: 18px;">PERIODE :</label><br>
+                        <label class="mb-2" for="start" style="font-size: 16px;">Tanggal Awal</label>
+                        <input type="date" name="awal" id="awal" class="w-100 mb-3 form-control" value="<?= old('awal'); ?>" style="font-size: 16px;">
+                        <label class="mb-2" for="stop" style="font-size: 16px;">Tanggal Akhir</label>
+                        <input type="date" name="akhir" id="akhir" class="w-100 mb-3 form-control" value="<?= old('akhir'); ?>" style="font-size: 16px;">
+                        <button type="submit" name="tombol" value="btngift1" class="btn w-100 mb-2 d-block text-light fw-bold" style="background-color: #6528F7; font-size: 16px;">Detail</button>
+                        <button type="submit" name="tombol" value="btngift2" class="btn w-100 mb-2 d-block text-light fw-bold" style="background-color: #6C3428; font-size: 16px;">Rekap</button>
                     </form>
                 </div>
             </div>
@@ -29,10 +29,10 @@ echo $this->section('content'); ?>
             <?php if(!empty($detail)) {?>
                 <div class="card w-100 mb-3">
                     <div class="card-header text-dark" style="background-color: #00E6E6;">
-                        <h6 class="fw-bold">Periode Data pengeluaran Hadiah : <?= date('d M Y',strtotime($awal)); ?> s/d <?= date('d M Y',strtotime($akhir)); ?></h6>
+                        <h5 class="fw-bold">Periode Data pengeluaran Hadiah : <?= date('d M Y',strtotime($awal)); ?> s/d <?= date('d M Y',strtotime($akhir)); ?></h5>
                     </div>
                     <div class="card-body">
-                        <table class="table mb-3" style="font-size: 14px;">
+                        <table class="table mb-3" style="font-size: 18px;">
                             <thead>
                                 <tr>
                                     <th class="text-center">NO</th>
@@ -66,10 +66,10 @@ echo $this->section('content'); ?>
             <?php } else if(!empty($rekap)) {?>
                 <div class="card w-100 mb-3">
                     <div class="card-header text-dark" style="background-color: #00E6E6;">
-                        <h6 class="fw-bold">Periode Data pengeluaran Hadiah : <?= date('d-M-Y',strtotime($awal)); ?> s/d <?= date('d-M-Y',strtotime($akhir)); ?></h6>
+                        <h5 class="fw-bold">Periode Data pengeluaran Hadiah : <?= date('d-M-Y',strtotime($awal)); ?> s/d <?= date('d-M-Y',strtotime($akhir)); ?></h5>
                     </div>
                     <div class="card-body">
-                        <table class="table mb-3" style="font-size: 14px;">
+                        <table class="table mb-3" style="font-size: 18px;">
                             <thead>
                                 <tr>
                                     <th class="text-center">NO</th>

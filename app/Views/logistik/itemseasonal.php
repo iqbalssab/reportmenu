@@ -8,8 +8,8 @@ echo $this->section('content'); ?>
     <div class="row justify-content-center">
         <div class="col-md-6 mb-3">
             <div class="card w-40 mb-2 mx-auto">
-                <div class="card-header text-center " style="background-color: #0040ff;">
-                    <h6 class="text-light fw-bold">MONITORING ITEM SEASONAL</h6>
+                <div class="card-header" style="background-color: #0040ff;">
+                    <h4 class="text-light fw-bold text-start fs-6">MONITORING ITEM SEASONAL</h4>
                 </div>
                 <div class="card-body text-center">
                     <form method="get" action="tampilitemseasonal" target="_blank" role="form" class="form-inline">

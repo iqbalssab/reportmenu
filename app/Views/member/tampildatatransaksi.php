@@ -15,7 +15,7 @@
                 <?php endforeach ?>
             </div>
         </div>
-        <table class="table table-bordered table-hover table-sm border-dark table-responsive" style="font-size: 15px; width: 1000px;">
+        <table class="table table-bordered table-hover table-sm border-dark table-responsive" style="font-size: 18px; width: 1000px;">
             <thead class="table-success border-dark">
                 <tr>
                     <th class="text-center">PLU</th>

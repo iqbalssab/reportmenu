@@ -9,7 +9,7 @@ echo $this->section('content'); ?>
         <div class="col-md-6">
             <div class="card mb-3 mx-auto" style="width: 550px;">
                 <div class="card-header text-light" style="background-color: #0040ff;">
-                    <h6 class="text-start fw-bold">LPP vs PLano Detail</h6>
+                    <h6 class="text-start fw-bold fs-5">LPP vs PLano Detail</h6>
                 </div>
                 <div class="card-body">
                     <form method="get" action="tampildatalppplanodetail" target="_blank">

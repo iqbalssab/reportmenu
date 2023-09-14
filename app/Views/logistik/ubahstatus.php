@@ -8,8 +8,8 @@ echo $this->section('content'); ?>
     <div class="row justify-content-center">
         <div class="col-md-5">
             <div class="card w-40 mb-3 mx-auto">
-                <div class="card-header text-center " style="background-color: #0040ff;">
-                    <h6 class="text-light fw-bold">MONITORING DATA PERUBAHAN STATUS</h6>
+                <div class="card-header" style="background-color: #0040ff;">
+                    <h4 class="text-light fw-bold fs-6 text-start">MONITORING DATA PERUBAHAN STATUS</h4>
                 </div>
                 <div class="card-body">
                     <form method="post" action="tampilubahstatus" target="_blank" role="form" class="form-inline">

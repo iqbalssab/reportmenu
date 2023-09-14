@@ -9,10 +9,10 @@ echo $this->section('content'); ?>
         <div class="col-md-6">
             <div class="card w-50 mb-3 mx-auto">
                 <div class="card-header text-light" style="background-color: #0040ff;">
-                    <h6 class="text-center fw-bold">Monitoring Checker :</h6>
+                    <h4 class="text-start fw-bold fs-5">Monitoring Checker</h4>
                 </div>
                 <div class="card-body">
-                    <form method="get" action="tampildatachecker">
+                    <form method="get" action="tampildatachecker" target="_blank">
                         <?= csrf_field(); ?>
                         <label class="mb-2 fw-bold text-start" for="prd">TANGGAL :</label><br>
                         <input type="date" name="tgl" id="tgl" class="w-100 mb-4 form-control"  value="<?= old('tgl'); ?>">

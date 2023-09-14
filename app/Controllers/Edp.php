@@ -160,9 +160,9 @@ class Edp extends BaseController
         ];
   
         if($aksi == "btnmc") {
-        //   $filename = "Monitoring Checker $tanggal.xls";
-        //   header("Content-Disposition: attachment; filename=\"$filename\"");
-        //   header("Content-Type: application/vnd.ms-excel");
+          $filename = "Monitoring Checker ".date('d M Y',strtotime($tanggal)).".xls";
+          header("Content-Disposition: attachment; filename=\"$filename\"");
+          header("Content-Type: application/vnd.ms-excel");
             
           return view('edp/tampildatachecker',$data);
         };

@@ -1,12 +1,12 @@
 <?= $this->extend('layout/template'); ?>
 <?= $this->section('content'); ?>
 
-<div class="container mt-3">
+<div class="container-fluid mt-3 overflow-auto">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="card">
                 <div class="card-header bg-primary">
-                    <h6 class="fw-bold text-light text-center">Plano Minus</h6>
+                    <h4 class="fw-bold text-light text-start fs-5">Plano Minus</h4>
                 </div>
                 <div class="card-body">
                     <form action="planominus" method="get">
@@ -27,13 +27,13 @@
             </div>
         </div>
         <div class="col-md-9">
-            <div class="card">
-                <div class="card-header bg-primary-subtle">
-                    <p class="">Plano Minus Berdasarkan Lokasi</p> 
+            <div class="card" style="width: 1050px;">
+                <div class="card-header bg-primary-subtle" style=" width: 1040px;">
+                    <p class="fw-bold fs-5">Plano Minus Berdasarkan Lokasi</p> 
                 </div>
                 <div class="card-body">
                     <?php if(!empty($planominus)): ?>
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped table-responsive mx-auto" style="font-size: 14px; width: 1010px;">
                             <thead>
                                 <tr>
                                     <th class="fw-bold text-light bg-primary">No</th>

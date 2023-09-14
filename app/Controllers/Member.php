@@ -820,10 +820,10 @@ class Member extends BaseController
       if($this->request->getVar('btn')=="tampil"){
         return view('member/tampilsalesmember', $data);
       }elseif($this->request->getVar('btn')=="xls"){
-        $filename = "Sales Member.xls";
+        $filename = "Sales Member".$tglSekarang.".xls";
         header("Content-Disposition: attachment; filename=\"$filename\"");
         header("Content-Type: application/vnd.ms-excel");
-        return view('member/tampilsalesmember', $data);
+        return view('member/tampilexcelsalesmember', $data);
       }
     }
 

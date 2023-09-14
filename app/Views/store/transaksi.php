@@ -2,9 +2,9 @@
 <?php $this->section('content'); ?>
 
 <div class="container-fluid mt-3">
-    <table class="table table-responsive table-hover table-bordered">
+    <table class="table table-responsive table-hover table-bordered border-dark">
         <thead>
-            <tr class="border border-black">
+            <tr class="border border-dark">
                 <th class="bg-success-subtle">Tanggal</th>
                 <th class="bg-success-subtle">No Struk</th>
                 <th class="bg-success-subtle">PLU</th>
@@ -15,7 +15,7 @@
                 <th class="bg-success-subtle">NominalAmt</th>
                 <th class="bg-success-subtle">BasePrice</th>
                 <th class="bg-success-subtle">S/R</th>
-                <th class="bg-success-subtle">KD Member</th>
+                <th class="bg-success-subtle">KD_Member</th>
                 <th class="bg-success-subtle">Nama Member</th>
                 <th class="bg-success-subtle">MM</th>
                 <th class="bg-success-subtle">Outlet</th>

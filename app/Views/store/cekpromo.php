@@ -96,6 +96,33 @@
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
+                        <div class="mb-1">
+                            <span class="badge rounded-3 text-bg-success">Setting Alokasi<i class="fa-solid fa-arrow-right ms-1"></i></span>
+                            <?php if(!empty($alokasimd)): ?>
+                            <?php foreach($alokasimd as $amd): ?>
+                            <span class="text-bg-warning badge rounded-pill"><?= $amd['ALK_MEMBER']." : ".$amd['ALK_QTYALOKASI']; ?></span>
+                            <?php endforeach; ?>
+                            <?php else: ?>
+                            <span class="text-bg-danger badge rounded-pill">Tidak Ada Alokasi yg Disetting</span>    
+                            <?php endif; ?>
+                        </div>
+                        <div>
+                            <span class="badge rounded-3 text-bg-primary">MAX Transaksi<i class="fa-solid fa-arrow-right ms-1"></i></span>
+                            <?php if(!empty($maxtrans)): ?>
+                                <?php foreach($maxtrans as $mt): ?>
+                                    <span class="badge rounded-pill text-bg-warning me-1">REGBIRU : <?= $mt['MTR_QTYREGULERBIRU']; ?></span>
+                                    <span class="badge rounded-pill text-bg-warning me-1">REGBIRU+ :<?= $mt['MTR_QTYREGULERBIRUPLUS']; ?></span>
+                                    <span class="badge rounded-pill text-bg-warning me-1">RETMERAH : <?= $mt['MTR_QTYRETAILERMERAH']; ?></span>
+                                    <span class="badge rounded-pill text-bg-warning me-1">SILVER : <?= $mt['MTR_QTYSILVER']; ?></span>
+                                    <span class="badge rounded-pill text-bg-warning me-1">GOLD1 : <?= $mt['MTR_QTYGOLD1']; ?></span>
+                                    <span class="badge rounded-pill text-bg-warning me-1">GOLD2 : <?= $mt['MTR_QTYGOLD2']; ?></span>
+                                    <span class="badge rounded-pill text-bg-warning me-1">GOLD3 : <?= $mt['MTR_QTYGOLD3']; ?></span>
+                                    <span class="badge rounded-pill text-bg-warning me-1">PLATINUM : <?= $mt['MTR_QTYPLATINUM']; ?></span>
+                            <?php endforeach; ?>
+                            <?php else: ?>
+                                <span class="text-bg-danger badge rounded-pill">Tidak Ada Maksimal Transaksi</span>
+                            <?php endif; ?>
+                        </div>
                     </div>
                 </div>
             <?php } ?>

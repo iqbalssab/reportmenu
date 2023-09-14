@@ -25,6 +25,7 @@
             <li><a class="dropdown-item" href="<?= $ip; ?>/store/transaksimitra">Data Transaksi Mitra</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/store/transaksiklik">Data Transaksi Klik</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/store/monitoringklik">Monitoring Transaksi Klik</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/store/slklik">Service Level KLIK</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/store/transaksiproduk">History Transaksi Produk</a></li>
             <hr>
             <li><a class="" style="font-size: 14px; color:gray">Promo</a></li>

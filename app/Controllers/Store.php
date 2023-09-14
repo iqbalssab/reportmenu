@@ -107,7 +107,7 @@ class Store extends BaseController
         $aksi = $this->request->getVar('tombol');
         $pluplusnol = ""; // Inisialisasi $pluplusnol
         $promomd = []; 
-        $promocb = $hargamb = $hargamm = $hargaplt = $promogift = $promonk = $promohjk = $cariProduk = [];  
+        $promocb = $hargamb = $hargamm = $hargaplt = $promogift = $promonk = $promohjk = $cariProduk = $alokasimd = $maxtrans = [];  
     
         if (isset($isiplu)) {
             if (is_numeric($isiplu)) {
@@ -168,8 +168,21 @@ class Store extends BaseController
                 left join tbmaster_prodcrm on prc_pluigr=prd_prdcd
                 left join tbmaster_plunonpromo on non_prdcd=prd_prdcd
                 where prd_prdcd like '$pluCari%' order by prd_prdcd"); 
+
+                $alokasimd = $dbProd->query(
+                  "SELECT alk_prdcd,alk_member,alk_qtyalokasi from tbtr_promomd_alokasi 
+                  left join tbtr_promomd on prmd_prdcd=alk_prdcd
+                  where alk_prdcd='$pluCari' and trunc(prmd_tglakhir)>=trunc(sysdate) order by alk_member"
+                );
+
+                $maxtrans = $dbProd->query(
+                  "SELECT * from tbtabel_maxtransaksi where mtr_prdcd='$pluCari' "
+                );
                 
                 $promomd = $promomd->getResultArray();                
+                $alokasimd = $alokasimd->getResultArray();                
+                $maxtrans = $maxtrans->getResultArray();  
+
                 }elseif($aksi == "btnpromocb" && strlen($isiplu) < 8){
                 $promocb = $dbProd->query(
                     "SELECT cbd_prdcd as PLU,
@@ -492,6 +505,8 @@ class Store extends BaseController
         $data = [
             'title' => 'Cek Promo',
             'promomd' => $promomd,
+            'alokasimd' => $alokasimd,
+            'maxtrans' => $maxtrans,
             'promocb' => $promocb,
             'hargamb' => $hargamb,
             'hargamm' => $hargamm,
@@ -502,7 +517,6 @@ class Store extends BaseController
             'cariproduk' => $cariProduk,
             'desk1' => $isidesk1,
             'desk2' => $isidesk2,
-          
         ];
         redirect()->to('/store/cekpromo')->withInput();
         return view('store/cekpromo', $data);
@@ -2641,6 +2655,337 @@ class Store extends BaseController
 
       redirect()->to('monitoringklik')->withInput();
       return view('store/monitoringklik',$data);
+    }
+
+    public function slklik()
+    {
+
+      $data = [
+        'title' => 'Service Level KLIK'
+      ];
+
+      return view('store/slklik', $data);
+    }
+
+    public function tampilslklik()
+    {
+      $dbProd = db_connect('production');
+
+      $tglawal = $this->request->getVar('tglawal');
+      $tglakhir = $this->request->getVar('tglakhir');
+      $jenis = $this->request->getVar('jenis');
+      $kodemember = $this->request->getVar('kdmember');
+      $btn = $this->request->getVar('btn');
+
+      //set filter data
+      if($kodemember=="") {
+        $filterkodemember       = "";
+        $judul_filterkodemember = "ALL";
+      }else{
+        $filterkodemember       = " and cus_kodemember='$kodemember' ";
+        $judul_filterkodemember = "KODE MEMBER : $kodemember";
+      }
+
+      $perpb = $perproduk = [];
+
+      if($jenis=="rekapnopb"){
+        $judul = "Rekap Order Klik - Per Nomor PB | Periode : $tglawal s/d $tglakhir";
+        $perpb = $dbProd->query(
+          "SELECT 
+          KDMEMBER,
+          NAMAMEMBER,
+          HPMEMBER,
+          JENISMEMBER,
+          NOMORPB,
+          PENGIRIMAN,
+          TIPEBAYAR,
+          STATUSPB,
+          TGLTRANS,
+          NOTRANS,
+          count(ITEM_ORDER) as ITEM_ORDER,
+          sum(QTY_ORDER) as QTY_ORDER,
+          sum(RPH_ORDER) as RPH_ORDER,
+          count(ITEM_REALISASI) as ITEM_REALISASI,
+          sum(QTY_REALISASI) as QTY_REALISASI,
+          sum(RPH_REALISASI) as RPH_REALISASI,
+          PICKER,
+          PBMASUK,
+          SELESAIPICK,
+          SELESAIPACK,
+          TGLSTRUK,
+          TGLAWB,
+          NOAWB
+        from (
+        SELECT 
+          obih.obi_kdmember as KDMEMBER,
+          cus_namamember as NAMAMEMBER,
+          cus_hpmember as HPMEMBER,
+          case 
+            when nvl(cus_flagmemberkhusus,'T') ='Y' and nvl(cus_jenismember,'0')!='T' then 'MM' 
+            when nvl(cus_flagmemberkhusus,'T') ='Y' and nvl(cus_jenismember,'0') ='T' then 'MM-TMI' 
+            when nvl(cus_flagmemberkhusus,'T') !='Y' then 'MB' 
+           end as JENISMEMBER,
+          obih.obi_attribute2 as KRITERIA,
+          obih.obi_nopb as NOMORPB,
+          obih.obi_kdekspedisi as PENGIRIMAN,
+          obih.obi_tipebayar as TIPEBAYAR,
+          case 
+            when nvl(obih.obi_recid,0)='0' then 'Siap Send HH'
+            when nvl(obih.obi_recid,0)='1' then 'Siap Picking'
+            when nvl(obih.obi_recid,0)='2' then 'Siap Packing'
+            when nvl(obih.obi_recid,0)='3' then 'Siap Draft Struk'
+            when nvl(obih.obi_recid,0)='4' then 'Konfirmasi Pembayaran'
+            when nvl(obih.obi_recid,0)='5' then 'Siap Struk'
+            when nvl(obih.obi_recid,0)='6' then 'Selesai Struk'
+            when nvl(obih.obi_recid,0)='7' then 'Set Ongkir'
+            when nvl(obih.obi_recid,0) like '%B%' then 'BATAL'
+          end as STATUSPB,
+          obih.obi_tgltrans as TGLTRANS,
+          obih.obi_notrans as NOTRANS,
+          to_char(obih.obi_createdt,'dd-MON-YYYY hh24:mi:ss') as PBMASUK,
+          to_char(obih.obi_selesaipick,'dd-MON-YYYY hh24:mi:ss') as SELESAIPICK,
+          to_char(obih.obi_selesaiscan,'dd-MON-YYYY hh24:mi:ss') as SELESAIPACK,
+          to_char(obih.obi_tglstruk,'dd-MON-YYYY hh24:mi:ss') as TGLSTRUK,
+          obid.obi_picker as PICKER,
+          obid.obi_prdcd as PLUORDER,
+          trjd_prd_deskripsipendek as DESKRIPSIPENDEK,
+          prd_frac as FRAC,
+          obi_hargasatuan as HRGSATUAN,
+          obi_ppn as PPN,
+          (obi_prdcd) as ITEM_ORDER,
+          (obi_qtyorder) as QTY_ORDER,
+          ((obi_hargasatuan-obi_diskon)*obi_qtyorder) as RPH_ORDER,
+          (obi_ppn*obi_qtyorder) as PPN_ORDER,
+          (trjd_prdcd) as ITEM_REALISASI,
+          case 
+            when prd_unit='KG' then (trjd_quantity/prd_frac) 
+            else (trjd_quantity*prd_frac) 
+          end as QTY_REALISASI,
+          case 
+            when prd_unit='KG' then (trjd_nominalamt-(round(obi_ppn)*(trjd_quantity/prd_frac))) 
+            else (trjd_nominalamt-(round(obi_ppn)*(trjd_quantity*prd_frac))) 
+          end as RPH_REALISASI,
+          case 
+            when prd_unit='KG' then (round(obi_ppn)*(trjd_quantity/prd_frac))
+            else (round(obi_ppn)*(trjd_quantity*prd_frac)) 
+          end as PPN_REALISASI,
+          AWI_NOAWB as NOAWB,
+          to_char(AWI_CREATE_DT,'dd-MON-yyyy hh24:mi:ss') as TGLAWB
+          
+        FROM igrbgr.tbtr_obi_h obih
+        LEFT JOIN igrbgr.tbtr_obi_d obid on trunc(obih.obi_tgltrans)=trunc(obid.obi_tgltrans) and obih.obi_notrans=obid.obi_notrans
+        LEFT JOIN igrbgr.tbtr_awb_ipp on awi_nopb=obih.obi_nopb
+        left join tbtr_jualdetail
+          ON trjd_cus_kodemember         =obih.obi_kdmember
+          AND trjd_cashierstation        =obih.obi_kdstation     
+          AND TRUNC(trjd_transactiondate)=TRUNC(obih.obi_tglstruk)     
+          AND trjd_transactionno         =obih.obi_nostruk     
+          AND trjd_create_by             =obih.obi_modifyby  
+          AND trjd_prdcd                 =obid.obi_prdcd
+        LEFT JOIN tbmaster_prodmast on prd_prdcd=obi_prdcd
+        LEFT JOIN tbmaster_customer on obih.obi_kdmember=cus_kodemember
+        WHERE TRUNC(obih.obi_tgltrans) between to_date('$tglawal','YYYY-MM-DD') and to_date('$tglakhir','YYYY-MM-DD')
+        $filterkodemember
+        
+        )group by KDMEMBER, NAMAMEMBER, HPMEMBER, JENISMEMBER, NOMORPB, PENGIRIMAN, TIPEBAYAR, STATUSPB, TGLTRANS, NOTRANS, PICKER, PBMASUK, SELESAIPICK, SELESAIPACK, TGLSTRUK, TGLAWB, NOAWB
+        ORDER BY TGLTRANS,NOTRANS"
+        );
+
+        $perpb = $perpb->getResultArray();
+      }elseif($jenis=="detailplu"){
+        $judul = "PB vs REALISASI KLIK PER-PLU | Periode : $tglawal s/d $tglakhir";
+        $perproduk = $dbProd->query(
+          "SELECT 
+          prd_kodedivisi as DIV,
+          prd_kodedepartement as DEP,
+          prd_kodekategoribarang as KAT,
+          prd_prdcd as PLU,
+          prd_deskripsipanjang as DESKRIPSI,
+          prd_frac as FRAC,
+          prd_unit as UNIT,
+          count(ITEM_ORDER) as JML_PB,
+          count(ITEM_REALISASI) as JML_REALISASI,
+          count(ITEM_ORDER) - count(ITEM_REALISASI) as JML_PBVSREALISASI,
+          sum(nvl(QTY_ORDER,0)) as QTY_ORDER,
+          sum(nvl(QTY_REALISASI,0)) as QTY_REALISASI,
+          sum(nvl(QTY_ORDER,0)) - sum(nvl(QTY_REALISASI,0)) as QTY_PBVSREALISASI,
+          sum(nvl(RPH_ORDER,0)) as RPH_ORDER,
+          sum(nvl(RPH_REALISASI,0)) as RPH_REALISASI,
+          sum(nvl(RPH_ORDER,0)) - sum(nvl(RPH_REALISASI,0)) as RPH_PBVSREALISASI
+        FROM tbmaster_prodmast
+        LEFT JOIN (
+        SELECT 
+          obih.obi_kdmember as KDMEMBER,
+          cus_namamember as NAMAMEMBER,
+          cus_hpmember as HPMEMBER,
+          case 
+            when nvl(cus_flagmemberkhusus,'T') ='Y' and nvl(cus_jenismember,'0')!='T' then 'MM' 
+            when nvl(cus_flagmemberkhusus,'T') ='Y' and nvl(cus_jenismember,'0') ='T' then 'MM-TMI' 
+            when nvl(cus_flagmemberkhusus,'T') !='Y' then 'MB' 
+           end as JENISMEMBER,
+          obih.obi_attribute2 as KRITERIA,
+          obih.obi_nopb as NOPB,
+          obih.obi_tgltrans as TGLTRANS,
+          obih.obi_notrans as NOTRANS,
+          to_char(obih.obi_createdt,'dd-MON-YYYY hh24:mi:ss') as PBMASUK,
+          to_char(obih.obi_selesaipick,'dd-MON-YYYY hh24:mi:ss') as SELESAIPICK,
+          to_char(obih.obi_selesaiscan,'dd-MON-YYYY hh24:mi:ss') as SELESAIPACK,
+          to_char(obih.obi_tglstruk,'dd-MON-YYYY hh24:mi:ss') as TGLSTRUK,
+          obid.obi_picker as PICKER,
+          obid.obi_prdcd as PLUORDER,
+          trjd_prd_deskripsipendek as DESKRIPSIPENDEK,
+          prd_frac as FRAC,
+          obi_hargasatuan as HRGSATUAN,
+          obi_ppn as PPN,
+          (obi_prdcd) as ITEM_ORDER,
+          (obi_qtyorder) as QTY_ORDER,
+          ((obi_hargasatuan-obi_diskon)*obi_qtyorder) as RPH_ORDER,
+          (obi_ppn*obi_qtyorder) as PPN_ORDER,
+          (trjd_prdcd) as ITEM_REALISASI,
+          case 
+            when prd_unit='KG' then (trjd_quantity/prd_frac) 
+            else (trjd_quantity*prd_frac) 
+          end as QTY_REALISASI,
+          case 
+            when prd_unit='KG' then (trjd_nominalamt-(round(obi_ppn)*(trjd_quantity/prd_frac))) 
+            else (trjd_nominalamt-(round(obi_ppn)*(trjd_quantity*prd_frac))) 
+          end as RPH_REALISASI,
+          case 
+            when prd_unit='KG' then (round(obi_ppn)*(trjd_quantity/prd_frac))
+            else (round(obi_ppn)*(trjd_quantity*prd_frac)) 
+          end as PPN_REALISASI
+          
+        FROM tbtr_obi_h obih
+        LEFT JOIN igrbgr.tbtr_obi_d obid on trunc(obih.obi_tgltrans)=trunc(obid.obi_tgltrans) and obih.obi_notrans=obid.obi_notrans
+        left join tbtr_jualdetail
+          ON trjd_cus_kodemember         =obih.obi_kdmember
+          AND trjd_cashierstation        =obih.obi_kdstation     
+          AND TRUNC(trjd_transactiondate)=TRUNC(obih.obi_tglstruk)     
+          AND trjd_transactionno         =obih.obi_nostruk     
+          AND trjd_create_by             =obih.obi_modifyby  
+          AND trjd_prdcd                 =obid.obi_prdcd
+        LEFT JOIN tbmaster_prodmast on prd_prdcd=obi_prdcd
+        LEFT JOIN tbmaster_customer on obih.obi_kdmember=cus_kodemember
+        
+        WHERE TRUNC(obih.obi_tgltrans) between to_date('$tglawal','YYYY-MM-DD') and to_date('$tglakhir','YYYY-MM-DD')
+        $filterkodemember
+        
+        ) on prd_prdcd =substr(pluorder,0,6)||'0'
+        WHERE NOPB is not null 
+        GROUP BY prd_kodedivisi, prd_kodedepartement, prd_kodekategoribarang, prd_prdcd, prd_deskripsipanjang, prd_frac, prd_unit
+        ORDER BY DESKRIPSI "
+        );
+        $perproduk = $perproduk->getResultArray();
+      }
+
+      $data = [
+        'title' => 'Data '.$this->tglsekarang,
+        'perpb' => $perpb,
+        'perproduk' => $perproduk,
+        'judul1' => $judul,
+        'judul2' => $judul_filterkodemember,
+      ];
+      d($data);
+
+      if($btn=="tampil"){
+        return view('store/tampilslklik', $data);
+      }elseif($btn=="xls"){
+        $tanggalSekarang = $this->tglsekarang;
+        $filename = "SL KLIK $tanggalSekarang.xls";
+        header("Content-Disposition: attachment; filename=\"$filename\"");
+        header("Content-Type: application/vnd.ms-excel");
+        return view('store/tampilexcelslklik', $data);
+      }
+    }
+
+    public function detailpbklik()
+    {
+      $dbProd = db_connect('production');
+      $nopb = $this->request->getGet('nopb');
+      
+      $judul = "Nomor PB : $nopb";
+      $detail = $dbProd->query(
+        "SELECT 
+        obih.obi_kdmember as KDMEMBER,
+        cus_namamember as NAMAMEMBER,
+        cus_hpmember as HPMEMBER,
+        case 
+          when nvl(cus_flagmemberkhusus,'T') ='Y' and nvl(cus_jenismember,'0')!='T' then 'MM' 
+          when nvl(cus_flagmemberkhusus,'T') ='Y' and nvl(cus_jenismember,'0') ='T' then 'MM-TMI' 
+          when nvl(cus_flagmemberkhusus,'T') !='Y' then 'MB' 
+         end as JENISMEMBER,
+        obih.obi_attribute2 as KRITERIA,
+        obih.obi_nopb as NOMORPB,
+        obih.obi_kdekspedisi as PENGIRIMAN,
+        obih.obi_tipebayar as TIPEBAYAR,
+        case 
+          when nvl(obih.obi_recid,0)='0' then 'Siap Send HH'
+          when nvl(obih.obi_recid,0)='1' then 'Siap Picking'
+          when nvl(obih.obi_recid,0)='2' then 'Siap Packing'
+          when nvl(obih.obi_recid,0)='3' then 'Siap Draft Struk'
+          when nvl(obih.obi_recid,0)='4' then 'Konfirmasi Pembayaran'
+          when nvl(obih.obi_recid,0)='5' then 'Siap Struk'
+          when nvl(obih.obi_recid,0)='6' then 'Selesai Struk'
+          when nvl(obih.obi_recid,0)='7' then 'Set Ongkir'
+          when nvl(obih.obi_recid,0) like '%B%' then 'BATAL'
+        end as STATUSPB,
+        obih.obi_tgltrans as TGLTRANS,
+        obih.obi_notrans as NOTRANS,
+        to_char(obih.obi_createdt,'dd-MON-YYYY hh24:mi:ss') as PBMASUK,
+        to_char(obih.obi_selesaipick,'dd-MON-YYYY hh24:mi:ss') as SELESAIPICK,
+        to_char(obih.obi_selesaiscan,'dd-MON-YYYY hh24:mi:ss') as SELESAIPACK,
+        to_char(obih.obi_tglstruk,'dd-MON-YYYY hh24:mi:ss') as TGLSTRUK,
+        obid.obi_picker as PICKER,
+        obid.obi_prdcd as PLUORDER,
+        prd_deskripsipanjang as DESKRIPSI,
+        prd_frac as FRAC,
+        obi_hargasatuan as HRGSATUAN,
+        obi_ppn as PPN,
+        (obi_qtyorder) as QTY_ORDER,
+        (obi_qtyrealisasi) as QTY_PICKING,
+        ((obi_hargasatuan-obi_diskon)*obi_qtyorder) as RPH_ORDER,
+        (obi_ppn*obi_qtyorder) as PPN_ORDER,
+        ((obi_hargasatuan-obi_diskon)*obi_qtyrealisasi) as RPH_PICKING,
+        (trjd_prdcd) as ITEM_REALISASI,
+        case 
+          when prd_unit='KG' then (trjd_quantity/prd_frac) 
+          else (trjd_quantity*prd_frac) 
+        end as QTY_REALISASI,
+        case 
+          when prd_unit='KG' then (trjd_nominalamt-(round(obi_ppn)*(trjd_quantity/prd_frac))) 
+          else (trjd_nominalamt-(round(obi_ppn)*(trjd_quantity*prd_frac))) 
+        end as RPH_REALISASI,
+        case 
+          when prd_unit='KG' then (round(obi_ppn)*(trjd_quantity/prd_frac))
+          else (round(obi_ppn)*(trjd_quantity*prd_frac)) 
+        end as PPN_REALISASI,
+        AWI_NOAWB as NOAWB,
+        to_char(AWI_CREATE_DT,'dd-MON-yyyy hh24:mi:ss') as TGLAWB
+        
+      FROM igrbgr.tbtr_obi_h obih
+      LEFT JOIN igrbgr.tbtr_obi_d obid on trunc(obih.obi_tgltrans)=trunc(obid.obi_tgltrans) and obih.obi_notrans=obid.obi_notrans
+      LEFT JOIN igrbgr.tbtr_awb_ipp on awi_nopb=obih.obi_nopb
+      left join tbtr_jualdetail
+        ON trjd_cus_kodemember         =obih.obi_kdmember
+        AND trjd_cashierstation        =obih.obi_kdstation     
+        AND TRUNC(trjd_transactiondate)=TRUNC(obih.obi_tglstruk)     
+        AND trjd_transactionno         =obih.obi_nostruk     
+        AND trjd_create_by             =obih.obi_modifyby  
+        AND trjd_prdcd                 =obid.obi_prdcd
+      LEFT JOIN tbmaster_prodmast on prd_prdcd=obi_prdcd
+      LEFT JOIN tbmaster_customer on obih.obi_kdmember=cus_kodemember
+      WHERE obih.obi_nopb='$nopb' "
+      );
+      $detail = $detail->getResultArray();
+
+      $data = [
+        'title' => 'Detail PB KLIK',
+        'detail' => $detail,
+        'nopb' => $nopb,
+        'judul' => $judul,
+      ];
+
+      return view('store/detailpbklik', $data);
     }
     // public function export()
     // {

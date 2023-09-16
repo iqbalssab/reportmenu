@@ -8,11 +8,11 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="<?= $ip; ?>">Dashboard</a>
+          <a class="nav-link text-light" aria-current="page" href="<?= $ip; ?>"><i class="fa-solid fa-house"></i></a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle fw-bold text-light" href="/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Store
+          <i class="fa-solid fa-store me-1"></i> Store
           </a>
           <ul class="dropdown-menu">
             <li><a class="" style="font-size: 14px; color:gray">Kasir</a></li>
@@ -37,7 +37,7 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle fw-bold text-light" href="/ms" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Member
+          <i class="fa-solid fa-person me-1"></i> Member
           </a>
           <ul class="dropdown-menu">
             <li><a class="" style="font-size: 14px; color:gray">Data</a></li>
@@ -55,7 +55,7 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle fw-bold text-light" href="/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Inventory
+          <i class="fa-solid fa-warehouse me-1"></i> Inventory
           </a>
           <ul class="dropdown-menu">
             <li><a class="" style="font-size: 14px; color:gray">LPP</a></li>
@@ -117,7 +117,7 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle fw-bold text-light" href="<?= $ip; ?>/ms" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Program HO
+          <i class="fa-solid fa-users-gear me-1"></i>Program HO
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="http://172.20.30.3/ess/homeportal">ESS 172.20.30.3</a></li>
@@ -146,7 +146,11 @@
             <li><a class="dropdown-item" href="<?= $ip; ?>/omi/historybkl">History BKL</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/omi/slomi">Service Level OMI</a></li>
           </ul>
+        </li>  
+        <li class="nav-item">
+          <a class="nav-link text-light" aria-current="page" href="<?= $ip; ?>/mplano/"><i class="fa-solid fa-lightbulb me-1"></i>Plano Mobile IGR</a>
         </li>
+      </ul>
     </div>
   </div>
 </nav>

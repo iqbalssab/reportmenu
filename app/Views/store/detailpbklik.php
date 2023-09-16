@@ -42,12 +42,12 @@
                         <td><?= $dtl['PLUORDER']; ?></td>
                         <td><?= $dtl['DESKRIPSI']; ?></td>
                         <td><?= $dtl['FRAC']; ?></td>
-                        <td><?= $dtl['QTY_ORDER']; ?></td>
-                        <td><?= $dtl['QTY_PICKING']; ?></td>
-                        <td><?= $dtl['QTY_REALISASI']; ?></td>
-                        <td><?= $dtl['RPH_ORDER']; ?></td>
-                        <td><?= $dtl['RPH_PICKING']; ?></td>
-                        <td><?= $dtl['RPH_REALISASI']; ?></td>
+                        <td><?= number_format($dtl['QTY_ORDER']); ?></td>
+                        <td><?= number_format($dtl['QTY_PICKING']); ?></td>
+                        <td><?= number_format($dtl['QTY_REALISASI']); ?></td>
+                        <td><?= number_format($dtl['RPH_ORDER']); ?></td>
+                        <td><?= number_format($dtl['RPH_PICKING']); ?></td>
+                        <td><?= number_format($dtl['RPH_REALISASI']); ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

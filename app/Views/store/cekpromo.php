@@ -151,15 +151,26 @@
                                 <?php foreach ($promocb as $cb) : ?>
                                     <tr>
                                         <td>
-                                            <?= $cb['KDPROMO']; ?> - <?= $cb['NAMAPROMO']; ?><br>
-                                            <div class="badge rounded bg-warning">
+                                           <a href="" title="<?= $cb['MEKANISME']; ?>" class="text-decoration-none"><?= $cb['KDPROMO']; ?></a>  - <?= $cb['NAMAPROMO']; ?><br>
+                                            <div class="badge rounded bg-warning text-dark mb-1">
                                                Alokasi : <?= $cb['ALOKASI']; ?>
                                             </div>
-                                            <div class="badge rounded bg-info">
+                                            <div class="badge rounded bg-primary">
                                                Used :  <?= $cb['ALKUSED']? $cb['ALKUSED'] : 0; ?>
                                             </div>
                                             <div class="badge rounded bg-secondary">
-                                               Sisa : <?= $cb['ALOKASIPLU']; ?>
+                                                <?php if($cb['ALOKASI']>0): ?>
+                                               Sisa : <?= $cb['ALKUSED']; ?>
+                                               <?php else: ?>
+                                                Unlimited
+                                                <?php endif; ?>
+                                            </div>
+                                            <div class="badge rounded bg-success">
+                                                <i class="fa-solid fa-flag me-1"></i>
+                                                <?= $cb['TMI'] ? $cb['TMI'] : ''; ?>
+                                                <?= $cb['IGR'] ? $cb['IGR'] : ''; ?>
+                                                <?= $cb['KLIK'] ? $cb['KLIK'] : ''; ?>
+                                                <?= $cb['SPI'] ? $cb['SPI'] : ''; ?>
                                             </div>
                                         </td>
                                         <td><?= number_format($cb['MINSPONSOR']); ?></td>
@@ -169,9 +180,9 @@
                                         <td><?= number_format($cb['CBH']); ?></td>
                                         <td><?= number_format($cb['CBD']); ?></td>
                                         <td>
-                                            <div class="badge rounded-pill bg-primary"><?= $cb['MB']; ?></div>
-                                            <div class="badge rounded-pill bg-danger"><?= $cb['MM']; ?></div>
-                                            <div class="badge rounded-pill bg-secondary"><?= $cb['PLT']; ?></div>
+                                            <div title="Member Biru" class="badge rounded-pill bg-primary mb-1"><?= $cb['MB']; ?></div>
+                                            <div title="Member Merah" class="badge rounded-pill bg-danger"><?= $cb['MM']; ?></div>
+                                            <div title="Member Platinum" class="badge rounded-pill bg-secondary"><?= $cb['PLT']; ?></div>
                                         </td>
                                         <td>
                                             <div class="badge bg-success mb-1"><?= $cb['TGLAWAL']; ?></div>
@@ -189,8 +200,8 @@
                     <div class="col-md-4">
                         <!-- Member Biru -->
                         <div class="card w-auto mb-3">
-                            <div class="card-header bg-info">
-                                <h6>Simulasi Harga Member Biru</h6>
+                            <div class="card-header bg-primary">
+                                <h6 class="text-light text-center fw-bold">Simulasi Harga Member Biru</h6>
                             </div>
                             <div class="card-body">
                                 <table class="table mb-3">
@@ -220,7 +231,7 @@
                         <!-- Member Merah -->
                         <div class="card w-auto mb-3">
                             <div class="card-header bg-danger">
-                                <h6>Simulasi Harga Member Merah</h6>
+                                <h6 class="text-light text-center fw-bold">Simulasi Harga Member Merah</h6>
                             </div>
                             <div class="card-body">
                                 <table class="table mb-3">
@@ -250,7 +261,7 @@
                         <!-- Member Platinum -->
                         <div class="card w-auto mb-3">
                             <div class="card-header bg-secondary">
-                                <h6>Simulasi Harga Member Platinum</h6>
+                                <h6 class="text-light text-center fw-bold">Simulasi Harga Member Platinum</h6>
                             </div>
                             <div class="card-body">
                                 <table class="table mb-3">

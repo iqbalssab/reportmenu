@@ -178,7 +178,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?= $i = 1; ?>
+                <?php $i = 1; ?>
                 <?php foreach($perolehancb as $olehcb): ?>
                 <tr>
                     <td><?= $i++; ?></td>
@@ -365,7 +365,7 @@
                 <h5 class="d-inline">Kode Promo :</h5><span class=" d-inline fw-bold fs-6 fst-italic"><?= $kodepromo; ?></span><br>
                 <h5 class="d-inline">Tanggal Akhir Promo :</h5><span class=" d-inline fw-bold fs-6 fst-italic"><?= $tglakhir; ?></span>
         </div>
-        <table class="table table-bordered table-sm table-hover">
+        <table class="table table-bordered table-sm table-hover mt-2">
             <thead>
                 <tr>
                     <th>No.</th>
@@ -393,7 +393,8 @@
                     <td><?= $olehgf['NOSTRUK']; ?></td>
                     <td><?= $olehgf['JMLH_HADIAH']; ?></td>
                 </tr>
-                <?php $totaljmlhadiah = $olehgf['JMLH_HADIAH']; ?>
+                <?php $totaljmlhadiah += $olehgf['JMLH_HADIAH']; ?>
+                <?php endforeach; ?>
                 <tr>
                     <td></td>
                     <td></td>
@@ -402,9 +403,8 @@
                     <td></td>
                     <td><b>Total Jumlah Hadiah</b></td>
                     <td></td>
-                    <td><?= $totaljmlhadiah; ?></td>
+                    <td class="fw-bold"><?= $totaljmlhadiah; ?></td>
                 </tr>
-                <?php endforeach; ?>
             </tbody>
         </table>
         </div>

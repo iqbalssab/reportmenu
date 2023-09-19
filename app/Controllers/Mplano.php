@@ -340,7 +340,6 @@ class Mplano extends BaseController
             'lskasal' => $lksasal,
             'lkstujuan' => $lkstujuan
         ];
-        d($data);
 
         return view('mplano/spbm',$data);
     }
@@ -396,7 +395,6 @@ class Mplano extends BaseController
             'lkstujuan' => $lkstujuan,
         ];
 
-        d($data);
         return view('mplano/slp', $data);
     }
 }

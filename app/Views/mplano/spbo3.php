@@ -1,10 +1,10 @@
 <?= $this->extend('layout/template'); ?>
 <?= $this->section('content'); ?>
-
+<?php $ip = "http://".$_SERVER['SERVER_NAME']."/reportmenu"; ?>
 <div class="container-fluid mt-3">
     <div class="row">
         <div class="col-sm-12">
-            <div class="alert-danger alert fw-bolder fs-5">
+            <div class="alert-warning alert fw-bolder fs-5 d-flex justify-content-between">
             <?php 
 			if(!empty($_GET['lksasal'])) {
 				$lksasal = $_GET['lksasal'];
@@ -18,6 +18,9 @@
 				echo "SPB BELUM DIREALISASI";
 			}
 		?>
+            <a class="btn btn-outline-warning" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+            Menu
+            </a>
             </div>
         </div>
     </div>
@@ -116,6 +119,25 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title fw-bold" id="offcanvasExampleLabel">Plano Mobile IGR</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div>
+            Create by MIQ-IGRPWT 2023
+            © to MHT-IGRBGR
+            </div>
+            <ul class="list-group mt-2">
+                <a href="<?= $ip; ?>/mplano" class="list-group-item active"><i class="fa-solid fa-house me-1"></i>Home Plano IGR</a>
+                <a href="<?= $ip; ?>/mplano/spbo?spb=ALL" class="list-group-item"><i class="fa-solid fa-arrows-down-to-line me-1"></i>SPB Blm Diturunkan</a>
+                <a href="<?= $ip; ?>/mplano/spbo3?spb=ALL" class="list-group-item"><i class="fa-solid fa-arrows-up-to-line me-1"></i>SPB Blm Direalisasi</a>
+                <a href="<?= $ip; ?>/mplano/spbm" class="list-group-item"><i class="fa-solid fa-mobile-retro me-1"></i>SPB Manual</a>
+                <a href="<?= $ip; ?>/mplano/slp" class="list-group-item"><i class="fa-solid fa-barcode me-1"></i>SLP</a>
+            </ul>
         </div>
     </div>
 </div>

@@ -1,10 +1,10 @@
-<?php $ip = "http://".$_SERVER['SERVER_NAME']."/reportmenu/"; ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Data Informasi Produk</title>
+        <title>Tampil Kertas Kerja Storage Kecil</title>
+        <?php $ip = "http://".$_SERVER['SERVER_NAME']."/reportmenu/"; ?>
 
         <link rel="stylesheet" href="<?= $ip; ?>public/bootstrap/dist/css/bootstrap.min.css">
         <style>

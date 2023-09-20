@@ -86,12 +86,1413 @@ class Logistik extends BaseController
     }
 
     public function soic() {
+        $dbProd = db_connect('production');
+        $soic = [];
+
+        $soic = $dbProd->query(
+            "SELECT    
+            PRD_KODEDIVISI AS DIV,   
+            PRD_KODEDEPARTEMENT AS DEPT,   
+            PRD_KODEKATEGORIBARANG AS KATB,   
+            ST_PRDCD AS PLU,   
+            PRD_DESKRIPSIPANJANG AS DESKRIPSI,   
+            PRD_FRAC AS FRAC,   
+            PRD_UNIT AS UNIT,   
+            PRD_KODETAG AS TAG,   
+            ST_AVGCOST AS ACOST,   
+            ST_SALDOAKHIR AS LPP_QTY,   
+            CASE WHEN PRD_UNIT='KG' THEN (ST_SALDOAKHIR*ST_AVGCOST)/PRD_FRAC    
+            ELSE ST_SALDOAKHIR*ST_AVGCOST END AS LPP_RPH,   
+            NVL(PQTY,0) AS PLANO_QTY,   
+            NVL(CASE WHEN PRD_UNIT='KG' THEN (NVL(PQTY,0)*ST_AVGCOST)/PRD_FRAC    
+            ELSE NVL(PQTY,0)*ST_AVGCOST END,0) AS PLANO_RPH,   
+            NVL(PQTY,0)-ST_SALDOAKHIR AS SLSH_QTY,       
+            NVL((CASE WHEN PRD_UNIT='KG' THEN (NVL(PQTY,0)*ST_AVGCOST)/PRD_FRAC    
+            ELSE NVL(PQTY,0)*ST_AVGCOST END)-(CASE WHEN PRD_UNIT='KG' THEN (ST_SALDOAKHIR*ST_AVGCOST)/PRD_FRAC    
+            ELSE ST_SALDOAKHIR*ST_AVGCOST END),0) AS SLSH_RPH     
+            FROM TBMASTER_PRODMAST   
+            LEFT JOIN   
+            TBMASTER_STOCK ON ST_PRDCD = PRD_PRDCD  
+            LEFT JOIN   
+            (SELECT LKS_PRDCD, SUM(LKS_QTY) AS PQTY FROM TBMASTER_LOKASI GROUP BY LKS_PRDCD) ON PRD_PRDCD=LKS_PRDCD   
+            WHERE  ST_LOKASI='01'   AND  PRD_KODEDIVISI NOT IN ('4','6') 
+            and prd_prdcd in (select HSO_PRDCD from TBHISTORY_SOIC) 
+            ORDER BY    
+            NVL((CASE WHEN PRD_UNIT='KG' THEN (NVL(PQTY,0)*ST_AVGCOST)/PRD_FRAC    
+            ELSE NVL(PQTY,0)*ST_AVGCOST END)-(CASE WHEN PRD_UNIT='KG' THEN (ST_SALDOAKHIR*ST_AVGCOST)/PRD_FRAC    
+            ELSE ST_SALDOAKHIR*ST_AVGCOST END),0) DESC"
+        );
+        $soic = $soic->getResultArray();
+
         $data = [
-            'title' => 'Form SO Harian',
+            'title' => 'SO IC',
+            'soic' => $soic,
+        ];
+        redirect()->to('soic')->withInput();
+        return view('logistik/soic',$data);
+    }
+
+    public function kertaskerja() {
+        $dbProd = db_connect("production");
+        $kdrak = $departemen = $divisi = $kategori = [];
+
+        $divisi = $dbProd->query(
+            "SELECT div_kodedivisi, div_namadivisi FROM tbmaster_divisi ORDER BY div_kodedivisi"
+        );
+        $divisi = $divisi->getResultArray();
+
+        $departemen = $dbProd->query(
+            "SELECT dep_kodedivisi,div_namadivisi,div_singkatannamadivisi,dep_kodedepartement, dep_namadepartement 
+            from tbmaster_departement 
+            left join tbmaster_divisi on div_kodedivisi=dep_kodedivisi
+            order by dep_kodedivisi,dep_kodedepartement"
+        );
+        $departemen = $departemen->getResultArray();
+
+        $kategori = $dbProd->query(
+            "SELECT kat.kat_kodedepartement,
+            dep.dep_namadepartement AS kat_namadepartement,
+            kat.kat_kodekategori,
+            kat.kat_namakategori
+            FROM tbmaster_kategori kat,
+                tbmaster_departement dep
+            WHERE kat.kat_kodedepartement = dep.dep_kodedepartement (+)
+            ORDER BY kat_kodedepartement,
+                kat_kodekategori"
+        );
+        $kategori = $kategori->getResultArray();
+
+        $kdrak = $dbProd->query(
+            "SELECT DISTINCT( lks_koderak ) AS lks_koderak
+            FROM   tbmaster_lokasi
+            WHERE  lks_koderak LIKE 'R%'
+                   AND lks_koderak NOT LIKE '%C'
+            ORDER  BY lks_koderak"
+        );
+        $kdrak = $kdrak->getResultArray();
+
+        $data = [
+            'title' => 'Kertas Kerja Storage Kecil',
+            'divisi' => $divisi,
+            'departemen' => $departemen,
+            'kategori' => $kategori,
+            'kdrak' => $kdrak,
         ];
 
-        redirect()->to('soic')->withInput();
-        return view('/logistik/soic',$data);
+        redirect()->to('kertaskerja')->withInput();
+        return view('/logistik/kertaskerja',$data);
+    }
+
+    public function tampilkk() {
+        $dbProd = db_connect("production");
+        $kdrak = $departemen = $divisi = $kategori = $datakk = $filename = [];
+        $lap = $this->request->getVar('jenisLaporan');
+        $aksi = $this->request->getVar('tombol');
+        $viewKertasKerjaStatus = $filterdiv = $filterdep = $filterkat = $filtertag = $filterrak = $filteromi = $filterpkm = "";
+
+        $kodeDivisi = $kodeDepartemen = $kodeKategoriBarang = $kodeRak = $statusTag = "All"; 
+        $itemOmiDiSk = $pkmLebihKecilDariMaxPallet = "Off";
+
+        if(isset($_GET['divisi'])) {if ($_GET['divisi'] !=""){$kodeDivisi = $_GET['divisi']; }}
+        if ($kodeDivisi != "All" AND $kodeDivisi != "") {
+            $filterdiv = " AND kks_div = '$kodeDivisi' ";
+        }
+        if(isset($_GET['dep'])) {if ($_GET['dep'] !=""){$kodeDepartemen = $_GET['dep']; }}
+        if ($kodeDepartemen != "All" AND $kodeDepartemen != "") {
+            $filterdep = " AND kks_dept = '$kodeDepartemen' ";
+        }
+        if(isset($_GET['kat'])) {if ($_GET['kat'] !=""){$kodeKategoriBarang = $_GET['kat']; }}
+        if ($kodeKategoriBarang != "All" AND $kodeKategoriBarang != "") {
+            $filterkat = " AND kks_dept || kks_katb = '$kodeKategoriBarang' ";
+        }
+        if(isset($_GET['kat'])) {if ($_GET['kat'] !=""){$statusTag = $_GET['statusTag']; }}
+        if ($statusTag != "All" AND $statusTag != "") {
+            $filtertag = " AND NVL(kks_status_tag,' ') = '$statusTag' ";
+        }
+        if(isset($_GET['rowStorageBesar'])) {if ($_GET['rowStorageBesar'] !=""){$rowStorageBesar = $_GET['rowStorageBesar']; }}
+        if(isset($_GET['rowStorageKecil'])) {if ($_GET['rowStorageKecil'] !=""){$rowStorageKecil = $_GET['rowStorageKecil']; }}
+        if(isset($_GET['kodeRak'])) {if ($_GET['kodeRak'] !=""){$kodeRak = $_GET['kodeRak']; }}
+        if ($kodeRak != "All" AND $kodeRak != "") {
+            $filterrak = " AND kks_rak like '%$kodeRak%' ";
+        }
+        if(isset($_GET['itemOmiDiSk'])) {if ($_GET['itemOmiDiSk'] !=""){$itemOmiDiSk = $_GET['itemOmiDiSk']; }}
+        $itemOmiDiSk = strtoupper($itemOmiDiSk);
+        if ($itemOmiDiSk == "ON") {
+            $filteromi = " AND kks_prdcd IN  (SELECT DISTINCT lks_prdcd FROM tbmaster_lokasi WHERE lks_koderak LIKE '%C' AND lks_prdcd IS NOT NULL AND lks_prdcd IN
+                (SELECT DISTINCT lks_prdcd FROM tbmaster_lokasi WHERE lks_koderak LIKE 'D%' AND lks_prdcd   IS NOT NULL AND lks_tiperak <>'S')) ";
+        }
+        if(isset($_GET['pkmLebihKecilDariMaxPallet'])) {if ($_GET['pkmLebihKecilDariMaxPallet'] !=""){$pkmLebihKecilDariMaxPallet = $_GET['pkmLebihKecilDariMaxPallet']; }}
+        $pkmLebihKecilDariMaxPallet = strtoupper($pkmLebihKecilDariMaxPallet);
+        if ($pkmLebihKecilDariMaxPallet == "ON") {
+            $filterpkm = " AND kks_pkmt < kks_max_palet ";
+    
+            //cek apakah S, SK atau NS saat akan menampilkan table di di tabel-per-produk.php
+        }
+
+        $divisi = $dbProd->query(
+            "SELECT div_kodedivisi, div_namadivisi FROM tbmaster_divisi ORDER BY div_kodedivisi"
+        );
+        $divisi = $divisi->getResultArray();
+
+        $departemen = $dbProd->query(
+            "SELECT dep_kodedivisi,div_namadivisi,div_singkatannamadivisi,dep_kodedepartement, dep_namadepartement 
+            from tbmaster_departement 
+            left join tbmaster_divisi on div_kodedivisi=dep_kodedivisi
+            order by dep_kodedivisi,dep_kodedepartement"
+        );
+        $departemen = $departemen->getResultArray();
+
+        $kategori = $dbProd->query(
+            "SELECT kat.kat_kodedepartement,
+            dep.dep_namadepartement AS kat_namadepartement,
+            kat.kat_kodekategori,
+            kat.kat_namakategori
+            FROM tbmaster_kategori kat,
+                tbmaster_departement dep
+            WHERE kat.kat_kodedepartement = dep.dep_kodedepartement (+)
+            ORDER BY kat_kodedepartement,
+                kat_kodekategori"
+        );
+        $kategori = $kategori->getResultArray();
+
+        $kdrak = $dbProd->query(
+            "SELECT DISTINCT( lks_koderak ) AS lks_koderak
+            FROM   tbmaster_lokasi
+            WHERE  lks_koderak LIKE 'R%'
+                   AND lks_koderak NOT LIKE '%C'
+            ORDER  BY lks_koderak"
+        );
+        $kdrak = $kdrak->getResultArray();
+
+        if($lap == "1") {
+            $datakk = $dbProd->query(
+                "SELECT * FROM ( SELECT 
+                f.lks_koderak                    AS kks_rak,
+                f.lks_kodesubrak                 AS kks_subrak,
+                f.lks_tiperak                    AS kks_tipe,
+                f.lks_shelvingrak                AS kks_shelving,
+                f.lks_nourut                     AS kks_no_urut,
+                c.prd_kodedivisi                 AS kks_div,
+                c.prd_kodedepartement            AS kks_dept,
+                c.prd_kodekategoribarang         AS kks_katb,
+                a.pkm_prdcd                      AS kks_prdcd,
+                c.prd_deskripsipanjang           AS kks_nama_barang,
+                c.prd_unit                       AS kks_unit,
+                c.prd_frac                       AS kks_frac,
+                Nvl(c.prd_kodetag,' ')           AS kks_kode_tag,
+                CASE
+                  WHEN Nvl(c.prd_kodetag,' ') IN ('A','R','N','H','O','T','X') THEN 'Discontinue'
+                  ELSE 'Active'
+                END kks_status_tag,
+                m.mpl_kodemonitoring             AS kks_item_pareto,
+                s.sls_qty_avg_igr                AS kks_sls_qty_avg_igr,
+                s.sls_qty_avg_omi                AS kks_sls_qty_avg_omi,
+                s.sls_qty_avg_igr + s.sls_qty_avg_omi AS kks_sls_qty_avg_igr_omi,
+                a.pkm_periodeproses              AS kks_periode_pkm,
+                --a.pkm_qty1                       AS kks_bulan_01,
+                --a.pkm_qty2                       AS kks_bulan_02,
+                --a.pkm_qty3                       AS kks_bulan_03,
+                --a.pkm_qtyaverage                 AS kks_average,
+                c.prd_isibeli                    AS kks_minor,
+                a.pkm_mindisplay                 AS kks_min_display,
+                a.pkm_leadtime                   AS kks_leadtime,
+                sl.tpod_sl                       AS kks_service_level, 
+                a.pkm_koefisien                  AS kks_koefisien,
+                a.pkm_pkm                        AS kks_pkm,
+                a.pkm_mpkm                       AS kks_mpkm,
+                b.pkmp_qtyminor                  AS kks_mplus,
+                a.pkm_pkmt                       AS kks_pkmt,
+                a.pkm_pkmt + (c.prd_isibeli / 2) AS kks_pkm_minor,
+                f.lks_maxdisplay                 AS kks_max_display,
+                d.mpt_maxqty * c.prd_frac        AS kks_max_palet,
+                sex.pln_exis_sts                 AS kks_exis_sts,
+                CASE
+                  WHEN Nvl(e.prc_pluomi, 'T') <> 'T' THEN 'Y'
+                END                                                             AS kks_item_omi,
+                c.prd_dimensipanjang                                            AS kks_dim_panjang,
+                c.prd_dimensilebar                                              AS kks_dim_lebar,
+                c.prd_dimensitinggi                                             AS kks_dim_tinggi,
+                c.prd_dimensipanjang * c.prd_dimensilebar * c.prd_dimensitinggi AS kks_dim_volume,
+                pl.lks_maxplano_toko                                            AS kks__maxplano_toko,
+                pl.lks_minpct_toko                                              AS kks__minpct_toko,
+                pl.lks_maxplano_omi                                             AS kks__maxplano_omi,
+                pl.lks_minpct_omi                                               AS kks__minpct_omi,
+                f.lks_jenisrak                                                  AS kks_jenis_rak,
+                h.storage_r                                                     AS kks_storage_r,
+                h.storage_c                                                     AS kks_storage_c,
+                g.teman1                                                        AS kks_teman1,
+                g.teman2                                                        AS kks_teman2,
+                g.teman3                                                        AS kks_teman3,
+                g.teman4                                                        AS kks_teman4,
+                g.teman5                                                        AS kks_teman5,
+                g.teman6                                                        AS kks_teman6,
+                g.teman7                                                        AS kks_teman7,
+                g.teman8                                                        AS kks_teman8,
+                g.teman9                                                        AS kks_teman9,
+                g.teman10                                                       AS kks_teman10
+                FROM  tbmaster_kkpkm a,
+                      tbmaster_pkmplus b,
+                      tbmaster_prodmast c,
+                      tbmaster_maxpalet d,
+                      tbmaster_prodcrm e,
+                -- kode monitoring pareto
+                (SELECT mpl_prdcd, MIN(mpl_kodemonitoring) AS mpl_kodemonitoring FROM tbtr_monitoringplu WHERE mpl_kodemonitoring IN ('SM','SJMF','SJMNF','SPVF','SPVNF','SPV','GMS') GROUP BY mpl_prdcd) m,
+                -- sales 3 bulan terakhir ambil dari tbtr_sumsales
+                (SELECT sls_prdcd,
+                  Round(SUM(sls_qtynomi) / Nvl(SUM(CASE WHEN Nvl(sls_qtynomi, 0) <> 0 THEN 1 END), 1)) AS sls_qty_avg_igr,
+                    Round(SUM(sls_qtyomi) / Nvl(SUM(CASE WHEN Nvl(sls_qtyomi, 0) <> 0 THEN 1 END), 1))  AS sls_qty_avg_omi
+                    FROM   tbtr_sumsales
+                    WHERE  Trunc(sls_periode) BETWEEN Add_months(Trunc(SYSDATE, 'mm'), -3) AND Last_day( Add_months(Trunc(SYSDATE, 'mm'), -1))
+                    GROUP  BY sls_prdcd) s,
+                -- service level tbtr_po_d dan tbtr_mstran_d
+                (SELECT tpod_prdcd, Round(SUM(Nvl(mstd_qty, 0)) / SUM(tpod_qtypo) * 100) AS tpod_sl
+                  FROM   tbtr_po_d LEFT JOIN tbtr_mstran_d ON tpod_prdcd = mstd_prdcd AND tpod_nopo = mstd_nopo
+                    WHERE  Trunc(tpod_tglpo) BETWEEN Add_months(Trunc(SYSDATE, 'mm'), -3) AND Last_day( Add_months(Trunc(SYSDATE, 'mm'), -1))
+                    AND Nvl(tpod_recordid, '0') <> '1'
+                    GROUP  BY tpod_prdcd) sl,
+                -- max plano dan min pct dari tbmaster_lokasi
+                (SELECT lks_prdcd,
+                  sum(case when SUBSTR(lks_koderak,1,1) <> 'D' then lks_maxplano else 0 end) as lks_maxplano_toko,
+                  sum(case when SUBSTR(lks_koderak,1,1) IN ('R','O') then lks_minpct else 0 end) as lks_minpct_toko,
+                    sum(case when SUBSTR(lks_koderak,1,1) = 'D' then lks_maxplano else 0 end) as  lks_maxplano_omi,
+                    sum(case when SUBSTR(lks_koderak,1,1) = 'D' then lks_minpct else 0 end) as lks_minpct_omi
+                    FROM tbmaster_lokasi
+                    WHERE SUBSTR(lks_koderak,1,1) IN ('R', 'O','D','F')
+                    AND lks_koderak NOT LIKE '%C'
+                    AND lks_tiperak NOT IN ('S')
+                    AND lks_prdcd IS NOT NULL 
+                    GROUP BY lks_prdcd) pl,
+                -- status existing : sex
+                (SELECT a.pln_prdcd,
+                CASE
+                  WHEN a.pln_jenisrak = 'N' THEN 'NS'  
+                    WHEN a.pln_jenisrak = 'D' THEN  b.pla_koderak
+                END AS pln_exis_sts
+                FROM tbmaster_pluplano a LEFT JOIN (SELECT pla_prdcd, MAX( CASE WHEN pla_koderak LIKE '%C' THEN 'SK' ELSE 'S' END) AS pla_koderak FROM tbmaster_plano GROUP BY pla_prdcd) b ON a.pln_prdcd     = b.pla_prdcd
+                ) sex,
+                (SELECT * FROM tbmaster_lokasi
+                  WHERE  Substr(lks_koderak,1,1) IN ('R','O')
+                  AND    lks_koderak NOT LIKE '%C'
+                    AND    lks_tiperak NOT IN ('S','Z')) f,
+                (SELECT * FROM (SELECT pla_prdcd,
+                  pla_nourut,pla_koderak
+                  FROM   tbmaster_plano ) pivot ( max(pla_koderak) FOR pla_nourut IN (1  AS teman1,
+                    2  AS teman2,3  AS teman3,4  AS teman4,5  AS teman5,6  AS teman6,7  AS teman7,8  AS teman8,9  AS teman9,10 AS teman10) )) g,
+                (SELECT   lks_prdcd,
+                  SUM(CASE
+                    WHEN lks_koderak NOT LIKE '%C' THEN 1
+                        ELSE 0
+                  END) AS storage_r,
+                    SUM(CASE
+                    WHEN lks_koderak LIKE '%C' THEN 1
+                        ELSE 0
+                  END) AS storage_c
+                    FROM     tbmaster_lokasi
+                    WHERE    lks_tiperak = 'S'
+                    AND      lks_prdcd IS NOT NULL
+                    GROUP BY lks_prdcd) h
+                WHERE  pkm_prdcd = prd_prdcd
+                AND    a.pkm_prdcd = mpt_prdcd (+)
+                AND    a.pkm_prdcd = prc_pluigr (+)
+                AND    a.pkm_prdcd = f.lks_prdcd(+)
+                AND    a.pkm_prdcd = pkmp_prdcd (+)
+                AND    a.pkm_prdcd = pla_prdcd (+)
+                AND    a.pkm_prdcd = h.lks_prdcd (+)
+                AND    a.pkm_prdcd = m.mpl_prdcd (+)
+                AND    a.pkm_prdcd = s.sls_prdcd (+)
+                AND    a.pkm_prdcd = sl.tpod_prdcd (+)
+                AND    a.pkm_prdcd = pl.lks_prdcd (+)
+                AND    a.pkm_prdcd = sex.pln_prdcd (+))
+                WHERE  kks_prdcd IS NOT NULL 
+                --AND    kks_kode_tag NOT IN ('N','H','O','X','A') 
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filtertag
+                $filterrak
+                $filteromi
+                $filterpkm
+                ORDER BY  kks_rak,kks_subrak,kks_tipe,kks_shelving,kks_no_urut"
+            );
+            $datakk = $datakk->getResultArray();
+        };
+
+        if($lap == '1') {
+            $jlap = 'LAPORAN per PRODUK';
+        }
+
+        $data = [
+            'title' => 'Tampil Kertas Kerja Storage Kecil',
+            'divisi' => $divisi,
+            'departemen' => $departemen,
+            'kategori' => $kategori,
+            'kdrak' => $kdrak,
+            'kodeDivisi' => $kodeDivisi,
+            'kodeDepartemen' => $kodeDepartemen,
+            'kodeKategoriBarang' => $kodeKategoriBarang,
+            'kodeRak' => $kodeRak,
+            'statusTag' => $statusTag,
+            'lap' => $lap,
+            'datakk' => $datakk,
+            'rowStorageBesar' => $rowStorageBesar,
+            'rowStorageKecil' => $rowStorageKecil,
+        ];
+
+        if($aksi == 'btnxls') {
+            $filename = "Kertas Kerja [". $jlap. "] ".date('d M Y').".xls";
+            header("Content-Disposition: attachment; filename=\"$filename\"");
+            header("Content-Type: application/vnd.ms-excel");
+        
+            return view('logistik/tampilkk',$data);
+        };
+
+        return view('/logistik/tampilkk',$data);
+    }
+
+    public function servicelevel() {
+        $dbProd = db_connect("production");
+        $departemen = $divisi = $kategori = [];
+
+        $divisi = $dbProd->query(
+            "SELECT div_kodedivisi, div_namadivisi FROM tbmaster_divisi ORDER BY div_kodedivisi"
+        );
+        $divisi = $divisi->getResultArray();
+
+        $departemen = $dbProd->query(
+            "SELECT dep_kodedivisi,div_namadivisi,div_singkatannamadivisi,dep_kodedepartement, dep_namadepartement 
+            from tbmaster_departement 
+            left join tbmaster_divisi on div_kodedivisi=dep_kodedivisi
+            order by dep_kodedivisi,dep_kodedepartement"
+        );
+        $departemen = $departemen->getResultArray();
+
+        $kategori = $dbProd->query(
+            "SELECT kat.kat_kodedepartement,
+            dep.dep_namadepartement AS kat_namadepartement,
+            kat.kat_kodekategori,
+            kat.kat_namakategori
+            FROM tbmaster_kategori kat,
+                tbmaster_departement dep
+            WHERE kat.kat_kodedepartement = dep.dep_kodedepartement (+)
+            ORDER BY kat_kodedepartement,
+                kat_kodekategori"
+        );
+        $kategori = $kategori->getResultArray();
+
+        $data = [
+            'title' => 'Service Level',
+            'divisi' => $divisi,
+            'departemen' => $departemen,
+            'kategori' => $kategori,
+        ];
+
+        redirect()->to('servicelevel')->withInput();
+        return view('/logistik/servicelevel',$data);
+    }
+
+    public function tampilsl() {
+        $dbProd = db_connect("production");
+        $departemen = $divisi = $kategori = $filename = $datasl = [];
+        $lap = $this->request->getVar('jenisLaporan');
+        $aksi = $this->request->getVar('tombol');
+        $kodePLU = $kodeDivisi = $kodeDepartemen = $kodeKategoriBarang = $kodeSupplier = $namaSupplier = "All"; 
+        $tanggalMulai = $tanggalSelesai = date("Ymd");
+        $filterplu = $filterdiv = $filterdep = $filterkat = $filterkd = $filternm = $jlap = "";
+
+        //ambil; variabel dr form
+        if(isset($_GET['awal'])) {if ($_GET['awal'] !=""){$tanggalMulai = $_GET['awal']; }}
+        if(isset($_GET['akhir'])) {if ($_GET['akhir'] !=""){$tanggalSelesai = $_GET['akhir']; }}
+        if(isset($_GET['plu'])) {if ($_GET['plu'] !=""){$kodePLU = $_GET['plu']; }}
+        if ($kodePLU != "All" AND $kodePLU != "") {
+            $kodePLU = substr('00000000' . $kodePLU, -7);
+            $filterplu = " AND sl_prdcd_po = '$kodePLU' ";
+        }
+        if(isset($_GET['divisi'])) {if ($_GET['divisi'] !=""){$kodeDivisi = $_GET['divisi']; }}
+        if ($kodeDivisi != "All" AND $kodeDivisi != "") {
+            $filterdiv = " AND sl_div = '$kodeDivisi' ";
+        }
+        if(isset($_GET['dep'])) {if ($_GET['dep'] !=""){$kodeDepartemen = $_GET['dep']; }}
+        if ($kodeDepartemen != "All" AND $kodeDepartemen != "") {
+            $filterdep = " AND sl_dept = '$kodeDepartemen' ";
+        }
+        if(isset($_GET['kat'])) {if ($_GET['kat'] !=""){$kodeKategoriBarang = $_GET['kat']; }}
+        if ($kodeKategoriBarang != "All" AND $kodeKategoriBarang != "") {
+            $filterkat = " AND sl_dept || sl_katb = '$kodeKategoriBarang' ";
+        }
+        if(isset($_GET['kdsup'])) {if ($_GET['kdsup'] !=""){$kodeSupplier = $_GET['kdsup']; }}
+        if ($kodeSupplier != "All" AND $kodeSupplier != "") {
+            $filterkd = " AND sl_kode_supplier like '%$kodeSupplier%' ";
+        }
+	    if(isset($_GET['nmsup'])) {if ($_GET['nmsup'] !=""){$namaSupplier = $_GET['nmsup']; }}
+        if ($namaSupplier != "All" AND $namaSupplier != "") {
+            $filternm = " AND sl_nama_supplier like '%$namaSupplier%' ";
+        }
+
+        // inisiasi div,dep,kat 
+        $divisi = $dbProd->query(
+            "SELECT div_kodedivisi, div_namadivisi FROM tbmaster_divisi ORDER BY div_kodedivisi"
+        );
+        $divisi = $divisi->getResultArray();
+
+        $departemen = $dbProd->query(
+            "SELECT dep_kodedivisi,div_namadivisi,div_singkatannamadivisi,dep_kodedepartement, dep_namadepartement 
+            from tbmaster_departement 
+            left join tbmaster_divisi on div_kodedivisi=dep_kodedivisi
+            order by dep_kodedivisi,dep_kodedepartement"
+        );
+        $departemen = $departemen->getResultArray();
+
+        $kategori = $dbProd->query(
+            "SELECT kat.kat_kodedepartement,
+            dep.dep_namadepartement AS kat_namadepartement,
+            kat.kat_kodekategori,
+            kat.kat_namakategori
+            FROM tbmaster_kategori kat,
+                tbmaster_departement dep
+            WHERE kat.kat_kodedepartement = dep.dep_kodedepartement (+)
+            ORDER BY kat_kodedepartement,
+                kat_kodekategori"
+        );
+        $kategori = $kategori->getResultArray();
+
+        //inisiasi query
+        $bln_01 = date('m', strtotime('-3 month')) ;
+        $bln_02 = date('m', strtotime('-2 month')) ;
+        $bln_03 = date('m', strtotime('-1 month')) ;
+
+        $viewSalesPerDay = " (SELECT sls_prdcd                   AS spd_prdcd,
+            Nvl(sls_qty_" . $bln_01  .", 0)                      AS spd_qty_1,
+            Nvl(sls_qty_" . $bln_02  .", 0)                      AS spd_qty_2,
+            Nvl(sls_qty_" . $bln_03  .", 0)                      AS spd_qty_3,
+            Trunc(( Nvl(sls_qty_" . $bln_01  .", 0) + Nvl(sls_qty_" . $bln_02  .", 0) + Nvl(sls_qty_" . $bln_03  .", 0) ) / 90, 5) AS spd_qty,
+            Nvl(sls_rph_" . $bln_01  .", 0)                      AS spd_rph_1,
+            Nvl(sls_rph_" . $bln_02  .", 0)                      AS spd_rph_2,
+            Nvl(sls_rph_" . $bln_03  .", 0)                      AS spd_rph_3,
+            Trunc(( Nvl(sls_rph_" . $bln_01  .", 0) + Nvl(sls_rph_" . $bln_02  .", 0) + Nvl(sls_rph_" . $bln_03  .", 0) ) / 90, 5) AS spd_rph
+            FROM   tbtr_salesbulanan   ) ";
+
+        $viewServiceLevel = "(SELECT po.tpod_nopo                    AS sl_nomor_po,
+            poh.tpoh_tglpo                                           AS sl_tanggal_po,
+            mst.mstd_nodoc                                           AS sl_nomor_bpb,
+            mst.mstd_tgldoc                                          AS sl_tanggal_bpb,
+            prd.prd_kodedivisi                                       AS sl_div,
+            dvs.div_namadivisi                                       AS sl_nmdiv,
+            prd.prd_kodedepartement                                  AS sl_dept,
+            dpt.dep_namadepartement                                  AS sl_nmdept,
+            prd.prd_kodekategoribarang                               AS sl_katb,
+            kgr.kat_namakategori                                     AS sl_nmkatb,
+            po.tpod_prdcd                                            AS sl_prdcd_po,
+            mst.mstd_prdcd                                           AS sl_prdcd_bpb,
+            prd.prd_deskripsipanjang                                 AS sl_nama_barang,
+            prd.prd_unit                                             AS sl_unit,
+            prd.prd_frac                                             AS sl_frac,
+            NVL(prd.prd_kodetag,' ')                                 AS sl_tag,
+            PO.TPOD_QTYPO                                            AS sl_qty_po,
+            po.tpod_gross + po.tpod_ppn                              AS sl_rph_po,
+            NVL(MST.MSTD_QTY,0)                                      AS sl_qty_bpb,
+            NVL(mst.mstd_gross-mst.mstd_discrph + mst.mstd_ppnrph,0) AS sl_rph_bpb,
+            poh.tpoh_kodesupplier                                    AS sl_kode_supplier,
+            sup.sup_namasupplier                                     AS sl_nama_supplier,
+            spd.spd_qty_1                                            AS sl_spd_qty_1,
+            spd.spd_qty_2                                            AS sl_spd_qty_2,
+            spd.spd_qty_3                                            AS sl_spd_qty_3,
+            stk.st_sales                                             AS sl_sales_bulan_ini,
+            stk.st_saldoakhir                                        AS sl_stock_qty,
+            stk.st_lastcost                                          AS sl_lastcost,
+            stk.st_avgcost                                           AS sl_avgcost
+            FROM tbtr_po_d po
+            LEFT JOIN tbtr_mstran_d mst
+            ON po.tpod_prdcd = mst.mstd_prdcd
+            AND po.tpod_nopo = mst.mstd_nopo
+            LEFT JOIN tbtr_po_h poh
+            ON po.tpod_nopo = poh.tpoh_nopo
+            LEFT JOIN tbmaster_prodmast prd
+            ON po.tpod_prdcd = prd.prd_prdcd
+            LEFT JOIN tbmaster_supplier sup
+            ON poh.tpoh_kodesupplier = sup.sup_kodesupplier
+            LEFT JOIN " . $viewSalesPerDay . "spd
+            ON po.tpod_prdcd = spd.spd_prdcd
+            LEFT JOIN
+            (SELECT * FROM tbmaster_stock WHERE st_lokasi = '01'
+            ) stk
+            ON po.tpod_prdcd         = stk.st_prdcd
+            LEFT JOIN tbmaster_divisi dvs 
+            on prd.prd_kodedivisi = dvs.div_kodedivisi 
+            LEFT JOIN tbmaster_departement dpt 
+            on prd.prd_kodedepartement = dpt.dep_kodedepartement
+            LEFT JOIN tbmaster_kategori kgr 
+            on prd.prd_kodedepartement = kgr.kat_kodedepartement
+            and prd.prd_kodekategoribarang = kgr.kat_kodekategori
+            WHERE mst.mstd_recordid IS NULL
+            AND (po.tpod_recordid   IS NULL
+            OR po.tpod_recordid      = '2')) ";
+
+        if($lap == "1") {
+            $jlap = "Laporan per Divisi";
+            $datasl = $dbProd->query(
+                "SELECT sl_div   AS sl_div,
+                sl_nmdiv   AS sl_nmdiv,
+                COUNT(distinct(sl_nomor_po))   AS sl_nomor_po,
+                COUNT(distinct(sl_nomor_bpb))   AS sl_nomor_bpb,
+                COUNT(sl_prdcd_po)    AS sl_prdcd_po,
+                COUNT(sl_prdcd_bpb)   AS sl_prdcd_bpb,
+                SUM(sl_qty_po)        AS sl_qty_po,
+                SUM(sl_qty_bpb)       AS sl_qty_bpb,
+                SUM(sl_rph_po)        AS sl_rph_po,
+                SUM(sl_rph_bpb)       AS sl_rph_bpb
+                FROM " . $viewServiceLevel  . "
+                WHERE trunc(sl_tanggal_po) between to_date('$tanggalMulai','yyyy-mm-dd') and to_date('$tanggalSelesai','yyyy-mm-dd')
+                $filterplu
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterkd
+                $filternm
+                GROUP BY sl_div, sl_nmdiv
+                ORDER BY sl_div, sl_nmdiv"
+            );
+            $datasl = $datasl->getResultArray();
+        } else if($lap == "2") {
+            $jlap = "Laporan per Departemen";
+            $datasl = $dbProd->query(
+                "SELECT sl_div   AS sl_div,
+                sl_nmdiv   AS sl_nmdiv,
+                sl_dept   AS sl_dept,
+                sl_nmdept   AS sl_nmdept,
+                COUNT(distinct(sl_nomor_po))   AS sl_nomor_po,
+                COUNT(distinct(sl_nomor_bpb))   AS sl_nomor_bpb,
+                COUNT(sl_prdcd_po)    AS sl_prdcd_po,
+                COUNT(sl_prdcd_bpb)   AS sl_prdcd_bpb,
+                SUM(sl_qty_po)        AS sl_qty_po,
+                SUM(sl_qty_bpb)       AS sl_qty_bpb,
+                SUM(sl_rph_po)        AS sl_rph_po,
+                SUM(sl_rph_bpb)       AS sl_rph_bpb
+                FROM " . $viewServiceLevel  . "
+                WHERE trunc(sl_tanggal_po) between to_date('$tanggalMulai','yyyy-mm-dd') and to_date('$tanggalSelesai','yyyy-mm-dd')
+                $filterplu
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterkd
+                $filternm
+                GROUP BY sl_div, sl_nmdiv, sl_dept, sl_nmdept
+                ORDER BY sl_div, sl_nmdiv, sl_dept, sl_nmdept"
+            );
+            $datasl = $datasl->getResultArray();
+        } else if($lap == "3") {
+            $jlap = "Laporan per Kategori";
+            $datasl = $dbProd->query(
+                "SELECT sl_div   AS sl_div,
+                sl_nmdiv   AS sl_nmdiv,
+                sl_dept   AS sl_dept,
+                sl_nmdept   AS sl_nmdept,
+                sl_katb   AS sl_katb,
+                sl_nmkatb   AS sl_nmkatb,
+                COUNT(distinct(sl_nomor_po))   AS sl_nomor_po,
+                COUNT(distinct(sl_nomor_bpb))   AS sl_nomor_bpb,
+                COUNT(sl_prdcd_po)    AS sl_prdcd_po,
+                COUNT(sl_prdcd_bpb)   AS sl_prdcd_bpb,
+                SUM(sl_qty_po)        AS sl_qty_po,
+                SUM(sl_qty_bpb)       AS sl_qty_bpb,
+                SUM(sl_rph_po)        AS sl_rph_po,
+                SUM(sl_rph_bpb)       AS sl_rph_bpb
+                FROM " . $viewServiceLevel  . "
+                WHERE trunc(sl_tanggal_po) between to_date('$tanggalMulai','yyyy-mm-dd') and to_date('$tanggalSelesai','yyyy-mm-dd')
+                $filterplu
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterkd
+                $filternm
+                GROUP BY sl_div, sl_nmdiv, sl_dept, sl_nmdept, sl_katb, sl_nmkatb
+                ORDER BY sl_div, sl_nmdiv, sl_dept, sl_nmdept, sl_katb, sl_nmkatb"
+            );
+            $datasl = $datasl->getResultArray();
+        } else if($lap == "4") {
+            $jlap = "Laporan per Produk";
+            $datasl = $dbProd->query(
+                "SELECT MIN(sl_div)        AS sl_div,
+                MIN(sl_dept)            AS sl_dept,
+                MIN(sl_katb)            AS sl_katb,
+                sl_prdcd_po             AS sl_prdcd_po,
+                sl_nama_barang          AS sl_nama_barang,
+                sl_unit                 AS sl_unit,
+                sl_frac                 AS sl_frac,
+                sl_tag                  AS sl_tag,
+                COUNT(sl_nomor_po)      AS sl_nomor_po,
+                COUNT(sl_nomor_bpb)     AS sl_nomor_bpb,
+                SUM(sl_qty_po)          AS sl_qty_po,
+                SUM(sl_rph_po)          AS sl_rph_po,
+                SUM(sl_qty_bpb)         AS sl_qty_bpb,
+                SUM(sl_rph_bpb)         AS sl_rph_bpb,
+                MIN(sl_kode_supplier)   AS sl_kode_supplier,
+                MIN(sl_nama_supplier)   AS sl_nama_supplier,
+                MIN(sl_spd_qty_1)       AS sl_spd_qty_1,
+                MIN(sl_spd_qty_2)       AS sl_spd_qty_2,
+                MIN(sl_spd_qty_3)       AS sl_spd_qty_3,
+                MIN(sl_sales_bulan_ini) AS sl_sales_bulan_ini,
+                MIN(sl_stock_qty)       AS sl_stock_qty,
+                MIN(sl_lastcost)        AS sl_lastcost,
+                MIN(sl_avgcost)         AS sl_avgcost
+                FROM " . $viewServiceLevel  . "
+                WHERE trunc(sl_tanggal_po) between to_date('$tanggalMulai','yyyy-mm-dd') and to_date('$tanggalSelesai','yyyy-mm-dd')
+                $filterplu
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterkd
+                $filternm
+                GROUP BY sl_prdcd_po , sl_nama_barang, sl_unit, sl_frac, sl_tag
+                ORDER BY sl_div , sl_dept, sl_katb, sl_nama_barang"
+            );
+            $datasl = $datasl->getResultArray();
+        } else if($lap == "4B") {
+            $jlap = "Laporan per Produk Detail";
+            $datasl = $dbProd->query(
+                "SELECT * 
+                FROM " . $viewServiceLevel  . "
+                WHERE trunc(sl_tanggal_po) between to_date('$tanggalMulai','yyyy-mm-dd') and to_date('$tanggalSelesai','yyyy-mm-dd')
+                $filterplu
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterkd
+                $filternm
+                ORDER BY sl_div , sl_dept, sl_katb, sl_nama_barang"
+            );
+            $datasl = $datasl->getResultArray();
+        } else if($lap == "5") {
+            $jlap = "Laporan per Supplier";
+            $datasl = $dbProd->query(
+                "SELECT sl_kode_supplier   AS sl_kode_supplier,
+                sl_nama_supplier      AS sl_nama_supplier,
+                COUNT(distinct(sl_nomor_po))   AS sl_nomor_po,
+                COUNT(distinct(sl_nomor_bpb))   AS sl_nomor_bpb,
+                COUNT(sl_prdcd_po)    AS sl_prdcd_po,
+                COUNT(sl_prdcd_bpb)   AS sl_prdcd_bpb,
+                SUM(sl_qty_po)        AS sl_qty_po,
+                SUM(sl_qty_bpb)       AS sl_qty_bpb,
+                SUM(sl_rph_po)        AS sl_rph_po,
+                SUM(sl_rph_bpb)       AS sl_rph_bpb
+                FROM " . $viewServiceLevel  . "
+                WHERE trunc(sl_tanggal_po) between to_date('$tanggalMulai','yyyy-mm-dd') and to_date('$tanggalSelesai','yyyy-mm-dd')
+                $filterplu
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterkd
+                $filternm
+                GROUP BY sl_kode_supplier, sl_nama_supplier
+                ORDER BY sl_kode_supplier"
+            );
+            $datasl = $datasl->getResultArray();
+        } else if($lap == "6") {
+            $jlap = "Laporan per Kode Tag";
+            $datasl = $dbProd->query(
+                "SELECT sl_tag   AS sl_tag,
+                COUNT(distinct(sl_nomor_po))   AS sl_nomor_po,
+                COUNT(distinct(sl_nomor_bpb))   AS sl_nomor_bpb,
+                COUNT(sl_prdcd_po)    AS sl_prdcd_po,
+                COUNT(sl_prdcd_bpb)   AS sl_prdcd_bpb,
+                SUM(sl_qty_po)        AS sl_qty_po,
+                SUM(sl_qty_bpb)       AS sl_qty_bpb,
+                SUM(sl_rph_po)        AS sl_rph_po,
+                SUM(sl_rph_bpb)       AS sl_rph_bpb
+                FROM " . $viewServiceLevel  . "
+                WHERE trunc(sl_tanggal_po) between to_date('$tanggalMulai','yyyy-mm-dd') and to_date('$tanggalSelesai','yyyy-mm-dd')
+                $filterplu
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterkd
+                $filternm
+                GROUP BY sl_tag
+                ORDER BY sl_tag"
+            );
+            $datasl = $datasl->getResultArray();
+        };
+
+        $data = [
+            'title' => 'Data Service Level',
+            'datasl' => $datasl,
+            'divisi' => $divisi,
+            'departemen' => $departemen,
+            'kategori' => $kategori,
+            'lap' => $lap,
+            'jlap' => $jlap,
+            'kodePLU' => $kodePLU,
+            'kodeDivisi' => $kodeDivisi,
+            'kodeDepartemen' => $kodeDepartemen,
+            'kodeKategoriBarang' => $kodeKategoriBarang,
+            'kodeSupplier' => $kodeSupplier,
+            'namaSupplier' => $namaSupplier,
+            'tanggalMulai' => $tanggalMulai,
+            'tanggalSelesai' => $tanggalSelesai,
+        ];
+
+        if($aksi == 'btnxls') {
+            $filename = "Service Level [". $jlap. "] ".date('d M Y').".xls";
+            header("Content-Disposition: attachment; filename=\"$filename\"");
+            header("Content-Type: application/vnd.ms-excel");
+        
+            return view('logistik/tampilsl',$data);
+        };
+        
+        return view('/logistik/tampilsl',$data);
+    }
+
+    public function servicelevelbo() {
+        $dbProd = db_connect("production");
+        $departemen = $divisi = $kategori = [];
+
+        $divisi = $dbProd->query(
+            "SELECT div_kodedivisi, div_namadivisi FROM tbmaster_divisi ORDER BY div_kodedivisi"
+        );
+        $divisi = $divisi->getResultArray();
+
+        $departemen = $dbProd->query(
+            "SELECT dep_kodedivisi,div_namadivisi,div_singkatannamadivisi,dep_kodedepartement, dep_namadepartement 
+            from tbmaster_departement 
+            left join tbmaster_divisi on div_kodedivisi=dep_kodedivisi
+            order by dep_kodedivisi,dep_kodedepartement"
+        );
+        $departemen = $departemen->getResultArray();
+
+        $kategori = $dbProd->query(
+            "SELECT kat.kat_kodedepartement,
+            dep.dep_namadepartement AS kat_namadepartement,
+            kat.kat_kodekategori,
+            kat.kat_namakategori
+            FROM tbmaster_kategori kat,
+                tbmaster_departement dep
+            WHERE kat.kat_kodedepartement = dep.dep_kodedepartement (+)
+            ORDER BY kat_kodedepartement,
+                kat_kodekategori"
+        );
+        $kategori = $kategori->getResultArray();
+
+        $data = [
+            'title' => 'Service Level 3 Periode',
+            'divisi' => $divisi,
+            'departemen' => $departemen,
+            'kategori' => $kategori,
+        ];
+
+        redirect()->to('servicelevelbo')->withInput();
+        return view('/logistik/servicelevelbo',$data);
+    }
+
+    public function tampilslbo() {
+        $dbProd = db_connect("production");
+        $departemen = $divisi = $kategori = $filename = $dataslbo = [];
+        $lap = $this->request->getVar('jenisLaporan');
+        $aksi = $this->request->getVar('tombol');
+        $kodePLU = $kodeDivisi = $kodeDepartemen = $kodeKategoriBarang = $kodeSupplier = $namaSupplier = "All"; 
+        $tanggalMulai1 = $tanggalSelesai1 = $tanggalMulai2 = $tanggalSelesai2 = $tanggalMulai3 = $tanggalSelesai3 = date("Ymd");
+        $filterplu = $filterdiv = $filterdep = $filterkat = $filterkd = $filternm = $jlap = "";
+
+        //ambil; variabel dr form
+        if(isset($_GET['awal1'])) {if ($_GET['awal1'] !=""){$tanggalMulai1 = $_GET['awal1']; }}
+        if(isset($_GET['akhir1'])) {if ($_GET['akhir1'] !=""){$tanggalSelesai1 = $_GET['akhir1']; }}
+        if(isset($_GET['awal2'])) {if ($_GET['awal2'] !=""){$tanggalMulai2 = $_GET['awal2']; }}
+        if(isset($_GET['akhir2'])) {if ($_GET['akhir2'] !=""){$tanggalSelesai2 = $_GET['akhir2']; }}
+        if(isset($_GET['awal3'])) {if ($_GET['awal3'] !=""){$tanggalMulai3 = $_GET['awal3']; }}
+        if(isset($_GET['akhir3'])) {if ($_GET['akhir3'] !=""){$tanggalSelesai3 = $_GET['akhir3']; }}
+        if(isset($_GET['plu'])) {if ($_GET['plu'] !=""){$kodePLU = $_GET['plu']; }}
+        if ($kodePLU != "All" AND $kodePLU != "") {
+            $kodePLU = substr('00000000' . $kodePLU, -7);
+            $filterplu = " AND sl_prdcd_po = '$kodePLU' ";
+        }
+        if(isset($_GET['divisi'])) {if ($_GET['divisi'] !=""){$kodeDivisi = $_GET['divisi']; }}
+        if ($kodeDivisi != "All" AND $kodeDivisi != "") {
+            $filterdiv = " AND sl_div = '$kodeDivisi' ";
+        }
+        if(isset($_GET['dep'])) {if ($_GET['dep'] !=""){$kodeDepartemen = $_GET['dep']; }}
+        if ($kodeDepartemen != "All" AND $kodeDepartemen != "") {
+            $filterdep = " AND sl_dept = '$kodeDepartemen' ";
+        }
+        if(isset($_GET['kat'])) {if ($_GET['kat'] !=""){$kodeKategoriBarang = $_GET['kat']; }}
+        if ($kodeKategoriBarang != "All" AND $kodeKategoriBarang != "") {
+            $filterkat = " AND sl_dept || sl_katb = '$kodeKategoriBarang' ";
+        }
+        if(isset($_GET['kdsup'])) {if ($_GET['kdsup'] !=""){$kodeSupplier = $_GET['kdsup']; }}
+        if ($kodeSupplier != "All" AND $kodeSupplier != "") {
+            $filterkd = " AND sl_kode_supplier like '%$kodeSupplier%' ";
+        }
+	    if(isset($_GET['nmsup'])) {if ($_GET['nmsup'] !=""){$namaSupplier = $_GET['nmsup']; }}
+        if ($namaSupplier != "All" AND $namaSupplier != "") {
+            $filternm = " AND sl_nama_supplier like '%$namaSupplier%' ";
+        }
+
+        // inisiasi div,dep,kat 
+        $divisi = $dbProd->query(
+            "SELECT div_kodedivisi, div_namadivisi FROM tbmaster_divisi ORDER BY div_kodedivisi"
+        );
+        $divisi = $divisi->getResultArray();
+
+        $departemen = $dbProd->query(
+            "SELECT dep_kodedivisi,div_namadivisi,div_singkatannamadivisi,dep_kodedepartement, dep_namadepartement 
+            from tbmaster_departement 
+            left join tbmaster_divisi on div_kodedivisi=dep_kodedivisi
+            order by dep_kodedivisi,dep_kodedepartement"
+        );
+        $departemen = $departemen->getResultArray();
+
+        $kategori = $dbProd->query(
+            "SELECT kat.kat_kodedepartement,
+            dep.dep_namadepartement AS kat_namadepartement,
+            kat.kat_kodekategori,
+            kat.kat_namakategori
+            FROM tbmaster_kategori kat,
+                tbmaster_departement dep
+            WHERE kat.kat_kodedepartement = dep.dep_kodedepartement (+)
+            ORDER BY kat_kodedepartement,
+                kat_kodekategori"
+        );
+        $kategori = $kategori->getResultArray();
+
+        //inisiasi query
+        $bln_01 = date('m', strtotime('-3 month')) ;
+        $bln_02 = date('m', strtotime('-2 month')) ;
+        $bln_03 = date('m', strtotime('-1 month')) ;
+
+        $viewSalesPerDay = " (SELECT sls_prdcd                   AS spd_prdcd,
+            Nvl(sls_qty_" . $bln_01  .", 0)                      AS spd_qty_1,
+            Nvl(sls_qty_" . $bln_02  .", 0)                      AS spd_qty_2,
+            Nvl(sls_qty_" . $bln_03  .", 0)                      AS spd_qty_3,
+            Trunc(( Nvl(sls_qty_" . $bln_01  .", 0) + Nvl(sls_qty_" . $bln_02  .", 0) + Nvl(sls_qty_" . $bln_03  .", 0) ) / 90, 5) AS spd_qty,
+            Nvl(sls_rph_" . $bln_01  .", 0)                      AS spd_rph_1,
+            Nvl(sls_rph_" . $bln_02  .", 0)                      AS spd_rph_2,
+            Nvl(sls_rph_" . $bln_03  .", 0)                      AS spd_rph_3,
+            Trunc(( Nvl(sls_rph_" . $bln_01  .", 0) + Nvl(sls_rph_" . $bln_02  .", 0) + Nvl(sls_rph_" . $bln_03  .", 0) ) / 90, 5) AS spd_rph
+            FROM   tbtr_salesbulanan   ) ";
+
+        $viewServiceLevel = "(SELECT po.tpod_nopo                    AS sl_nomor_po,
+            poh.tpoh_tglpo                                           AS sl_tanggal_po,
+            mst.mstd_nodoc                                           AS sl_nomor_bpb,
+            mst.mstd_tgldoc                                          AS sl_tanggal_bpb,
+            prd.prd_kodedivisi                                       AS sl_div,
+            dvs.div_namadivisi                                       AS sl_nmdiv,
+            prd.prd_kodedepartement                                  AS sl_dept,
+            dpt.dep_namadepartement                                  AS sl_nmdept,
+            prd.prd_kodekategoribarang                               AS sl_katb,
+            kgr.kat_namakategori                                     AS sl_nmkatb,
+            po.tpod_prdcd                                            AS sl_prdcd_po,
+            mst.mstd_prdcd                                           AS sl_prdcd_bpb,
+            prd.prd_deskripsipanjang                                 AS sl_nama_barang,
+            prd.prd_unit                                             AS sl_unit,
+            prd.prd_frac                                             AS sl_frac,
+            NVL(prd.prd_kodetag,' ')                                 AS sl_tag,
+            PO.TPOD_QTYPO                                            AS sl_qty_po,
+            po.tpod_gross + po.tpod_ppn                              AS sl_rph_po,
+            NVL(MST.MSTD_QTY,0)                                      AS sl_qty_bpb,
+            NVL(mst.mstd_gross-mst.mstd_discrph + mst.mstd_ppnrph,0) AS sl_rph_bpb,
+            poh.tpoh_kodesupplier                                    AS sl_kode_supplier,
+            sup.sup_namasupplier                                     AS sl_nama_supplier,
+            spd.spd_qty_1                                            AS sl_spd_qty_1,
+            spd.spd_qty_2                                            AS sl_spd_qty_2,
+            spd.spd_qty_3                                            AS sl_spd_qty_3,
+            stk.st_sales                                             AS sl_sales_bulan_ini,
+            stk.st_saldoakhir                                        AS sl_stock_qty,
+            stk.st_lastcost                                          AS sl_lastcost,
+            stk.st_avgcost                                           AS sl_avgcost
+            FROM tbtr_po_d po
+            LEFT JOIN tbtr_mstran_d mst
+            ON po.tpod_prdcd = mst.mstd_prdcd
+            AND po.tpod_nopo = mst.mstd_nopo
+            LEFT JOIN tbtr_po_h poh
+            ON po.tpod_nopo = poh.tpoh_nopo
+            LEFT JOIN tbmaster_prodmast prd
+            ON po.tpod_prdcd = prd.prd_prdcd
+            LEFT JOIN tbmaster_supplier sup
+            ON poh.tpoh_kodesupplier = sup.sup_kodesupplier
+            LEFT JOIN " . $viewSalesPerDay . "spd
+            ON po.tpod_prdcd = spd.spd_prdcd
+            LEFT JOIN
+            (SELECT * FROM tbmaster_stock WHERE st_lokasi = '01'
+            ) stk
+            ON po.tpod_prdcd         = stk.st_prdcd
+            LEFT JOIN tbmaster_divisi dvs 
+            on prd.prd_kodedivisi = dvs.div_kodedivisi 
+            LEFT JOIN tbmaster_departement dpt 
+            on prd.prd_kodedepartement = dpt.dep_kodedepartement
+            LEFT JOIN tbmaster_kategori kgr 
+            on prd.prd_kodedepartement = kgr.kat_kodedepartement
+            and prd.prd_kodekategoribarang = kgr.kat_kodekategori
+            WHERE mst.mstd_recordid IS NULL
+            AND (po.tpod_recordid   IS NULL
+            OR po.tpod_recordid      = '2')) ";
+
+        if($lap == "1") {
+            $jlap = "Laporan per Divisi";
+            $dataslbo = $dbProd->query(
+                "SELECT sl_div   AS sl_div,
+                sl_nmdiv   AS sl_nmdiv,
+                COUNT(distinct(sl_nomor_po))   AS sl_nomor_po,
+				COUNT(distinct(sl_nomor_bpb))   AS sl_nomor_bpb,
+				COUNT(sl_prdcd_po)    AS sl_prdcd_po,
+				COUNT(sl_prdcd_bpb)   AS sl_prdcd_bpb,
+				SUM(sl_qty_po)        AS sl_qty_po,
+				SUM(sl_qty_bpb)       AS sl_qty_bpb,
+				SUM(sl_rph_po)        AS sl_rph_po,
+				SUM(sl_rph_bpb)       AS sl_rph_bpb
+                FROM " . $viewServiceLevel  . "
+                WHERE trunc(sl_tanggal_po) between to_date('$tanggalMulai1','yyyy-mm-dd') and to_date('$tanggalSelesai1','yyyy-mm-dd')
+                $filterplu
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterkd
+                $filternm
+                GROUP BY sl_div, sl_nmdiv
+                ORDER BY sl_div, sl_nmdiv"
+            );
+            $dataslbo = $dataslbo->getResultArray();
+        } else if($lap == "2") {
+            $jlap = "Laporan per Departemen";
+            $dataslbo = $dbProd->query(
+                "SELECT sl_div   AS sl_div,
+                sl_nmdiv   AS sl_nmdiv,
+                sl_dept   AS sl_dept,
+                sl_nmdept   AS sl_nmdept,
+                COUNT(distinct(sl_nomor_po))   AS sl_nomor_po,
+                COUNT(distinct(sl_nomor_bpb))   AS sl_nomor_bpb,
+                COUNT(sl_prdcd_po)    AS sl_prdcd_po,
+                COUNT(sl_prdcd_bpb)   AS sl_prdcd_bpb,
+                SUM(sl_qty_po)        AS sl_qty_po,
+                SUM(sl_qty_bpb)       AS sl_qty_bpb,
+                SUM(sl_rph_po)        AS sl_rph_po,
+                SUM(sl_rph_bpb)       AS sl_rph_bpb
+                FROM " . $viewServiceLevel  . "
+                WHERE trunc(sl_tanggal_po) between to_date('$tanggalMulai1','yyyy-mm-dd') and to_date('$tanggalSelesai1','yyyy-mm-dd')
+                or trunc(sl_tanggal_po) between to_date('$tanggalMulai2','yyyy-mm-dd') and to_date('$tanggalSelesai2','yyyy-mm-dd')
+                or trunc(sl_tanggal_po) between to_date('$tanggalMulai3','yyyy-mm-dd') and to_date('$tanggalSelesai3','yyyy-mm-dd')
+                $filterplu
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterkd
+                $filternm
+                GROUP BY sl_div, sl_nmdiv, sl_dept, sl_nmdept
+                ORDER BY sl_div, sl_nmdiv, sl_dept, sl_nmdept"
+            );
+            $dataslbo = $dataslbo->getResultArray();
+        } else if($lap == "3") {
+            $jlap = "Laporan per Kategori";
+            $dataslbo = $dbProd->query(
+                "SELECT sl_div   AS sl_div,
+                sl_nmdiv   AS sl_nmdiv,
+                sl_dept   AS sl_dept,
+                sl_nmdept   AS sl_nmdept,
+                sl_katb   AS sl_katb,
+                sl_nmkatb   AS sl_nmkatb,
+                COUNT(distinct(sl_nomor_po))   AS sl_nomor_po,
+                COUNT(distinct(sl_nomor_bpb))   AS sl_nomor_bpb,
+                COUNT(sl_prdcd_po)    AS sl_prdcd_po,
+                COUNT(sl_prdcd_bpb)   AS sl_prdcd_bpb,
+                SUM(sl_qty_po)        AS sl_qty_po,
+                SUM(sl_qty_bpb)       AS sl_qty_bpb,
+                SUM(sl_rph_po)        AS sl_rph_po,
+                SUM(sl_rph_bpb)       AS sl_rph_bpb
+                FROM " . $viewServiceLevel  . "
+                WHERE trunc(sl_tanggal_po) between to_date('$tanggalMulai1','yyyy-mm-dd') and to_date('$tanggalSelesai1','yyyy-mm-dd')
+                or trunc(sl_tanggal_po) between to_date('$tanggalMulai2','yyyy-mm-dd') and to_date('$tanggalSelesai2','yyyy-mm-dd')
+                or trunc(sl_tanggal_po) between to_date('$tanggalMulai3','yyyy-mm-dd') and to_date('$tanggalSelesai3','yyyy-mm-dd')
+                $filterplu
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterkd
+                $filternm
+                GROUP BY sl_div, sl_nmdiv, sl_dept, sl_nmdept, sl_katb, sl_nmkatb
+                ORDER BY sl_div, sl_nmdiv, sl_dept, sl_nmdept, sl_katb, sl_nmkatb"
+            );
+            $dataslbo = $dataslbo->getResultArray();
+        } else if($lap == "4") {
+            $jlap = "Laporan per Produk";
+            $dataslbo = $dbProd->query(
+                "SELECT MIN(sl_div)        AS sl_div,
+                MIN(sl_dept)            AS sl_dept,
+                MIN(sl_katb)            AS sl_katb,
+                sl_prdcd_po             AS sl_prdcd_po,
+                sl_nama_barang          AS sl_nama_barang,
+                sl_unit                 AS sl_unit,
+                sl_frac                 AS sl_frac,
+                sl_tag                  AS sl_tag,          
+                
+                -- periode 1
+                COUNT(CASE WHEN trunc(sl_tanggal_po) between to_date('$tanggalMulai1','yyyy-mm-dd') and to_date('$tanggalSelesai1','yyyy-mm-dd') THEN sl_nomor_po END)          AS sl_nomor_po,				  
+                COUNT(CASE WHEN trunc(sl_tanggal_po) between to_date('$tanggalMulai1','yyyy-mm-dd') and to_date('$tanggalSelesai1','yyyy-mm-dd') THEN sl_nomor_bpb END)          AS sl_nomor_bpb,
+
+                SUM(CASE WHEN trunc(sl_tanggal_po) between to_date('$tanggalMulai1','yyyy-mm-dd') and to_date('$tanggalSelesai1','yyyy-mm-dd') THEN sl_qty_po ELSE 0 END)          AS sl_qty_po,				  
+                SUM(CASE WHEN trunc(sl_tanggal_po) between to_date('$tanggalMulai1','yyyy-mm-dd') and to_date('$tanggalSelesai1','yyyy-mm-dd') THEN sl_rph_po ELSE 0 END)          AS sl_rph_po,
+
+                SUM(CASE WHEN trunc(sl_tanggal_po) between to_date('$tanggalMulai1','yyyy-mm-dd') and to_date('$tanggalSelesai1','yyyy-mm-dd') THEN sl_qty_bpb ELSE 0 END)          AS sl_qty_bpb,				  
+                SUM(CASE WHEN trunc(sl_tanggal_po) between to_date('$tanggalMulai1','yyyy-mm-dd') and to_date('$tanggalSelesai1','yyyy-mm-dd') THEN sl_rph_bpb ELSE 0 END)          AS sl_rph_bpb,
+
+                -- periode 2
+                COUNT(CASE WHEN trunc(sl_tanggal_po) between to_date('$tanggalMulai2','yyyy-mm-dd') and to_date('$tanggalSelesai2','yyyy-mm-dd') THEN sl_nomor_po END)          AS sl_nomor_po2,				  
+                COUNT(CASE WHEN trunc(sl_tanggal_po) between to_date('$tanggalMulai2','yyyy-mm-dd') and to_date('$tanggalSelesai2','yyyy-mm-dd') THEN sl_nomor_bpb END)          AS sl_nomor_bpb2,
+
+                SUM(CASE WHEN trunc(sl_tanggal_po) between to_date('$tanggalMulai2','yyyy-mm-dd') and to_date('$tanggalSelesai2','yyyy-mm-dd') THEN sl_qty_po ELSE 0 END)          AS sl_qty_po2,				  
+                SUM(CASE WHEN trunc(sl_tanggal_po) between to_date('$tanggalMulai2','yyyy-mm-dd') and to_date('$tanggalSelesai2','yyyy-mm-dd') THEN sl_rph_po ELSE 0 END)          AS sl_rph_po2,
+
+                SUM(CASE WHEN trunc(sl_tanggal_po) between to_date('$tanggalMulai2','yyyy-mm-dd') and to_date('$tanggalSelesai2','yyyy-mm-dd') THEN sl_qty_bpb ELSE 0 END)          AS sl_qty_bpb2,				  
+                SUM(CASE WHEN trunc(sl_tanggal_po) between to_date('$tanggalMulai2','yyyy-mm-dd') and to_date('$tanggalSelesai2','yyyy-mm-dd') THEN sl_rph_bpb ELSE 0 END)          AS sl_rph_bpb2,
+
+              -- periode 3
+                COUNT(CASE WHEN trunc(sl_tanggal_po) between to_date('$tanggalMulai3','yyyy-mm-dd') and to_date('$tanggalSelesai3','yyyy-mm-dd') THEN sl_nomor_po END)          AS sl_nomor_po3,
+                COUNT(CASE WHEN trunc(sl_tanggal_po) between to_date('$tanggalMulai3','yyyy-mm-dd') and to_date('$tanggalSelesai3','yyyy-mm-dd') THEN sl_nomor_bpb END)          AS sl_nomor_bpb3,
+
+                SUM(CASE WHEN trunc(sl_tanggal_po) between to_date('$tanggalMulai3','yyyy-mm-dd') and to_date('$tanggalSelesai3','yyyy-mm-dd') THEN sl_qty_po ELSE 0 END)          AS sl_qty_po3,				  
+                SUM(CASE WHEN trunc(sl_tanggal_po) between to_date('$tanggalMulai3','yyyy-mm-dd') and to_date('$tanggalSelesai3','yyyy-mm-dd') THEN sl_rph_po ELSE 0 END)          AS sl_rph_po3,
+
+                SUM(CASE WHEN trunc(sl_tanggal_po) between to_date('$tanggalMulai3','yyyy-mm-dd') and to_date('$tanggalSelesai3','yyyy-mm-dd') THEN sl_qty_bpb ELSE 0 END)          AS sl_qty_bpb3,				  
+                SUM(CASE WHEN trunc(sl_tanggal_po) between to_date('$tanggalMulai3','yyyy-mm-dd') and to_date('$tanggalSelesai3','yyyy-mm-dd') THEN sl_rph_bpb ELSE 0 END)          AS sl_rph_bpb3,
+
+                MIN(sl_kode_supplier)   AS sl_kode_supplier,
+                MIN(sl_nama_supplier)   AS sl_nama_supplier,
+                MIN(sl_spd_qty_1)       AS sl_spd_qty_1,
+                MIN(sl_spd_qty_2)       AS sl_spd_qty_2,
+                MIN(sl_spd_qty_3)       AS sl_spd_qty_3,
+                MIN(sl_sales_bulan_ini) AS sl_sales_bulan_ini,
+                MIN(sl_stock_qty)       AS sl_stock_qty,
+                MIN(sl_lastcost)        AS sl_lastcost,
+                MIN(sl_avgcost)         AS sl_avgcost
+                FROM " . $viewServiceLevel  . "
+                WHERE (trunc(sl_tanggal_po) between to_date('$tanggalMulai1','yyyy-mm-dd') and to_date('$tanggalSelesai1','yyyy-mm-dd')
+                or trunc(sl_tanggal_po) between to_date('$tanggalMulai2','yyyy-mm-dd') and to_date('$tanggalSelesai2','yyyy-mm-dd')
+                or trunc(sl_tanggal_po) between to_date('$tanggalMulai3','yyyy-mm-dd') and to_date('$tanggalSelesai3','yyyy-mm-dd'))
+                $filterplu
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterkd
+                $filternm
+                GROUP BY sl_prdcd_po , sl_nama_barang, sl_unit, sl_frac, sl_tag
+                ORDER BY sl_div , sl_dept, sl_katb, sl_nama_barang"
+            );
+            $dataslbo = $dataslbo->getResultArray();
+        } else if($lap == "4B") {
+            $jlap = "Laporan per Produk Detail";
+            $dataslbo = $dbProd->query(
+                "SELECT * 
+                FROM " . $viewServiceLevel  . "
+                WHERE (trunc(sl_tanggal_po) between to_date('$tanggalMulai1','yyyy-mm-dd') and to_date('$tanggalSelesai1','yyyy-mm-dd')
+                or trunc(sl_tanggal_po) between to_date('$tanggalMulai2','yyyy-mm-dd') and to_date('$tanggalSelesai2','yyyy-mm-dd')
+                or trunc(sl_tanggal_po) between to_date('$tanggalMulai3','yyyy-mm-dd') and to_date('$tanggalSelesai3','yyyy-mm-dd'))
+                $filterplu
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterkd
+                $filternm
+                ORDER BY sl_div , sl_dept, sl_katb, sl_nama_barang"
+            );
+            $dataslbo = $dataslbo->getResultArray();
+        } else if($lap == "5") {
+            $jlap = "Laporan per Supplier";
+            $dataslbo = $dbProd->query(
+                "SELECT sl_kode_supplier   AS sl_kode_supplier,
+                sl_nama_supplier      AS sl_nama_supplier,
+                COUNT(distinct(sl_nomor_po))   AS sl_nomor_po,
+                COUNT(distinct(sl_nomor_bpb))   AS sl_nomor_bpb,
+                COUNT(sl_prdcd_po)    AS sl_prdcd_po,
+                COUNT(sl_prdcd_bpb)   AS sl_prdcd_bpb,
+                SUM(sl_qty_po)        AS sl_qty_po,
+                SUM(sl_qty_bpb)       AS sl_qty_bpb,
+                SUM(sl_rph_po)        AS sl_rph_po,
+                SUM(sl_rph_bpb)       AS sl_rph_bpb
+                FROM " . $viewServiceLevel  . "
+                WHERE trunc(sl_tanggal_po) between to_date('$tanggalMulai1','yyyy-mm-dd') and to_date('$tanggalSelesai1','yyyy-mm-dd')
+                or trunc(sl_tanggal_po) between to_date('$tanggalMulai2','yyyy-mm-dd') and to_date('$tanggalSelesai2','yyyy-mm-dd')
+                or trunc(sl_tanggal_po) between to_date('$tanggalMulai3','yyyy-mm-dd') and to_date('$tanggalSelesai3','yyyy-mm-dd')
+                $filterplu
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterkd
+                $filternm
+                GROUP BY sl_kode_supplier, sl_nama_supplier
+                ORDER BY sl_kode_supplier"
+            );
+            $dataslbo = $dataslbo->getResultArray();
+        } else if($lap == "6") {
+            $jlap = "Laporan per Kode Tag";
+            $dataslbo = $dbProd->query(
+                "SELECT sl_tag   AS sl_tag,
+                COUNT(distinct(sl_nomor_po))   AS sl_nomor_po,
+                COUNT(distinct(sl_nomor_bpb))   AS sl_nomor_bpb,
+                COUNT(sl_prdcd_po)    AS sl_prdcd_po,
+                COUNT(sl_prdcd_bpb)   AS sl_prdcd_bpb,
+                SUM(sl_qty_po)        AS sl_qty_po,
+                SUM(sl_qty_bpb)       AS sl_qty_bpb,
+                SUM(sl_rph_po)        AS sl_rph_po,
+                SUM(sl_rph_bpb)       AS sl_rph_bpb
+                FROM " . $viewServiceLevel  . "
+                WHERE trunc(sl_tanggal_po) between to_date('$tanggalMulai1','yyyy-mm-dd') and to_date('$tanggalSelesai1','yyyy-mm-dd')
+                or trunc(sl_tanggal_po) between to_date('$tanggalMulai2','yyyy-mm-dd') and to_date('$tanggalSelesai2','yyyy-mm-dd')
+                or trunc(sl_tanggal_po) between to_date('$tanggalMulai3','yyyy-mm-dd') and to_date('$tanggalSelesai3','yyyy-mm-dd')
+                $filterplu
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterkd
+                $filternm
+                GROUP BY sl_tag
+                ORDER BY sl_tag"
+            );
+            $dataslbo = $dataslbo->getResultArray();
+        };
+
+        $data = [
+            'title' => 'Data Service Level',
+            'dataslbo' => $dataslbo,
+            'divisi' => $divisi,
+            'departemen' => $departemen,
+            'kategori' => $kategori,
+            'lap' => $lap,
+            'jlap' => $jlap,
+            'kodePLU' => $kodePLU,
+            'kodeDivisi' => $kodeDivisi,
+            'kodeDepartemen' => $kodeDepartemen,
+            'kodeKategoriBarang' => $kodeKategoriBarang,
+            'kodeSupplier' => $kodeSupplier,
+            'namaSupplier' => $namaSupplier,
+            'tanggalMulai1' => $tanggalMulai1,
+            'tanggalSelesai1' => $tanggalSelesai1,
+            'tanggalMulai2' => $tanggalMulai2,
+            'tanggalSelesai2' => $tanggalSelesai2,
+            'tanggalMulai3' => $tanggalMulai3,
+            'tanggalSelesai3' => $tanggalSelesai3,
+        ];
+
+        if($aksi == 'btnxls') {
+            $filename = "Service Level 3 Periode [". $jlap. "].xls";
+            header("Content-Disposition: attachment; filename=\"$filename\"");
+            header("Content-Type: application/vnd.ms-excel");
+        
+            return view('logistik/tampilslbo',$data);
+        };
+        
+        return view('/logistik/tampilslbo',$data);
+    }
+
+    public function kkhpbm() {
+        $dbProd = db_connect('production');
+        $kkhpbm = [];
+
+        $hari = date('D'); 
+		$bln_01 = date('m', strtotime('-3 month')) ;
+        $bln_02 = date('m', strtotime('-2 month')) ;
+        $bln_03 = date('m', strtotime('-1 month')) ;
+
+        switch($hari){
+            case 'Sun':
+                $h = '1';
+            break;
+     
+            case 'Mon':			
+                $h = '2';
+            break;
+     
+            case 'Tue':
+                $h = '3';
+            break;
+     
+            case 'Wed':
+                $h = '4';
+            break;
+     
+            case 'Thu':
+                $h = '5';
+            break;
+     
+            case 'Fri':
+                $h = '6';
+            break;
+            case 'Sat':
+                $h = '7';
+            break;
+        }
+        
+        switch($hari){
+            case 'Sun':
+                $hari_ini = "SENIN";
+            break;
+     
+            case 'Mon':			
+                $hari_ini = "SELASA";
+            break;
+     
+            case 'Tue':
+                $hari_ini = "RABU";
+            break;
+     
+            case 'Wed':
+                $hari_ini = "KAMIS";
+            break;
+     
+            case 'Thu':
+                $hari_ini = "JUMAT";
+            break;
+     
+            case 'Fri':
+                $hari_ini = "SABTU";
+            break;
+            case 'Sat':
+                $hari_ini = "MINGGU";
+            break;
+        }
+
+        $kkhpbm = $dbProd->query(
+            "SELECT * FROM (SELECT KOD_SUP,SUPPLIER,DIV,DEP,KAT,PLU,DESK,
+            JUAL,BELI,BULAN1,BULAN2,BULAN3,HARIS_SALES,
+            AVG_BULAN,AVG_HARI,STOCK_AWAL,STOCK_AKHIR,
+            JML_PO,QTY_PO,LT,MINOR,RUPIAH,PKMT,MAXPALET_CTN,
+            MAXPALET_PCS,HARI_KUNJ,HARI_KUNJ2,HARI_PB,
+            CASE 
+                WHEN CAST(MOD(HARI_PB,6) AS CHAR) = '0' THEN CAST(HARI_PB/6 AS CHAR) 
+                ELSE CAST(MOD(HARI_PB,6) AS CHAR) END AS HASIL
+            FROM (SELECT DISTINCT HGB_KODESUPPLIER KOD_SUP,
+            SUP_NAMASUPPLIER SUPPLIER,
+            PRD_KODEDIVISI DIV,
+            PRD_KODEDEPARTEMENT DEP,
+            PRD_KODEKATEGORIBARANG KAT,
+            TPOD_PRDCD PLU,
+            PRD_DESKRIPSIPANJANG DESK,
+            PRD_KODESATUANJUAL2||'/'||PRD_ISISATUANJUAL2 JUAL,
+            PRD_SATUANBELI||'/'||PRD_ISIBELI BELI,
+            NVL(SLS1,0) BULAN1,
+            NVL(SLS2,0) BULAN2,
+            NVL(SLS3,0) BULAN3,
+            (NVL(HARI1,0)+NVL(HARI2,0)+NVL(HARI3,0)) HARIS_SALES,
+            ROUND((NVL(SLS1,0)+NVL(SLS2,0)+NVL(SLS3,0))/3,2) AVG_BULAN,
+            CASE 
+              WHEN (NVL(HARI1,0)+NVL(HARI2,0)+NVL(HARI3,0)) = 0
+              THEN ROUND((NVL(SLS1,0)+NVL(SLS2,0)+NVL(SLS3,0))/1)
+              ELSE ROUND((NVL(SLS1,0)+NVL(SLS2,0)+NVL(SLS3,0))/(NVL(HARI1,0)+NVL(HARI2,0)+NVL(HARI3,0)))
+              END AS AVG_HARI,
+            --ROUND((NVL(SLS1,0)+NVL(SLS2,0)+NVL(SLS3,0))/(NVL(HARI1,0)+NVL(HARI2,0)+NVL(HARI3,0))) AVG_HARI,
+            ST_SALDOAWAL STOCK_AWAL,
+            ST_SALDOAKHIR STOCK_AKHIR,
+            NVL(JML_PO,0) JML_PO,
+            NVL(PO_OUT,0) QTY_PO,
+            PKM_LEADTIME LT,
+            PKM_MINORDER MINOR,
+            RUPIAH,
+            PKM_PKMT PKMT,
+            MPT_MAXQTY MAXPALET_CTN,
+            (MPT_MAXQTY*PRD_FRAC) MAXPALET_PCS,
+            HARI_KUNJ,HARI_KUNJ2,
+            ABS((NVL(PKM_LEADTIME,0)+ '$h' + 2)-6) HARI_PB 
+            FROM TBMASTER_STOCK 
+            LEFT JOIN ( SELECT HGB_PRDCD, HGB_KODESUPPLIER,SUP_NAMASUPPLIER,SUP_MINRPH RUPIAH,
+                          case 
+                            WHEN SUP_HARIKUNJUNGAN = 'YYYYYYY' THEN 'MINGGU-SENIN-SELASA-RABU-KAMIS-JUMAT-SABTU'
+                            when SUP_HARIKUNJUNGAN = 'YYYYYY ' then 'MINGGU-SENIN-SELASA-RABU-KAMIS-JUMAT'
+                            when SUP_HARIKUNJUNGAN = ' YYYYYY' then 'SENIN-SELASA-RABU-KAMIS-JUMAT-SABTU'
+                            WHEN SUP_HARIKUNJUNGAN = ' YYYYY ' THEN 'SENIN-SELASA-RABU-KAMIS-JUMAT'
+                            WHEN SUP_HARIKUNJUNGAN = 'Y Y   Y' THEN 'MINGGU-SELASA-SABTU'
+                            when SUP_HARIKUNJUNGAN = ' Y Y  Y' then 'SENIN-RABU-SABTU'
+                            when SUP_HARIKUNJUNGAN = ' Y Y Y ' then 'SENIN-RABU-JUMAT'
+                            WHEN SUP_HARIKUNJUNGAN = ' Y Y   ' THEN 'SENIN-RABU'
+                            WHEN SUP_HARIKUNJUNGAN = ' Y  YY ' THEN 'SENIN-KAMIS-JUMAT'
+                            WHEN SUP_HARIKUNJUNGAN = '    YY ' THEN 'KAMIS-JUMAT'
+                            WHEN SUP_HARIKUNJUNGAN = ' Y  Y  ' THEN 'SENIN-KAMIS'
+                            when SUP_HARIKUNJUNGAN = ' Y   Y ' then 'SENIN-JUMAT'
+                            WHEN SUP_HARIKUNJUNGAN = ' Y     ' THEN 'SENIN'
+                            when SUP_HARIKUNJUNGAN = '  YY YY' then 'SELASA-RABU-JUMAT-SABTU'
+                            WHEN SUP_HARIKUNJUNGAN = '  YY Y ' THEN 'SELASA-RABU-JUMAT'
+                            when SUP_HARIKUNJUNGAN = '  Y Y Y' then 'SELASA-KAMIS-SABTU'
+                            WHEN SUP_HARIKUNJUNGAN = '  Y Y  ' THEN 'SELASA-KAMIS'
+                            WHEN SUP_HARIKUNJUNGAN = '  Y  Y ' THEN 'SELASA-JUMAT'
+                            when SUP_HARIKUNJUNGAN = '  Y   Y' then 'SELASA-SABTU'
+                            WHEN SUP_HARIKUNJUNGAN = '  Y    ' THEN 'SELASA'
+                            when SUP_HARIKUNJUNGAN = '   Y Y ' then 'RABU-JUMAT'
+                            WHEN SUP_HARIKUNJUNGAN = '   YY  ' THEN 'RABU-KAMIS'
+                            when SUP_HARIKUNJUNGAN = '   Y  Y' then 'RABU-SABTU'
+                            when SUP_HARIKUNJUNGAN = '   Y   ' then 'RABU'
+                            when SUP_HARIKUNJUNGAN = '    Y  ' then 'KAMIS'
+                            when SUP_HARIKUNJUNGAN = '     Y ' then 'JUMAT'
+                            WHEN SUP_HARIKUNJUNGAN = '      Y' THEN 'SABTU'
+                            when SUP_HARIKUNJUNGAN = 'YY     ' then 'MINGGU-SENIN'
+                            ELSE '--'
+                            END AS HARI_KUNJ,
+                          case  
+                            when SUP_HARIKUNJUNGAN = 'YYYYYYY' then '1234567' 
+                            when SUP_HARIKUNJUNGAN = 'YYYYYY ' then '1234560' 
+                            when SUP_HARIKUNJUNGAN = ' YYYYYY' then '0234567' 
+                            WHEN SUP_HARIKUNJUNGAN = ' YYYYY ' THEN '0234560' 
+                            WHEN SUP_HARIKUNJUNGAN = 'Y Y   Y' THEN '1030007' 
+                            when SUP_HARIKUNJUNGAN = ' Y Y  Y' then '0204007' 
+                            when SUP_HARIKUNJUNGAN = ' Y Y Y ' then '0204060' 
+                            when SUP_HARIKUNJUNGAN = ' Y Y   ' then '0204000' 
+                            WHEN SUP_HARIKUNJUNGAN = ' Y  YY ' THEN '0200560' 
+                            when SUP_HARIKUNJUNGAN = '    YY ' then '0000560' 
+                            when SUP_HARIKUNJUNGAN = ' Y  Y  ' then '0200500' 
+                            when SUP_HARIKUNJUNGAN = ' Y   Y ' then '0200060' 
+                            when SUP_HARIKUNJUNGAN = ' Y     ' then '0200000' 
+                            when SUP_HARIKUNJUNGAN = '  YY YY' then '0034067' 
+                            when SUP_HARIKUNJUNGAN = '  YY Y ' then '0034060' 
+                            when SUP_HARIKUNJUNGAN = '  Y Y Y' then '0030507' 
+                            when SUP_HARIKUNJUNGAN = '  Y Y  ' then '0030500' 
+                            when SUP_HARIKUNJUNGAN = '  Y  Y ' then '0030060' 
+                            when SUP_HARIKUNJUNGAN = '  Y   Y' then '0030007' 
+                            when SUP_HARIKUNJUNGAN = '  Y    ' then '0030000' 
+                            when SUP_HARIKUNJUNGAN = '   Y Y ' then '0004060' 
+                            when SUP_HARIKUNJUNGAN = '   YY  ' then '0004500' 
+                            when SUP_HARIKUNJUNGAN = '   Y  Y' then '0004007' 
+                            when SUP_HARIKUNJUNGAN = '   Y   ' then '0004000' 
+                            when SUP_HARIKUNJUNGAN = '    Y  ' then '0000500' 
+                            when SUP_HARIKUNJUNGAN = '     Y ' then '0000060' 
+                            when SUP_HARIKUNJUNGAN = '      Y' then '0000007' 
+                            ELSE '--' 
+                            END AS HARI_KUNJ2
+                          FROM TBMASTER_HARGABELI LEFT JOIN TBMASTER_SUPPLIER ON SUP_KODESUPPLIER = HGB_KODESUPPLIER
+                          WHERE HGB_TIPE = '2') ON HGB_PRDCD = ST_PRDCD
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = ST_PRDCD
+            LEFT JOIN (SELECT SLS_PRDCD, Nvl(SLS_QTY_" . $bln_01  .",0) SLS1, 
+                      CASE WHEN Nvl(SLS_QTY_" . $bln_01  .",0) > 0 THEN 31
+                      ELSE 0 END AS HARI1,
+                      Nvl(SLS_QTY_" . $bln_02  .",0) SLS2, 
+                      CASE WHEN Nvl(SLS_QTY_" . $bln_02  .",0) > 0 THEN 30
+                      ELSE 0 END AS HARI2,
+                      Nvl(SLS_QTY_" . $bln_03  .",0) SLS3, 
+                      CASE WHEN Nvl(SLS_QTY_" . $bln_03  .",0) > 0 THEN 31
+                      ELSE 0 END AS HARI3 FROM TBTR_SALESBULANAN) ON SLS_PRDCD = ST_PRDCD
+            --LEFT JOIN TBTR_PB_D ON TPOD_PRDCD = PBD_PRDCD AND PBD_NOPO = TPOD_NOPO
+            LEFT JOIN TBTR_PO_D ON ST_PRDCD = TPOD_PRDCD
+            LEFT JOIN ( SELECT TPOD_PRDCD PLU_PO,SUM( TPOD_QTYPO) PO_OUT,
+                        COUNT(DISTINCT(TPOH_NOPO)) JML_PO FROM TBTR_PO_H
+                        LEFT JOIN TBTR_PO_D ON TPOD_NOPO = TPOH_NOPO
+                        WHERE TPOH_RECORDID IS NULL
+                        AND TRUNC(tpoh_tglpo+tpoh_jwpb) >=TRUNC(sysdate)
+                        GROUP BY TPOD_PRDCD, TPOD_QTYPO) ON ST_PRDCD = PLU_PO
+            LEFT JOIN TBMASTER_KKPKM ON PKM_PRDCD = ST_PRDCD
+            LEFT JOIN TBMASTER_MAXPALET ON MPT_PRDCD = ST_PRDCD
+            WHERE  ST_PRDCD IN (SELECT MPL_PRDCD FROM TBTR_MONITORINGPLU WHERE MPL_KODEMONITORING IN ( 'F1','F2','NF1','NF2','G','O' ) )
+            ---( 'F1','F2','NF1','NF2','G','O' )
+            AND TPOD_KODEDIVISI <> '4'
+            AND ST_LOKASI = '01'
+            --AND NVL(TPOD_RECORDID,'0') <> '1'
+            --AND TPOD_PRDCD  = '0232430'
+            --AND HARI_PB LIKE '%JUMAT%'
+            ORDER BY HGB_KODESUPPLIER ASC,PLU ASC))
+            WHERE HASIL = SUBSTR(HARI_KUNJ2,1,1) OR HASIL = SUBSTR(HARI_KUNJ2,2,1)
+            OR HASIL = SUBSTR(HARI_KUNJ2,3,1) OR HASIL = SUBSTR(HARI_KUNJ2,4,1)
+            OR HASIL = SUBSTR(HARI_KUNJ2,5,1) OR HASIL = SUBSTR(HARI_KUNJ2,6,1)
+            OR HASIL = SUBSTR(HARI_KUNJ2,7,1)"
+        );
+        $kkhpbm = $kkhpbm->getResultArray();
+        
+        $data = [
+            'title' => 'Monitoring KKHPBM',
+            'kkhpbm' => $kkhpbm,
+        ];
+
+        redirect()->to('kkhpbm')->withInput();
+        return view('/logistik/kkhpbm',$data);
     }
 
     public function lppvsplanodetail() {
@@ -647,8 +2048,7 @@ class Logistik extends BaseController
         return view('/logistik/lppvsplanorekap',$data);
     }
 
-    public function planominus()
-    {
+    public function planominus(){
       $dbProd = db_connect('production');
       $plano = $this->request->getVar('plano');
       $jenis = $this->request->getVar('jenis');

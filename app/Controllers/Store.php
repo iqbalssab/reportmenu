@@ -214,7 +214,11 @@ class Store extends BaseController
 					ALKUSED,
 					cbh_recordid as RECID,
 					case when trunc(cbh_tglawal)<=trunc(sysdate) then 'AKTIF' else 'BLMAKTIF' end as STATUS,
-					case when cbh_tglawalreg is null then '0' else '1' end as REGTERTENTU
+					case when cbh_tglawalreg is null then '0' else '1' end as REGTERTENTU,
+          CASE WHEN cbh_flagtmi='Y' THEN 'TMI' ELSE '' END AS TMI,
+          CASE WHEN cbh_flagigr='Y' THEN 'IGR' ELSE '' END AS IGR,
+          CASE WHEN cbh_flagklik='Y' THEN 'KLIK' ELSE '' END AS KLIK,
+          CASE WHEN cbh_flagspi='Y' THEN 'SPI' ELSE '' END AS SPI
 					from tbtr_cashback_dtl
 					left join tbtr_cashback_hdr on cbd_kodepromosi=cbh_kodepromosi
 					left join tbtr_cashback_alokasi on cba_kodepromosi=cbd_kodepromosi
@@ -518,6 +522,7 @@ class Store extends BaseController
             'desk1' => $isidesk1,
             'desk2' => $isidesk2,
         ];
+
         redirect()->to('/store/cekpromo')->withInput();
         return view('store/cekpromo', $data);
     }
@@ -2651,7 +2656,6 @@ class Store extends BaseController
         'tgltrans' => $tgltrans,
         'detailtanggal' => $detailtanggal,
       ];
-      d($data);
 
       redirect()->to('monitoringklik')->withInput();
       return view('store/monitoringklik',$data);
@@ -2885,7 +2889,6 @@ class Store extends BaseController
         'judul1' => $judul,
         'judul2' => $judul_filterkodemember,
       ];
-      d($data);
 
       if($btn=="tampil"){
         return view('store/tampilslklik', $data);
@@ -2987,10 +2990,61 @@ class Store extends BaseController
 
       return view('store/detailpbklik', $data);
     }
-    // public function export()
-    // {
-    //   $spreadsheet = new Spreadsheet();
-    //   $activeWorksheet = $spreadsheet->getActiveSheet();
+   
+    public function promoperrak()
+    {
+      $dbProd = db_connect('production');
+      $koderak = $this->request->getVar('rak');
+      $jenis = $this->request->getVar('jenis');
+      $cbrak = [];
 
-    
+      $rak = $dbProd->query(
+        "SELECT DISTINCT LKS_KODERAK FROM TBMASTER_LOKASI
+        WHERE SUBSTR(LKS_KODERAK,1,1) in ('R','O','I') 
+        AND LKS_TIPERAK != 'S'
+        ORDER BY LKS_KODERAK ASC"
+      );
+      $rak = $rak->getResultArray();
+
+
+      if(!empty($koderak)){
+        $filterrak = "AND RAK = '$koderak'";
+      }else{
+        $filterrak = "";
+      }
+
+      if (!empty($this->request->getVar('btn')) && $jenis=="cb") {
+        $cbrak = $dbProd->query(
+          "SELECT DISTINCT CBD_PRDCD PLU,
+          DESK,
+          CBD_KODEPROMOSI||'-'||CBH_NAMAPROMOSI PROMO,
+          CBH_TGLAWAL TGLAWAL,
+          CBH_TGLAKHIR TGLAKHIR,
+          RAK||'.'||SUBRAK||'.'||TIPERAK||'.'||SHELVING||'.'||NOURUT LOK
+          FROM TBTR_CASHBACK_HDR
+          LEFT JOIN (SELECT CBD_PRDCD,CBD_KODEPROMOSI,PRD_DESKRIPSIPANJANG DESK,
+                      LKS_KODERAK RAK, LKS_KODESUBRAK SUBRAK, LKS_TIPERAK TIPERAK,
+                      LKS_SHELVINGRAK SHELVING,LKS_NOURUT NOURUT FROM TBTR_CASHBACK_DTL
+                      LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = CBD_PRDCD
+                      LEFT JOIN TBMASTER_LOKASI ON LKS_PRDCD = CBD_PRDCD
+                      WHERE SUBSTR(LKS_KODERAK,1,1) in ('R','O','I') AND LKS_TIPERAK != 'S') ON CBH_KODEPROMOSI = CBD_KODEPROMOSI
+          WHERE TRUNC(SYSDATE) BETWEEN TRUNC(CBH_TGLAWAL) AND TRUNC(CBH_TGLAKHIR)
+          AND CBH_RECORDID IS NULL 
+          $filterrak
+          ORDER BY LOK ASC"
+        );
+        $cbrak = $cbrak->getResultArray();
+      }
+
+      $data = [
+        'title' => 'Promo per Rak',
+        'rak' => $rak,
+        'koderak' => $koderak,
+        'cbrak' => $cbrak,
+      ];
+      d($data);
+
+      return view('store/promoperrak', $data);
+    }
+
 }

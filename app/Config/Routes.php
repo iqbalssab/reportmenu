@@ -54,6 +54,8 @@ $routes->post('/member/salesperdep/tampilsalesperdep', 'Member::tampilsalesperde
 
 $routes->get('/logistik/lppvsplanodetail/(:segment)', 'Logistik::tampildatalppplanodetail/$1');
 
+$routes->get('/mplano/spbo', 'Mplano::spbo');
+
 
 
 /*

@@ -3,7 +3,7 @@
 
 <div class="container-fluid mt-2 overflow-auto">
     <h4><?= $judul1; ?></h4>
-    <p>Member : <?= $judul2; ?></p>
+    <p>Member : number_format(<?= $judul2; ?></)p>
     <?php if(!empty($perpb)): ?>
     <table class="table table-hover">
         <thead class="border border-top border-secondary">
@@ -47,12 +47,12 @@
                         <td><?= $ppb['STATUSPB']; ?></td>
                         <td><?= $ppb['TGLTRANS']; ?></td>
                         <td><?= $ppb['NOTRANS']; ?></td>
-                        <td><?= $ppb['ITEM_ORDER']; ?></td>
-                        <td><?= $ppb['QTY_ORDER']; ?></td>
-                        <td><?= $ppb['RPH_ORDER']; ?></td>
-                        <td><?= $ppb['ITEM_REALISASI']; ?></td>
-                        <td><?= $ppb['QTY_REALISASI']; ?></td>
-                        <td><?= $ppb['RPH_REALISASI']; ?></td>
+                        <td><?= number_format($ppb['ITEM_ORDER']); ?></td>
+                        <td><?= number_format($ppb['QTY_ORDER']); ?></td>
+                        <td><?= number_format($ppb['RPH_ORDER']); ?></td>
+                        <td><?= number_format($ppb['ITEM_REALISASI']); ?></td>
+                        <td><?= number_format($ppb['QTY_REALISASI']); ?></td>
+                        <td><?= number_format($ppb['RPH_REALISASI']); ?></td>
                         <td><?= $ppb['PICKER']; ?></td>
                         <td><?= $ppb['PBMASUK']; ?></td>
                         <td><?= $ppb['SELESAIPICK']; ?></td>

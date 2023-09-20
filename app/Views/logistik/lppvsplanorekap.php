@@ -14,7 +14,7 @@ echo $this->section('content'); ?>
     <div class="row">
         <div class="col-md-6">
             <h6 class="fw-bold">REKAP LPP vs PLANO</h6>    
-            <table class="table mb-3 table-bordered table-responsive" style="width: 750px;" style="font-size: 15px;">
+            <table class="table mb-3 table-striped table-bordered table-responsive" style="width: 750px;" style="font-size: 15px;">
                 <thead class="table-success">
                     <tr>
                         <th class="text-center">QTY LPP</th>

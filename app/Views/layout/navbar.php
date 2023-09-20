@@ -59,6 +59,7 @@
           <ul class="dropdown-menu">
             <li><a class="" style="font-size: 14px; color:gray">LPP</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/informasiproduk">Informasi Produk</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/kkhpbm">Monitoring KKHPBM</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/lppsaatini">LPP Saat Ini</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/tampillppblnlalu">LPP Bulan Sebelumnya</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/lppvsplanodetail">LPP vs Plano Detail</a></li>
@@ -71,6 +72,9 @@
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/formsoharian">SO Harian</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/soic">SO IC</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/stockharian">Stock Harian</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/kertaskerja">Kertas Kerja Storage</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/servicelevel">Service Level</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/servicelevelbo">Service Level 3 Periode</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/livecks">Live CKS</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/planominus">Plano Minus</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/produkbaru">Produk Baru</a></li>
@@ -78,6 +82,30 @@
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/itemseasonal">Item Seasonal</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/pertemanan">Monitoring Pertemanan</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/kesegaran">Cek Kesegaran Produk</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle fw-bold text-light" href="/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa-solid fa-star me-1"></i> OMI
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="<?= $ip; ?>/omi/monitoringpbomi">Monitoring PB OMI</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/omi/cekprosespbomi">Cek Proses PB OMI</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/omi/cekprosessph">Cek Proses SPH</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/omi/historybkl">History BKL</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/omi/slomi">Service Level OMI</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle fw-bold text-light" href="/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Problem
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="" style="font-size: 14px; color:gray">Tabel Master</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/problem/barcodedouble">Barcode Double</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/tampilinfoproduk?satuanJual=0&statusTag=All&tanggalPromosi=All&divisi=All&dep=All&kat=All&lokasiTidakAda=on&jenisMarginNegatif=All&jenisLaporan=1A&tombol=btnview">Master Lokasi Belum Ada</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/problem/lokasidouble">Master Lokasi Double</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/problem/lokasiqtyminus">Lokasi Rak Qty Minus</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -132,18 +160,6 @@
             <li><a class="dropdown-item" href="http://192.168.240.179/simsoujipetik/public/auth/login">SO Uji Petik (Simulasi)</a></li>
             <li><a class="dropdown-item" href="http://172.20.28.17/monitoring-plano/public/laporan">Monitoring Plano</a></li>
             <li><a class="dropdown-item" href="http://172.20.28.28/#/account/login">Tarra E-Faktur</a></li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle fw-bold text-light" href="/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="fa-solid fa-star me-1"></i> OMI
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<?= $ip; ?>/omi/monitoringpbomi">Monitoring PB OMI</a></li>
-            <li><a class="dropdown-item" href="<?= $ip; ?>/omi/cekprosespbomi">Cek Proses PB OMI</a></li>
-            <li><a class="dropdown-item" href="<?= $ip; ?>/omi/cekprosessph">Cek Proses SPH</a></li>
-            <li><a class="dropdown-item" href="<?= $ip; ?>/omi/historybkl">History BKL</a></li>
-            <li><a class="dropdown-item" href="<?= $ip; ?>/omi/slomi">Service Level OMI</a></li>
           </ul>
         </li>
     </div>

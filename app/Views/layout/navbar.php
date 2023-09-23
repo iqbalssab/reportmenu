@@ -73,10 +73,11 @@
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/formsoharian">SO Harian</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/soic">SO IC</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/stockharian">Stock Harian</a></li>
-            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/kertaskerja">Kertas Kerja Storage</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/servicelevel">Service Level</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/servicelevelbo">Service Level 3 Periode</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/kertaskerja">Kertas Kerja Storage</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/livecks">Live CKS</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/pooutstanding">PO Outstanding</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/produkbaru">Produk Baru</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/ubahstatus">Perubahan Status</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/itemseasonal">Item Seasonal</a></li>
@@ -101,9 +102,12 @@
             <li><a class="dropdown-item" href="<?= $ip; ?>/omi/cekprosessph">Cek Proses SPH</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/omi/historybkl">History BKL</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/omi/slomi">Service Level OMI</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/omi/intrantsitomi">Intransit OMI / IDM</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/omi/returomi">Retur OMI</a></li>
             <li><a class="" style="font-size: 14px; color:gray">Problem</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/idm/itemkosongklik">Item Kosong PB IDM</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/idm/tolakanpbidm">Tolakan PB IDM</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/idm/idmbedatag">Item IDM Only beda Tag dengan IGR</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -113,9 +117,15 @@
           <ul class="dropdown-menu">
             <li><a class="" style="font-size: 14px; color:gray">Tabel Master</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/problem/barcodedouble">Barcode Double</a></li>
-            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/tampilinfoproduk?satuanJual=0&statusTag=All&tanggalPromosi=All&divisi=All&dep=All&kat=All&lokasiTidakAda=on&jenisMarginNegatif=All&jenisLaporan=1A&tombol=btnview">Master Lokasi Belum Ada</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/tampilinfoproduk?satuanJual=0&statusTag=All&tanggalPromosi=All&divisi=All&dep=All&kat=All&lokasiTidakAda=on&jenisMarginNegatif=All&jenisLaporan=1A&tombol=btnview" target="_blank">Master Lokasi Belum Ada</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/problem/lokasidouble">Master Lokasi Double</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/planominus">Plano Minus</a></li>
+            <li><a class="" style="font-size: 14px; color:gray">Harga</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/tampilinfoproduk?satuanJual=All&statusTag=All&tanggalPromosi=All&divisi=All&dep=All&kat=All&hargaJualNol=on&jenisMarginNegatif=All&jenisLaporan=1A&tombol=btnview" target="_blank">Harga Jual Belum Ada</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/tampilinfoproduk?satuanJual=All&statusTag=All&tanggalPromosi=All&divisi=All&dep=All&kat=All&promoMahal=on&jenisMarginNegatif=All&jenisLaporan=1A&tombol=btnview" target="_blank">Harga Promo Lebih Mahal</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/tampilinfoproduk?satuanJual=All&statusTag=All&tanggalPromosi=All&divisi=All&dep=All&kat=All&marginNegatif=on&jenisMarginNegatif=All&jenisLaporan=1A&tombol=btnview" target="_blank">Margin Negatif</a></li>
+            <li><a class="" style="font-size: 14px; color:gray">Member</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/problem/membertidakbelanja">Member Tidak Berbelanja</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">

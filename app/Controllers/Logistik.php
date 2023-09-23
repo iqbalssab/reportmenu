@@ -449,6 +449,181 @@ class Logistik extends BaseController
         return view('/logistik/tampilkk',$data);
     }
 
+    public function pooutstanding() {
+        $dbProd = db_connect("production");
+        $departemen = $divisi = $kategori = [];
+
+        $divisi = $dbProd->query(
+            "SELECT div_kodedivisi, div_namadivisi FROM tbmaster_divisi ORDER BY div_kodedivisi"
+        );
+        $divisi = $divisi->getResultArray();
+
+        $departemen = $dbProd->query(
+            "SELECT dep_kodedivisi,div_namadivisi,div_singkatannamadivisi,dep_kodedepartement, dep_namadepartement 
+            from tbmaster_departement 
+            left join tbmaster_divisi on div_kodedivisi=dep_kodedivisi
+            order by dep_kodedivisi,dep_kodedepartement"
+        );
+        $departemen = $departemen->getResultArray();
+
+        $kategori = $dbProd->query(
+            "SELECT kat.kat_kodedepartement,
+            dep.dep_namadepartement AS kat_namadepartement,
+            kat.kat_kodekategori,
+            kat.kat_namakategori
+            FROM tbmaster_kategori kat,
+                tbmaster_departement dep
+            WHERE kat.kat_kodedepartement = dep.dep_kodedepartement (+)
+            ORDER BY kat_kodedepartement,
+                kat_kodekategori"
+        );
+        $kategori = $kategori->getResultArray();
+
+        $data = [
+            'title' => 'Data PO Outstanding',
+            'divisi' => $divisi,
+            'departemen' => $departemen,
+            'kategori' => $kategori,
+        ];
+
+        redirect()->to('pooutstanding')->withInput();
+        return view('/logistik/pooutstanding',$data);
+    }
+
+    public function tampilpooutstanding() {
+        $dbProd = db_connect("production");
+        $aksi = $this->request->getVar('tombol');
+        $outstanding = $departemen = $divisi = $kategori = $filename = [];
+
+        // inisiasi
+        $kodeSupplier = $namaSupplier = $kodeDivisi = $kodeDepartemen = $kodeKategoriBarang = 'All';
+        $filterkd = $filternm = $filterdiv = $filterdep = $filterkat = '';
+
+        // ambil data
+        if(isset($_GET['kdsup'])) {if ($_GET['kdsup'] !=""){$kodeSupplier = $_GET['kdsup']; }}
+        if ($kodeSupplier != "All" AND $kodeSupplier != "") {
+            $filterkd = " AND sup_kodesupplier like '%$kodeSupplier%' ";
+        }
+        if(isset($_GET['nmsup'])) {if ($_GET['nmsup'] !=""){$namaSupplier = $_GET['nmsup']; }}
+        if ($namaSupplier != "All" AND $namaSupplier != "") {
+            $filternm = " AND sup_namasupplier like '%$namaSupplier%' ";
+        }
+        $namaSupplier = str_replace(" ","%",$namaSupplier);
+        if(isset($_GET['divisi'])) {if ($_GET['divisi'] !=""){$kodeDivisi = $_GET['divisi']; }}
+        if ($kodeDivisi != "All" AND $kodeDivisi != "") {
+            $filterdiv = " AND prd_kodedivisi = '$kodeDivisi' ";
+        }
+        if(isset($_GET['dep'])) {if ($_GET['dep'] !=""){$kodeDepartemen = $_GET['dep']; }}
+        if ($kodeDepartemen != "All" AND $kodeDepartemen != "") {
+            $filterdep = " AND prd_kodedepartement = '$kodeDepartemen' ";
+        }
+        if(isset($_GET['kat'])) {if ($_GET['kat'] !=""){$kodeKategoriBarang = $_GET['kat']; }}
+        if ($kodeKategoriBarang != "All" AND $kodeKategoriBarang != "") {
+            $filterkat = " AND prd_kodedepartement || prd_kodekategoribarang = '$kodeKategoriBarang' ";
+        }
+
+
+        $divisi = $dbProd->query(
+            "SELECT div_kodedivisi, div_namadivisi FROM tbmaster_divisi ORDER BY div_kodedivisi"
+        );
+        $divisi = $divisi->getResultArray();
+
+        $departemen = $dbProd->query(
+            "SELECT dep_kodedivisi,div_namadivisi,div_singkatannamadivisi,dep_kodedepartement, dep_namadepartement 
+            from tbmaster_departement 
+            left join tbmaster_divisi on div_kodedivisi=dep_kodedivisi
+            order by dep_kodedivisi,dep_kodedepartement"
+        );
+        $departemen = $departemen->getResultArray();
+
+        $kategori = $dbProd->query(
+            "SELECT kat.kat_kodedepartement,
+            dep.dep_namadepartement AS kat_namadepartement,
+            kat.kat_kodekategori,
+            kat.kat_namakategori
+            FROM tbmaster_kategori kat,
+                tbmaster_departement dep
+            WHERE kat.kat_kodedepartement = dep.dep_kodedepartement (+)
+            ORDER BY kat_kodedepartement,
+                kat_kodekategori"
+        );
+        $kategori = $kategori->getResultArray();
+
+        $outstanding = $dbProd->query(
+                "select prd_kodedivisi as DIV,
+                prd_kodedepartement as DEP,
+                prd_kodekategoribarang as KAT,
+                prd_prdcd as PLU,
+                prd_deskripsipanjang as DESKRIPSI,
+                prd_kodetag as TAG,
+                prd_unit as UNIT,
+                prd_frac as FRAC,
+                prd_avgcost as acost,
+                prd_lastcost as lcost,
+                st_saldoakhir as STOK,
+                pkm_pkmt as PKMT,
+                nvl(QTY_PO,0) as QTY_PO,
+                nvl(RPH_PO,0) as RPH_PO,
+                nvl(QTY_PB,0) as QTY_PB,
+                nvl(RPH_PB,0) as RPH_PB,
+                nvl(QTY_PO,0) + nvl(QTY_PB,0) as QTY_PO_PB,
+                nvl(RPH_PO,0) + nvl(RPH_PB,0) as RPH_PO_PB,
+                sup_kodesupplier || ' - ' || sup_namasupplier as SUPPLIER
+                from tbmaster_prodmast
+                left join (select * from tbmaster_stock where st_lokasi='01') on st_prdcd=prd_prdcd
+                left join tbmaster_hargabeli on hgb_prdcd=prd_prdcd
+                left join tbmaster_supplier on sup_kodesupplier=hgb_kodesupplier
+                left join tbtr_salesbulanan on sls_Prdcd=prd_prdcd
+                left join tbmaster_kkpkm on pkm_prdcd=prd_prdcd
+                left join (select * from tbtr_monitoringplu where mpl_kodemonitoring in ('F1','F2','NF1','NF2')) on mpl_prdcd=prd_prdcd
+                left join (select tpod_prdcd as PLUPO,
+                  sum(tpod_qtypo) as QTY_PO,sum(tpod_gross) as RPH_PO
+                    from tbtr_po_d 
+                    left join tbtr_po_h on tpod_nopo=tpoh_nopo
+                    where trunc(tpoh_tglpo)+tpoh_jwpb>=trunc(sysdate)
+                    and tpod_recordid is null  group by tpod_prdcd) on PRD_PRDCD=plupo
+                left join (select pbd_prdcd as PLUPB,
+                  sum(pbd_qtypb) as QTY_PB,sum(pbd_gross) as RPH_PB
+                    from tbtr_pb_d 
+                    where pbd_nopo is null and trunc(pbd_create_dt)=trunc(sysdate)
+                    group by pbd_prdcd) on PRD_PRDCD=PLUPB
+                where (prd_kodecabang='25' or prd_kategoritoko='01') and prd_prdcd like '%0'
+                and prd_kodetag not in ('N','X')
+                and hgb_tipe='2'
+                $filterkd
+                $filternm
+                $filterdiv
+                $filterdep
+                $filterkat
+                order by DIV, DEP, KAT, DESKRIPSI"
+            );
+            $outstanding = $outstanding->getResultArray();
+
+        $data = [
+            'title' => 'Data PO Outstanding',
+            'divisi' => $divisi,
+            'departemen' => $departemen,
+            'kategori' => $kategori,
+            'kodeSupplier' => $kodeSupplier,
+            'namaSupplier' => $namaSupplier,
+            'kodeDivisi' => $kodeDivisi,
+            'kodeDepartemen' => $kodeDepartemen,
+            'kodeKategoriBarang' => $kodeKategoriBarang,
+            'outstanding' => $outstanding,
+        ];
+
+        if($aksi == "btnview") {
+            return view('/logistik/tampilpooutstanding',$data);
+        } else if($aksi == "btnxls") {
+            $filename = "PO Outstanding ".date('d M Y').".xls";
+            header("Content-Disposition: attachment; filename=\"$filename\"");
+            header("Content-Type: application/vnd.ms-excel");
+        
+            d($data);
+            return view('logistik/tampilpooutstanding',$data);
+        };
+    }
+
     public function servicelevel() {
         $dbProd = db_connect("production");
         $departemen = $divisi = $kategori = [];

@@ -52,6 +52,7 @@
             <li><a class="" style="font-size: 14px; color:gray">Sales</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/member/salesmember">Laporan Sales Member</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/member/salesperdep">Monitoring Sales PerHari</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/member/efaktur">Monitoring Efaktur</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">

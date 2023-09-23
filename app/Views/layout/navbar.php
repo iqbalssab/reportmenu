@@ -100,50 +100,6 @@
             <li><a class="dropdown-item" href="http://192.168.237.72/rekor/report-update-promosi-ho/index.php?linkCabang=&kdCabang=47">Promo Belum Download</a></li>            
           </ul>
         </li>
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle fw-bold text-light" href="<?= $ip; ?>/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="fa-solid fa-list me-1"></i> Link External
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="" style="font-size: 14px; color:gray">MS</a></li>
-            <li><a class="dropdown-item" href="http://192.168.240.179/mypoincs/public/">Verifikasi No HP Member</a></li>
-            <li><a class="dropdown-item" href="http://172.31.2.118/apinewmember/public/membership-check">Aplikasi Cek Membership</a></li>
-            <li><a class="dropdown-item" href="http://192.168.240.205:8080/reportmenu/cekmypoin/">Cek Saldo MyPoin</a></li>
-            <li><a class="dropdown-item" href="https://mitraindogrosir.co.id/cms/login">CMS Mitra Indogrosir</a></li>
-            <li><a class="dropdown-item" href="http://192.168.240.179/memberbina/public/auth/login">Web Member Binaan</a></li>
-            <li><a class="dropdown-item" href="http://192.168.10.100/maps/public/auth/login">Web Pemetaan Member</a></li>
-            <li><a class="dropdown-item" href="http://192.168.240.205:8080/reportmenu/aws_igr/">Upload Foto & Koordinat Member</a></li>
-            <li><a class="dropdown-item" href="http://172.20.28.17/monitoring-inquiry/public/login">Inquiry Master Member</a></li>
-            <li><a class="dropdown-item" href="http://172.31.27.68/login">CMS TMI</a></li>
-            <li><a class="dropdown-item" href="http://172.20.28.17/WebLaporanKasir/public/login">Web Laporan Refund</a></li>
-            <hr>
-            <li><a class="" style="font-size: 14px; color:gray">KLIK</a></li>
-            <li><a class="dropdown-item" href="https://klikindogrosir.com/">Klik Indogrosir (User)</a></li>
-            <li><a class="dropdown-item" href="https://b2b.klikindogrosir.com/admin">Klik Indogrosir (Admin)</a></li>
-            <li><a class="dropdown-item" href="http://172.31.27.67:81/login">Klik Indogrosir (MS)</a></li>
-            <li><a class="dropdown-item" href="http://172.20.28.17/serah-terima-ipp/public/">Serah Terima IPP</a></li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle fw-bold text-light" href="<?= $ip; ?>/ms" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="fa-solid fa-users-gear me-1"></i>Program HO
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="http://172.20.30.3/ess/homeportal">ESS 172.20.30.3</a></li>
-            <li><a class="dropdown-item" href="http://172.20.30.4/ess/homeportal">ESS 172.20.30.4</a></li>
-            <li><a class="dropdown-item" href="http://172.20.30.5/ess/homeportal">ESS 172.20.30.5</a></li>
-            <li><a class="dropdown-item" href="http://172.20.30.3/tsm">TSM 172.20.30.3</a></li>
-            <li><a class="dropdown-item" href="http://172.20.30.4/tsm">ESS 172.20.30.4</a></li>
-            <li><a class="dropdown-item" href="http://172.20.30.5/tsm">ESS 172.20.30.5</a></li>
-            <li><a class="dropdown-item" href="http://172.20.30.6/tsm">ESS 172.20.30.6</a></li>
-            <li><a class="dropdown-item" href="http://172.31.16.71/Reports/Pages/Folder.aspx?ItemPath=%2fEISIGR&ViewMode=List">EIS Web Report (IE)</a></li>
-            <li><a class="dropdown-item" href="http://172.20.28.33/qlikview/FormLogin.htm">Klik View</a></li>
-            <li><a class="dropdown-item" href="http://192.168.240.179/soujipetik/public/auth/login">SO Uji Petik (Production)</a></li>
-            <li><a class="dropdown-item" href="http://192.168.240.179/simsoujipetik/public/auth/login">SO Uji Petik (Simulasi)</a></li>
-            <li><a class="dropdown-item" href="http://172.20.28.17/monitoring-plano/public/laporan">Monitoring Plano</a></li>
-            <li><a class="dropdown-item" href="http://172.20.28.28/#/account/login">Tarra E-Faktur</a></li>
-          </ul>
-        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle fw-bold text-light" href="/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           <i class="fa-solid fa-star me-1"></i> OMI
@@ -161,7 +117,5 @@
         </li>
       </ul>
     </div>
-
-
   </div>
 </nav>

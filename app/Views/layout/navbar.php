@@ -62,6 +62,7 @@
           <ul class="dropdown-menu">
             <li><a class="" style="font-size: 14px; color:gray">LPP</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/informasiproduk">Informasi Produk</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/kkhpbm">Monitoring KKHPBM</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/lppsaatini">LPP Saat Ini</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/tampillppblnlalu">LPP Bulan Sebelumnya</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/lppvsplanodetail">LPP vs Plano Detail</a></li>
@@ -74,8 +75,10 @@
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/formsoharian">SO Harian</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/soic">SO IC</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/stockharian">Stock Harian</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/kertaskerja">Kertas Kerja Storage</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/servicelevel">Service Level</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/servicelevelbo">Service Level 3 Periode</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/livecks">Live CKS</a></li>
-            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/planominus">Plano Minus</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/produkbaru">Produk Baru</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/ubahstatus">Perubahan Status</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/itemseasonal">Item Seasonal</a></li>
@@ -84,30 +87,17 @@
           </ul>
         </li>
         <li class="nav-item dropdown">
-            <a href="" class="nav-link dropdown-toggle fw-bold text-light" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="fa-solid fa-book-open me-1"></i> Laporan
-            </a>
-            <ul class="dropdown-menu">   
-                <li><a class="text-secondary" style="font-size: 14px;">Prodmast</a></li>
-                <li><a href="<?= $ip; ?>/laporan/nonhanox" class="dropdown-item">Non HANOX</a></li>
-                <li><a href="<?= $ip; ?>/laporan/hanox" class="dropdown-item">Tag HANOX</a></li>
-                <li><a class="text-secondary" style="font-size: 14px;">Maslok</a></li>
-                <li><a href="<?= $ip; ?>/laporan/masterlokasi" class="dropdown-item">Master Lokasi</a></li>
-                <li><a href="<?= $ip; ?>/laporan/storagenull" class="dropdown-item">Storage Toko Null</a></li>              
-                <hr>
-                <li><a href="<?= $ip; ?>/laporan/historyso" class="dropdown-item">History SO</a></li>              
-                <li><a href="<?= $ip; ?>/laporan/pobanding" class="dropdown-item">PO Banding</a></li>              
-                <li><a href="<?= $ip; ?>/laporan/cekmd" class="dropdown-item">Cek MD</a></li>              
-            </ul>
-        </li>
-        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle fw-bold text-light" href="<?= $ip; ?>/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           <i class="fa-solid fa-computer me-1"></i>EDP
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="<?= $ip; ?>/edp/barangtertinggal">Cek Barang Tertinggal</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/edp/monitoringchecker">Monitoring Checker</a></li>
-            <li><a class="dropdown-item" href="<?= $ip; ?>/edp/cetaksso">Cetak SSO</a></li>            
+            <li><a class="dropdown-item" href="<?= $ip; ?>/edp/cetaksso">Cetak SSO</a></li>
+            <hr>
+            <li><a class="" style="font-size: 14px; color:gray">Link</a></li>
+            <li><a class="dropdown-item" href="http://172.20.28.17/Select-Oracle/public/select-oracle/login">Login Oracle Database</a></li>            
+            <li><a class="dropdown-item" href="http://192.168.237.72/rekor/report-update-promosi-ho/index.php?linkCabang=&kdCabang=47">Promo Belum Download</a></li>            
           </ul>
         </li>
         <!-- <li class="nav-item dropdown">
@@ -153,7 +143,7 @@
             <li><a class="dropdown-item" href="http://172.20.28.17/monitoring-plano/public/laporan">Monitoring Plano</a></li>
             <li><a class="dropdown-item" href="http://172.20.28.28/#/account/login">Tarra E-Faktur</a></li>
           </ul>
-        </li> -->
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle fw-bold text-light" href="/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           <i class="fa-solid fa-star me-1"></i> OMI

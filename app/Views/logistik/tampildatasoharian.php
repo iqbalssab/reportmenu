@@ -35,14 +35,14 @@
             <table class="table table-bordered border-dark table-responsive" style="width: 900px; font-size: 14px;">
                 <thead class="table table-success border-dark">
                     <tr>
-                        <th class="text-center">DIV</th>
-                        <th class="text-center">DEP</th>
-                        <th class="text-center">KAT</th>
+                        <th class="text-center">Div</th>
+                        <th class="text-center">Dept</th>
+                        <th class="text-center">Katb</th>
                         <th class="text-center">PLU</th>
-                        <th class="text-center">DESKRIPSI</th>
-                        <th class="text-center">STOK</th>
-                        <th class="text-center">PLANO</th>
-                        <th class="text-center">SELISIH</th>
+                        <th class="text-center">Deskripsi</th>
+                        <th class="text-center">Stok</th>
+                        <th class="text-center">Plano</th>
+                        <th class="text-center">Selisih</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -60,27 +60,31 @@
                     <?php endforeach ?>
                 </tbody>
             </table>
-            <table class="table table-bordered border-dark table-responsive" style="width: 900px; font-size: 14px;">
+            <table class="table table-bordered border-dark table-responsive" style="width: 1100px; font-size: 14px;">
                 <thead class="table table-success border-dark">
                     <tr>
-                        <th class="text-center">NO</th>
+                        <th class="text-center">No</th>
                         <th class="text-center">PLU</th>
-                        <th class="text-center">AREA</th>
-                        <th class="text-center">LOKASI</th>
-                        <th class="text-center">QTY</th>
-                        <th class="text-center">EXPIRED</th>
+                        <th class="text-center">Area</th>
+                        <th class="text-center">Lokasi</th>
+                        <th class="text-center">Qty</th>
+                        <th class="text-center">Expired</th>
+                        <th class="text-center">Selisih Qty</th>
+                        <th class="text-center">Keterangan</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php $no = 1; ?>
                     <?php foreach($soharian as $so) : ?>
                         <tr>
-                            <td class="text-center"><?= $no++; ?></td>
+                            <td class="text-end"><?= $no++; ?></td>
                             <td class="text-center"><?=$so['PLU']; ?></td>
                             <td class="text-center"><?=$so['AREA']; ?></td>
                             <td class="text-start"><?=$so['LOKASI']; ?></td>
                             <td class="text-end"><?=number_format($so['LKS_QTY'],'0',',','.'); ?></td>
                             <td class="text-center"><?=$so['LKS_EXPDATE']; ?></td>
+                            <td class="text-center"></td>
+                            <td class="text-center"></td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>

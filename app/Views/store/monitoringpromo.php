@@ -24,7 +24,7 @@
                     <form action="tampildatapromo" method="get" target="_blank">
                         <?= csrf_field(); ?>
                         <br>
-                    <select class="form-select form-select-sm" name="jenisLaporan" aria-label="Small select example">
+                    <select class="form-select form-select-sm" name="jenisLaporan" aria-label="Small select example" required>
                     <option value="" selected>Jenis Laporan</option>
                     <option value="cb">Data Promo Cashback</option>
                     <option value="cbperplu">Data Promo Cashback per PLU</option>
@@ -39,7 +39,7 @@
                     </select>
                         <br><br>
 
-                    <select class="form-select form-select-sm mb-2" name="statusPromo" aria-label="Small select example">
+                    <select class="form-select form-select-sm mb-2" name="statusPromo" aria-label="Small select example" required>
                     <option value="" selected>Status Promo</option>
                     <option value="all">All</option>
                     <option value="aktif">Promo Aktif</option>
@@ -47,7 +47,7 @@
                     <option value="blmaktif">Belum Aktif</option>
                     </select>
 
-                    <input class="mb-2" type="date" name="tglAkhir" id="tglAkhir"><br>
+                    <input class="mb-2" type="date" name="tglAkhir" id="tglAkhir" required><br>
                     <input class="mb-2" type="text" name="kdPromosi" id="kdPromosi">
                     <br>
                     <button type="submit" class="btn btn-primary" name="tombol" value="tampil">Tampil</button>

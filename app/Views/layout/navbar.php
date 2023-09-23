@@ -33,6 +33,7 @@
             <li><a class="dropdown-item" href="<?= $ip; ?>/store/monitoringpromo">Monitoring Promo</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/store/diskonminus">Cek Diskon Minus</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/store/marginminus">Cek Margin Minus</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/store/promoperrak">Promo Per Rak</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -51,6 +52,7 @@
             <li><a class="" style="font-size: 14px; color:gray">Sales</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/member/salesmember">Laporan Sales Member</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/member/salesperdep">Monitoring Sales PerHari</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/member/efaktur">Monitoring Efaktur</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -102,12 +104,9 @@
             <li><a class="dropdown-item" href="<?= $ip; ?>/omi/cekprosessph">Cek Proses SPH</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/omi/historybkl">History BKL</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/omi/slomi">Service Level OMI</a></li>
-            <li><a class="dropdown-item" href="<?= $ip; ?>/omi/intrantsitomi">Intransit OMI / IDM</a></li>
-            <li><a class="dropdown-item" href="<?= $ip; ?>/omi/returomi">Retur OMI</a></li>
             <li><a class="" style="font-size: 14px; color:gray">Problem</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/idm/itemkosongklik">Item Kosong PB IDM</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/idm/tolakanpbidm">Tolakan PB IDM</a></li>
-            <li><a class="dropdown-item" href="<?= $ip; ?>/idm/idmbedatag">Item IDM Only beda Tag dengan IGR</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -117,15 +116,9 @@
           <ul class="dropdown-menu">
             <li><a class="" style="font-size: 14px; color:gray">Tabel Master</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/problem/barcodedouble">Barcode Double</a></li>
-            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/tampilinfoproduk?satuanJual=0&statusTag=All&tanggalPromosi=All&divisi=All&dep=All&kat=All&lokasiTidakAda=on&jenisMarginNegatif=All&jenisLaporan=1A&tombol=btnview" target="_blank">Master Lokasi Belum Ada</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/tampilinfoproduk?satuanJual=0&statusTag=All&tanggalPromosi=All&divisi=All&dep=All&kat=All&lokasiTidakAda=on&jenisMarginNegatif=All&jenisLaporan=1A&tombol=btnview">Master Lokasi Belum Ada</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/problem/lokasidouble">Master Lokasi Double</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/planominus">Plano Minus</a></li>
-            <li><a class="" style="font-size: 14px; color:gray">Harga</a></li>
-            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/tampilinfoproduk?satuanJual=All&statusTag=All&tanggalPromosi=All&divisi=All&dep=All&kat=All&hargaJualNol=on&jenisMarginNegatif=All&jenisLaporan=1A&tombol=btnview" target="_blank">Harga Jual Belum Ada</a></li>
-            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/tampilinfoproduk?satuanJual=All&statusTag=All&tanggalPromosi=All&divisi=All&dep=All&kat=All&promoMahal=on&jenisMarginNegatif=All&jenisLaporan=1A&tombol=btnview" target="_blank">Harga Promo Lebih Mahal</a></li>
-            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/tampilinfoproduk?satuanJual=All&statusTag=All&tanggalPromosi=All&divisi=All&dep=All&kat=All&marginNegatif=on&jenisMarginNegatif=All&jenisLaporan=1A&tombol=btnview" target="_blank">Margin Negatif</a></li>
-            <li><a class="" style="font-size: 14px; color:gray">Member</a></li>
-            <li><a class="dropdown-item" href="<?= $ip; ?>/problem/membertidakbelanja">Member Tidak Berbelanja</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -143,49 +136,17 @@
           </ul>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle fw-bold text-light" href="<?= $ip; ?>/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="fa-solid fa-list me-1"></i> Link External
+          <a class="nav-link dropdown-toggle fw-bold text-light" href="/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa-solid fa-star me-1"></i> OMI
           </a>
           <ul class="dropdown-menu">
-            <li><a class="" style="font-size: 14px; color:gray">MS</a></li>
-            <li><a class="dropdown-item" href="http://192.168.240.179/mypoincs/public/">Verifikasi No HP Member</a></li>
-            <li><a class="dropdown-item" href="http://172.31.2.118/apinewmember/public/membership-check">Aplikasi Cek Membership</a></li>
-            <li><a class="dropdown-item" href="http://192.168.240.205:8080/reportmenu/cekmypoin/">Cek Saldo MyPoin</a></li>
-            <li><a class="dropdown-item" href="https://mitraindogrosir.co.id/cms/login">CMS Mitra Indogrosir</a></li>
-            <li><a class="dropdown-item" href="http://192.168.240.179/memberbina/public/auth/login">Web Member Binaan</a></li>
-            <li><a class="dropdown-item" href="http://192.168.10.100/maps/public/auth/login">Web Pemetaan Member</a></li>
-            <li><a class="dropdown-item" href="http://192.168.240.205:8080/reportmenu/aws_igr/">Upload Foto & Koordinat Member</a></li>
-            <li><a class="dropdown-item" href="http://172.20.28.17/monitoring-inquiry/public/login">Inquiry Master Member</a></li>
-            <li><a class="dropdown-item" href="http://172.31.27.68/login">CMS TMI</a></li>
-            <li><a class="dropdown-item" href="http://172.20.28.17/WebLaporanKasir/public/login">Web Laporan Refund</a></li>
-            <hr>
-            <li><a class="" style="font-size: 14px; color:gray">KLIK</a></li>
-            <li><a class="dropdown-item" href="https://klikindogrosir.com/">Klik Indogrosir (User)</a></li>
-            <li><a class="dropdown-item" href="https://b2b.klikindogrosir.com/admin">Klik Indogrosir (Admin)</a></li>
-            <li><a class="dropdown-item" href="http://172.31.27.67:81/login">Klik Indogrosir (MS)</a></li>
-            <li><a class="dropdown-item" href="http://172.20.28.17/serah-terima-ipp/public/">Serah Terima IPP</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/omi/monitoringpbomi">Monitoring PB OMI</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/omi/cekprosespbomi">Cek Proses PB OMI</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/omi/cekprosessph">Cek Proses SPH</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/omi/historybkl">History BKL</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/omi/slomi">Service Level OMI</a></li>
           </ul>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle fw-bold text-light" href="<?= $ip; ?>/ms" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="fa-solid fa-users-gear me-1"></i>Program HO
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="http://172.20.30.3/ess/homeportal">ESS 172.20.30.3</a></li>
-            <li><a class="dropdown-item" href="http://172.20.30.4/ess/homeportal">ESS 172.20.30.4</a></li>
-            <li><a class="dropdown-item" href="http://172.20.30.5/ess/homeportal">ESS 172.20.30.5</a></li>
-            <li><a class="dropdown-item" href="http://172.20.30.3/tsm">TSM 172.20.30.3</a></li>
-            <li><a class="dropdown-item" href="http://172.20.30.4/tsm">ESS 172.20.30.4</a></li>
-            <li><a class="dropdown-item" href="http://172.20.30.5/tsm">ESS 172.20.30.5</a></li>
-            <li><a class="dropdown-item" href="http://172.20.30.6/tsm">ESS 172.20.30.6</a></li>
-            <li><a class="dropdown-item" href="http://172.31.16.71/Reports/Pages/Folder.aspx?ItemPath=%2fEISIGR&ViewMode=List">EIS Web Report (IE)</a></li>
-            <li><a class="dropdown-item" href="http://172.20.28.33/qlikview/FormLogin.htm">Klik View</a></li>
-            <li><a class="dropdown-item" href="http://192.168.240.179/soujipetik/public/auth/login">SO Uji Petik (Production)</a></li>
-            <li><a class="dropdown-item" href="http://192.168.240.179/simsoujipetik/public/auth/login">SO Uji Petik (Simulasi)</a></li>
-            <li><a class="dropdown-item" href="http://172.20.28.17/monitoring-plano/public/laporan">Monitoring Plano</a></li>
-            <li><a class="dropdown-item" href="http://172.20.28.28/#/account/login">Tarra E-Faktur</a></li>
-          </ul>
-        </li>
+        </li>  
         <li class="nav-item">
           <a class="nav-link text-light" aria-current="page" href="<?= $ip; ?>/mplano/"><i class="fa-solid fa-lightbulb me-1"></i>Plano Mobile IGR</a>
         </li>

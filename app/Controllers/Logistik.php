@@ -5971,28 +5971,6 @@ class Logistik extends BaseController
         redirect()->to('pertemanan')->withInput();
         return view('logistik/pertemanan', $data);
     }
-
-    public function cekmd() {
-    $dbProd = db_connect('production');
-    $cekmd = $dbProd->query(
-        "SELECT PRMD_PRDCD,
-        PRD_DESKRIPSIPANJANG,
-        PRMD_TGLAWALBARU,
-        PRMD_TGLAKHIRBARU,
-        PRMD_HRGJUAL  HRG_LAMA,
-        PRMD_HRGJUALBARU HRG_BARU
-        from tbtr_promomd
-        LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = PRMD_PRDCD
-        WHERE TRUNC(PRMD_TGLAWALBARU)>= TRUNC(SYSDATE)"
-    );
-    $cekmd = $cekmd->getResultArray();
-    $data = [
-        'title' => 'CEK MD',
-        'cekmd' => $cekmd
-    ];
-
-    return view('logistik/cekmd', $data);
-    }
 }
 
 

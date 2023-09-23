@@ -2493,7 +2493,7 @@ class Store extends BaseController
       $tgltrans = $this->request->getVar('tgltrans');
       $btn = $this->request->getVar('btn');
 
-      $semua = $proses = $pertanggal = $detailtanggal = [];
+      $semua = $proses = $pertanggal = $detailtanggal = $selisih = [];
 
       if($btn=="semua") {
         $filterdata = "";
@@ -2599,6 +2599,17 @@ class Store extends BaseController
           order by obi_tgltrans desc"
         );
         $pertanggal = $pertanggal->getResultArray();
+      }elseif($btn=="selisih"){
+        $selisih = $dbProd->query(
+          "SELECT TGL, PLU, DESK,NOTRANS,QTYORDER, QTYREAL, SELISIH 
+          FROM (SELECT OBI_TGLTRANS TGL, OBI_PRDCD PLU, PRD_DESKRIPSIPANJANG DESK, OBI_NOTRANS NOTRANS,OBI_QTYORDER QTYORDER, 
+          OBI_QTYREALISASI QTYREAL, (OBI_QTYORDER-OBI_QTYREALISASI) SELISIH 
+          FROM TBTR_OBI_D 
+          LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = OBI_PRDCD
+          WHERE trunc(OBI_TGLTRANS) BETWEEN to_date('$tglawal', 'YYYY-MM-DD') AND to_date('$tglakhir', 'YYYY-MM-DD'))
+          ORDER BY TGL"
+        );
+        $selisih = $selisih->getResultArray();
       }
 
       if (!empty($tgltrans)) {
@@ -2655,7 +2666,9 @@ class Store extends BaseController
         'pertanggal' => $pertanggal,
         'tgltrans' => $tgltrans,
         'detailtanggal' => $detailtanggal,
+        'selisih' => $selisih
       ];
+      d($data);
 
       redirect()->to('monitoringklik')->withInput();
       return view('store/monitoringklik',$data);
@@ -2996,7 +3009,7 @@ class Store extends BaseController
       $dbProd = db_connect('production');
       $koderak = $this->request->getVar('rak');
       $jenis = $this->request->getVar('jenis');
-      $cbrak = [];
+      $cbrak = $giftrak = [];
 
       $rak = $dbProd->query(
         "SELECT DISTINCT LKS_KODERAK FROM TBMASTER_LOKASI
@@ -3007,10 +3020,10 @@ class Store extends BaseController
       $rak = $rak->getResultArray();
 
 
-      if(!empty($koderak)){
+      if($koderak!="" && $koderak!="all"){
         $filterrak = "AND RAK = '$koderak'";
-      }else{
-        $filterrak = "";
+      }elseif($koderak=="all"){
+        $filterrak = " ";
       }
 
       if (!empty($this->request->getVar('btn')) && $jenis=="cb") {
@@ -3034,6 +3047,27 @@ class Store extends BaseController
           ORDER BY LOK ASC"
         );
         $cbrak = $cbrak->getResultArray();
+      }elseif(!empty($this->request->getVar('btn')) && $jenis=="gift"){
+        $giftrak = $dbProd->query(
+          " SELECT DISTINCT GFD_PRDCD PLU,
+          DESK,
+          GFD_KODEPROMOSI||'-'||GFH_NAMAPROMOSI PROMO,
+          GFH_TGLAWAL TGLAWAL,
+          GFH_TGLAKHIR TGLAKHIR,
+          RAK||'.'||SUBRAK||'.'||TIPERAK||'.'||SHELVING||'.'||NOURUT LOK
+          FROM TBTR_GIFT_HDR
+          LEFT JOIN (SELECT GFD_PRDCD,GFD_KODEPROMOSI,PRD_DESKRIPSIPANJANG DESK,
+                      LKS_KODERAK RAK, LKS_KODESUBRAK SUBRAK, LKS_TIPERAK TIPERAK,
+                      LKS_SHELVINGRAK SHELVING,LKS_NOURUT NOURUT FROM TBTR_GIFT_DTL
+                      LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = GFD_PRDCD
+                      LEFT JOIN TBMASTER_LOKASI ON LKS_PRDCD = GFD_PRDCD
+                      WHERE SUBSTR(LKS_KODERAK,1,1) in ('R','O','I') AND LKS_TIPERAK != 'S') ON GFH_KODEPROMOSI = GFD_KODEPROMOSI
+          WHERE TRUNC(SYSDATE) BETWEEN TRUNC(GFH_TGLAWAL) AND TRUNC(GFH_TGLAKHIR)
+          AND GFH_RECORDID IS NULL 
+          $filterrak
+          ORDER BY TGLAWAL"
+        );
+        $giftrak = $giftrak->getResultArray();
       }
 
       $data = [
@@ -3041,8 +3075,8 @@ class Store extends BaseController
         'rak' => $rak,
         'koderak' => $koderak,
         'cbrak' => $cbrak,
+        'giftrak' => $giftrak,
       ];
-      d($data);
 
       return view('store/promoperrak', $data);
     }

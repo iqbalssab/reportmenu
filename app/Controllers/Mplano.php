@@ -397,4 +397,33 @@ class Mplano extends BaseController
 
         return view('mplano/slp', $data);
     }
+
+    public function historyslp()
+    {
+        $dbProd = db_connect('production');
+
+        $tglawal = $this->request->getVar('tglawal');
+        $tglakhir = $this->request->getVar('tglakhir');
+        $btn = $this->request->getVar('btn');
+
+        $history = [];
+        if (!empty($btn)) {
+            $history = $dbProd->query(
+                "SELECT * FROM TBTR_SLP
+                WHERE trunc(SLP_CREATE_DT) BETWEEN to_date('$tglawal','YYYY-MM-DD') AND to_date('$tglakhir','YYYY-MM-DD')"
+            );
+            $history = $history->getResultArray();
+        }
+
+        $data = [ 
+            'title' => 'History SLP',
+            'history' => $history,
+            'tglawal' => $tglawal,
+            'tglakhir' => $tglakhir,
+        ];
+
+        return view('mplano/historyslp',$data);
+    }
+
+
 }

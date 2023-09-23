@@ -32,7 +32,8 @@
                 <div class="card-header bg-primary-subtle">
                     <h6 class="fw-bold text-primary">Data Promo Per Rak : <?= $koderak; ?></h6>
                 </div>
-                <div class="card-bory">
+                <div class="card-body">
+                    <?php if(!empty($cbrak)): ?>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -60,6 +61,35 @@
                             <?php endforeach; ?>
                         </tbody>
                     </table>
+                    <?php elseif(!empty($giftrak)): ?>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>PLU</th>
+                                <th>DESKRIPSI</th>
+                                <th>PROMOSI</th>
+                                <th>TGLAWAL</th>
+                                <th>TGLAKHIR</th>
+                                <th>LOKASI</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $no = 1; ?>
+                            <?php foreach($giftrak as $gr): ?>
+                                <tr>
+                                    <td><?= $no++; ?></td>
+                                    <td><?= $gr['PLU']; ?></td>
+                                    <td><?= $gr['DESK']; ?></td>
+                                    <td><?= $gr['PROMO']; ?></td>
+                                    <td><?= $gr['TGLAWAL']; ?></td>
+                                    <td><?= $gr['TGLAKHIR']; ?></td>
+                                    <td><?= $gr['LOK']; ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

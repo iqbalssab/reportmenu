@@ -141,6 +141,7 @@
                 <a href="<?= $ip; ?>/mplano/spbo3?spb=ALL" class="list-group-item"><i class="fa-solid fa-arrows-up-to-line me-1"></i>SPB Blm Direalisasi</a>
                 <a href="<?= $ip; ?>/mplano/spbm" class="list-group-item"><i class="fa-solid fa-mobile-retro me-1"></i>SPB Manual</a>
                 <a href="<?= $ip; ?>/mplano/slp" class="list-group-item"><i class="fa-solid fa-barcode me-1"></i>SLP</a>
+                <a href="<?= $ip; ?>/mplano/historyslp" class="list-group-item"><i class="fa-solid fa-history me-1"></i>History SLP</a>
             </ul>
         </div>
     </div>

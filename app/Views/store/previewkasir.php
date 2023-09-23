@@ -7,7 +7,16 @@
                 date_default_timezone_set("Asia/Jakarta"); 
                 $waktu = date('H:i:s');
                 ?>
-<div class="container-fluid mt-2 mx-auto fs-6 text-small">
+<style>
+    th{
+        font-size: 16px;
+    }
+
+    td{
+        font-size: 14px;
+    }
+</style>
+<div class="container-fluid mt-2 mx-auto px-3 fs-6 text-small">
     <div class="row">
         <div class="col-md-9">
             <div class="card">

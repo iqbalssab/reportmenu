@@ -7,7 +7,7 @@
       <h1 class="text-light ms-3">Welcome to INDOGROSIR</h1>
       <h2 class="text-light ms-5">MITRA USAHA TERPERCAYA</h2>
     <!-- card atas -->
-      <div class="card ms-5 me-5 bg-dark-subtle ">
+      <div class="card ms-5 me-5 bg-dark-subtle 
         <div class="card-body">
           <!-- <h1>
             QUICK LAUNCH

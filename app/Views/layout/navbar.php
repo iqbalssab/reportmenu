@@ -33,6 +33,7 @@
             <li><a class="dropdown-item" href="<?= $ip; ?>/store/monitoringpromo">Monitoring Promo</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/store/diskonminus">Cek Diskon Minus</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/store/marginminus">Cek Margin Minus</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/store/promoperrak">Promo Per Rak</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -82,6 +83,23 @@
           </ul>
         </li>
         <li class="nav-item dropdown">
+            <a href="" class="nav-link dropdown-toggle fw-bold text-light" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-book-open me-1"></i> Laporan
+            </a>
+            <ul class="dropdown-menu">   
+                <li><a class="text-secondary" style="font-size: 14px;">Prodmast</a></li>
+                <li><a href="<?= $ip; ?>/laporan/nonhanox" class="dropdown-item">Non HANOX</a></li>
+                <li><a href="<?= $ip; ?>/laporan/hanox" class="dropdown-item">Tag HANOX</a></li>
+                <li><a class="text-secondary" style="font-size: 14px;">Maslok</a></li>
+                <li><a href="<?= $ip; ?>/laporan/masterlokasi" class="dropdown-item">Master Lokasi</a></li>
+                <li><a href="<?= $ip; ?>/laporan/storagenull" class="dropdown-item">Storage Toko Null</a></li>              
+                <hr>
+                <li><a href="<?= $ip; ?>/laporan/historyso" class="dropdown-item">History SO</a></li>              
+                <li><a href="<?= $ip; ?>/laporan/pobanding" class="dropdown-item">PO Banding</a></li>              
+                <li><a href="<?= $ip; ?>/laporan/cekmd" class="dropdown-item">Cek MD</a></li>              
+            </ul>
+        </li>
+        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle fw-bold text-light" href="<?= $ip; ?>/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           <i class="fa-solid fa-computer me-1"></i>EDP
           </a>
@@ -91,7 +109,7 @@
             <li><a class="dropdown-item" href="<?= $ip; ?>/edp/cetaksso">Cetak SSO</a></li>            
           </ul>
         </li>
-        <li class="nav-item dropdown">
+        <!-- <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle fw-bold text-light" href="<?= $ip; ?>/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           <i class="fa-solid fa-list me-1"></i> Link External
           </a>
@@ -134,7 +152,7 @@
             <li><a class="dropdown-item" href="http://172.20.28.17/monitoring-plano/public/laporan">Monitoring Plano</a></li>
             <li><a class="dropdown-item" href="http://172.20.28.28/#/account/login">Tarra E-Faktur</a></li>
           </ul>
-        </li>
+        </li> -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle fw-bold text-light" href="/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           <i class="fa-solid fa-star me-1"></i> OMI
@@ -152,5 +170,7 @@
         </li>
       </ul>
     </div>
+
+
   </div>
 </nav>

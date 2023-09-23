@@ -32,7 +32,7 @@
         <div class="col-sm-6">
         <div class="card">
                 <div class="card-header bg-primary">
-                    <h4 class="text-light text-center fw-bold">SPB Belum Diturunkan</h4>
+                    <h4 class="text-light text-center fw-bold">SPB Belum Direalisasi</h4>
                 </div>
                 <div class="card-body">
                     <?php if(!empty($blmreal)): ?>
@@ -63,7 +63,7 @@
         </a>
         </div>
     </div>
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasExampleLabel">Plano Mobile IGR</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -79,9 +79,10 @@
                 <a href="<?= $ip; ?>/mplano/spbo3?spb=ALL" class="list-group-item"><i class="fa-solid fa-arrows-up-to-line me-1"></i>SPB Blm Direalisasi</a>
                 <a href="<?= $ip; ?>/mplano/spbm" class="list-group-item"><i class="fa-solid fa-mobile-retro me-1"></i>SPB Manual</a>
                 <a href="<?= $ip; ?>/mplano/slp" class="list-group-item"><i class="fa-solid fa-barcode me-1"></i>SLP</a>
+                <a href="<?= $ip; ?>/mplano/historyslp" class="list-group-item"><i class="fa-solid fa-history me-1"></i>History SLP</a>
             </ul>
         </div>
-        </div>
+    </div>
 </div>
 
 <?= $this->endSection(); ?>

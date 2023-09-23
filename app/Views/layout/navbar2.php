@@ -3,11 +3,10 @@
 
       <div class="logo">
         <a href="/"><img src="img/igr2.png" alt="" class="img-fluid"></a>
-        <!-- <h1 class="text-light"><a href="index.html"><span>INDOGROSIR PWT</span></a></h1>
-        <!-- Uncomment below if you prefer to use an image logo -->
+        
       </div>
-<nav id="navbar" class="navbar">
-        <ul>
+  <nav id="navbar" class="navbar">
+        <!-- <ul>
           <li><a href="/">Home</a></li>
           <li class="dropdown"><a  href=""><span>Member Service</span> <i class="fa-solid fa-chevron-down"></i></a>
             <ul>
@@ -44,9 +43,37 @@
               <li><a href="#">History BKL</a></li>
             </ul>
           </li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
+        </ul> -->
+        <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+  Link with href
+</a>
+<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+  Button with data-bs-target
+</button>
 
-      </div>
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div>
+      Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
+    </div>
+    <div class="dropdown mt-3">
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+        Dropdown button
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Action</a></li>
+        <li><a class="dropdown-item" href="#">Another action</a></li>
+        <li><a class="dropdown-item" href="#">Something else here</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+  </nav><!-- .navbar -->
+
+</div>
 </header>

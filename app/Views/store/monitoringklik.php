@@ -18,6 +18,7 @@
                         <button type="submit" name="btn" value="semua" class="btn btn-primary text-light w-100 mb-1"><i class="fa-solid fa-circle-check me-1"></i>Tampilkan Semua</button>
                         <button type="submit" name="btn" value="proses" class="btn btn-danger text-light w-100 mb-1"><i class="fa-solid fa-circle-exclamation me-1"></i>Masih Proses</button>
                         <button type="submit" name="btn" value="pertanggal" class="btn btn-success text-light w-100 mb-1"><i class="fa-solid fa-list me-1"></i>Tampil Pertanggal</button>
+                        <button type="submit" name="btn" value="selisih" class="btn btn-warning text-dark w-100 mb-1"><i class="fa-solid fa-minus-circle me-1"></i>Tampil Selisih</button>
                     </form>
                 </div>
             </div>
@@ -160,6 +161,36 @@
                                             <?php $belumclear = $pt['JMLPB']-$pt['SUDAH_STRUK']; ?>
                                             <td><a href="monitoringklik?tgltrans=<?= $pt['TGLTRANS']; ?>">[<?= $belumclear; ?>] PB BELUM SELESAI</a></td>
                                         <?php endif; ?>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php elseif(!empty($selisih)): ?>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="bg-primary text-light">No</th>
+                                    <th class="bg-primary text-light">Tanggal</th>
+                                    <th class="bg-primary text-light">PLU</th>
+                                    <th class="bg-primary text-light">Deskripsi</th>
+                                    <th class="bg-primary text-light">NoTrans</th>
+                                    <th class="bg-primary text-light">QtyOrder</th>
+                                    <th class="bg-primary text-light">QtyRealisasi</th>
+                                    <th class="bg-primary text-light">Selisih</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $no = 1; ?>
+                                <?php foreach($selisih as $sl): ?>
+                                    <tr>
+                                        <td><?= $no++; ?></td>
+                                        <td><?= $sl['TGL']; ?></td>
+                                        <td><?= $sl['PLU']; ?></td>
+                                        <td><?= $sl['DESK']; ?></td>
+                                        <td><?= $sl['NOTRANS']; ?></td>
+                                        <td><?= $sl['QTYORDER']; ?></td>
+                                        <td><?= $sl['QTYREAL']; ?></td>
+                                        <td><?= $sl['SELISIH']; ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>

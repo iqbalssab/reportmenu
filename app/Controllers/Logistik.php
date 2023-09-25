@@ -3418,10 +3418,59 @@ class Logistik extends BaseController
                     $kdplu0
                     $div0
                     $kdsup0
-                    order by prd_deskripsipanjang,tpod_tglpo"
+                    order by DIV,DEP,KAT,DESKRIPSI,TGLPO"
                 );
                 $databo = $databo->getResultArray();
                 $lap0 = 'PO vs BTB per SUPPLIER';
+            } else if($jenis == "POBTBSUPITEM") {
+                $databo = $dbProd->query(
+                    "select       
+                    kdsupplier||'.'||PLU as LOOKUP, 
+                    kdsupplier,      
+                    namasupplier,      
+                    DIV,DEP,KAT,PLU,DESKRIPSI,UNIT,FRAC,
+                    count(nopo) as JML_PO, 
+                    sum(qty_po) as QTY_PO,      
+                    sum(rph_po) as RPH_PO,   
+                    count(nobpb) as JML_BPB,    
+                    sum(qty_bpb) as QTY_BPB,      
+                    sum(rph_bpb) as RPH_BPB,      
+                    round(sum(nvl(qty_bpb,0))/sum(qty_po)*100,2) as SL_QTY,      
+                    round(sum(nvl(rph_bpb,0))/sum(rph_po)*100,2) as SL_RPH      
+                    from (      
+                    select       
+                    sup_kodesupplier as KDSUPPLIER,      
+                    sup_namasupplier as NAMASUPPLIER,         
+                    prd_kodedivisi as DIV, 
+                    prd_kodedepartement as DEP, 
+                    prd_kodekategoribarang as KAT, 
+                    prd_prdcd as PLU,   
+                    prd_deskripsipanjang as DESKRIPSI, 
+                    prd_frac as FRAC, 
+                    prd_unit as UNIT, 
+                    tpod_nopo as NOPO, 
+                    tpod_qtypo as QTY_PO,      
+                    tpod_gross+tpod_ppn as RPH_PO,     
+                    mstd_nodoc as NOBPB, 
+                    mstd_Qty as QTY_BPB,      
+                    (MSTD_GROSS - MSTD_DISCRPH + MSTD_PPNRPH) as RPH_BPB      
+                    from tbtr_po_d      
+                    left join tbtr_po_h on tpoh_nopo=tpod_nopo      
+                    left join tbmaster_prodmast on prd_prdcd=tpod_prdcd 
+                    left join tbmaster_supplier on sup_kodesupplier=tpoh_kodesupplier      
+                    left join (      
+                      select * from tbtr_mstran_d       
+                      where mstd_typetrn='B' and mstd_recordid is null      
+                    )on mstd_nopo=tpod_nopo and mstd_prdcd=tpod_prdcd      
+                    where trunc(tpod_tglpo) between to_date('$awal','YYYY-MM-DD') and to_date('$akhir','YYYY-MM-DD')     
+                    $kdplu0
+                    $div0
+                    $kdsup0 
+                    )group by kdsupplier||'.'||PLU, kdsupplier, namasupplier, DIV, DEP, KAT, PLU, DESKRIPSI, FRAC, UNIT
+                    order by DIV,DEP,KAT,DESKRIPSI "
+                );
+                $databo = $databo->getResultArray();
+                $lap0 = 'PO vs BTB per SUPPLIER per ITEM';
             };
         };       
         

@@ -31,8 +31,8 @@
                             <td><?= $md['PRD_DESKRIPSIPANJANG']; ?></td>
                             <td><?= $md['PRMD_TGLAWALBARU']; ?></td>
                             <td><?= $md['PRMD_TGLAKHIRBARU']; ?></td>
-                            <td><?= number_format($md['HRG_LAMA']); ?></td>
-                            <td><?= number_format($md['HRG_BARU']); ?></td>
+                            <td class="text-end"><?= number_format($md['HRG_LAMA']); ?></td>
+                            <td class="text-end"><?= number_format($md['HRG_BARU']); ?></td>
                         </tr>
                         <?php endforeach; ?>
                     <?php else: ?>

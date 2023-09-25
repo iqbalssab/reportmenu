@@ -46,6 +46,7 @@ echo $this->section('content'); ?>
                                         <option value="RETUROMI">Retur OMI</option>
                                         <option value="SOIC">Reset SOIC</option>
                                         <option value="POBTBSUP">PO vs BTB per Supplier</option>
+                                        <option value="POBTBSUPITEM">PO vs BTB per Supplier per Item</option>
                                     </select>
                                 </td>
                                 <tr>
@@ -60,7 +61,7 @@ echo $this->section('content'); ?>
                                             <option value="3">3. GMS</option>
                                             <option value="4">4. Perishable</option>
                                             <option value="5">5. Counter</option>
-                                            <option value="6">6. Elektronik</option>
+                                            <option value="6">6. Fast Food</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -103,7 +104,7 @@ echo $this->section('content'); ?>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="4"><br><label class="fw-bold text-danger" style="font-size: 12px;">** Untuk RETUR OMI, RESET SO IC, dan PO vs BTB per Supplier, kosongkan pilihan <b>Jenis Laporan</b>**</label></td>
+                                    <td colspan="4"><br><label class="fw-bold text-danger" style="font-size: 12px;">** Untuk RETUR OMI, RESET SO IC, dan PO vs BTB, kosongkan pilihan <b>Jenis Laporan</b>**</label></td>
                                 </tr>
                                 <tr>
                                     <td colspan="4"><hr></td>

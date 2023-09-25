@@ -167,4 +167,56 @@ class Edp extends BaseController
           return view('edp/tampildatachecker',$data);
         };
     }
+
+    public function historyappfp() {
+      $dbProd = db_connect('production');
+      $aksi = $this->request->getVar('tombol');
+      $approval = [];
+
+      if(isset($_GET['awal'])) {if ($_GET['awal'] !=""){$tanggalMulai = $_GET['awal']; }}
+      if(isset($_GET['akhir'])) {if ($_GET['akhir'] !=""){$tanggalSelesai = $_GET['akhir']; }}
+
+      if($aksi == "btnksr") {
+        $approval = $dbProd->query(
+          "select
+          rap_time as req_time,
+          rap_username as userid,
+          rap_station as kassa,
+          rap_keterangan as keterangan,
+          case
+            when rap_approveid = 'X' then 'CANCEL'
+            else rap_modify_by end as approval
+          from tbtr_req_approval 
+          where trunc(rap_create_dt) between to_date('$tanggalMulai','yyyy-mm-dd') and to_date('$tanggalSelesai','yyyy-mm-dd')
+          and rap_program = 'POS IGR'
+          order by req_time"
+        );
+        $approval = $approval->getResultArray();
+      } else if( $aksi == "btnhh") {
+        $approval = $dbProd->query(
+          "select
+          rap_time as req_time,
+          rap_username as userid,
+          rap_station as kassa,
+          rap_keterangan as keterangan,
+          case
+            when rap_approveid = 'X' then 'CANCEL'
+            else rap_modify_by end as approval
+          from tbtr_req_approval 
+          where trunc(rap_create_dt) between to_date('$tanggalMulai','yyyy-mm-dd') and to_date('$tanggalSelesai','yyyy-mm-dd')
+          and rap_program = 'Handheld'
+          order by req_time"
+        );
+        $approval = $approval->getResultArray();
+      };
+
+      $data=[
+        'title' => 'History Approval Fingerprint',
+        'approval' => $approval,
+        'aksi' => $aksi,
+      ];
+
+      redirect()->to('historyappfp')->withInput();
+      return view('edp/historyappfp',$data);
+    }
 }

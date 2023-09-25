@@ -1390,4 +1390,1000 @@ class Omi extends BaseController
 
         return view('omi/tampilslomi', $data);
     }
+
+    public function intrantsitomi() {
+        $dbProd = db_connect('production');
+        $tokoOmi = $tokoIdm = [];
+
+        $departemen = $divisi = $kategori = [];
+
+        $divisi = $dbProd->query(
+            "SELECT div_kodedivisi, div_namadivisi FROM tbmaster_divisi ORDER BY div_kodedivisi"
+        );
+        $divisi = $divisi->getResultArray();
+
+        $departemen = $dbProd->query(
+            "SELECT dep_kodedivisi,div_namadivisi,div_singkatannamadivisi,dep_kodedepartement, dep_namadepartement 
+            from tbmaster_departement 
+            left join tbmaster_divisi on div_kodedivisi=dep_kodedivisi
+            order by dep_kodedivisi,dep_kodedepartement"
+        );
+        $departemen = $departemen->getResultArray();
+
+        $kategori = $dbProd->query(
+            "SELECT kat.kat_kodedepartement,
+            dep.dep_namadepartement AS kat_namadepartement,
+            kat.kat_kodekategori,
+            kat.kat_namakategori
+            FROM tbmaster_kategori kat,
+                tbmaster_departement dep
+            WHERE kat.kat_kodedepartement = dep.dep_kodedepartement (+)
+            ORDER BY kat_kodedepartement,
+                kat_kodekategori"
+        );
+        $kategori = $kategori->getResultArray();
+
+        $tokoOmi = $dbProd->query(
+            "SELECT tko_kodeomi,tko_namaomi FROM tbmaster_tokoigr ORDER BY tko_kodeomi"
+        );
+        $tokoOmi = $tokoOmi->getResultArray();
+
+        $tokoIdm = $dbProd->query(
+            "SELECT tko_kodeomi,tko_namaomi FROM tbmaster_tokoigr WHERE tko_kodesbu = 'I' ORDER BY tko_kodeomi"
+        );
+        $tokoIdm = $tokoIdm->getResultArray();
+
+        $data = [
+            'title' => 'Intransit OMI',
+            'tokoOmi' => $tokoOmi,
+            'tokoIdm' => $tokoIdm,
+            'divisi' => $divisi,
+            'departemen' => $departemen,
+            'kategori' => $kategori,
+        ];
+
+        redirect()->to('/intrantsitomi')->withInput();
+        return view('/omi/intrantsitomi',$data);
+    }
+
+    public function tampilintrantsitomi() {
+        $dbProd = db_connect('production');
+        $aksi = $this->request->getVar('tombol');
+        $tokoOmi = $tokoIdm = $intransitomi = $departemen = $divisi = $kategori = $filename = [];
+
+        // Inisiasi
+        $tanggalMulai = $tanggalSelesai       = date("Ymd");
+        $kodeTokoOMI = $kodeTokoIDM = $kodePLU = $kodeSupplier = $namaSupplier = $kodeDivisi = $kodeDepartemen = $kodeKategoriBarang = $jenisLaporan = "All";
+        $filteromi = $filteridm = $jlap = $filterplu = $filterkd = $filternm = $filterdiv = $filterdep = $filterkat ='';
+
+        //ambil variabel
+        if(isset($_GET['tokoOmi'])) {if ($_GET['tokoOmi'] !=""){$kodeTokoOMI = $_GET['tokoOmi']; }}
+        if ($kodeTokoOMI != "All" AND $kodeTokoOMI != "") {
+			$filteromi = " AND rpb_kode_omi = '$kodeTokoOMI' 
+                            AND rpb_kodesbu = 'O' ";
+		}
+        if(isset($_GET['tokoIdm'])) {if ($_GET['tokoIdm'] !=""){$kodeTokoIDM = $_GET['tokoIdm']; }}
+        if ($kodeTokoIDM != "All" AND $kodeTokoIDM != "") {
+			$filteridm = " AND rpb_kode_omi = '$kodeTokoIDM'
+                            AND rpb_kodesbu = 'I' ";
+		}        
+        if(isset($_GET['plu'])) {if ($_GET['plu'] !=""){$kodePLU = $_GET['plu']; }}
+        if ($kodePLU != "All" AND $kodePLU != "") {
+            $kodePLU = substr('00000000' . $kodePLU, -7);
+            $filterplu = " AND rpb_prdcd = '$kodePLU' ";
+        }
+        if(isset($_GET['kdsup'])) {if ($_GET['kdsup'] !=""){$kodeSupplier = $_GET['kdsup']; }}
+        if ($kodeSupplier != "All" AND $kodeSupplier != "") {
+            $filterkd = " AND rpb_kode_supplier like '%$kodeSupplier%' ";
+        }
+        if(isset($_GET['nmsup'])) {if ($_GET['nmsup'] !=""){$namaSupplier = $_GET['nmsup']; }}
+        if ($namaSupplier != "All" AND $namaSupplier != "") {
+            $filternm = " AND rpb_nama_supplier like '%$namaSupplier%' ";
+        }
+        $namaSupplier = str_replace(" ","%",$namaSupplier);
+        if(isset($_GET['divisi'])) {if ($_GET['divisi'] !=""){$kodeDivisi = $_GET['divisi']; }}
+        if ($kodeDivisi != "All" AND $kodeDivisi != "") {
+            $filterdiv = " AND rpb_div = '$kodeDivisi' ";
+        }
+        if(isset($_GET['dep'])) {if ($_GET['dep'] !=""){$kodeDepartemen = $_GET['dep']; }}
+        if ($kodeDepartemen != "All" AND $kodeDepartemen != "") {
+            $filterdep = " AND rpb_dept = '$kodeDepartemen' ";
+        }
+        if(isset($_GET['kat'])) {if ($_GET['kat'] !=""){$kodeKategoriBarang = $_GET['kat']; }}
+        if ($kodeKategoriBarang != "All" AND $kodeKategoriBarang != "") {
+            $filterkat = " AND rpb_dept || rpb_katb = '$kodeKategoriBarang' ";
+        }
+        if(isset($_GET['jenisLaporan'])) {if ($_GET['jenisLaporan'] !=""){$jenisLaporan = $_GET['jenisLaporan']; }}
+
+        $divisi = $dbProd->query(
+            "SELECT div_kodedivisi, div_namadivisi FROM tbmaster_divisi ORDER BY div_kodedivisi"
+        );
+        $divisi = $divisi->getResultArray();
+
+        $departemen = $dbProd->query(
+            "SELECT dep_kodedivisi,div_namadivisi,div_singkatannamadivisi,dep_kodedepartement, dep_namadepartement 
+            from tbmaster_departement 
+            left join tbmaster_divisi on div_kodedivisi=dep_kodedivisi
+            order by dep_kodedivisi,dep_kodedepartement"
+        );
+        $departemen = $departemen->getResultArray();
+
+        $kategori = $dbProd->query(
+            "SELECT kat.kat_kodedepartement,
+            dep.dep_namadepartement AS kat_namadepartement,
+            kat.kat_kodekategori,
+            kat.kat_namakategori
+            FROM tbmaster_kategori kat,
+                tbmaster_departement dep
+            WHERE kat.kat_kodedepartement = dep.dep_kodedepartement (+)
+            ORDER BY kat_kodedepartement,
+                kat_kodekategori"
+        );
+        $kategori = $kategori->getResultArray();
+
+        $tokoOmi = $dbProd->query(
+            "SELECT tko_kodeomi,tko_namaomi FROM tbmaster_tokoigr ORDER BY tko_kodeomi"
+        );
+        $tokoOmi = $tokoOmi->getResultArray();
+
+        $tokoIdm = $dbProd->query(
+            "SELECT tko_kodeomi,tko_namaomi FROM tbmaster_tokoigr WHERE tko_kodesbu = 'I' ORDER BY tko_kodeomi"
+        );
+        $tokoIdm = $tokoIdm->getResultArray();
+
+        // query
+        $viewHargaBeli = " (SELECT hgb.hgb_prdcd,
+		    hgb.hgb_hrgbeli,
+		    hgb.hgb_statusbarang,
+		    hgb.hgb_tglmulaidisc01,
+		    hgb.hgb_tglakhirdisc01,
+		    hgb.hgb_persendisc01,
+		    hgb.hgb_rphdisc01,
+		    hgb.hgb_flagdisc01,
+		    hgb.hgb_tglmulaidisc02,
+		    hgb.hgb_tglakhirdisc02,
+		    hgb.hgb_persendisc02,
+		    hgb.hgb_rphdisc02,
+		    hgb.hgb_flagdisc02,
+		    hgb.hgb_nilaidpp,
+		    hgb.hgb_top,
+		    hgb.hgb_kodesupplier,
+		    sup.sup_namasupplier AS hgb_namasupplier,
+		    sup.sup_jangkawaktukirimbarang AS hgb_lead_time,
+		    sup.sup_minrph as hgb_minrph
+            FROM   tbmaster_hargabeli hgb,
+                tbmaster_supplier sup
+            WHERE  hgb.hgb_tipe = '2'
+                AND hgb.hgb_kodesupplier = sup.sup_kodesupplier (+)) ";
+
+        $viewIntransitIdm = " ( SELECT  
+            r.rpb_tgldokumen         AS rpb_tanggal, 
+            r.rpb_nokoli             AS rpb_nokoli,
+            r.rpb_nodokumen          AS rpb_nopb,
+            r.rpb_kodeomi            AS rpb_kode_omi,
+            trunc(r.rpb_create_dt)   AS rpb_create_dt,
+            r.rpb_idsuratjalan       AS rpb_idsuratjalan,
+            o.tko_namaomi            AS rpb_nama_omi,
+            o.tko_kodesbu            AS rpb_kodesbu,
+            p.prd_kodedivisi         AS rpb_div,
+            p.prd_kodedepartement    AS rpb_dept,
+            p.prd_kodekategoribarang AS rpb_katb,
+            r.rpb_plu2               AS rpb_prdcd,
+            p.prd_deskripsipanjang   AS rpb_nama_barang,
+            p.prd_unit               AS rpb_unit,
+            p.prd_frac               AS rpb_frac,
+            Nvl(p.prd_kodetag,' ')   AS rpb_tag,
+            r.rpb_qtyrealisasi       AS rpb_qty,
+            r.rpb_hrgsatuan          AS rpb_rph_satuan,
+            r.rpb_ttlnilai           AS rpb_rph_total,
+            r.rpb_ttlppn             AS rpb_rph_ppn,
+            r.rpb_distributionfee    AS rpb_rph_df,
+            r.rpb_distributionfee / 10    AS rpb_rph_df_ppn,
+            h.hgb_kodesupplier       AS rpb_kode_supplier,
+            h.hgb_namasupplier       AS rpb_nama_supplier
+            FROM    tbtr_realpb r,
+                    tbmaster_prodmast p,
+                    tbmaster_tokoigr o,
+                    " . $viewHargaBeli . " h
+            WHERE  r.rpb_plu2 = p.prd_prdcd (+)
+            AND    r.rpb_kodeomi = o.tko_kodeomi (+)
+            AND    substr(r.rpb_plu2,1,6)
+                    || '0' = h.hgb_prdcd (+)
+            AND    r.rpb_flag <> '5') ";
+
+        if($jenisLaporan == '1') {
+            $jlap = "Laporan per Toko OMI";
+            $intransitomi = $dbProd->query(
+                "SELECT rpb_kode_omi,
+                rpb_nama_omi,
+                Count(DISTINCT ( rpb_kode_omi )) AS rpb_toko,
+                Count(DISTINCT ( rpb_prdcd ))    AS rpb_item,
+                Sum(rpb_qty)                     AS rpb_qty,
+                Sum(rpb_rph_total)               AS rpb_rph_total,
+                Sum(rpb_rph_ppn)                 AS rpb_rph_ppn,
+                Sum(rpb_rph_df)                  AS rpb_rph_df,
+                Sum(rpb_rph_df_ppn)              AS rpb_rph_df_ppn
+                FROM   " . $viewIntransitIdm ."
+                WHERE  rpb_prdcd IS NOT NULL
+                $filteromi
+                $filteridm
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterplu
+                $filterkd
+                $filternm
+                GROUP BY rpb_kode_omi,rpb_nama_omi
+                ORDER BY rpb_kode_omi"
+            );
+            $intransitomi = $intransitomi->getResultArray();
+        } else if($jenisLaporan == '2') {
+            $jlap = "Laporan per Tanggal";
+            $intransitomi = $dbProd->query(
+                "SELECT 
+                rpb_tanggal,
+                COUNT(DISTINCT (rpb_kode_omi)) AS rpb_toko,
+                COUNT(DISTINCT (rpb_prdcd))    AS rpb_item,
+                SUM(rpb_qty)                   AS rpb_qty,
+                SUM(rpb_rph_total)             AS rpb_rph_total,
+                SUM(rpb_rph_ppn)               AS rpb_rph_ppn,
+                SUM(rpb_rph_df)                AS rpb_rph_df,
+                SUM(rpb_rph_df/10)                AS rpb_rph_df_ppn
+                FROM " . $viewIntransitIdm ."
+                WHERE rpb_prdcd IS NOT NULL 
+                $filteromi
+                $filteridm
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterplu
+                $filterkd
+                $filternm
+                GROUP BY rpb_tanggal
+                ORDER BY rpb_tanggal"
+            );
+            $intransitomi = $intransitomi->getResultArray();
+        } else if($jenisLaporan == '3') {
+            $jlap = "Laporan per Tanggal per OMI";
+            $intransitomi = $dbProd->query(
+                "SELECT 
+                rpb_create_dt,
+                rpb_idsuratjalan,
+                rpb_kode_omi,
+                rpb_nama_omi,
+                rpb_nopb,
+                Count(DISTINCT ( rpb_kode_omi )) AS rpb_toko,
+                Count(DISTINCT ( rpb_prdcd ))    AS rpb_item,
+                Sum(rpb_qty)                     AS rpb_qty,
+                Sum(rpb_rph_total)               AS rpb_rph_total,
+                Sum(rpb_rph_ppn)                 AS rpb_rph_ppn,
+                Sum(rpb_rph_df)                  AS rpb_rph_df,
+                Sum(rpb_rph_df/10)               AS rpb_rph_df_ppn
+                FROM  " . $viewIntransitIdm ."
+                WHERE  rpb_prdcd IS NOT NULL and trunc(rpb_create_dt) > to_date('31-07-2023','dd-mm-yyyy')
+                $filteromi
+                $filteridm
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterplu
+                $filterkd
+                $filternm
+                GROUP BY rpb_create_dt,rpb_idsuratjalan,rpb_kode_omi,rpb_nama_omi,rpb_nopb
+                ORDER BY rpb_create_dt,rpb_kode_omi,rpb_nopb"
+            );
+            $intransitomi = $intransitomi->getResultArray();
+        } else if($jenisLaporan == '4') {
+            $jlap = "Laporan per Produk";
+            $intransitomi = $dbProd->query(
+                "SELECT   rpb_div,
+                rpb_dept,
+                rpb_katb,
+                rpb_prdcd,
+                rpb_nama_barang,
+                rpb_unit,
+                rpb_frac,
+                rpb_tag,
+                rpb_kode_supplier,
+                rpb_nama_supplier,
+                Count(DISTINCT ( rpb_kode_omi )) AS rpb_toko,
+                Sum(rpb_qty)                     AS rpb_qty,
+                Sum(rpb_rph_total)               AS rpb_rph_total,
+                Sum(rpb_rph_ppn)                 AS rpb_rph_ppn,
+                Sum(rpb_rph_df)                  AS rpb_rph_df,
+                Sum(rpb_rph_df/10)                  AS rpb_rph_df_ppn
+                FROM   " . $viewIntransitIdm ."
+                WHERE  rpb_prdcd IS NOT NULL 
+                $filteromi
+                $filteridm
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterplu
+                $filterkd
+                $filternm
+                GROUP  BY rpb_div,
+				          rpb_dept,
+				          rpb_katb,
+				          rpb_prdcd,
+				          rpb_nama_barang,
+				          rpb_unit,
+				          rpb_frac,
+				          rpb_tag,
+				          rpb_kode_supplier,
+				          rpb_nama_supplier 
+                ORDER BY  rpb_div,
+						  rpb_dept,
+					      rpb_katb,
+						  rpb_prdcd "
+            );
+            $intransitomi = $intransitomi->getResultArray();
+        } else if($jenisLaporan == '5') {
+            $jlap = "Laporan per Divisi";
+            $intransitomi = $dbProd->query(
+                "SELECT  rpb_div,
+                div_namadivisi                 AS rpb_div_nama,
+                Count(DISTINCT (rpb_kode_omi)) AS rpb_toko,
+                Count(DISTINCT (rpb_prdcd))    AS rpb_item,
+                SUM(rpb_qty)                   AS rpb_qty,
+                SUM(rpb_rph_total)             AS rpb_rph_total,
+                SUM(rpb_rph_ppn)               AS rpb_rph_ppn,
+                SUM(rpb_rph_df)                AS rpb_rph_df,
+                 SUM(rpb_rph_df/10)             AS rpb_rph_df_ppn
+                FROM   " . $viewIntransitIdm ." r,
+                        tbmaster_divisi d
+                WHERE  r.rpb_div = d.div_kodedivisi (+)
+                AND    rpb_prdcd IS NOT NULL
+                $filteromi
+                $filteridm
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterplu
+                $filterkd
+                $filternm
+                GROUP BY rpb_div,div_namadivisi
+                ORDER BY rpb_div "
+            );
+            $intransitomi = $intransitomi->getResultArray();
+        } else if($jenisLaporan == '5B') {
+            $jlap = "Laporan per Departemen";
+            $intransitomi = $dbProd->query(
+                "SELECT rpb_div,
+                d.div_namadivisi               AS rpb_div_nama,
+                rpb_dept                       AS rpb_dept,
+                dep.dep_namadepartement        AS rpb_dept_nama,
+                Count(DISTINCT (rpb_kode_omi)) AS rpb_toko,
+                Count(DISTINCT (rpb_prdcd))    AS rpb_item,
+                SUM(rpb_qty)                   AS rpb_qty,
+                SUM(rpb_rph_total)             AS rpb_rph_total,
+                SUM(rpb_rph_ppn)               AS rpb_rph_ppn,
+                SUM(rpb_rph_df)                AS rpb_rph_df,
+                SUM(rpb_rph_df/10)             AS rpb_rph_df_ppn
+                FROM   " . $viewIntransitIdm ."  r,
+                        tbmaster_divisi d,
+                        tbmaster_departement dep
+                WHERE  r.rpb_div = d.div_kodedivisi (+)
+                AND    r.rpb_dept = dep.dep_kodedepartement (+)
+                AND    rpb_prdcd IS NOT NULL 
+                $filteromi
+                $filteridm
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterplu
+                $filterkd
+                $filternm
+                GROUP BY rpb_div,div_namadivisi,rpb_dept,dep_namadepartement
+                ORDER BY rpb_div,rpb_dept"
+            );
+            $intransitomi = $intransitomi->getResultArray();
+        } else if($jenisLaporan == '5C') {
+            $jlap = "Laporan per Kategori";
+            $intransitomi = $dbProd->query(
+                "SELECT  rpb_div,
+                d.div_namadivisi AS rpb_div_nama,
+                rpb_dept,
+                dep.dep_namadepartement AS rpb_dept_nama,
+                rpb_katb,
+                kat.kat_namakategori           AS rpb_katb_nama,
+                Count(DISTINCT (rpb_kode_omi)) AS rpb_toko,
+                Count(DISTINCT (rpb_prdcd))    AS rpb_item,
+                SUM(rpb_qty)                   AS rpb_qty,
+                SUM(rpb_rph_total)             AS rpb_rph_total,
+                SUM(rpb_rph_ppn)               AS rpb_rph_ppn,
+                SUM(rpb_rph_df)                AS rpb_rph_df,
+                SUM(rpb_rph_df/10)             AS rpb_rph_df_ppn
+                FROM   " . $viewIntransitIdm ."  r,
+                        tbmaster_divisi d,
+                        tbmaster_departement dep,
+                        (
+                        SELECT kat_kodedepartement || kat_kodekategori AS kat_kodekategori,
+                                    kat_namakategori
+                        FROM   tbmaster_kategori) kat
+                WHERE  r.rpb_div = d.div_kodedivisi (+)
+                AND    r.rpb_dept = dep.dep_kodedepartement (+)
+                AND    r.rpb_dept || r.rpb_katb = kat.kat_kodekategori (+)
+                AND    rpb_prdcd IS NOT NULL  
+                $filteromi
+                $filteridm
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterplu
+                $filterkd
+                $filternm
+                GROUP BY rpb_div,div_namadivisi,rpb_dept,dep_namadepartement,rpb_katb,kat_namakategori
+                ORDER BY rpb_div,rpb_dept,rpb_katb"
+            );
+            $intransitomi = $intransitomi->getResultArray();
+        } else if($jenisLaporan == '6') {
+            $jlap = "Laporan per Supplier";
+            $intransitomi = $dbProd->query(
+                "SELECT   rpb_kode_supplier,
+                rpb_nama_supplier,
+                Count(DISTINCT ( rpb_kode_omi )) AS rpb_toko,
+                Count(DISTINCT ( rpb_prdcd ))    AS rpb_item,
+                Sum(rpb_qty)                     AS rpb_qty,
+                Sum(rpb_rph_total)               AS rpb_rph_total,
+                Sum(rpb_rph_ppn)                 AS rpb_rph_ppn,
+                Sum(rpb_rph_df)                  AS rpb_rph_df,
+                 SUM(rpb_rph_df/10)               AS rpb_rph_df_ppn
+                FROM   " . $viewIntransitIdm ." 
+                WHERE  rpb_prdcd IS NOT NULL 
+                $filteromi
+                $filteridm
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterplu
+                $filterkd
+                $filternm
+                GROUP BY rpb_kode_supplier,
+						 rpb_nama_supplier
+                ORDER BY rpb_nama_supplier"
+            );
+            $intransitomi = $intransitomi->getResultArray();
+        };
+
+        $data = [
+            'title' => 'Intransit OMI',
+            'tokoOmi' => $tokoOmi,
+            'tokoIdm' => $tokoIdm,
+            'divisi' => $divisi,
+            'departemen' => $departemen,
+            'kategori' => $kategori,
+            'intransitomi' => $intransitomi,
+            'jenisLaporan' => $jenisLaporan,
+            'kodePLU' => $kodePLU,
+            'kodeSupplier' => $kodeSupplier,
+            'namaSupplier' => $namaSupplier,
+            'kodeDivisi' => $kodeDivisi,
+            'kodeDepartemen' => $kodeDepartemen,
+            'kodeKategoriBarang' => $kodeKategoriBarang,
+            'kodeTokoOMI' => $kodeTokoOMI,
+            'kodeTokoIDM' => $kodeTokoIDM,
+            'jlap' => $jlap,
+        ];
+
+        if($aksi == 'btnxls') {
+            $filename = "Data Intransit - [". $jlap. "] ".date('d M Y').".xls";
+            header("Content-Disposition: attachment; filename=\"$filename\"");
+            header("Content-Type: application/vnd.ms-excel");
+        
+            return view('omi/tampilintrantsitomi',$data);
+        };
+
+        return view('/omi/tampilintrantsitomi',$data);
+    }
+
+    public function returomi() {
+        $dbProd = db_connect('production');
+        $tokoOmi = $tokoIdm = [];
+
+        $departemen = $divisi = $kategori = [];
+
+        $divisi = $dbProd->query(
+            "SELECT div_kodedivisi, div_namadivisi FROM tbmaster_divisi ORDER BY div_kodedivisi"
+        );
+        $divisi = $divisi->getResultArray();
+
+        $departemen = $dbProd->query(
+            "SELECT dep_kodedivisi,div_namadivisi,div_singkatannamadivisi,dep_kodedepartement, dep_namadepartement 
+            from tbmaster_departement 
+            left join tbmaster_divisi on div_kodedivisi=dep_kodedivisi
+            order by dep_kodedivisi,dep_kodedepartement"
+        );
+        $departemen = $departemen->getResultArray();
+
+        $kategori = $dbProd->query(
+            "SELECT kat.kat_kodedepartement,
+            dep.dep_namadepartement AS kat_namadepartement,
+            kat.kat_kodekategori,
+            kat.kat_namakategori
+            FROM tbmaster_kategori kat,
+                tbmaster_departement dep
+            WHERE kat.kat_kodedepartement = dep.dep_kodedepartement (+)
+            ORDER BY kat_kodedepartement,
+                kat_kodekategori"
+        );
+        $kategori = $kategori->getResultArray();
+
+        $tokoOmi = $dbProd->query(
+            "SELECT tko_kodeomi,tko_namaomi FROM tbmaster_tokoigr ORDER BY tko_kodeomi"
+        );
+        $tokoOmi = $tokoOmi->getResultArray();
+
+        $tokoIdm = $dbProd->query(
+            "SELECT tko_kodeomi,tko_namaomi FROM tbmaster_tokoigr WHERE tko_kodesbu = 'I' ORDER BY tko_kodeomi"
+        );
+        $tokoIdm = $tokoIdm->getResultArray();
+
+        $data = [
+            'title' => 'Retur OMI',
+            'tokoOmi' => $tokoOmi,
+            'tokoIdm' => $tokoIdm,
+            'divisi' => $divisi,
+            'departemen' => $departemen,
+            'kategori' => $kategori,
+        ];
+
+        redirect()->to('/returomi')->withInput();
+        return view('/omi/returomi',$data);
+    }
+
+    public function tampilreturomi() {
+        $dbProd = db_connect('production');
+        $aksi = $this->request->getVar('tombol');
+        $tokoOmi = $tokoIdm = $returomi = $departemen = $divisi = $kategori = $filename = [];
+
+        // Inisiasi
+        $tanggalMulai = $tanggalSelesai       = date("Ymd");
+        $kodeTokoOMI = $kodeTokoIDM = $kodePLU = $kodeSupplier = $namaSupplier = $kodeDivisi = $kodeDepartemen = $kodeKategoriBarang = $jenisLaporan = $noDocIgr = $noDocOmi = "All";
+        $filteromi = $filteridm = $jlap = $filterplu = $filterkd = $filternm = $filterdiv = $filterdep = $filterkat = $filterdokomi = $filterdokigr = '';
+
+        //ambil variabel
+        if(isset($_GET['awal'])) {if ($_GET['awal'] !=""){$tanggalMulai = $_GET['awal']; }}
+        if(isset($_GET['akhir'])) {if ($_GET['akhir'] !=""){$tanggalSelesai = $_GET['akhir']; }}
+        if(isset($_GET['tokoOmi'])) {if ($_GET['tokoOmi'] !=""){$kodeTokoOMI = $_GET['tokoOmi']; }}
+        if ($kodeTokoOMI != "All" AND $kodeTokoOMI != "") {
+			$filteromi = " AND rom_kodetoko = '$kodeTokoOMI' ";
+		}
+        if(isset($_GET['tokoIdm'])) {if ($_GET['tokoIdm'] !=""){$kodeTokoIDM = $_GET['tokoIdm']; }}
+        // if ($kodeTokoIDM != "All" AND $kodeTokoIDM != "") {
+		// 	$filteridm = " AND rpb_kode_omi = '$kodeTokoIDM'
+        //                     AND rpb_kodesbu = 'I' ";
+		// }        
+        if(isset($_GET['plu'])) {if ($_GET['plu'] !=""){$kodePLU = $_GET['plu']; }}
+        if ($kodePLU != "All" AND $kodePLU != "") {
+            $kodePLU = substr('00000000' . $kodePLU, -7);
+            $filterplu = " AND substr(rom_prdcd,1,6) || '0' = '$kodePLU' ";
+        }
+        if(isset($_GET['kdsup'])) {if ($_GET['kdsup'] !=""){$kodeSupplier = $_GET['kdsup']; }}
+        if ($kodeSupplier != "All" AND $kodeSupplier != "") {
+            $filterkd = " AND rom_kodesupplier like '%$kodeSupplier%' ";
+        }
+        if(isset($_GET['nmsup'])) {if ($_GET['nmsup'] !=""){$namaSupplier = $_GET['nmsup']; }}
+        if ($namaSupplier != "All" AND $namaSupplier != "") {
+            $filternm = " AND rom_namasupplier like '%$namaSupplier%' ";
+        }
+        $namaSupplier = str_replace(" ","%",$namaSupplier);
+        if(isset($_GET['divisi'])) {if ($_GET['divisi'] !=""){$kodeDivisi = $_GET['divisi']; }}
+        if ($kodeDivisi != "All" AND $kodeDivisi != "") {
+            $filterdiv = " AND rom_div = '$kodeDivisi' ";
+        }
+        if(isset($_GET['dep'])) {if ($_GET['dep'] !=""){$kodeDepartemen = $_GET['dep']; }}
+        if ($kodeDepartemen != "All" AND $kodeDepartemen != "") {
+            $filterdep = " AND rom_dept = '$kodeDepartemen' ";
+        }
+        if(isset($_GET['kat'])) {if ($_GET['kat'] !=""){$kodeKategoriBarang = $_GET['kat']; }}
+        if ($kodeKategoriBarang != "All" AND $kodeKategoriBarang != "") {
+            $filterkat = " AND rom_dept || rom_katb = '$kodeKategoriBarang' ";
+        }
+        if(isset($_GET['jenisLaporan'])) {if ($_GET['jenisLaporan'] !=""){$jenisLaporan = $_GET['jenisLaporan']; }}
+        if(isset($_GET['noDocIgr'])) {if ($_GET['noDocIgr'] !=""){$noDocIgr = $_GET['noDocIgr']; }}
+        if ($noDocIgr != "All" AND $noDocIgr != "") {
+            $filterdokigr = " AND rom_nodokumen = '$noDocIgr' ";
+        }
+        if(isset($_GET['noDocOmi'])) {if ($_GET['noDocOmi'] !=""){$noDocOmi = $_GET['noDocOmi']; }}
+        if ($noDocOmi != "All" AND $noDocOmi != "") {
+            $filterdokomi = " AND rom_noreferensi = '$noDocOmi' ";
+        }
+
+
+        $divisi = $dbProd->query(
+            "SELECT div_kodedivisi, div_namadivisi FROM tbmaster_divisi ORDER BY div_kodedivisi"
+        );
+        $divisi = $divisi->getResultArray();
+
+        $departemen = $dbProd->query(
+            "SELECT dep_kodedivisi,div_namadivisi,div_singkatannamadivisi,dep_kodedepartement, dep_namadepartement 
+            from tbmaster_departement 
+            left join tbmaster_divisi on div_kodedivisi=dep_kodedivisi
+            order by dep_kodedivisi,dep_kodedepartement"
+        );
+        $departemen = $departemen->getResultArray();
+
+        $kategori = $dbProd->query(
+            "SELECT kat.kat_kodedepartement,
+            dep.dep_namadepartement AS kat_namadepartement,
+            kat.kat_kodekategori,
+            kat.kat_namakategori
+            FROM tbmaster_kategori kat,
+                tbmaster_departement dep
+            WHERE kat.kat_kodedepartement = dep.dep_kodedepartement (+)
+            ORDER BY kat_kodedepartement,
+                kat_kodekategori"
+        );
+        $kategori = $kategori->getResultArray();
+
+        $tokoOmi = $dbProd->query(
+            "SELECT tko_kodeomi,tko_namaomi FROM tbmaster_tokoigr ORDER BY tko_kodeomi"
+        );
+        $tokoOmi = $tokoOmi->getResultArray();
+
+        $tokoIdm = $dbProd->query(
+            "SELECT tko_kodeomi,tko_namaomi FROM tbmaster_tokoigr WHERE tko_kodesbu = 'I' ORDER BY tko_kodeomi"
+        );
+        $tokoIdm = $tokoIdm->getResultArray();
+
+        // query
+        $viewReturOmi =
+            " (SELECT trunc(r.rom_tgldokumen) as rom_tgldokumen,
+                r.rom_nodokumen,
+                r.rom_noreferensi,
+                trunc(r.rom_tglreferensi) as rom_tglreferensi,
+                r.rom_kodetoko,
+                i.tko_namaomi as rom_namatoko,
+                r.rom_member,
+                p.prd_kodedivisi AS rom_div ,
+                p.prd_kodedepartement AS rom_dept,
+                p.prd_kodekategoribarang AS rom_katb,
+                r.rom_prdcd,
+                p.prd_deskripsipanjang AS rom_nama_barang,
+                p.prd_unit AS rom_unit,
+                p.prd_frac AS rom_frac,
+                NVL(p.prd_kodetag,' ') AS rom_kodetag,
+                r.rom_flagbkp,
+                r.rom_qty,
+                r.rom_avgcost AS rom_harga_satuan,
+                r.rom_ttlcost AS rom_netto,
+                CASE
+                    WHEN r.rom_flagbkp = 'Y'
+                    THEN r.rom_ttlcost /10 * 11
+                    ELSE r.rom_ttlcost
+                END AS rom_gross,
+                s.hgb_kodesupplier AS rom_kodesupplier,
+                s.sup_namasupplier AS rom_namasupplier
+                FROM tbtr_returomi r
+                LEFT JOIN tbmaster_prodmast p 
+                    ON r.rom_prdcd  = p.prd_prdcd
+                LEFT JOIN tbmaster_tokoigr i
+                    ON r.rom_kodetoko = i.tko_kodeomi
+                LEFT JOIN (SELECT h.hgb_prdcd,
+                            h.hgb_kodesupplier,
+                            s.sup_namasupplier
+                            FROM tbmaster_hargabeli h
+                            LEFT JOIN tbmaster_supplier s
+                            ON h.hgb_kodesupplier = s.sup_kodesupplier
+                            WHERE h.hgb_tipe      ='2'
+                            AND h.hgb_recordid   IS NULL) s
+                    ON r.rom_prdcd  = s.hgb_prdcd
+                WHERE trunc(r.rom_tgldokumen) between to_date('$tanggalMulai','yyyy-mm-dd') and to_date('$tanggalSelesai','yyyy-mm-dd') ) ";
+
+        if($jenisLaporan == '1') {
+            $jlap = "Laporan per Periode";
+            $returomi = $dbProd->query(
+                "SELECT rom_kodetoko,
+                rom_member,
+                rom_namatoko,
+                COUNT(DISTINCT(rom_nodokumen)) AS rom_nodokumen,
+                COUNT(DISTINCT(rom_prdcd))     AS rom_item,
+                SUM(rom_netto)                 AS rom_netto
+                FROM " . $viewReturOmi. "
+                WHERE  rom_prdcd IS NOT NULL 
+                $filteromi
+                $filteridm
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterplu
+                $filterkd
+                $filternm
+                $filterdokigr
+                $filterdokomi
+                GROUP BY rom_kodetoko, rom_member, rom_namatoko
+                ORDER BY rom_kodetoko"
+            );
+            $returomi = $returomi->getResultArray();
+        } else if($jenisLaporan == '2') {
+            $jlap = "Laporan per Tanggal";
+            $returomi = $dbProd->query(
+                "SELECT rom_tgldokumen,
+  				  COUNT(DISTINCT(rom_kodetoko))  AS rom_kodetoko ,
+				  COUNT(DISTINCT(rom_nodokumen)) AS rom_nodokumen,
+				  COUNT(DISTINCT(rom_prdcd))     AS rom_item,
+				  SUM(rom_netto)                 AS rom_netto
+				FROM " . $viewReturOmi. " 
+				WHERE  rom_prdcd IS NOT NULL  
+                $filteromi
+                $filteridm
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterplu
+                $filterkd
+                $filternm
+                $filterdokigr
+                $filterdokomi
+                GROUP BY rom_tgldokumen 
+                ORDER BY rom_tgldokumen"
+            );
+            $returomi = $returomi->getResultArray();
+        } else if($jenisLaporan == '2B') {
+            $jlap = "Laporan per Tanggal per OMI";
+            $returomi = $dbProd->query(
+                "SELECT rom_tgldokumen,
+                rom_kodetoko,
+                rom_namatoko,
+                COUNT(DISTINCT(rom_nodokumen)) AS rom_nodokumen,
+                COUNT(DISTINCT(rom_prdcd))     AS rom_item,
+                SUM(rom_netto)                 AS rom_netto,
+                SUM(rom_qty)                   AS rom_qty
+                FROM " . $viewReturOmi. "  
+                WHERE  rom_prdcd IS NOT NULL  
+                $filteromi
+                $filteridm
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterplu
+                $filterkd
+                $filternm
+                $filterdokigr
+                $filterdokomi
+                GROUP BY rom_tgldokumen, rom_kodetoko, rom_namatoko
+                ORDER BY rom_tgldokumen, rom_kodetoko"
+            );
+            $returomi = $returomi->getResultArray();
+        } else if($jenisLaporan == '3') {
+            $jlap = "Laporan per Nomor NRB";
+            $returomi = $dbProd->query(
+                "SELECT rom_tgldokumen,
+                rom_nodokumen,
+                rom_tglreferensi,
+                rom_noreferensi,
+                rom_kodetoko,
+                rom_namatoko,
+                COUNT(DISTINCT(rom_prdcd))     	AS rom_item,
+                SUM(rom_netto)                 	AS rom_netto,
+                (rom_tgldokumen-rom_tglreferensi) AS selisih_hari
+                FROM " . $viewReturOmi. "  
+                WHERE  rom_prdcd IS NOT NULL  
+                $filteromi
+                $filteridm
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterplu
+                $filterkd
+                $filternm
+                $filterdokigr
+                $filterdokomi
+                GROUP BY rom_tgldokumen, rom_nodokumen, rom_tglreferensi, rom_noreferensi, rom_kodetoko, rom_namatoko
+                ORDER BY rom_tgldokumen, rom_kodetoko, rom_nodokumen, rom_noreferensi  "
+            );
+            $returomi = $returomi->getResultArray();
+        } else if($jenisLaporan == '4') {
+            $jlap = "Laporan per Produk";
+            $returomi = $dbProd->query(
+                "SELECT rom_div,
+                rom_dept,
+                rom_katb,
+                rom_prdcd,
+                rom_nama_barang,
+                rom_unit,
+                rom_frac,
+                rom_kodetag,
+                SUM(NVL(rom_qty,0)) as rom_qty,
+                SUM(NVL(rom_netto,0)) as rom_netto,
+                rom_kodesupplier,
+                rom_namasupplier
+                FROM " . $viewReturOmi. "   
+                WHERE  rom_prdcd IS NOT NULL  
+                $filteromi
+                $filteridm
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterplu
+                $filterkd
+                $filternm
+                $filterdokigr
+                $filterdokomi
+                GROUP BY rom_div,rom_dept,rom_katb,rom_prdcd,rom_nama_barang,rom_unit,rom_frac,rom_kodetag,rom_kodesupplier,rom_namasupplier
+                ORDER BY rom_div,rom_dept,rom_katb,rom_nama_barang"
+            );
+            $returomi = $returomi->getResultArray();
+        } else if($jenisLaporan == '4B') {
+            $jlap = "Laporan per Produk per NRB";
+            $returomi = $dbProd->query(
+                "SELECT rom_kodetoko,
+                rom_namatoko,
+                rom_tgldokumen,
+                rom_nodokumen,
+                rom_noreferensi,
+                rom_tglreferensi,
+                rom_div,
+                rom_dept,
+                rom_katb,
+                rom_prdcd,
+                rom_nama_barang,
+                rom_unit,
+                rom_frac,
+                rom_kodetag,
+                SUM(NVL(rom_qty,0)) as rom_qty,
+                SUM(NVL(rom_netto,0)) as rom_netto,
+                rom_kodesupplier,
+                rom_namasupplier
+                FROM " . $viewReturOmi. "     
+                WHERE  rom_prdcd IS NOT NULL                
+                $filteromi
+                $filteridm
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterplu
+                $filterkd
+                $filternm
+                $filterdokigr
+                $filterdokomi
+                GROUP BY rom_kodetoko,rom_namatoko,rom_tgldokumen,rom_nodokumen,rom_noreferensi,rom_tglreferensi,rom_div,rom_dept,rom_katb,rom_prdcd,rom_nama_barang,rom_unit,rom_frac,rom_kodetag,rom_kodesupplier,rom_namasupplier
+                ORDER BY rom_kodetoko,rom_namatoko,rom_tgldokumen,rom_nodokumen,rom_noreferensi,rom_tglreferensi,rom_div,rom_dept,rom_katb,rom_nama_barang"
+            );
+            $returomi = $returomi->getResultArray();
+        } else if($jenisLaporan == '5') {
+            $jlap = "Laporan per Divisi";
+            $returomi = $dbProd->query(
+                "SELECT r.rom_div,
+                a.div_namadivisi as rom_namadivisi,
+                count(DISTINCT(r.rom_prdcd))        AS rom_item,
+                sum(nvl(r.rom_netto,0))             AS rom_netto,
+                count(DISTINCT(r.rom_kodetoko))     AS rom_kodetoko,
+                count(DISTINCT(r.rom_kodesupplier)) AS rom_kodesupplier
+                FROM " . $viewReturOmi. " r 
+                    LEFT JOIN tbmaster_divisi a ON r.rom_div = a.div_kodedivisi
+                WHERE r.rom_prdcd IS NOT NULL              
+                $filteromi
+                $filteridm
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterplu
+                $filterkd
+                $filternm
+                $filterdokigr
+                $filterdokomi
+                GROUP BY r.rom_div, a.div_namadivisi 
+                ORDER BY rom_div"
+            );
+            $returomi = $returomi->getResultArray();
+        } else if($jenisLaporan == '5B') {
+            $jlap = "Laporan per Departemen";
+            $returomi = $dbProd->query(
+                "SELECT r.rom_div,
+                a.div_namadivisi as rom_namadivisi,
+                r.rom_dept,
+                d.dep_namadepartement as rom_namadepartement,
+                count(DISTINCT(r.rom_prdcd))        AS rom_item,
+                sum(nvl(r.rom_netto,0))             AS rom_netto,
+                count(DISTINCT(r.rom_kodetoko))     AS rom_kodetoko,
+                count(DISTINCT(r.rom_kodesupplier)) AS rom_kodesupplier
+                FROM " . $viewReturOmi. " r 
+                    LEFT JOIN tbmaster_divisi a ON r.rom_div = a.div_kodedivisi
+                    LEFT JOIN tbmaster_departement d ON r.rom_dept = d.dep_kodedepartement
+                WHERE r.rom_prdcd IS NOT NULL             
+                $filteromi
+                $filteridm
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterplu
+                $filterkd
+                $filternm
+                $filterdokigr
+                $filterdokomi
+                GROUP BY r.rom_div, r.rom_dept, a.div_namadivisi, d.dep_namadepartement
+                ORDER BY rom_div,rom_dept"
+            );
+            $returomi = $returomi->getResultArray();
+        } else if($jenisLaporan == '5C') {
+            $jlap = "Laporan per Kategori";
+            $returomi = $dbProd->query(
+                "SELECT r.rom_div,
+                a.div_namadivisi as rom_namadivisi,
+                r.rom_dept,
+                d.dep_namadepartement as rom_namadepartement,
+                r.rom_katb,
+                k.kat_namakategori AS rom_namakategori,
+                count(DISTINCT(r.rom_prdcd))        AS rom_item,
+                sum(nvl(r.rom_netto,0))             AS rom_netto,
+                count(DISTINCT(r.rom_kodetoko))     AS rom_kodetoko,
+                count(DISTINCT(r.rom_kodesupplier)) AS rom_kodesupplier
+                FROM " . $viewReturOmi. " r 
+                    LEFT JOIN tbmaster_divisi a ON r.rom_div = a.div_kodedivisi
+                    LEFT JOIN tbmaster_departement d ON r.rom_dept = d.dep_kodedepartement
+                    LEFT JOIN tbmaster_kategori k ON r.rom_dept = k.kat_kodedepartement AND r.rom_katb = k.kat_kodekategori
+                WHERE r.rom_prdcd IS NOT NULL            
+                $filteromi
+                $filteridm
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterplu
+                $filterkd
+                $filternm
+                $filterdokigr
+                $filterdokomi
+                GROUP BY r.rom_div, r.rom_dept, r.rom_katb, a.div_namadivisi, d.dep_namadepartement, k.kat_namakategori 
+                ORDER BY rom_div,rom_dept,rom_katb"
+            );
+            $returomi = $returomi->getResultArray();
+        } else if($jenisLaporan == '6') {
+            $jlap = "Laporan per Supplier";
+            $returomi = $dbProd->query(
+                "SELECT r.rom_kodesupplier,
+                r.rom_namasupplier,
+                count(DISTINCT(r.rom_prdcd))        AS rom_item,
+                sum(nvl(r.rom_netto,0))             AS rom_netto,
+                count(DISTINCT(r.rom_kodetoko))     AS rom_kodetoko
+                
+                FROM " . $viewReturOmi. " r 
+                WHERE r.rom_prdcd IS NOT NULL            
+                $filteromi
+                $filteridm
+                $filterdiv
+                $filterdep
+                $filterkat
+                $filterplu
+                $filterkd
+                $filternm
+                $filterdokigr
+                $filterdokomi
+                GROUP BY r.rom_kodesupplier, r.rom_namasupplier
+                ORDER BY rom_namasupplier"
+            );
+            $returomi = $returomi->getResultArray();
+        };
+
+        $data = [
+            'title' => 'Intransit OMI',
+            'tokoOmi' => $tokoOmi,
+            'tokoIdm' => $tokoIdm,
+            'divisi' => $divisi,
+            'departemen' => $departemen,
+            'kategori' => $kategori,
+            'returomi' => $returomi,
+            'jenisLaporan' => $jenisLaporan,
+            'kodePLU' => $kodePLU,
+            'kodeSupplier' => $kodeSupplier,
+            'namaSupplier' => $namaSupplier,
+            'kodeDivisi' => $kodeDivisi,
+            'kodeDepartemen' => $kodeDepartemen,
+            'kodeKategoriBarang' => $kodeKategoriBarang,
+            'kodeTokoOMI' => $kodeTokoOMI,
+            'kodeTokoIDM' => $kodeTokoIDM,
+            'jlap' => $jlap,
+        ];
+
+        if($aksi == 'btnxls') {
+            $filename = "Data Intransit - [". $jlap. "] ".date('d M Y').".xls";
+            header("Content-Disposition: attachment; filename=\"$filename\"");
+            header("Content-Type: application/vnd.ms-excel");
+        
+            return view('omi/tampilreturomi',$data);
+        };
+
+        return view('/omi/tampilreturomi',$data);
+    }
 }

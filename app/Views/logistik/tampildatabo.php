@@ -770,6 +770,69 @@
                         </tbody>
                     </table>
                 </div>
+            <?php }  else if($jenis == "POBTBSUPITEM") { ?>
+                <h2 class="fw-bold">PO vs BTB per SUPPLIER per ITEM</h2>
+                <h4>Periode : <?= date('d M Y',strtotime($awal)); ?> sd <?= date('d M Y',strtotime($akhir)); ?></h4>
+                <br>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover table-bordered border-dark">
+                        <thead class="table-group-divider">
+                            <tr>
+                                <th rowspan="2" class="fw-bold text-center bg-info">#</th>
+                                <th colspan="3" class="fw-bold text-center bg-info">Supplier</th>
+                                <th colspan="3" class="fw-bold text-center bg-info">Divisi</th>
+                                <th colspan="4" class="fw-bold text-center bg-info">Produk</th>
+                                <th colspan="3" class="fw-bold text-center bg-info">Data PO</th>
+                                <th colspan="3" class="fw-bold text-center bg-info">Data BTB</th>
+                                <th rowspan="2" class="fw-bold text-center bg-info text-nowrap">SL QTY</th>
+                                <th rowspan="2" class="fw-bold text-center bg-info text-nowrap">SL Rph</th>
+                            </tr>
+                            <tr>
+                                <th class="fw-bold text-center bg-info">Lookup</th>
+                                <th class="fw-bold text-center bg-info text-nowrap">Kd Supplier</th>
+                                <th class="fw-bold text-center bg-info text-nowrap">Nama Supplier</th>
+                                <th class="fw-bold text-center bg-info">Div</th>
+                                <th class="fw-bold text-center bg-info">Dept</th>
+                                <th class="fw-bold text-center bg-info">Katb</th>
+                                <th class="fw-bold text-center bg-info">PLU</th>
+                                <th class="fw-bold text-center bg-info">Deskripsi</th>
+                                <th class="fw-bold text-center bg-info">Unit</th>
+                                <th class="fw-bold text-center bg-info">Frac</th>
+                                <th class="fw-bold text-center bg-info text-nowrap">Jml PO</th>
+                                <th class="fw-bold text-center bg-info text-nowrap">Qty PO</th>
+                                <th class="fw-bold text-center bg-info text-nowrap">Rph PO</th>
+                                <th class="fw-bold text-center bg-info text-nowrap">Jml BTB</th>
+                                <th class="fw-bold text-center bg-info text-nowrap">Qty BTB</th>
+                                <th class="fw-bold text-center bg-info text-nowrap">Rph BTB</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                            <?php foreach($databo as $bo) : ?>
+                                <tr>
+                                    <td class="text-end"><?= $no++; ?></td>
+                                    <td class="text-start"><?= $bo['LOOKUP']; ?></td>
+                                    <td class="text-center"><?= $bo['KDSUPPLIER']; ?></td>
+                                    <td class="text-start text-nowrap"><?= $bo['NAMASUPPLIER']; ?></td>
+                                    <td class="text-center"><?= $bo['DIV']; ?></td>
+                                    <td class="text-center"><?= $bo['DEP']; ?></td>
+                                    <td class="text-center"><?= $bo['KAT']; ?></td>
+                                    <td class="text-center"><?= $bo['PLU']; ?></td>
+                                    <td class="text-start text-nowrap"><?= $bo['DESKRIPSI']; ?></td>
+                                    <td class="text-center"><?= $bo['UNIT']; ?></td>
+                                    <td class="text-center"><?= $bo['FRAC']; ?></td>
+                                    <td class="text-end"><?= number_format($bo['JML_PO'],'0',',','.'); ?></td>
+                                    <td class="text-end"><?= number_format($bo['QTY_PO'],'0',',','.'); ?></td>
+                                    <td class="text-end"><?= number_format($bo['RPH_PO'],'0',',','.'); ?></td>
+                                    <td class="text-end"><?= number_format($bo['JML_BPB'],'0',',','.'); ?></td>
+                                    <td class="text-end"><?= number_format($bo['QTY_BPB'],'0',',','.'); ?></td>
+                                    <td class="text-end"><?= number_format($bo['RPH_BPB'],'0',',','.'); ?></td>
+                                    <td class="text-end"><?= number_format($bo['SL_QTY'],'0',',','.'); ?> %</td>
+                                    <td class="text-end"><?= number_format($bo['SL_RPH'],'0',',','.'); ?> %</td>
+                                </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+                </div>
             <?php } ?>
         <?php } ?>
     </body>

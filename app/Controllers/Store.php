@@ -2668,7 +2668,6 @@ class Store extends BaseController
         'detailtanggal' => $detailtanggal,
         'selisih' => $selisih
       ];
-      d($data);
 
       redirect()->to('monitoringklik')->withInput();
       return view('store/monitoringklik',$data);

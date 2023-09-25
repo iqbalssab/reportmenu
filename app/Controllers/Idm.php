@@ -367,4 +367,124 @@ class Idm extends BaseController
         redirect()->to('/tampilpbidm')->withInput();
         return view('/idm/tampilpbidm',$data);
     }
+
+    public function idmbedatag() {
+        $dbProd = db_connect('production');
+        $idmtag = [];
+
+        $idmtag = $dbProd->query(
+            "SELECT p.prd_kodedivisi    AS prd_div,
+            p.prd_kodedepartement    AS prd_dep,
+            p.prd_kodekategoribarang AS prd_kat,
+            p.prd_plumcg             AS prd_pluidm,
+            p.prd_prdcd              AS prd_pluigr,
+            p.prd_deskripsipanjang   AS prd_nama_barang,
+            p.prd_unit               AS prd_unit,
+            p.prd_frac               AS prd_frac,
+            p.prd_kodetag            AS prd_tagigr,
+            c.prc_kodetag            AS prd_tagidm
+            FROM tbmaster_prodmast p,
+                tbmaster_prodcrm c
+            WHERE p.prd_prdcd           = c.prc_pluigr
+            AND p.prd_flagidm           = 'Y'
+            AND NVL(p.prd_kodetag,' ') <> NVL(c.prc_kodetag,' ')
+            AND NVL(p.prd_kodetag,' ') <> 'Z'
+            AND p.prd_prdcd NOT        IN
+                (SELECT * FROM depo_list_idm
+                ) 
+            ORDER BY 1,2,3,4"
+        );
+        $idmtag = $idmtag->getResultArray();
+
+        $data = [
+            'title' => 'Item IDM Beda Tag dengan IGR',
+            'idmtag' => $idmtag,
+        ];
+
+        redirect()->to('/idmbedatag')->withInput();
+        return view('/idm/idmbedatag',$data);
+    }
+
+    public function tampilpbomi() {
+        $dbProd = db_connect('production');
+        $tolakan = [];
+
+        //inisiasi
+        $tanggalMulai = $tanggalSelesai = date("Ymd");
+        $kodeTokoOMI          = "All"; 
+        $filteromi = $filtertlk = '';
+
+        if(isset($_GET['awal'])) {if ($_GET['awal'] !=""){$tanggalMulai = $_GET['awal']; }}
+        if(isset($_GET['akhir'])) {if ($_GET['akhir'] !=""){$tanggalSelesai = $_GET['akhir']; }}
+
+        if(isset($_GET['tokoOmi'])) {if ($_GET['tokoOmi'] !=""){$kodeTokoOMI = $_GET['tokoOmi']; }}
+        if ($kodeTokoOMI != "All" AND $kodeTokoOMI != "") {
+            $filteromi = " AND tlko_kode_omi = '$kodeTokoOMI' ";
+        }
+
+        if(isset($_GET['tolakan'])) {if ($_GET['tolakan'] !=""){$kodeTolakan = $_GET['tolakan']; }}
+        if ($kodeTolakan != "All" AND $kodeTolakan != "") {
+            $filtertlk = " AND tlko_kettolakan = '$kodeTolakan' ";
+        }
+
+        if(isset($_GET['jenisLaporan'])) {if ($_GET['jenisLaporan'] !=""){$jenisLaporan = $_GET['jenisLaporan']; }}
+
+        $viewTolakanPbOmi = "(SELECT trunc(t.tlko_create_dt) AS tlko_tanggal,
+            t.tlko_nopb,
+            o.tko_kodesbu    AS tlko_kodesbu,
+            t.tlko_kodeomi   AS tlko_kode_omi,
+            o.tko_namaomi    AS tlko_nama_omi,
+            t.tlko_pluigr,
+            t.tlko_pluomi,
+            t.tlko_desc,
+            t.tlko_ptag,
+            t.tlko_kettolakan,
+            t.tlko_qtyorder,
+            NVL(t.tlko_lpp,0) as tlko_lpp,
+            -- NVL(t.tlko_nilai,0) as tlko_nilai
+            NVL(tlko_qtyorder,0)  * NVL(tlko_lastcost,0) as tlko_nilai
+
+            FROM   tbtr_tolakanpbomi t,
+                    tbmaster_tokoigr o
+            WHERE  t.tlko_kodeomi = o.tko_kodeomi
+                    AND trunc(t.tlko_create_dt) BETWEEN
+                    to_date('$tanggalMulai','yyyy-mm-dd') and to_date('$tanggalSelesai','yyyy-mm-dd'))";
+
+        if($jenisLaporan == '1') {
+            $tolakan = $dbProd->query(
+                "SELECT tlko_pluomi,
+                tlko_pluigr,
+                tlko_desc,
+                tlko_ptag,
+                tlko_kettolakan,
+                MIN(tlko_lpp)                    AS tlko_lpp,
+                SUM(tlko_qtyorder)               AS tlko_qtyorder,
+                SUM(tlko_nilai)                  AS tlko_nilai,				       
+                Count(DISTINCT( tlko_kode_omi )) AS tlko_kode_omi,
+                Count(DISTINCT( tlko_kode_omi || tlko_nopb ))     AS tlko_nopb,
+                Count(DISTINCT( tlko_tanggal ))  AS tlko_tanggal
+                FROM " . $viewTolakanPbOmi  . "
+                WHERE  tlko_pluomi IS NOT NULL 
+                AND  tlko_kodesbu = 'I'
+                $filteromi
+                $filtertlk
+                GROUP BY tlko_pluomi, tlko_pluigr, tlko_desc, tlko_ptag, tlko_kettolakan
+                order by tlko_pluomi"
+            );
+            $tolakan = $tolakan->getResultArray();
+        };
+
+        $data = [
+            'title' => 'Data Tolakan PB IDM',
+            'tolakan' => $tolakan,
+            'tanggalMulai' => $tanggalMulai,
+            'tanggalSelesai' => $tanggalSelesai,
+            'kodeTokoOMI' => $kodeTokoOMI,
+            'kodeTolakan' => $kodeTolakan,
+            'jenisLaporan' => $jenisLaporan,
+        ];
+
+        redirect()->to('/tampilpbomi')->withInput();
+        return view('/idm/tampilpbomi',$data);
+    }
 }

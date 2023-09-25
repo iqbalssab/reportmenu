@@ -226,7 +226,8 @@ class Laporan extends BaseController
         return view('laporan/tampilhistoryso', $data);
     }
 
-    public function pobanding(){
+    public function pobanding()
+    {
         $data = [
             'title' => 'Input PO Perbandingan'
         ];
@@ -373,7 +374,8 @@ class Laporan extends BaseController
         return view('laporan/storagenull', $data);
     }
 
-    public function cekmd() {
+    public function cekmd() 
+    {
         $dbProd = db_connect('production');
         $cekmd = $dbProd->query(
             "SELECT PRMD_PRDCD,
@@ -393,12 +395,13 @@ class Laporan extends BaseController
         ];
     
         return view('logistik/cekmd', $data);
-        }
+    }
 
         // Unfinished Member tidur
         public function membertidur()
         {
             $dbProd = db_connect('production');
+
             $membertidur = $dbProd->query(
                 "SELECT
                 cus_kodeigr as cabang,

@@ -115,6 +115,12 @@
         <li class="nav-item">
           <a class="nav-link text-light" aria-current="page" href="<?= $ip; ?>/mplano/"><i class="fa-solid fa-lightbulb me-1"></i>Plano Mobile IGR</a>
         </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link text-light" aria-current="page" href="<?= $ip; ?>/gojhon/"><i class="fa-solid fa-door-open me-1"></i>GO JHON</a>
+          <ul class="dropdown-menu">
+            <li><a href="<?= $ip; ?>/gojhon/bpbperhari" class="dropdown-item">BPB Per Hari</a></li>
+          </ul>
+        </li>
       </ul>
     </div>
   </div>

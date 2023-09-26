@@ -691,4 +691,127 @@ class Problem extends BaseController
 
         return view('/problem/itemtagnxmasih',$data);
     }
+
+    public function membertidur()
+        {
+            $dbProd = db_connect('production');
+
+            $btn = $this->request->getVar('btn');
+            $tglakhir = $this->request->getVar('tglakhir');
+            $periode1 = $this->request->getVar('periode1');
+            $periode2 = $this->request->getVar('periode2');
+            $periode3 = $this->request->getVar('periode3');
+
+            $membertidur = [];
+
+            if ($btn=="tampil") {
+                $membertidur = $dbProd->query(
+                    "SELECT kodemember, namamember, tgl_akhir, alamat2, alamat4, avg_kunj, avg_sales, avg_margin, sisa_saldo, hpmember, ktp 
+                    FROM (
+                    select
+                      cus_kodeigr as cabang,
+                      kodemember, 
+                      cus_namamember as namamember,
+                      tgl_last_belanja as tgl_akhir,
+                      cus_alamatmember2 as alamat2, 
+                      cus_alamatmember4 as alamat4,
+                      ((kunj_bln_1 + kunj_bln_2 + kunj_bln_3)/3) as avg_kunj,
+                      ((sales_bln_1 + sales_bln_2 + sales_bln_3)/3) as avg_sales,
+                      ((margin_bln_1 + margin_bln_2 + margin_bln_3)/3) as avg_margin,
+                      cus_hpmember as hpmember,
+                      cus_noktp as ktp,
+                      (perolehanpoin - penukaranpoin) as sisa_saldo
+                    from tbmaster_customer
+                    right join (select jh_cus_kodemember as kodemember, max(trunc(jh_transactiondate)) as tgl_last_belanja 
+                          from tbtr_jualheader
+                          where trunc(jh_transactiondate) >= trunc(sysdate)- 365
+                          group by jh_cus_kodemember
+                          order by tgl_last_belanja) on cus_kodemember = kodemember
+                    LEFT join (  
+                    select   
+                      membersales,  
+                        
+                      sum(case when periodesales='$periode1' then kunjungansales end ) as KUNJ_BLN_1,  
+                      sum(case when periodesales='$periode1' then sales_all end ) as SALES_BLN_1,    
+                      sum(case when periodesales='$periode1' then marginsales end ) as MARGIN_BLN_1,  
+                        
+                      sum(case when periodesales='$periode2' then kunjungansales end ) as KUNJ_BLN_2,  
+                      sum(case when periodesales='$periode2' then sales_all end ) as SALES_BLN_2,   
+                      sum(case when periodesales='$periode2' then marginsales end ) as MARGIN_BLN_2,  
+                        
+                      sum(case when periodesales='$periode3' then kunjungansales end ) as KUNJ_BLN_3,  
+                      sum(case when periodesales='$periode3' then sales_all end ) as SALES_BLN_3,   
+                      sum(case when periodesales='$periode3' then marginsales end ) as MARGIN_BLN_3  
+                        
+                    from (  
+                      select   
+                      trjd_cus_kodemember as membersales,  
+                      to_char(trjd_transactiondate,'yyyy-mm') as periodesales,  
+                      trjd_cus_kodemember||'.'||to_char(trjd_transactiondate,'yyyymm') as lookupsales,  
+                      count(distinct trunc(trjd_transactiondate)) as kunjungansales,  
+                      sum(case   
+                        when (trjd_transactiontype='S') then trjd_nominalamt*1   
+                        when (trjd_transactiontype='R') then trjd_nominalamt*(-1)   
+                        end )as sales_all,  
+                      sum(case   
+                        when (trjd_transactiontype='S') and trjd_division like '14%' then trjd_nominalamt*1  
+                        when (trjd_transactiontype='R') and trjd_division like '14%' then trjd_nominalamt*(-1)   
+                        end )as sales_rokok,  
+                      sum(case          
+                        /*non omi */          
+                        when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N') ='Y') and (prd_unit<>'KG') then (trjd_nominalamt/1.11 - (trjd_baseprice * trjd_quantity))          
+                        when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N')<>'Y') and (prd_unit<>'KG') then (trjd_nominalamt/1   - (trjd_baseprice * trjd_quantity))          
+                        when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N') ='Y') and (prd_unit<>'KG') then (trjd_nominalamt/1.11 - (trjd_baseprice * trjd_quantity))*(-1)          
+                        when (trjd_transactiontype='R')and(nvl(trjd_flagtax2,'N')<>'Y') and (prd_unit<>'KG') then (trjd_nominalamt/1   - (trjd_baseprice * trjd_quantity))*(-1)          
+                        /*pengecualian untuk unit KG*/          
+                        when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N') ='Y') and (prd_unit ='KG') then (trjd_nominalamt/1.11 - (trjd_baseprice * trjd_quantity/1000))          
+                        when (trjd_transactiontype='S')and(nvl(trjd_flagtax2,'N')<>'Y') and (prd_unit ='KG') then (trjd_nominalamt/1   - (trjd_baseprice * trjd_quantity/1000))          
+                        end) as marginsales  
+                      from tbtr_jualdetail  
+                      left join tbmaster_prodmast on prd_prdcd=trjd_prdcd  
+                      where trunc(trjd_transactiondate)>='01-APR-23'  
+                      group by trjd_cus_kodemember, to_char(trjd_transactiondate,'yyyy-mm'), trjd_cus_kodemember||'.'||to_char(trjd_transactiondate,'yyyymm')  
+                      ) group by membersales  
+                    ) on membersales=cus_kodemember 
+                    LEFT JOIN  
+                    (  
+                    SELECT POR_KODEMEMBER KD_PEROLEHAN,  
+                           POR_KODEMYPOIN NOHP_PEROLEHAN,  
+                           SUM(POR_PEROLEHANPOINT) PEROLEHANPOIN  
+                    FROM TBTR_PEROLEHANMYPOIN  
+                    WHERE TRUNC(POR_CREATE_DT) >= '01-JAN-23'  
+                    group by POR_KODEMEMBER, POR_KODEMYPOIN  
+                    ) ON CUS_KODEMEMBER = KD_PEROLEHAN AND CUS_HPMEMBER = NOHP_PEROLEHAN  
+                    LEFT JOIN  
+                    (  
+                    SELECT POT_KODEMEMBER KD_PENUKARAN,  
+                           POT_KODEMYPOIN NOHP_PENUKARAN,  
+                           SUM(POT_PENUKARANPOINT) PENUKARANPOIN  
+                    FROM TBTR_PENUKARANMYPOIN  
+                    WHERE TRUNC(POT_CREATE_DT) >= '01-JAN-23'  
+                    group by POT_KODEMEMBER, POT_KODEMYPOIN  
+                    ) ON CUS_KODEMEMBER = KD_PENUKARAN AND CUS_HPMEMBER = NOHP_PENUKARAN
+                    where cus_recordid is null
+                    and cus_kodeigr ='25'
+                    and cus_flagmemberkhusus = 'Y'
+                    and (cus_tglregistrasi is not null  or cus_tglmulai is not null)
+                    order by tgl_last_belanja)"
+                );
+    
+                $membertidur = $membertidur->getResultArray();
+            }            
+
+            $data = [
+                'title' => 'Member Tidur',
+                'membertidur' => $membertidur,
+                'tglakhir' => $tglakhir,
+                'periode1' => $periode1,
+                'periode2' => $periode2,
+                'periode3' => $periode3,
+            ];
+
+            d($data);
+
+            return view('problem/membertidur', $data);
+        }
 }

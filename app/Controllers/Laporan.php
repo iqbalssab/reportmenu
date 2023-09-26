@@ -397,43 +397,67 @@ class Laporan extends BaseController
         return view('logistik/cekmd', $data);
     }
 
-        // Unfinished Member tidur
-        public function membertidur()
-        {
-            $dbProd = db_connect('production');
+    public function selisihklik()
+    {
+        $dbProd = db_connect('production');
 
-            $membertidur = $dbProd->query(
-                "SELECT
-                cus_kodeigr as cabang,
-                kodemember, 
-                cus_namamember as namamember,
-                tgl_last_belanja,
-                cus_alamatmember2 as alamat2, 
-                cus_alamatmember4 as alamat4, 
-                cus_kodeoutlet as outlet, 
-                cus_kodesuboutlet as suboutlet,
-                cus_hpmember as hpmember,
-                cus_noktp as ktp
-              from tbmaster_customer
-              left join (select jh_cus_kodemember as kodemember, max(trunc(jh_transactiondate)) as tgl_last_belanja 
-                    from tbtr_jualheader
-                    where trunc(jh_transactiondate) >= trunc(sysdate)- 365
-                    group by jh_cus_kodemember
-                    order by tgl_last_belanja) on cus_kodemember = kodemember
-              where cus_recordid is null
-              and cus_kodeigr ='25'
-              and cus_flagmemberkhusus = 'Y'
-              and (cus_tglregistrasi is not null  or cus_tglmulai is not null)
-              order by tgl_last_belanja desc"
+        $tglawal = $this->request->getVar('tglawal');
+        $tglakhir = $this->request->getVar('tglakhir');
+        $pluinput = $this->request->getVar('plu');
+        $notrans = $this->request->getVar('notrans');
+
+        $selisih = [];
+
+        $plu = sprintf("%07s",$pluinput);
+        $plu0 = substr($plu,0,6)."0";
+
+        // kalo ada plu
+        if (!empty($pluinput)) {
+            $filterplu = "AND OBI_PRDCD = '$plu'";
+        }else{
+            $filterplu = " ";
+        }
+
+        // kalo ada input notrans
+        if (!empty($notrans)) {
+            $filtertrans = "AND OBI_NOTRANS like '%$notrans%'";
+        }else{
+            $filtertrans = " ";
+        }
+
+        if ($this->request->getVar('btn')!='') {
+            
+            $selisih =  $dbProd->query(
+                "SELECT TGL, PLU, DESK,NOTRANS,QTYORDER, QTYREAL, SELISIH 
+                FROM (
+                    SELECT OBI_TGLTRANS TGL, 
+                    OBI_PRDCD PLU, 
+                    PRD_DESKRIPSIPANJANG DESK, 
+                    OBI_NOTRANS NOTRANS,
+                    OBI_QTYORDER QTYORDER, 
+                    OBI_QTYREALISASI QTYREAL, (OBI_QTYORDER-OBI_QTYREALISASI) SELISIH 
+                FROM TBTR_OBI_D 
+                LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = OBI_PRDCD
+                WHERE TRUNC(OBI_TGLTRANS) BETWEEN to_date('$tglawal','YYYY-MM-DD') AND to_date('$tglakhir','YYYY-MM-DD')
+                $filterplu
+                $filtertrans
+                )
+                ORDER BY TGL, NOTRANS, SELISIH"
             );
 
-            $membertidur = $membertidur->getResultArray();
-
-            $data = [
-                'title' => 'Member Tidur',
-                'membertidur' => $membertidur,
-            ];
-
-            return view('laporan/membertidur', $data);
+            $selisih = $selisih->getResultArray();
         }
+
+        $data = [
+            'title' => 'Selisih Klik/OBI',
+            'selisih' => $selisih,
+            'notrans' => $notrans,
+            'tglawal' => $tglawal,
+            'tglakhir' => $tglakhir,
+        ];
+        d($data);
+
+        return view('laporan/selisihklik', $data);
+    }
+        
 }

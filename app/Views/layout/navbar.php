@@ -147,7 +147,7 @@
             <hr> 
             <li><a class="" style="font-size: 14px; color:gray">Member</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/problem/membertidakbelanja">Member Tidak Berbelanja</a></li>
-            <li><a class="dropdown-item" href="<?= $ip; ?>/problem/#">Member Tidur *</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/problem/membertidur">Member Tidur</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/problem/belumaktivasi">Member Belum Aktivasi</a></li>
             <hr> 
             <li><a class="" style="font-size: 14px; color:gray">Stock</a></li>
@@ -171,12 +171,6 @@
         </li>
         <li class="nav-item">
           <a class="nav-link text-light" aria-current="page" href="<?= $ip; ?>/mplano/"><i class="fa-solid fa-lightbulb me-1"></i>Plano Mobile IGR</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link text-light" aria-current="page" href="<?= $ip; ?>/gojhon/"><i class="fa-solid fa-door-open me-1"></i>GO JHON</a>
-          <ul class="dropdown-menu">
-            <li><a href="<?= $ip; ?>/gojhon/bpbperhari" class="dropdown-item">BPB Per Hari</a></li>
-          </ul>
         </li>
       </ul>
     </div>

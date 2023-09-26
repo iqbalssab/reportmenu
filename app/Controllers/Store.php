@@ -107,7 +107,7 @@ class Store extends BaseController
         $aksi = $this->request->getVar('tombol');
         $pluplusnol = ""; // Inisialisasi $pluplusnol
         $promomd = []; 
-        $promocb = $hargamb = $hargamm = $hargaplt = $promogift = $promonk = $promohjk = $cariProduk = $alokasimd = $maxtrans = [];  
+        $promocb = $hargamb = $hargamm = $hargaplt = $promogift = $promoinstore = $promonk = $promohjk = $cariProduk = $alokasimd = $maxtrans = [];  
     
         if (isset($isiplu)) {
             if (is_numeric($isiplu)) {
@@ -142,6 +142,7 @@ class Store extends BaseController
 
                 $pluCari = substr($pluplusnol, 0, 6);
                 $plu0 = substr($pluplusnol, 0, 6).'0';
+                $plu1 = substr($pluplusnol, 0, 6).'%';
                 $dbProd = db_connect('production');
 
                 if($aksi == "btnpromomd" && strlen($isiplu) < 8){
@@ -405,43 +406,62 @@ class Store extends BaseController
 
                 }elseif($aksi== "btnpromogift" && strlen($isiplu) < 8){
                 $promogift = $dbProd->query(
-                    "SELECT KODE,
-                    NAMA_PROMO,
-                    HADIAH,
-                    MIN_PCS,
-                    MIN_RPH,
-                    MIN_SPONSOR,
-                    ALOKASI,
-                    ALO_TERPAKAI,
-                    SISA_ALOKASI,
-                    gfa_reguler,
-                    gfa_retailer,
-                    gfa_platinum,
-                    gfh_tglawal,
-                    gfh_tglakhir 
-                    from ( select
-                    gfh_kodepromosi as KODE,
-                    gfh_namapromosi as NAMA_PROMO,
-                    gfh_kethadiah || ' - ' || prd_deskripsipendek as HADIAH,
-                    gfd_pcs as MIN_PCS,
-                    gfd_rph as MIN_RPH,
-                    gfh_mintotsponsor as MIN_SPONSOR,
+                    "SELECT 
+                    gfd_prdcd as PLU,
+                    prd_deskripsipendek as DESKRIPSI,
+                    prd_kodetag as TAG,
+                    prd_frac as FRAC,
+                    gfh_namapromosi as NAMAPROMO,
+                    gfh_mekanisme as MEKANISME,
+                    gfh_kethadiah as KETHADIAH,
+                    BRGHADIAH,
+                    gfh_kodepromosi as KDPROMO,
+                    gfh_mintotsponsor as MINSPONSOR,
+                    gfd_pcs as MINPCS,
+                    gfd_rph as MINRPH,
+                    gfh_tglawal as TGLAWAL,
+                    gfh_tglakhir as TGLAKHIR,
+                    gfa_reguler as MB,
+                    gfa_retailer as MM,
+                    gfa_platinum as PLT,
                     gfa_alokasijumlah as ALOKASI,
-                    alokasiused as ALO_TERPAKAI,
-                    case
-                      when gfa_alokasijumlah = 0 then 999999999 end as SISA_ALOKASI,
-                      gfa_reguler,
-                      gfa_retailer,
-                     gfa_platinum,
-                    gfh_tglawal,
-                     gfh_tglakhir
-                    from tbtr_gift_hdr
-                    left join tbtr_gift_dtl on gfd_kodepromosi = gfh_kodepromosi
-                    left join tbmaster_prodmast on prd_prdcd = gfd_prdcd
-                    left join (select kd_promosi,sum(jmlh_hadiah) as alokasiused from m_gift_h group by kd_promosi) on kd_promosi=gfh_kodepromosi 
-                    left join tbtr_gift_alokasi on gfa_kodepromosi = gfh_kodepromosi
-                    where trunc(gfh_tglakhir) >= trunc(sysdate) and gfd_prdcd = '$plu0') --> ganti plu");
+                    ALKUSED,
+                    gfh_recordid as RECID,
+                    case when trunc(gfh_tglawal)<=trunc(sysdate) then 'AKTIF' else 'BLMAKTIF' end as STATUS
+                    from tbtr_gift_dtl
+                    left join tbtr_gift_hdr on gfd_kodepromosi=gfh_kodepromosi
+                    left join tbtr_gift_alokasi on gfa_kodepromosi=gfd_kodepromosi
+                    left join tbmaster_prodmast on gfd_prdcd=prd_prdcd
+                    left join (select bprp_prdcd as PLUHDH,bprp_ketpendek as BRGHADIAH from TBMASTER_BRGPROMOSI)on pluhdh=gfh_kethadiah
+                    left join (select kd_promosi,sum(jmlh_hadiah) as ALKUSED from m_gift_h group by kd_promosi) on kd_promosi=gfd_kodepromosi
+                    where trunc(gfh_tglakhir)>=trunc(sysdate) and gfd_prdcd like '$plu1'
+                    and (gfa_reguler !='0' or gfa_retailer !='0'  or gfa_platinum !='0' )
+                    order by kdpromo");
 
+                $promoinstore = $dbProd->query(
+                  "SELECT 
+                  isd_prdcd as PLU,
+                  prd_deskripsipanjang as DESKRIPSI,
+                  prd_kodetag as TAG,
+                  prd_frac as FRAC,
+                  ish_kodepromosi as KDPROMO,
+                  ish_namapromosi as NAMAPROMO,ish_keterangan as KETERANGAN,
+                  bprp_ketpanjang as HADIAH,ish_jmlhadiah as JML,
+                  isd_minpcs as MINPCS,
+                  isd_minrph as MINRPH,
+                  ish_minsponsor as MINSPONSOR,
+                  ish_tglawal as TGLAWAL,ish_tglakhir as TGLAKHIR,
+                  ish_reguler as MB,ish_retailer as MM,ish_platinum as PLT,
+                  ish_qtyalokasi as QTYALK,
+                  ish_qtyalokasiout as QTYOUT,
+                  (ish_qtyalokasi - ish_qtyalokasiout) as SISAALK
+                  from tbtr_instore_hdr
+                  left join tbtr_instore_dtl on ish_kodepromosi=isd_kodepromosi
+                  left join tbmaster_prodmast on isd_prdcd=prd_prdcd
+                  left join tbmaster_brgpromosi on bprp_prdcd=ish_prdcdhadiah
+                  where trunc(ish_tglakhir)>=trunc(sysdate) and isd_prdcd like '$plu1'"
+                );
+                    $promoinstore = $promoinstore->getResultArray();
                     $promogift = $promogift->getResultArray();
                 }elseif($aksi == "btnnk" && strlen($isiplu) < 8){
                     $promonk = $dbProd->query(
@@ -516,12 +536,15 @@ class Store extends BaseController
             'hargamm' => $hargamm,
             'hargaplt' => $hargaplt,
             'promogift' => $promogift,
+            'promoinstore' => $promoinstore,
             'promonk' => $promonk,
             'promohjk' => $promohjk,
             'cariproduk' => $cariProduk,
             'desk1' => $isidesk1,
             'desk2' => $isidesk2,
+            'plu' => $pluplusnol
         ];
+        d($data);
 
         redirect()->to('/store/cekpromo')->withInput();
         return view('store/cekpromo', $data);

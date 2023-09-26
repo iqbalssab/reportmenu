@@ -290,8 +290,8 @@
                 </div>
             <?php } ?>
             <!-- Cek Promo Gift -->
-            <?php if(!empty($promogift)): ?>
-                <div class="card w-100 mb3">
+            
+                <div class="card w-100 mb-4">
                     <div class="card-header bg-primary text-light">
                         <h6>Promo Gift</h6>
                     </div>
@@ -309,29 +309,98 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            <?php if(!empty($promogift)): ?>
                                 <?php foreach($promogift as $gift): ?>
                                 <tr>
-                                    <td><?= $gift['KODE']; ?> - <?= $gift['NAMA_PROMO']; ?></td>
-                                    <td><?= $gift['HADIAH']; ?></td>
-                                    <td><?= $gift['MIN_PCS']; ?></td>
-                                    <td><?= $gift['MIN_RPH']; ?></td>
-                                    <td><?= $gift['MIN_SPONSOR']; ?></td>
                                     <td>
-                                        <div class="badge bg-primary rounded-pill"><?= $gift['GFA_REGULER']; ?></div>
-                                        <div class="badge bg-danger rounded-pill"><?= $gift['GFA_RETAILER']; ?></div>
-                                        <div class="badge bg-secondary rounded-pill"><?= $gift['GFA_PLATINUM']; ?></div>
+                                        <a href="" title="<?= $gift['MEKANISME']; ?>"><?= $gift['KDPROMO']; ?></a> - <?= $gift['NAMAPROMO']; ?>
+                                        <br>
+                                        <span class="badge text-bg-primary mt-1">Alokasi : <?= number_format($gift['ALOKASI']); ?></span>
+                                        <span class="badge text-bg-warning">Used : <?= number_format($gift['ALKUSED']); ?></span>
+                                        <?php if($gift['ALOKASI']>0): ?>
+                                            <span class="badge text-bg-secondary">Sisa : <?= number_format($gift['ALOKASI']-$gift['ALKUSED']) ; ?></span>
+                                        <?php else: ?>
+                                            <span class="badge text-bg-secondary">Unlimited</span>
+                                        <?php endif; ?>
+                                        <!-- Jika Ada Pembatalan Promo -->
+                                        <?php if($gift['RECID']==1): ?>
+                                            <span class="badge text-bg-danger">Batal, Silahkan tanya ke MKT</span>
+                                        <?php endif; ?>
+                                        <!-- Jika Promo Blm AKtif -->
+                                        <?php if($gift['STATUS']=="BLMAKTIF"): ?>
+                                            <span class="badge text-bg-success">Promo Belum Aktif (Cek Periode)</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td><?= $gift['KETHADIAH']." - ".$gift['BRGHADIAH']; ?></td>
+                                    <td><?= number_format($gift['MINPCS']); ?></td>
+                                    <td><?= number_format($gift['MINRPH']); ?></td>
+                                    <td><?= number_format($gift['MINSPONSOR']); ?></td>
+                                    <td>
+                                        <span class="badge bg-primary rounded-pill"><?= $gift['MB']; ?></span>
+                                        <span class="badge bg-danger rounded-pill"><?= $gift['MM']; ?></span>
+                                        <span class="badge bg-secondary rounded-pill"><?= $gift['PLT']; ?></span>
                                     </td>
                                     <td>
-                                        <div class="badge bg-success rounded mb-1"><?= $gift['GFH_TGLAWAL']; ?></div>
-                                        <div class="badge bg-danger rounded"><?= $gift['GFH_TGLAKHIR']; ?></div>
+                                        <div class="badge bg-success rounded mb-1"><?= $gift['TGLAWAL']; ?></div>
+                                        <div class="badge bg-danger rounded"><?= $gift['TGLAKHIR']; ?></div>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
+                            <?php endif; ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
-            <?php endif; ?>
+                <div class="card mb-3">
+                    <div class="card-header bg-warning-subtle">
+                        <h6 class="text-warning">Promo Instore</h6>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Kode - Nama Promo</th>
+                                    <th>Hadiah</th>
+                                    <th>Jml</th>
+                                    <th>Min.PCS</th>
+                                    <th>Min.RPH</th>
+                                    <th>Min.Sponsor</th>
+                                    <th>Member</th>
+                                    <th>Periode</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php if(!empty($promoinstore)): ?>
+                                    <?php foreach($promoinstore as $pi): ?>
+                                        <tr>
+                                            <td><?= $pi['KDPROMO']." - ".$pi['NAMAPROMO']; ?></td>
+                                            <td>
+                                                <?= $pi['HADIAH']; ?>
+                                                <br>
+                                                <span class="badge text-bg-primary">Alokasi : <?= $pi['QTYALK']; ?></span>
+                                                <span class="badge text-bg-warning">Terpakai : <?= $pi['QTYOUT']; ?></span>
+                                                <span class="badge text-bg-secondary">Sisa : <?= $pi['SISAALK']; ?></span>
+                                            </td>
+                                            <td><?= number_format($pi['JML']); ?></td>
+                                            <td><?= number_format($pi['MINPCS']); ?></td>
+                                            <td><?= number_format($pi['MINRPH']); ?></td>
+                                            <td><?= number_format($pi['MINSPONSOR']); ?></td>
+                                            <td>
+                                                <span class="badge text-bg-primary"><?= $pi['MB']; ?></span>
+                                                <span class="badge text-bg-danger"><?= $pi['MM']; ?></span>
+                                                <span class="badge text-bg-secondary"><?= $pi['PLT']; ?></span>
+                                            </td>
+                                            <td>
+                                                <span class="badge rounded text-bg-success d-block mb-1"><?= $pi['TGLAWAL']; ?></span>
+                                                <span class="badge rounded text-bg-danger d-block mb-1"><?= $pi['TGLAKHIR']; ?></span>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>            
             <!-- Cek Promo NK dan HJK -->
             <?php if(!empty($promonk) || !empty($promohjk)): ?>
                 <div class="card w-100 mb3">

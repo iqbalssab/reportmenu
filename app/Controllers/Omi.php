@@ -9,16 +9,14 @@ class Omi extends BaseController
         
     }
 
-    public function monitoringpbomi()
-    {
+    public function monitoringpbomi() {
         $data = [
             'title' => 'Monitoring PB OMI'
         ];
         return view('omi/monitoringpbomi', $data);
     }
 
-    public function tampilmonitoringomi()
-    {   
+    public function tampilmonitoringomi() {   
         $dbProd = db_connect('production');
         $kodeomi = strtoupper($this->request->getVar('kodeomi'));
         $tglawal = $this->request->getVar('tglawal');
@@ -2385,5 +2383,112 @@ class Omi extends BaseController
         };
 
         return view('/omi/tampilreturomi',$data);
+    }
+
+    public function lokasidpd() {
+        $dbProd = db_connect('production');
+        $lokasidpd = [];
+
+        $lokasidpd = $dbProd->query(
+            "SELECT PRD_KODEDIVISI DIV,
+            PRD_KODEDEPARTEMENT DEP, 
+            PRD_KODEKATEGORIBARANG KAT,
+            PRD_PRDCD PLUIGR,
+            PRD_DESKRIPSIPANJANG DESK,
+            PRD_KODETAG TAG,
+            TAG_OMI,
+            LOKASI TOKO,LOKASID DPD,
+            CASE WHEN PRD_PRDCD IN (SELECT PRC_PLUIGR FROM TBMASTER_PRODCRM) THEN 'Y' ELSE 'T' END AS PRODCRM,
+            CASE WHEN PRD_FLAGIGR ='Y' AND PRD_FLAGOMI = 'Y' THEN 'IGR + OMI'
+                   WHEN PRD_FLAGIGR ='N' AND PRD_FLAGOMI = 'Y' THEN 'OMI ONLY'
+                   WHEN PRD_FLAGIGR ='Y' AND PRD_FLAGOMI = 'N' THEN 'IGR ONLY'
+                   WHEN PRD_FLAGIGR ='N' AND NVL(PRD_FLAGOMI,'N') = 'N' AND PRD_FLAGNAS = 'Y' THEN 'NAS'
+                   ELSE 'TIDAK TAHU'
+              END AS FLAG
+            FROM TBMASTER_PRODMAST
+            LEFT JOIN TBMASTER_STOCK ON PRD_PRDCD = ST_PRDCD
+            LEFT JOIN(SELECT LKS_PRDCD PLUT, 
+                      LKS_KODERAK||'.'|| 
+                      LKS_KODESUBRAK||'.'|| 
+                      LKS_TIPERAK||'.'|| 
+                      LKS_SHELVINGRAK||'.'|| 
+                      LKS_NOURUT LOKASI, 
+                      LKS_QTY QTY_PLANO 
+                      FROM TBMASTER_LOKASI 
+                      WHERE SUBSTR(LKS_TIPERAK,1,1) IN ('B','I') 
+                      AND LKS_KODERAK NOT IN ('D25','D26','D27','D28','D29','D30','D31','D32','D33',
+                                              'D34','D35','D36','D37','D38','D39','D40','D41','D42','D98','D99')
+                      AND LKS_KODERAK NOT LIKE '%HDH%' 
+                      AND LKS_TIPERAK != 'S') ON PLUT = PRD_PRDCD
+            LEFT JOIN (SELECT LKS_PRDCD PLUD, 
+                      LKS_KODERAK||'.'|| 
+                      LKS_KODESUBRAK||'.'|| 
+                      LKS_TIPERAK||'.'|| 
+                      LKS_SHELVINGRAK||'.'|| 
+                      LKS_NOURUT LOKASID, 
+                      LKS_QTY QTY_PLANOD 
+                      FROM TBMASTER_LOKASI 
+                      WHERE SUBSTR(LKS_TIPERAK,1,1) IN ('B','I') 
+                      AND LKS_KODERAK IN ('D25','D26','D27','D28','D29','D30','D31','D32','D33',
+                                              'D34','D35','D36','D37','D38','D39','D40','D41','D42','D98','D99')
+                      AND LKS_KODERAK NOT LIKE '%HDH%' 
+                      AND LKS_TIPERAK != 'S') ON PLUD = PRD_PRDCD
+            LEFT JOIN (SELECT PRC_PLUIGR, PRC_KODETAG TAG_OMI FROM TBMASTER_PRODCRM) ON PRC_PLUIGR  = PRD_PRDCD
+            WHERE  ST_LOKASI = '01'
+            AND PRD_KODETAG NOT IN ('H','A','N','O','X','T')
+            AND PRD_FLAGOMI = 'Y' AND PRD_KODEDIVISI != '4'
+            AND LOKASI IS NOT NULL
+            AND LOKASID IS NULL
+            ORDER BY DIV ASC,DEP ASC,KAT ASC"
+        );
+        $lokasidpd = $lokasidpd->getResultArray();
+
+        $data = [
+            'title' => 'Lokasi DPD OMI',
+            'lokasidpd' => $lokasidpd,
+        ];
+
+        redirect()->to('/lokasidpd')->withInput();
+        return view('/omi/lokasidpd',$data);
+    }
+
+    public function noid() {
+        $dbProd = db_connect('production');
+        $noid = [];
+
+        $noid = $dbProd->query(
+            "SELECT PRD_KODEDIVISI DIV,PRD_KODEDEPARTEMENT DEP, PRD_KODEKATEGORIBARANG KAT,
+            LKS_PRDCD PLUD, PRD_DESKRIPSIPANJANG DESK,PRD_KODETAG TAG,
+            LKS_KODERAK||'.'|| 
+            LKS_KODESUBRAK||'.'|| 
+            LKS_TIPERAK||'.'|| 
+            LKS_SHELVINGRAK||'.'|| 
+            LKS_NOURUT LOKASID, 
+            LKS_NOID NOID,
+            CASE WHEN PRD_PRDCD IN (SELECT PRC_PLUIGR FROM TBMASTER_PRODCRM) THEN 'Y' ELSE 'T' END AS PRODCRM,
+            CASE WHEN PRD_FLAGIGR ='Y' AND PRD_FLAGOMI = 'Y' THEN 'IGR + OMI'
+                 WHEN PRD_FLAGIGR ='N' AND PRD_FLAGOMI = 'Y' THEN 'OMI ONLY'
+                 WHEN PRD_FLAGIGR ='Y' AND PRD_FLAGOMI = 'N' THEN 'IGR ONLY'
+                 WHEN PRD_FLAGIGR ='N' AND NVL(PRD_FLAGOMI,'N') = 'N' AND PRD_FLAGNAS = 'Y' THEN 'NAS'
+                 ELSE 'TIDAK TAHU'
+            END AS FLAG
+            FROM TBMASTER_LOKASI 
+            LEFT JOIN TBMASTER_PRODMAST ON PRD_PRDCD = LKS_PRDCD 
+            WHERE SUBSTR(LKS_TIPERAK,1,1) IN ('B','I') 
+            AND LKS_KODERAK IN ('D25','D26','D27','D28','D29','D30','D31','D32','D33',
+                                    'D34','D35','D36','D37','D38','D39','D40','D41','D42','D98','D99')
+            AND LKS_KODERAK NOT LIKE '%HDH%' 
+            AND LKS_TIPERAK != 'S'
+            AND LKS_PRDCD IS NOT NULL AND LKS_NOID IS NULL"
+        );
+        $noid = $noid->getResultArray();
+
+        $data = [
+            'title' => 'No ID OMI',
+            'noid' => $noid,
+        ];
+
+        redirect()->to('/noid')->withInput();
+        return view('/omi/noid',$data);
     }
 }

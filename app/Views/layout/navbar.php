@@ -155,6 +155,20 @@
           </ul>
         </li>
         <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle fw-bold text-light" href="/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Problem IDM
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="" style="font-size: 14px; color:gray">Tabel Master Lokasi</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/problemidm/itemkosong">Item Kosong PB IDM</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/problemidm/dpddouble">DPD Double</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/problemidm/hppigridm">HPP IGR IDM</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/problemidm/itemidm">2846 Item IDM</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/problemidm/slidm">Service Level IDM</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/problemidm/lokasikosong">Qty, Max PLano, Jenis Rak IDM</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle fw-bold text-light" href="<?= $ip; ?>/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           <i class="fa-solid fa-computer me-1"></i>EDP
           </a>

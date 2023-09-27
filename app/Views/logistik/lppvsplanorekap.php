@@ -10,7 +10,7 @@ echo $this->section('content'); ?>
     </div>
 </div>
 <br><br>
-<div class="container-fluid mt-3">
+<div class="container-fluid mt-3 overflow-auto">
     <div class="row">
         <div class="col-md-6">
             <h6 class="fw-bold">REKAP LPP vs PLANO</h6>    

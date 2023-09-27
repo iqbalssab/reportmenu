@@ -6,9 +6,8 @@ echo $this->section('content'); ?>
 
 <div class="container-fluid mt-3 overflow-auto">
     <div class="row justify-content-center">
-        <h3 class="fw-bold text-center">Barcode Double</h3>
-    </div>
-    <br><br>
+        <h3 class="fw-bold text-start">Lokasi Rak Qty Minus</h3>
+    </div><br>
     <?php
         $no = 1;
     ?>

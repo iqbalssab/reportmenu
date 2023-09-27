@@ -56,6 +56,272 @@ class Member extends BaseController
       return view('member/cekmember',$data);
     }
 
+    public function inquirymm() {
+      $dbProd = db_connect('production');
+      $inquirymm = [];
+      $kodeMM = $kodeBarcode = '';
+
+      if(isset($_GET['kodeMM'])) {if ($_GET['kodeMM'] !=""){$kodeMM = $_GET['kodeMM']; }}
+
+      $inquirymm = $dbProd->query(
+          "SELECT DTL_CUSNO NO_MM,
+          DTL_NAMAMEMBER NAMA_MM,
+          ALAMAT_USAHA,
+          KECAMATAN,                          
+          KOTA_USAHA,
+          NO_TLP,
+          SUM(DTL_NETTO) NETT,
+          DTL_BELANJA_PERTAMA AWAL,
+          DTL_BELANJA_TERAKHIR AKHIR,
+          COUNT(DISTINCT RPAD(DTL_TANGGAL,9)) TOT_KUNJUNGAN
+          FROM 
+          (SELECT distinct AC.* , 
+            CASE WHEN AB.Obi_Kdmember IS NULL THEN 'BUKAN KLIK' ELSE 'KLIK' END KLIK_TYPE 
+            FROM 
+            (SELECT 
+              --TAMBAHAN
+              dtl_subkategori,
+              dtl_jenismember,dtl_rtype,
+              dtl_tanggal,
+              dtl_struk,
+              dtl_stat,
+              dtl_kasir,
+              dtl_no_struk,
+              dtl_seqno,
+              dtl_prdcd_ctn,
+              dtl_prdcd,
+              dtl_nama_barang,
+              dtl_unit,
+              dtl_frac,
+              dtl_tag,
+              dtl_bkp,
+              CASE
+                WHEN dtl_rtype = 'S' THEN dtl_qty_pcs
+                  ELSE dtl_qty_pcs * -1
+              END dtl_qty_pcs,
+              CASE
+                WHEN dtl_rtype = 'S' THEN dtl_qty
+                  ELSE dtl_qty *- 1
+              END dtl_qty,
+              dtl_harga_jual,
+              dtl_diskon,
+              CASE
+                WHEN dtl_rtype = 'S' THEN dtl_gross
+                  ELSE dtl_gross *- 1
+              END dtl_gross,
+              CASE
+                WHEN dtl_rtype = 'S' THEN dtl_netto
+                  ELSE dtl_netto *- 1
+              END dtl_netto,
+              CASE
+                WHEN dtl_rtype = 'S' THEN dtl_hpp
+                  ELSE dtl_hpp *- 1
+              END dtl_hpp,
+              CASE
+                WHEN dtl_rtype = 'S' THEN dtl_netto - dtl_hpp
+                  ELSE ( dtl_netto - dtl_hpp ) * -1
+              END dtl_margin,
+              dtl_k_div,
+              dtl_nama_div,
+              dtl_k_dept,
+              dtl_k_katb,
+              dtl_nama_dept,
+              dtl_nama_katb,
+                  --dtl_kodetokoomi,
+              dtl_cusno,
+              dtl_namamember,
+              dtl_memberkhusus,
+              dtl_outlet,
+              dtl_suboutlet,
+              CASE
+                WHEN dtl_memberkhusus = 'Y' THEN 'KHUSUS'
+                  WHEN dtl_kasir = 'IDM' THEN 'IDM'
+                  WHEN dtl_kasir = 'ID1' THEN 'IDM'
+                  WHEN dtl_kasir = 'ID2' THEN 'IDM'
+                  WHEN (dtl_kasir = 'OMI'
+                  OR dtl_kasir = 'BKL') THEN 'OMI'
+                --WHEN (dtl_kasir <> 'OMI' )
+                  --OR dtl_kasir <> 'HJK' 
+                  --THEN 'OMIHJK'
+                  ELSE 'REGULER'
+              END dtl_tipemember,
+              Case When Nvl(Dtl_Memberkhusus,'T')='Y' And Nvl(Dtl_Outlet,6) In ('2','3','5')  Then 'MERAH'
+                      When Nvl(Dtl_Memberkhusus,'T')<>'Y' And Nvl(Dtl_Outlet,6) In ('0','6')  Then 'BIRU'
+                      When Dtl_Kasir = 'IDM' Then 'IDM' 
+                      When Dtl_Kasir = 'ID1' Then 'IDM'
+                      When Dtl_Kasir = 'ID2' Then 'IDM'
+                      When (Dtl_Kasir = 'OMI' Or Dtl_Kasir = 'BKL') Then 'OMI' Else 'OTHER' 
+                      End dtl_tipemember1, 
+              CASE
+                WHEN dtl_memberkhusus = 'Y' THEN 'GROUP_1_KHUSUS'
+                  WHEN dtl_kasir = 'IDM' THEN 'GROUP_2_IDM'
+                  WHEN dtl_kasir = 'ID1' THEN 'GROUP_2_IDM'
+                  WHEN dtl_kasir = 'ID2' THEN 'GROUP_2_IDM'
+                  WHEN dtl_kasir = 'OMI' OR dtl_kasir = 'BKL' THEN 'GROUP_3_OMI'
+                      WHEN dtl_memberkhusus is null AND dtl_outlet ='6' THEN 'GROUP_4_END_USER'
+                  ELSE 'GROUP_5_OTHERS'
+              END dtl_group_member,
+              dtl_kodesupplier,
+              dtl_namasupplier,
+              dtl_belanja_pertama,
+              dtl_belanja_terakhir
+              FROM
+                (SELECT 
+                  --tambahan
+                  crm.CRM_SUBKATEGORI  as dtl_subkategori,
+                  sls.trjd_transactiontype        AS dtl_rtype,
+                      Trunc(sls.trjd_transactiondate) AS dtl_tanggal,
+                          To_char(sls.trjd_transactiondate, 'yyyymmdd') AS TGL_STR,
+                      To_char(sls.trjd_transactiondate, 'yyyymmdd')
+                    || sls.trjd_cashierstation
+                          ||sls.trjd_create_by
+                          || sls.trjd_transactionno
+                          ||sls.trjd_transactiontype      AS dtl_struk,
+                      sls.trjd_cashierstation         AS dtl_stat,
+                      sls.trjd_create_by              AS dtl_kasir,
+                      sls.trjd_transactionno          AS dtl_no_struk,
+                      sls.trjd_seqno                  AS dtl_seqno,
+                      Substr(sls.trjd_prdcd, 1, 6)
+                    || '0'                          AS dtl_prdcd_ctn,
+                      sls.trjd_prdcd                  AS dtl_prdcd,
+                      prd.prd_deskripsipanjang        AS dtl_nama_barang,
+                      prd.prd_frac                    AS dtl_frac,
+                      prd.prd_unit                    AS dtl_unit,
+                      Nvl(prd.prd_kodetag, ' ')       AS dtl_tag,
+                  case 
+                    when To_char(sls.trjd_transactiondate, 'yyyymmdd')>20230430
+                    then sls.trjd_flagtax2 
+                    else sls.trjd_flagtax1
+                  end        AS dtl_bkp,
+                      CASE
+                    WHEN PRD.prd_unit = 'KG' AND prd.prd_frac = 1000
+                    THEN sls.trjd_quantity
+                    ELSE sls.trjd_quantity * prd.prd_frac
+                      END                             dtl_qty_pcs,
+                      sls.trjd_quantity               AS dtl_qty,
+                      sls.trjd_unitprice              AS dtl_harga_jual,
+                      sls.trjd_discount               AS dtl_diskon,
+                      CASE
+                    When  To_Char(Sls.Trjd_Transactiondate, 'yyyymmdd')>20230430 and Sls.Trjd_Flagtax2 ='Y' 
+                      And Sls.Trjd_Create_By In('IDM','ID1','ID2','OMI','BKL')
+                              Then Sls.Trjd_Nominalamt * 1.11 
+                              
+                              WHEN   To_Char(Sls.Trjd_Transactiondate, 'yyyymmdd') Between  20220331 And 20230430 and
+                      sls.trjd_flagtax1 = 'Y' AND sls.trjd_create_by IN( 'IDM','ID1','ID2', 'OMI', 'BKL' ) 
+                              Then Sls.Trjd_Nominalamt * 1.11
+                               
+                              WHEN sls.trjd_flagtax1 = 'Y' AND sls.trjd_create_by IN( 'IDM','ID1','ID2', 'OMI', 'BKL' ) 
+                      and To_Char(Sls.Trjd_Transactiondate, 'yyyymmdd')<=20220331
+                              THEN sls.trjd_nominalamt * 11 /10
+                               
+                          ELSE sls.trjd_nominalamt
+                      END                             dtl_gross,
+                      CASE
+                    WHEN sls.trjd_flagtax1 = 'Y' AND sls.trjd_create_by NOT IN( 'IDM','ID1','ID2', 'OMI', 'BKL' ) 
+                      AND To_char(sls.trjd_transactiondate, 'yyyymmdd')<=20220331
+                              THEN sls.trjd_nominalamt / 11 *10
+                               
+                    WHEN sls.trjd_flagtax2 = 'Y' AND sls.trjd_create_by NOT IN( 'IDM','ID1','ID2', 'OMI', 'BKL' ) 
+                      AND To_char(sls.trjd_transactiondate, 'yyyymmdd')>20230430
+                              THEN sls.trjd_nominalamt / 11.1 *10
+                     
+                              WHEN sls.trjd_flagtax1 = 'Y' AND sls.trjd_create_by NOT IN( 'IDM','ID1','ID2', 'OMI', 'BKL' ) 
+                      AND To_char(sls.trjd_transactiondate, 'yyyymmdd') between  20220331 and 20230430
+                              THEN sls.trjd_nominalamt / 11.1 *10
+                              
+                    ELSE sls.trjd_nominalamt
+                      END                             dtl_netto,
+                      CASE
+                          WHEN PRD.prd_unit = 'KG' 
+                    THEN sls.trjd_quantity * sls.trjd_baseprice / 1000
+                          ELSE sls.trjd_quantity * sls.trjd_baseprice
+                      END                             dtl_hpp,
+                      Trim(sls.trjd_divisioncode)     AS dtl_k_div,
+                      div.div_namadivisi              AS dtl_nama_div,
+                      Substr(sls.trjd_division, 1, 2) AS dtl_k_dept,
+                      dep.dep_namadepartement         AS dtl_nama_dept,
+                      Substr(sls.trjd_division, 3, 2) AS dtl_k_katb,
+                      kat.kat_namakategori            AS dtl_nama_katb,
+                          --tko.tko_kodeomi                 AS dtl_kodetokoomi,
+                  sls.trjd_cus_kodemember         AS dtl_cusno,
+                      cus.cus_namamember              AS dtl_namamember,
+                      cus.cus_flagmemberkhusus        AS dtl_memberkhusus,
+                      cus.cus_kodeoutlet              AS dtl_outlet,
+                      cus.cus_kodesuboutlet           AS dtl_suboutlet,
+                  cus.cus_jenismember             AS dtl_jenismember,
+                      sup.hgb_kodesupplier            AS dtl_kodesupplier,
+                      sup.sup_namasupplier            AS dtl_namasupplier,
+                      akt.jh_belanja_pertama          AS dtl_belanja_pertama,
+                      akt.jh_belanja_terakhir         AS dtl_belanja_terakhir
+                  FROM   	tbtr_jualdetail sls,
+                      tbmaster_prodmast prd,
+                      tbmaster_customer cus,
+                      tbmaster_tokoigr tko,
+                      tbmaster_divisi div,
+                      tbmaster_departement dep,
+                      (SELECT kat_kodedepartement
+                          || kat_kodekategori AS kat_kodekategori,
+                          kat_namakategori
+                        FROM   tbmaster_kategori) kat,
+                              (SELECT m.hgb_prdcd,
+                                     m.hgb_kodesupplier,
+                                     s.sup_namasupplier
+                        FROM	tbmaster_hargabeli m,
+                            tbmaster_supplier s
+                        WHERE  m.hgb_kodesupplier = s.sup_kodesupplier (+)
+                                     AND m.hgb_tipe = '2'
+                                     AND m.hgb_recordid IS NULL) sup,
+                        (SELECT jh_cus_kodemember,
+                             Trunc(Min(jh_transactiondate)) AS jh_belanja_pertama,
+                             Trunc(Max(jh_transactiondate)) AS jh_belanja_terakhir
+                        FROM   tbtr_jualheader
+                        WHERE  jh_cus_kodemember IS NOT NULL
+                        GROUP  BY jh_cus_kodemember) akt,
+                      --tambahan
+                      (select * from Tbmaster_Customercrm ) crm
+                      WHERE  	sls.trjd_prdcd = prd.prd_prdcd (+)
+                      AND sls.trjd_cus_kodemember = cus.cus_kodemember (+)
+                      AND sls.trjd_cus_kodemember = tko.tko_kodecustomer (+)
+                      AND sls.trjd_divisioncode = div.div_kodedivisi (+)
+                      AND Substr(sls.trjd_division, 1, 2) = dep.dep_kodedepartement (+)
+                      AND sls.trjd_division = kat.kat_kodekategori (+)
+                      AND Substr(sls.trjd_prdcd, 1, 6) || 0 = sup.hgb_prdcd (+)
+                      AND sls.trjd_cus_kodemember = akt.jh_cus_kodemember (+)
+                      --tambahan
+                      AND sls.trjd_cus_kodemember = crm.crm_kodemember (+)
+                      AND sls.trjd_recordid IS NULL
+                      AND sls.trjd_quantity <> 0))AC
+              left join (Select distinct Obi_Nopb,Obi_Tglstruk,Obi_Nostruk,Obi_Kdstation,Obi_Cashierid,Obi_Kdmember From Tbtr_Obi_H ) AB
+              ON substr(AC.dtl_tanggal,1,9)=substr(AB.Obi_Tglstruk,1,9) 
+              And AC.DTL_KASIR=AB.Obi_Cashierid 
+              And AC.DTL_NO_STRUK=AB.Obi_Nostruk 
+              And AC.DTL_STAT=AB.Obi_kdStation
+              and AC.dtl_cusno=AB.Obi_Kdmember 
+              And AC.DTL_RTYPE='S' 
+          )
+          LEFT JOIN (SELECT DISTINCT CUS_KODEMEMBER KODEMEM,
+                CUS_ALAMATMEMBER5 ALAMAT_USAHA,
+                      POS_KECAMATAN KECAMATAN,                          
+                      CUS_ALAMATMEMBER6 KOTA_USAHA,
+                      CUS_HPMEMBER NO_TLP
+                      FROM TBMASTER_CUSTOMER LEFT JOIN TBMASTER_KODEPOS ON CUS_ALAMATMEMBER3=POS_KODE
+                      WHERE CUS_KODEIGR = '25'
+                      AND CUS_RECORDID IS NULL
+                      AND CUS_NAMAMEMBER <> 'NEW') ON KODEMEM = DTL_CUSNO 
+          WHERE DTL_CUSNO = '".strtoupper($kodeMM)."' 
+          GROUP BY DTL_CUSNO, DTL_NAMAMEMBER, ALAMAT_USAHA, KECAMATAN, KOTA_USAHA, NO_TLP, DTL_BELANJA_PERTAMA, DTL_BELANJA_TERAKHIR"
+      );
+      $inquirymm = $inquirymm->getResultArray();
+
+      $data = [
+          'title' => 'Inquiry Member Merah',
+          'inquirymm' => $inquirymm,
+      ];
+        
+      // redirect()->to('member/cekmember')->withInput();
+      return view('member/inquirymm',$data);
+    }
+
     public function transaksimember() {
         date_default_timezone_set("Asia/Jakarta");
         $kode = strtoupper($this->request->getVar('kode'));
@@ -1188,5 +1454,633 @@ class Member extends BaseController
       };
 
       return view('member/tampilperjam',$data);
+    }
+
+    public function evaluasiperish() {
+      $dbProd = db_connect('production');
+      $departemen = $divisi = $kategori = [];
+
+      $divisi = $dbProd->query(
+          "SELECT div_kodedivisi, div_namadivisi FROM tbmaster_divisi ORDER BY div_kodedivisi"
+      );
+      $divisi = $divisi->getResultArray();
+
+      $departemen = $dbProd->query(
+          "SELECT dep_kodedivisi,div_namadivisi,div_singkatannamadivisi,dep_kodedepartement, dep_namadepartement 
+          from tbmaster_departement 
+          left join tbmaster_divisi on div_kodedivisi=dep_kodedivisi
+          order by dep_kodedivisi,dep_kodedepartement"
+      );
+      $departemen = $departemen->getResultArray();
+
+      $kategori = $dbProd->query(
+          "SELECT kat.kat_kodedepartement,
+          dep.dep_namadepartement AS kat_namadepartement,
+          kat.kat_kodekategori,
+          kat.kat_namakategori
+          FROM tbmaster_kategori kat,
+              tbmaster_departement dep
+          WHERE kat.kat_kodedepartement = dep.dep_kodedepartement (+)
+          ORDER BY kat_kodedepartement, kat_kodekategori"
+      );
+      $kategori = $kategori->getResultArray();
+
+      $data = [
+          'title' => 'Evaluasi Sales',
+          'divisi' => $divisi,
+          'departemen' => $departemen,
+          'kategori' => $kategori,
+      ];
+        
+      redirect()->to('evaluasiperish')->withInput();
+      return view('member/evaluasiperish',$data);
+    }
+
+    public function tampilslperish() {
+      $dbProd = db_connect('production');
+      $evaluasiperish = $departemen = $divisi = $kategori = [];
+      $aksi = $this->request->getVar('tombol');
+      
+      // inisiasi
+      $kodePLU = $kodeDivisi = $kodeDepartemen = $kodeKategoriBarang = $kodeMember = $namaMember = $jenisMember = "All"; 
+      $tanggalMulai = $tanggalSelesai = date("Ymd");
+      $filterplu = $filterdiv = $filterdep = $filterkat = $filterkd = $filternm = $filtermbr = $jlap = "";
+
+      // ambil variable data
+      if(isset($_GET['awal'])) {if ($_GET['awal'] !=""){$tanggalMulai = $_GET['awal']; }}
+      if(isset($_GET['akhir'])) {if ($_GET['akhir'] !=""){$tanggalSelesai = $_GET['akhir']; }}
+      if(isset($_GET['jenisMember'])) {if ($_GET['jenisMember'] !=""){$jenisMember = $_GET['jenisMember']; }}
+      if ($jenisMember == 'Merah') {
+          $filtermbr = " AND NVL(dtl_memberkhusus,'T') = 'Y' ";
+      } elseif ($jenisMember == 'Biru') {
+          $filtermbr = " AND dtl_tipemember = 'REGULER' ";
+      } elseif ($jenisMember == 'OMI') {
+          $filtermbr = " AND dtl_tipemember = 'OMI' ";
+      } elseif ($jenisMember == 'IDM') {
+          $filtermbr = " AND dtl_tipemember = 'IDM' ";	
+      } elseif ($jenisMember == 'All') {
+          $filtermbr = " ";	
+      }
+      if(isset($_GET['plu'])) {if ($_GET['plu'] !=""){$kodePLU = $_GET['plu']; }}
+      if ($kodePLU != "All" AND $kodePLU != "") {
+          $kodePLU = substr('00000000' . $kodePLU, -7);
+          $filterplu = " AND dtl_prdcd_ctn = '$kodePLU' ";
+      }
+      if(isset($_GET['divisi'])) {if ($_GET['divisi'] !=""){$kodeDivisi = $_GET['divisi']; }}
+      if ($kodeDivisi != "All" AND $kodeDivisi != "") {
+          $filterdiv = " AND dtl_k_div = '$kodeDivisi' ";
+      }
+      if(isset($_GET['dep'])) {if ($_GET['dep'] !=""){$kodeDepartemen = $_GET['dep']; }}
+      if ($kodeDepartemen != "All" AND $kodeDepartemen != "") {
+          $filterdep = " AND dtl_k_dept = '$kodeDepartemen' ";
+      }
+      if(isset($_GET['kat'])) {if ($_GET['kat'] !=""){$kodeKategoriBarang = $_GET['kat']; }}
+      if ($kodeKategoriBarang != "All" AND $kodeKategoriBarang != "") {
+          $filterkat = " AND dtl_k_dept || dtl_k_katb = '$kodeKategoriBarang' ";
+      }
+      if(isset($_GET['kdmbr'])) {if ($_GET['kdmbr'] !=""){$kodeMember = $_GET['kdmbr']; }}
+      if ($kodeMember != "All" AND $kodeMember != "") {
+          $filterkd = "  AND dtl_cusno like '%$kodeMember%' ";
+      }
+	    if(isset($_GET['nmmbr'])) {if ($_GET['nmmbr'] !=""){$namaMember = $_GET['nmmbr']; }}
+      if ($namaMember != "All" AND $namaMember != "") {
+          $filternm = " AND dtl_namamember like '%$namaMember%' ";
+      }
+      if(isset($_GET['jenisLaporan'])) {if ($_GET['jenisLaporan'] !=""){$lap = $_GET['jenisLaporan']; }}
+
+      $divisi = $dbProd->query(
+          "SELECT div_kodedivisi, div_namadivisi FROM tbmaster_divisi ORDER BY div_kodedivisi"
+      );
+      $divisi = $divisi->getResultArray();
+
+
+      //query 
+      $departemen = $dbProd->query(
+          "SELECT dep_kodedivisi,div_namadivisi,div_singkatannamadivisi,dep_kodedepartement, dep_namadepartement 
+          from tbmaster_departement 
+          left join tbmaster_divisi on div_kodedivisi=dep_kodedivisi
+          order by dep_kodedivisi,dep_kodedepartement"
+      );
+      $departemen = $departemen->getResultArray();
+
+      $kategori = $dbProd->query(
+          "SELECT kat.kat_kodedepartement,
+          dep.dep_namadepartement AS kat_namadepartement,
+          kat.kat_kodekategori,
+          kat.kat_namakategori
+          FROM tbmaster_kategori kat,
+              tbmaster_departement dep
+          WHERE kat.kat_kodedepartement = dep.dep_kodedepartement (+)
+          ORDER BY kat_kodedepartement, kat_kodekategori"
+      );
+      $kategori = $kategori->getResultArray();
+
+      $viewDetailStruk = "(SELECT distinct AC.* , 
+        CASE WHEN AB.Obi_Kdmember IS NULL THEN 'BUKAN KLIK' ELSE 'KLIK' END KLIK_TYPE 
+        FROM 
+        (SELECT 
+          --TAMBAHAN
+          dtl_subkategori,
+          dtl_jenismember,dtl_rtype,
+          dtl_tanggal,
+          dtl_struk,
+          dtl_stat,
+          dtl_kasir,
+          dtl_no_struk,
+          dtl_seqno,
+          dtl_prdcd_ctn,
+          dtl_prdcd,
+          dtl_nama_barang,
+          dtl_unit,
+          dtl_frac,
+          dtl_tag,
+          dtl_bkp,
+          CASE
+            WHEN dtl_rtype = 'S' THEN dtl_qty_pcs
+              ELSE dtl_qty_pcs * -1
+          END dtl_qty_pcs,
+          CASE
+            WHEN dtl_rtype = 'S' THEN dtl_qty
+              ELSE dtl_qty *- 1
+          END dtl_qty,
+          dtl_harga_jual,
+          dtl_diskon,
+          CASE
+            WHEN dtl_rtype = 'S' THEN dtl_gross
+              ELSE dtl_gross *- 1
+          END dtl_gross,
+          CASE
+            WHEN dtl_rtype = 'S' THEN dtl_netto
+              ELSE dtl_netto *- 1
+          END dtl_netto,
+          CASE
+            WHEN dtl_rtype = 'S' THEN dtl_hpp
+              ELSE dtl_hpp *- 1
+          END dtl_hpp,
+          CASE
+            WHEN dtl_rtype = 'S' THEN dtl_netto - dtl_hpp
+              ELSE ( dtl_netto - dtl_hpp ) * -1
+          END dtl_margin,
+          dtl_k_div,
+          dtl_nama_div,
+          dtl_k_dept,
+          dtl_k_katb,
+          dtl_nama_dept,
+          dtl_nama_katb,
+              --dtl_kodetokoomi,
+          dtl_cusno,
+          dtl_namamember,
+          dtl_memberkhusus,
+          dtl_outlet,
+          dtl_suboutlet,
+          CASE
+            WHEN dtl_memberkhusus = 'Y' THEN 'KHUSUS'
+              WHEN dtl_kasir = 'IDM' THEN 'IDM'
+              WHEN dtl_kasir = 'ID1' THEN 'IDM'
+              WHEN dtl_kasir = 'ID2' THEN 'IDM'
+              WHEN (dtl_kasir = 'OMI'
+              OR dtl_kasir = 'BKL') THEN 'OMI'
+            --WHEN (dtl_kasir <> 'OMI' )
+              --OR dtl_kasir <> 'HJK' 
+              --THEN 'OMIHJK'
+              ELSE 'REGULER'
+          END dtl_tipemember,
+          Case When Nvl(Dtl_Memberkhusus,'T')='Y' And Nvl(Dtl_Outlet,6) In ('2','3','5')  Then 'MERAH'
+                  When Nvl(Dtl_Memberkhusus,'T')<>'Y' And Nvl(Dtl_Outlet,6) In ('0','6')  Then 'BIRU'
+                  When Dtl_Kasir = 'IDM' Then 'IDM' 
+                  When Dtl_Kasir = 'ID1' Then 'IDM'
+                  When Dtl_Kasir = 'ID2' Then 'IDM'
+                  When (Dtl_Kasir = 'OMI' Or Dtl_Kasir = 'BKL') Then 'OMI' Else 'OTHER' 
+                  End dtl_tipemember1, 
+          CASE
+            WHEN dtl_memberkhusus = 'Y' THEN 'GROUP_1_KHUSUS'
+              WHEN dtl_kasir = 'IDM' THEN 'GROUP_2_IDM'
+              WHEN dtl_kasir = 'ID1' THEN 'GROUP_2_IDM'
+              WHEN dtl_kasir = 'ID2' THEN 'GROUP_2_IDM'
+              WHEN dtl_kasir = 'OMI' OR dtl_kasir = 'BKL' THEN 'GROUP_3_OMI'
+                  WHEN dtl_memberkhusus is null AND dtl_outlet ='6' THEN 'GROUP_4_END_USER'
+              ELSE 'GROUP_5_OTHERS'
+          END dtl_group_member,
+          dtl_kodesupplier,
+          dtl_namasupplier,
+          dtl_belanja_pertama,
+          dtl_belanja_terakhir
+          FROM
+            (SELECT 
+              --tambahan
+              crm.CRM_SUBKATEGORI  as dtl_subkategori,
+              sls.trjd_transactiontype        AS dtl_rtype,
+                  Trunc(sls.trjd_transactiondate) AS dtl_tanggal,
+                      To_char(sls.trjd_transactiondate, 'yyyymmdd') AS TGL_STR,
+                  To_char(sls.trjd_transactiondate, 'yyyymmdd')
+                || sls.trjd_cashierstation
+                      ||sls.trjd_create_by
+                      || sls.trjd_transactionno
+                      ||sls.trjd_transactiontype      AS dtl_struk,
+                  sls.trjd_cashierstation         AS dtl_stat,
+                  sls.trjd_create_by              AS dtl_kasir,
+                  sls.trjd_transactionno          AS dtl_no_struk,
+                  sls.trjd_seqno                  AS dtl_seqno,
+                  Substr(sls.trjd_prdcd, 1, 6)
+                || '0'                          AS dtl_prdcd_ctn,
+                  sls.trjd_prdcd                  AS dtl_prdcd,
+                  prd.prd_deskripsipanjang        AS dtl_nama_barang,
+                  prd.prd_frac                    AS dtl_frac,
+                  prd.prd_unit                    AS dtl_unit,
+                  Nvl(prd.prd_kodetag, ' ')       AS dtl_tag,
+              case 
+                when To_char(sls.trjd_transactiondate, 'yyyymmdd')>20230430
+                then sls.trjd_flagtax2 
+                else sls.trjd_flagtax1
+              end        AS dtl_bkp,
+                  CASE
+                WHEN PRD.prd_unit = 'KG' AND prd.prd_frac = 1000
+                THEN sls.trjd_quantity
+                ELSE sls.trjd_quantity * prd.prd_frac
+                  END                             dtl_qty_pcs,
+                  sls.trjd_quantity               AS dtl_qty,
+                  sls.trjd_unitprice              AS dtl_harga_jual,
+                  sls.trjd_discount               AS dtl_diskon,
+                  CASE
+                When  To_Char(Sls.Trjd_Transactiondate, 'yyyymmdd')>20230430 and Sls.Trjd_Flagtax2 ='Y' 
+                  And Sls.Trjd_Create_By In('IDM','ID1','ID2','OMI','BKL')
+                          Then Sls.Trjd_Nominalamt * 1.11 
+                          
+                          WHEN   To_Char(Sls.Trjd_Transactiondate, 'yyyymmdd') Between  20220331 And 20230430 and
+                  sls.trjd_flagtax1 = 'Y' AND sls.trjd_create_by IN( 'IDM','ID1','ID2', 'OMI', 'BKL' ) 
+                          Then Sls.Trjd_Nominalamt * 1.11
+                          
+                          WHEN sls.trjd_flagtax1 = 'Y' AND sls.trjd_create_by IN( 'IDM','ID1','ID2', 'OMI', 'BKL' ) 
+                  and To_Char(Sls.Trjd_Transactiondate, 'yyyymmdd')<=20220331
+                          THEN sls.trjd_nominalamt * 11 /10
+                          
+                      ELSE sls.trjd_nominalamt
+                  END                             dtl_gross,
+                  CASE
+                WHEN sls.trjd_flagtax1 = 'Y' AND sls.trjd_create_by NOT IN( 'IDM','ID1','ID2', 'OMI', 'BKL' ) 
+                  AND To_char(sls.trjd_transactiondate, 'yyyymmdd')<=20220331
+                          THEN sls.trjd_nominalamt / 11 *10
+                          
+                WHEN sls.trjd_flagtax2 = 'Y' AND sls.trjd_create_by NOT IN( 'IDM','ID1','ID2', 'OMI', 'BKL' ) 
+                  AND To_char(sls.trjd_transactiondate, 'yyyymmdd')>20230430
+                          THEN sls.trjd_nominalamt / 11.1 *10
+                
+                          WHEN sls.trjd_flagtax1 = 'Y' AND sls.trjd_create_by NOT IN( 'IDM','ID1','ID2', 'OMI', 'BKL' ) 
+                  AND To_char(sls.trjd_transactiondate, 'yyyymmdd') between  20220331 and 20230430
+                          THEN sls.trjd_nominalamt / 11.1 *10
+                          
+                ELSE sls.trjd_nominalamt
+                  END                             dtl_netto,
+                  CASE
+                      WHEN PRD.prd_unit = 'KG' 
+                THEN sls.trjd_quantity * sls.trjd_baseprice / 1000
+                      ELSE sls.trjd_quantity * sls.trjd_baseprice
+                  END                             dtl_hpp,
+                  Trim(sls.trjd_divisioncode)     AS dtl_k_div,
+                  div.div_namadivisi              AS dtl_nama_div,
+                  Substr(sls.trjd_division, 1, 2) AS dtl_k_dept,
+                  dep.dep_namadepartement         AS dtl_nama_dept,
+                  Substr(sls.trjd_division, 3, 2) AS dtl_k_katb,
+                  kat.kat_namakategori            AS dtl_nama_katb,
+                      --tko.tko_kodeomi                 AS dtl_kodetokoomi,
+              sls.trjd_cus_kodemember         AS dtl_cusno,
+                  cus.cus_namamember              AS dtl_namamember,
+                  cus.cus_flagmemberkhusus        AS dtl_memberkhusus,
+                  cus.cus_kodeoutlet              AS dtl_outlet,
+                  cus.cus_kodesuboutlet           AS dtl_suboutlet,
+              cus.cus_jenismember             AS dtl_jenismember,
+                  sup.hgb_kodesupplier            AS dtl_kodesupplier,
+                  sup.sup_namasupplier            AS dtl_namasupplier,
+                  akt.jh_belanja_pertama          AS dtl_belanja_pertama,
+                  akt.jh_belanja_terakhir         AS dtl_belanja_terakhir
+              FROM   	tbtr_jualdetail sls,
+                  tbmaster_prodmast prd,
+                  tbmaster_customer cus,
+                  tbmaster_tokoigr tko,
+                  tbmaster_divisi div,
+                  tbmaster_departement dep,
+                  (SELECT kat_kodedepartement
+                      || kat_kodekategori AS kat_kodekategori,
+                      kat_namakategori
+                    FROM   tbmaster_kategori) kat,
+                          (SELECT m.hgb_prdcd,
+                                m.hgb_kodesupplier,
+                                s.sup_namasupplier
+                    FROM	tbmaster_hargabeli m,
+                        tbmaster_supplier s
+                    WHERE  m.hgb_kodesupplier = s.sup_kodesupplier (+)
+                                AND m.hgb_tipe = '2'
+                                AND m.hgb_recordid IS NULL) sup,
+                    (SELECT jh_cus_kodemember,
+                        Trunc(Min(jh_transactiondate)) AS jh_belanja_pertama,
+                        Trunc(Max(jh_transactiondate)) AS jh_belanja_terakhir
+                    FROM   tbtr_jualheader
+                    WHERE  jh_cus_kodemember IS NOT NULL
+                    GROUP  BY jh_cus_kodemember) akt,
+                  --tambahan
+                  (select * from Tbmaster_Customercrm ) crm
+                  WHERE  	sls.trjd_prdcd = prd.prd_prdcd (+)
+                  AND sls.trjd_cus_kodemember = cus.cus_kodemember (+)
+                  AND sls.trjd_cus_kodemember = tko.tko_kodecustomer (+)
+                  AND sls.trjd_divisioncode = div.div_kodedivisi (+)
+                  AND Substr(sls.trjd_division, 1, 2) = dep.dep_kodedepartement (+)
+                  AND sls.trjd_division = kat.kat_kodekategori (+)
+                  AND Substr(sls.trjd_prdcd, 1, 6) || 0 = sup.hgb_prdcd (+)
+                  AND sls.trjd_cus_kodemember = akt.jh_cus_kodemember (+)
+                  --tambahan
+                  AND sls.trjd_cus_kodemember = crm.crm_kodemember (+)
+                  AND sls.trjd_recordid IS NULL
+                  AND sls.trjd_quantity <> 0))AC
+          left join (Select distinct Obi_Nopb,Obi_Tglstruk,Obi_Nostruk,Obi_Kdstation,Obi_Cashierid,Obi_Kdmember From Tbtr_Obi_H ) AB
+          ON substr(AC.dtl_tanggal,1,9)=substr(AB.Obi_Tglstruk,1,9) 
+          And AC.DTL_KASIR=AB.Obi_Cashierid 
+          And AC.DTL_NO_STRUK=AB.Obi_Nostruk 
+          And AC.DTL_STAT=AB.Obi_kdStation
+          and AC.dtl_cusno=AB.Obi_Kdmember 
+          And AC.DTL_RTYPE='S' 
+      )";
+
+      if($lap == "1") {
+          $jlap = "Laporan per Produk";
+          $evaluasiperish = $dbProd->query(
+            "SELECT dtl_prdcd_ctn,
+            dtl_nama_barang,
+            dtl_k_div,
+            dtl_k_dept,
+            dtl_k_katb, 
+            qty_in_pcs,
+            dtl_gross,
+            dtl_netto,
+            dtl_margin,
+            QTY_HILANG,
+            RPH_HILANG,
+            QTY_RUSAK,
+            RPH_RUSAK,
+            QTY_MPP,
+            RPH_MPP,
+            cb FROM 
+            (SELECT 
+                dtl_prdcd_ctn,
+                dtl_nama_barang,
+                dtl_k_div,
+                dtl_k_dept,
+                dtl_k_katb,
+                TRUNC(SUM(dtl_qty_pcs))                        AS qty_in_pcs,
+                SUM(dtl_gross) 		                         AS dtl_gross,
+                TRUNC(SUM(dtl_netto))                          AS dtl_netto,
+                TRUNC(SUM(dtl_margin))                         AS dtl_margin,
+                ROUND(SUM(dtl_margin)/SUM(dtl_netto) * 100 ,2) AS dtl_margin_persen
+                FROM " . $viewDetailStruk ." 
+                where trunc(dtl_tanggal) between to_date('$tanggalMulai','yyyy-mm-dd') and to_date('$tanggalSelesai','yyyy-mm-dd')
+                $filtermbr
+                $filterplu
+                $filterkd
+                $filternm
+                $filterdiv
+                $filterdep
+                $filterkat
+                GROUP BY dtl_prdcd_ctn, dtl_nama_barang, dtl_k_div, dtl_k_dept, dtl_k_katb
+                HAVING NVL(SUM(dtl_netto),0) <> 0 
+            )
+            LEFT join(
+                SELECT MSTD_PRDCD PLU_HILANG, SUM(MSTD_QTY) QTY_HILANG, SUM((MSTD_HRGSATUAN*MSTD_QTY)/1000)  RPH_HILANG 
+                FROM TBTR_MSTRAN_D WHERE MSTD_TYPETRN = 'H'
+                AND MSTD_RECORDID IS NULL 
+                and trunc(mstd_tgldoc) between to_date('$tanggalMulai','yyyy-mm-dd') and to_date('$tanggalSelesai','yyyy-mm-dd')
+                GROUP BY MSTD_PRDCD) on dtl_prdcd_ctn = plu_hilang
+            LEFT join(
+                SELECT MSTD_PRDCD PLU_RUSAK, SUM(MSTD_QTY) QTY_RUSAK, SUM((MSTD_HRGSATUAN*MSTD_QTY)/1000)  RPH_RUSAK 
+                FROM TBTR_MSTRAN_D WHERE MSTD_TYPETRN = 'F'
+                AND MSTD_RECORDID IS NULL 
+                and trunc(mstd_tgldoc) between to_date('$tanggalMulai','yyyy-mm-dd') and to_date('$tanggalSelesai','yyyy-mm-dd')
+                GROUP BY MSTD_PRDCD) on dtl_prdcd_ctn = plu_rusak
+            LEFT join(
+                SELECT MSTD_PRDCD PLU_MPP, SUM(MSTD_QTY) QTY_MPP, SUM((MSTD_HRGSATUAN*MSTD_QTY)/1000)  RPH_MPP 
+                FROM TBTR_MSTRAN_D WHERE MSTD_TYPETRN = 'X'
+                AND MSTD_RECORDID IS NULL 
+                and trunc(mstd_tgldoc) between to_date('$tanggalMulai','yyyy-mm-dd') and to_date('$tanggalSelesai','yyyy-mm-dd')
+                GROUP BY MSTD_PRDCD) on dtl_prdcd_ctn = plu_mpp
+            LEFT join(
+                SELECT DISTINCT KD_PLU, SUM(CASHBACK) CB
+                FROM M_PROMOSI_D
+                WHERE PROMOSI_ID IN (SELECT PROMOSI_ID FROM M_PROMOSI_H
+                    WHERE trunc(tgl_trans) between to_date('$tanggalMulai','yyyy-mm-dd') and to_date('$tanggalSelesai','yyyy-mm-dd')
+                    AND TIPE = 'S')
+                GROUP BY KD_PLU) on KD_PLU = dtl_prdcd_ctn
+            ORDER BY dtl_k_div, dtl_k_dept, dtl_k_katb "
+          );
+          $evaluasiperish = $evaluasiperish->getResultArray();
+      } else if($lap == "1A") {
+        $jlap = "Laporan per Produk Detail";
+        $evaluasiperish = $dbProd->query(
+          "SELECT 
+          dtl_prdcd_ctn,
+          dtl_nama_barang,
+          dtl_k_div,
+          dtl_k_dept,
+          dtl_k_katb,
+          COUNT(DISTINCT(dtl_tanggal))                   AS kunjungan,
+          COUNT(DISTINCT(dtl_cusno))                     AS jml_member,
+          COUNT(DISTINCT(dtl_struk))                     AS struk,
+          COUNT(DISTINCT(dtl_prdcd_ctn))                 AS produk,
+          SUM(dtl_qty_pcs)                               AS qty_in_pcs,
+          TRUNC(SUM(dtl_gross))                          AS dtl_gross,
+          TRUNC(SUM(dtl_netto))                          AS dtl_netto,
+          TRUNC(SUM(dtl_margin))                         AS dtl_margin,
+          ROUND(SUM(dtl_margin)/SUM(dtl_netto) * 100 ,2) AS dtl_margin_persen
+          FROM " . $viewDetailStruk . "
+          where trunc(dtl_tanggal) between to_date('$tanggalMulai','yyyy-mm-dd') and to_date('$tanggalSelesai','yyyy-mm-dd')
+          $filtermbr
+          $filterplu
+          $filterkd
+          $filternm
+          $filterdiv
+          $filterdep
+          $filterkat
+          GROUP BY dtl_prdcd_ctn, dtl_nama_barang, dtl_k_div, dtl_k_dept, dtl_k_katb
+          having NVL(SUM(dtl_netto),0) <> 0
+          order by dtl_k_div, dtl_k_dept, dtl_k_katb, dtl_nama_barang"
+        );
+        $evaluasiperish = $evaluasiperish->getResultArray();
+      } else if($lap == "2") {
+        $jlap = "Laporan per Divisi";
+        $evaluasiperish = $dbProd->query(
+          "SELECT 
+          dtl_k_div,
+          dtl_nama_div,
+          COUNT(DISTINCT(dtl_tanggal))                   AS kunjungan,
+          COUNT(DISTINCT(dtl_cusno))                     AS jml_member,
+          COUNT(DISTINCT(dtl_struk))                     AS struk,
+          COUNT(DISTINCT(dtl_prdcd_ctn))                 AS produk,
+          SUM(dtl_qty_pcs)                               AS qty_in_pcs,
+          TRUNC(SUM(dtl_gross))                          AS dtl_gross,
+          TRUNC(SUM(dtl_netto))                          AS dtl_netto,
+          TRUNC(SUM(dtl_margin))                         AS dtl_margin,
+          ROUND(SUM(dtl_margin)/SUM(dtl_netto) * 100 ,2) AS dtl_margin_persen
+          FROM  " . $viewDetailStruk . "
+          where trunc(dtl_tanggal) between to_date('$tanggalMulai','yyyy-mm-dd') and to_date('$tanggalSelesai','yyyy-mm-dd')
+          $filtermbr
+          $filterplu
+          $filterkd
+          $filternm
+          $filterdiv
+          $filterdep
+          $filterkat
+          GROUP BY dtl_k_div, dtl_nama_div
+          having NVL(SUM(dtl_netto),0) <> 0
+          order by dtl_k_div, dtl_nama_div"
+        );
+        $evaluasiperish = $evaluasiperish->getResultArray();
+      } else if($lap == "3") {
+        $jlap = "Laporan per Departemen";
+        $evaluasiperish = $dbProd->query(
+          "SELECT 
+          dtl_k_div,
+          dtl_k_dept,
+          dtl_nama_dept,
+          COUNT(DISTINCT(dtl_tanggal))                   AS kunjungan,
+          COUNT(DISTINCT(dtl_cusno))                     AS jml_member,
+          COUNT(DISTINCT(dtl_struk))                     AS struk,
+          COUNT(DISTINCT(dtl_prdcd_ctn))                 AS produk,
+          SUM(dtl_qty_pcs)                               AS qty_in_pcs,
+          TRUNC(SUM(dtl_gross))                          AS dtl_gross,
+          TRUNC(SUM(dtl_netto))                          AS dtl_netto,
+          TRUNC(SUM(dtl_margin))                         AS dtl_margin,
+          ROUND(SUM(dtl_margin)/SUM(dtl_netto) * 100 ,2) AS dtl_margin_persen
+          FROM  " . $viewDetailStruk . "
+          where trunc(dtl_tanggal) between to_date('$tanggalMulai','yyyy-mm-dd') and to_date('$tanggalSelesai','yyyy-mm-dd')
+          $filtermbr
+          $filterplu
+          $filterkd
+          $filternm
+          $filterdiv
+          $filterdep
+          $filterkat
+          GROUP BY dtl_k_div, dtl_k_dept,dtl_nama_dept
+          having NVL(SUM(dtl_netto),0) <> 0
+          order by dtl_k_div, dtl_k_dept"
+        );
+        $evaluasiperish = $evaluasiperish->getResultArray();
+      } else if($lap == "4") {
+        $jlap = "Laporan per Kategori";
+        $evaluasiperish = $dbProd->query(
+          "SELECT 
+          dtl_k_div,
+          dtl_nama_div,
+          dtl_k_dept,
+          dtl_nama_dept,
+          dtl_k_katb,
+          dtl_nama_katb,
+          COUNT(DISTINCT(dtl_tanggal))                   AS kunjungan,
+          COUNT(DISTINCT(dtl_cusno))                     AS jml_member,
+          COUNT(DISTINCT(dtl_struk))                     AS struk,
+          COUNT(DISTINCT(dtl_prdcd_ctn))                 AS produk,
+          SUM(dtl_qty_pcs)                               AS qty_in_pcs,
+          TRUNC(SUM(dtl_gross))                          AS dtl_gross,
+          TRUNC(SUM(dtl_netto))                          AS dtl_netto,
+          TRUNC(SUM(dtl_margin))                         AS dtl_margin,
+          ROUND(SUM(dtl_margin)/SUM(dtl_netto) * 100 ,2) AS dtl_margin_persen
+          FROM  " . $viewDetailStruk . "
+          where trunc(dtl_tanggal) between to_date('$tanggalMulai','yyyy-mm-dd') and to_date('$tanggalSelesai','yyyy-mm-dd')
+          $filtermbr
+          $filterplu
+          $filterkd
+          $filternm
+          $filterdiv
+          $filterdep
+          $filterkat
+          GROUP BY  dtl_k_div,dtl_nama_div,dtl_k_dept,dtl_nama_dept,dtl_k_katb,dtl_nama_katb
+          HAVING NVL(SUM(dtl_netto),0) <> 0
+          ORDER BY dtl_k_div,dtl_nama_div,dtl_k_dept,dtl_nama_dept,dtl_k_katb,dtl_nama_katb"
+        );
+        $evaluasiperish = $evaluasiperish->getResultArray();
+      };
+
+      $data = [
+          'title' => 'Data Evaluasi Sales',
+          'divisi' => $divisi,
+          'departemen' => $departemen,
+          'kategori' => $kategori,
+          'evaluasiperish' => $evaluasiperish,
+          'jlap' => $jlap,
+          'kodeDivisi' => $kodeDivisi,
+          'kodeDepartemen' => $kodeDepartemen,
+          'kodeKategoriBarang' => $kodeKategoriBarang,
+      ];
+        
+      // d($evaluasiperish);
+      return view('member/tampilslperish',$data);
+    }
+
+    public function kunjunganmember() {
+      $dbProd = db_connect('production');
+      $kunjmm = $kunjmb = [];
+
+      $view_kunjungan_per_hari = " SELECT TO_CHAR(sls.jh_transactiondate,'yyyymm')  AS kun_bulan,
+					TO_NUMBER(TO_CHAR(sls.jh_transactiondate,'dd')) AS kun_hari,
+					COUNT(DISTINCT(sls.jh_cus_kodemember))          AS kun_member
+					FROM tbtr_jualheader sls,
+							tbmaster_customer cus
+					WHERE sls.jh_cus_kodemember           = cus.cus_kodemember
+							AND NVL(cus.cus_flagmemberkhusus,'T') = 'Y'
+					GROUP BY TO_CHAR(sls.jh_transactiondate,'yyyymm'),TO_CHAR(sls.jh_transactiondate,'dd') ";
+
+      $view_kunjungan_per_hari1 = " SELECT TO_CHAR(sls.jh_transactiondate,'yyyymm')  AS kun_bulan,
+          TO_NUMBER(TO_CHAR(sls.jh_transactiondate,'dd')) AS kun_hari,
+          COUNT(DISTINCT(sls.jh_cus_kodemember))          AS kun_member
+          FROM tbtr_jualheader sls,
+              tbmaster_customer cus
+          WHERE sls.jh_cus_kodemember           = cus.cus_kodemember
+          AND NVL(cus.cus_flagmemberkhusus,'T') = 'T'
+          GROUP BY TO_CHAR(sls.jh_transactiondate,'yyyymm'),TO_CHAR(sls.jh_transactiondate,'dd') ";
+      
+      $kunjmm = $dbProd->query(
+          "SELECT bln.kun_hari,
+            bln. kun_avg,
+            tgl.*
+            FROM
+              (SELECT kun_bulan,
+                COUNT(kun_hari)                           AS kun_hari,
+                TRUNC(SUM(kun_member) / COUNT(kun_hari) ) AS kun_avg
+              FROM ( " . $view_kunjungan_per_hari . " )
+              GROUP BY kun_bulan
+              ) bln,
+              (SELECT *
+              FROM ( " . $view_kunjungan_per_hari . ") pivot(SUM(kun_member) AS kun_member FOR kun_hari IN (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31) )
+              
+              ) tgl
+            WHERE bln.kun_bulan = tgl.kun_bulan
+            ORDER BY bln.kun_bulan DESC "
+      );
+      $kunjmm = $kunjmm->getResultArray();
+
+      $kunjmb = $dbProd->query(
+        "SELECT bln.kun_hari,
+          bln. kun_avg,
+          tgl.*
+          FROM
+            (SELECT kun_bulan,
+              COUNT(kun_hari)                           AS kun_hari,
+              TRUNC(SUM(kun_member) / COUNT(kun_hari) ) AS kun_avg
+            FROM ( " . $view_kunjungan_per_hari1 . " )
+            GROUP BY kun_bulan
+            ) bln,
+            (SELECT *
+            FROM ( " . $view_kunjungan_per_hari . ") pivot(SUM(kun_member) AS kun_member FOR kun_hari IN (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31) )
+            
+            ) tgl
+          WHERE bln.kun_bulan = tgl.kun_bulan
+          ORDER BY bln.kun_bulan DESC"
+      );
+      $kunjmb = $kunjmb->getResultArray();
+
+      $data = [
+          'title' => 'Evaluasi Kunjungan',
+          'kunjmm' => $kunjmm,
+          'kunjmb' => $kunjmb,
+      ];
+        
+      redirect()->to('kunjunganmember')->withInput();
+      return view('member/kunjunganmember',$data);
     }
 }

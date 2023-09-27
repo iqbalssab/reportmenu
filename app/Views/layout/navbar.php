@@ -43,6 +43,7 @@
           <ul class="dropdown-menu">
             <li><a class="" style="font-size: 14px; color:gray">Data</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/member/cekmember">Cek Data Member</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/member/inquirymm">Inquiry Member Merah</a></li>
             <hr>
             <li><a class="" style="font-size: 14px; color:gray">Transaksi</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/member/transaksimember">History Transaksi Member</a></li>
@@ -52,8 +53,12 @@
             <li><a class="" style="font-size: 14px; color:gray">Sales</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/member/salesmember">Laporan Sales Member</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/member/salesperdep">Monitoring Sales PerHari</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/member/evaluasiperish">Evaluasi Sales Perishable</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/member/efaktur">Monitoring Efaktur</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/member/salesperjam">Sales Per Jam</a></li>
+            <hr>
+            <li><a class="" style="font-size: 14px; color:gray">Evaluasi Kunjungan</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/member/kunjunganmember">Evaluasi Kunjungan Member</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -126,7 +131,10 @@
             <li><a class="dropdown-item" href="<?= $ip; ?>/omi/slomi">Service Level OMI</a></li>
             <li><a class="" style="font-size: 14px; color:gray">Problem</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/idm/itemkosongklik">Item Kosong PB IDM</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/idm/idmbedatag">Item IDM Only beda Tag dengan IGR</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/idm/tolakanpbidm">Tolakan PB IDM</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/omi/lokasidpd">Tidak Ada Lokasi DPD</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/omi/noid">Tidak Ada No ID</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -155,6 +163,20 @@
           </ul>
         </li>
         <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle fw-bold text-light" href="/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Problem IDM
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="" style="font-size: 14px; color:gray">Tabel Master Lokasi</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/problemidm/itemkosong">Item Kosong PB IDM</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/problemidm/dpddouble">DPD Double</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/problemidm/hppigridm">HPP IGR IDM</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/problemidm/itemidm">2846 Item IDM</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/problemidm/slidm">Service Level IDM</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/problemidm/lokasikosong">Qty, Max PLano, Jenis Rak IDM</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle fw-bold text-light" href="<?= $ip; ?>/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           <i class="fa-solid fa-computer me-1"></i>EDP
           </a>
@@ -167,6 +189,19 @@
             <li><a class="" style="font-size: 14px; color:gray">Link</a></li>
             <li><a class="dropdown-item" href="http://172.20.28.17/Select-Oracle/public/select-oracle/login">Login Oracle Database</a></li>            
             <li><a class="dropdown-item" href="http://192.168.237.72/rekor/report-update-promosi-ho/index.php?linkCabang=&kdCabang=47">Promo Belum Download</a></li>            
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle fw-bold text-light" href="/store" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa-solid fa-warehouse me-1"></i> GO
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="" style="font-size: 14px; color:gray">Laporan GO</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/tampildatabo?csrf_test_name=75f0af6adcd1fae36ead182d5c0dc48a&awal=2024-02-01&akhir=2024-05-31&jnstrx=B&divisi=All&kodePLU=&kodesup=&jenisLaporan=6&tombol=btnview" target="_blank">BPB per Hari GO</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/go/bpbgo">BPB Detail per PO GO *</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/go/bpbperplugo">BPB Detail per Item GO *</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/go/pertemanan">Pertemanan GO</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/logistik/tampilsl?awal=2024-02-01&akhir=2024-05-31&plu=&kdsup=&nmsup=&divisi=All&dep=All&kat=All&jenisLaporan=4B&tombol=btnview" target="_blank">Service Level GO</a></li>
           </ul>
         </li>
         <li class="nav-item">

@@ -2083,4 +2083,396 @@ class Member extends BaseController
       redirect()->to('kunjunganmember')->withInput();
       return view('member/kunjunganmember',$data);
     }
+
+    public function evaslspromo()
+    {
+      $dbProd = db_connect('production');
+
+      $outlet = $dbProd->query(
+        "SELECT out_kodeoutlet, out_namaoutlet FROM tbmaster_outlet ORDER BY out_kodeoutlet"
+      );
+
+      $subkategori = $dbProd->query(
+        "SELECT Distinct AB.CRM_SUBKATEGORI SUBKATEGORI  From (Tbmaster_Customercrm ) AB
+        Left Join (Tbmaster_Customer) AC On Cus_Kodemember=Crm_Kodemember
+        where cus_kodesuboutlet='5A' and cus_flagmemberkhusus='Y' "
+      );
+
+      $jenismember = $dbProd->query(
+        "SELECT JM_KODE, JM_KETERANGAN FROM TBMASTER_JENISMEMBER ORDER BY JM_KODE"
+      );
+
+      $divisi = $dbProd->query(
+        "SELECT div_kodedivisi, div_namadivisi FROM tbmaster_divisi ORDER BY div_kodedivisi "
+      );
+
+      $departement = $dbProd->query(
+        "SELECT dep.dep_kodedivisi,
+        div.div_namadivisi AS dep_namadivisi,
+        dep.dep_kodedepartement,
+        dep.dep_namadepartement
+        FROM   tbmaster_departement dep,
+                tbmaster_divisi div
+        WHERE  dep.dep_kodedivisi = div_kodedivisi (+)
+        ORDER  BY dep_kodedivisi,
+                  dep_kodedepartement"
+      );
+
+      $kodetag = $dbProd->query(
+        "SELECT DISTINCT NVL(p.prd_kodetag,' ') AS tag_kode,
+        NVL(t.tag_keterangan,' ')            AS tag_keterangan
+      FROM tbmaster_prodmast p,
+        tbmaster_tag t
+      WHERE NVL(p.prd_kodetag,' ') = t.tag_kodetag (+)
+      ORDER BY tag_kode "
+      );
+
+      $outlet = $outlet->getResultArray();
+      $subkategori = $subkategori->getResultArray();
+      $jenismember = $jenismember->getResultArray();
+      $divisi = $divisi->getResultArray();
+      $departement = $departement->getResultArray();
+      $kodetag = $kodetag->getResultArray();
+
+      $data = [
+        'title' => 'Evaluasi Sales Promo',
+        'outlet' => $outlet,
+        'subkategori' => $subkategori,
+        'jenismember' => $jenismember,
+        'divisi' => $divisi,
+        'departement' => $departement,
+        'kodetag' => $kodetag,
+      ];
+
+      return view('member/evaslspromo', $data);
+    }
+    
+    public function tampilevaslspromo()
+    {
+      $now = date('d-m-Y');
+      $dbProd = db_connect('production');
+
+      $tglawalbefore = $this->request->getVar('tglawalbefore');
+      $tglakhirbefore = $this->request->getVar('tglakhirbefore');
+      $tglawal = $this->request->getVar('tglawal');
+      $tglakhir = $this->request->getVar('tglakhir');
+      $tglawalafter = $this->request->getVar('tglawalafter');
+      $tglakhirafter = $this->request->getVar('tglakhirafter');
+      // member
+      $namamember = $this->request->getVar('namamember');
+      $kodemember = $this->request->getVar('kodemember');
+      $kodemonitoring = $this->request->getVar('kodemonitoring');
+      $jenismember = $this->request->getVar('jenismember');
+      $outlet = $this->request->getVar('outlet');
+      $subkategori = $this->request->getVar('subkategori');
+      $kodesub = $this->request->getVar('kodesub');
+      $jenismember = $this->request->getVar('jenismember');
+      // Produk
+      $namabarang = $this->request->getVar('namabarang');
+      $plu = $this->request->getVar('plu');
+      $bracode = $this->request->getVar('bracode');
+      $kodemonitoringplu = $this->request->getVar('kodemonitoringplu');
+      $divisi = $this->request->getVar('divisi');
+      $departement = $this->request->getVar('departement');
+      $kodetag = $this->request->getVar('kodetag');
+      // Supplier
+      $kodesupplier = $this->request->getVar('kodesupplier');
+      $namasupplier = $this->request->getVar('namasupplier');
+      $monitoringsupplier = $this->request->getVar('monitoringsupplier');
+      
+      $tipeoutlet = [];
+
+      if ($outlet !="") {
+        $filteroutlet = "AND dtl_outlet = '$outlet'";
+      }else{
+        $filteroutlet = " ";
+      }
+
+      // Jenis Laporan
+      $jenislaporan = $this->request->getVar('jenislaporan');
+      switch ($jenislaporan) {
+        case '1':
+          $tipeoutlet = $dbProd->query(
+            "SELECT sls.*,
+            out.out_namaoutlet    AS dtl_nama_outlet,
+            sub.sub_namasuboutlet AS dtl_nama_suboutlet
+          FROM  
+           ( SELECT   
+				  dtl_outlet,
+				  dtl_suboutlet,
+				  
+				  COUNT(DISTINCT(CASE WHEN trunc(dtl_tanggal) BETWEEN to_date('$tglawalbefore','yyyy-mm-dd') AND to_date('$tglakhirbefore','yyyy-mm-dd') THEN dtl_tanggal END)) AS dtl_kunjungan,
+				  COUNT(DISTINCT(CASE WHEN trunc(dtl_tanggal) BETWEEN to_date('$tglawalbefore','yyyy-mm-dd') AND to_date('$tglakhirbefore','yyyy-mm-dd') THEN dtl_cusno END)) AS dtl_member,
+				  COUNT(DISTINCT(CASE WHEN trunc(dtl_tanggal) BETWEEN to_date('$tglawalbefore','yyyy-mm-dd') AND to_date('$tglakhirbefore','yyyy-mm-dd') THEN dtl_struk END)) AS dtl_struk,
+				  COUNT(DISTINCT(CASE WHEN trunc(dtl_tanggal) BETWEEN to_date('$tglawalbefore','yyyy-mm-dd') AND to_date('$tglakhirbefore','yyyy-mm-dd') THEN dtl_prdcd_ctn END)) AS dtl_item,
+				  
+				  SUM(CASE WHEN trunc(dtl_tanggal) BETWEEN to_date('$tglawalbefore','yyyy-mm-dd') AND to_date('$tglakhirbefore','yyyy-mm-dd') THEN dtl_qty_pcs END) as dtl_qty_in_pcs,
+				  SUM(CASE WHEN trunc(dtl_tanggal) BETWEEN to_date('$tglawalbefore','yyyy-mm-dd') AND to_date('$tglakhirbefore','yyyy-mm-dd') THEN dtl_gross END) as dtl_gross,
+				  TRUNC(SUM(CASE WHEN trunc(dtl_tanggal) BETWEEN to_date('$tglawalbefore','yyyy-mm-dd') AND to_date('$tglakhirbefore','yyyy-mm-dd') THEN dtl_netto END)) as dtl_netto,
+				  TRUNC(SUM(CASE WHEN trunc(dtl_tanggal) BETWEEN to_date('$tglawalbefore','yyyy-mm-dd') AND to_date('$tglakhirbefore','yyyy-mm-dd') THEN dtl_margin END)) as dtl_margin,
+				  
+				  
+				  COUNT(DISTINCT(CASE WHEN trunc(dtl_tanggal) BETWEEN to_date('$tglawal','yyyy-mm-dd') AND to_date('$tglakhir','yyyy-mm-dd') THEN dtl_tanggal END)) AS dtl_kunjungan_2,
+				  COUNT(DISTINCT(CASE WHEN trunc(dtl_tanggal) BETWEEN to_date('$tglawal','yyyy-mm-dd') AND to_date('$tglakhir','yyyy-mm-dd') THEN dtl_cusno END)) AS dtl_member_2,
+				  COUNT(DISTINCT(CASE WHEN trunc(dtl_tanggal) BETWEEN to_date('$tglawal','yyyy-mm-dd') AND to_date('$tglakhir','yyyy-mm-dd') THEN dtl_struk END)) AS dtl_struk_2,
+				  COUNT(DISTINCT(CASE WHEN trunc(dtl_tanggal) BETWEEN to_date('$tglawal','yyyy-mm-dd') AND to_date('$tglakhir','yyyy-mm-dd') THEN dtl_prdcd_ctn END)) AS dtl_item_2,
+				  
+				  SUM(CASE WHEN trunc(dtl_tanggal) BETWEEN to_date('$tglawal','yyyy-mm-dd') AND to_date('$tglakhir','yyyy-mm-dd') THEN dtl_qty_pcs END) as dtl_qty_in_pcs_2,
+				  SUM(CASE WHEN trunc(dtl_tanggal) BETWEEN to_date('$tglawal','yyyy-mm-dd') AND to_date('$tglakhir','yyyy-mm-dd') THEN dtl_gross END) as dtl_gross_2,
+				  TRUNC(SUM(CASE WHEN trunc(dtl_tanggal) BETWEEN to_date('$tglawal','yyyy-mm-dd') AND to_date('$tglakhir','yyyy-mm-dd') THEN dtl_netto END)) as dtl_netto_2,
+				  TRUNC(SUM(CASE WHEN trunc(dtl_tanggal) BETWEEN to_date('$tglawal','yyyy-mm-dd') AND to_date('$tglakhir','yyyy-mm-dd') THEN dtl_margin END)) as dtl_margin_2,
+				  
+				  
+				  COUNT(DISTINCT(CASE WHEN trunc(dtl_tanggal) BETWEEN to_date('$tglawalafter', 'yyyy-mm-dd') AND to_date('$tglakhirafter', 'yyyy-mm-dd') THEN dtl_tanggal END)) AS dtl_kunjungan_3,
+				  COUNT(DISTINCT(CASE WHEN trunc(dtl_tanggal) BETWEEN to_date('$tglawalafter', 'yyyy-mm-dd') AND to_date('$tglakhirafter', 'yyyy-mm-dd') THEN dtl_cusno END)) AS dtl_member_3,
+				  COUNT(DISTINCT(CASE WHEN trunc(dtl_tanggal) BETWEEN to_date('$tglawalafter', 'yyyy-mm-dd') AND to_date('$tglakhirafter', 'yyyy-mm-dd') THEN dtl_struk END)) AS dtl_struk_3,
+				  COUNT(DISTINCT(CASE WHEN trunc(dtl_tanggal) BETWEEN to_date('$tglawalafter', 'yyyy-mm-dd') AND to_date('$tglakhirafter', 'yyyy-mm-dd') THEN dtl_prdcd_ctn END)) AS dtl_item_3,
+				  
+				  SUM(CASE WHEN trunc(dtl_tanggal) BETWEEN to_date('$tglawalafter', 'yyyy-mm-dd') AND to_date('$tglakhirafter', 'yyyy-mm-dd') THEN dtl_qty_pcs END) as dtl_qty_in_pcs_3,
+				  SUM(CASE WHEN trunc(dtl_tanggal) BETWEEN to_date('$tglawalafter', 'yyyy-mm-dd') AND to_date('$tglakhirafter', 'yyyy-mm-dd') THEN dtl_gross END) as dtl_gross_3,
+				  TRUNC(SUM(CASE WHEN trunc(dtl_tanggal) BETWEEN to_date('$tglawalafter', 'yyyy-mm-dd') AND to_date('$tglakhirafter', 'yyyy-mm-dd') THEN dtl_netto END)) as dtl_netto_3,
+				  TRUNC(SUM(CASE WHEN trunc(dtl_tanggal) BETWEEN to_date('$tglawalafter', 'yyyy-mm-dd') AND to_date('$tglakhirafter', 'yyyy-mm-dd') THEN dtl_margin END)) as dtl_margin_3
+
+				FROM (SELECT 
+--TAMBAHAN
+dtl_subkategori,
+dtl_jenismember,dtl_rtype,
+		       dtl_tanggal,
+		       dtl_struk,
+		       dtl_stat,
+		       dtl_kasir,
+		       dtl_no_struk,
+		       dtl_seqno,
+		       dtl_prdcd_ctn,
+		       dtl_prdcd,
+		       dtl_nama_barang,
+		       dtl_unit,
+		       dtl_frac,
+		       dtl_tag,
+		       dtl_bkp,
+		       CASE
+		         WHEN dtl_rtype = 'S' THEN dtl_qty_pcs
+		         ELSE dtl_qty_pcs * -1
+		       END dtl_qty_pcs,
+		       CASE
+		         WHEN dtl_rtype = 'S' THEN dtl_qty
+		         ELSE dtl_qty *- 1
+		       END dtl_qty,
+		       dtl_harga_jual,
+		       dtl_diskon,
+		       CASE
+		         WHEN dtl_rtype = 'S' THEN dtl_gross
+		         ELSE dtl_gross *- 1
+		       END dtl_gross,
+		       CASE
+		         WHEN dtl_rtype = 'S' THEN dtl_netto
+		         ELSE dtl_netto *- 1
+		       END dtl_netto,
+		       CASE
+		         WHEN dtl_rtype = 'S' THEN dtl_hpp
+		         ELSE dtl_hpp *- 1
+		       END dtl_hpp,
+		       CASE
+		         WHEN dtl_rtype = 'S' THEN dtl_netto - dtl_hpp
+		         ELSE ( dtl_netto - dtl_hpp ) * -1
+		       END dtl_margin,
+		       dtl_k_div,
+		       dtl_nama_div,
+		       dtl_k_dept,
+		       dtl_nama_dept,
+		       dtl_k_katb,
+		       dtl_nama_katb,
+           --dtl_kodetokoomi,
+		       dtl_cusno,
+		       dtl_namamember,
+		       dtl_memberkhusus,
+		       dtl_outlet,
+		       dtl_suboutlet,
+		 
+		       CASE
+		         WHEN dtl_memberkhusus = 'Y' THEN 'KHUSUS'
+		         WHEN dtl_kasir = 'IDM' THEN 'IDM'
+		         WHEN dtl_kasir = 'ID1' THEN 'IDM'
+		         WHEN dtl_kasir = 'ID2' THEN 'IDM'
+		         WHEN (dtl_kasir = 'OMI'
+		              OR dtl_kasir = 'BKL') THEN 'OMI'
+				--WHEN (dtl_kasir <> 'OMI' )
+				--OR dtl_kasir <> 'HJK') 
+				--THEN 'OMIHJK'
+		         ELSE 'REGULER'
+		       END dtl_tipemember,
+			    Case When Nvl(Dtl_Memberkhusus,'T')='Y' And Nvl(Dtl_Outlet,6) In ('2','3','5')  Then 'MERAH'
+            When Nvl(Dtl_Memberkhusus,'T')<>'Y' And Nvl(Dtl_Outlet,6) In ('0','6')  Then 'BIRU'
+            When Dtl_Kasir = 'IDM' Then 'IDM' 
+            When Dtl_Kasir = 'ID1' Then 'IDM'
+            When Dtl_Kasir = 'ID2' Then 'IDM'
+            When (Dtl_Kasir = 'OMI' Or Dtl_Kasir = 'BKL') Then 'OMI' Else 'OTHER' 
+            End dtl_tipemember1, 
+		       CASE
+		         WHEN dtl_memberkhusus = 'Y' THEN 'GROUP_1_KHUSUS'
+		         WHEN dtl_kasir = 'IDM' THEN 'GROUP_2_IDM'
+		         WHEN dtl_kasir = 'ID1' THEN 'GROUP_2_IDM'
+		         WHEN dtl_kasir = 'ID2' THEN 'GROUP_2_IDM'
+		         WHEN dtl_kasir = 'OMI' OR dtl_kasir = 'BKL' THEN 'GROUP_3_OMI'
+             	 WHEN dtl_memberkhusus is null AND dtl_outlet ='6' THEN 'GROUP_4_END_USER'
+		         ELSE 'GROUP_5_OTHERS'
+		       END dtl_group_member,
+		       dtl_kodesupplier,
+		       dtl_namasupplier,
+		       dtl_belanja_pertama,
+		       dtl_belanja_terakhir
+		FROM   (SELECT 
+    --tambahan
+    crm.CRM_SUBKATEGORI  as dtl_subkategori,
+    sls.trjd_transactiontype        AS dtl_rtype,
+		               Trunc(sls.trjd_transactiondate) AS dtl_tanggal,
+                   To_char(sls.trjd_transactiondate, 'yyyymmdd') AS TGL_STR,
+		               To_char(sls.trjd_transactiondate, 'yyyymmdd')
+		               || sls.trjd_cashierstation
+		               ||sls.trjd_create_by
+		               || sls.trjd_transactionno
+		               ||sls.trjd_transactiontype      AS dtl_struk,
+		               sls.trjd_cashierstation         AS dtl_stat,
+		               sls.trjd_create_by              AS dtl_kasir,
+		               sls.trjd_transactionno          AS dtl_no_struk,
+		               sls.trjd_seqno                  AS dtl_seqno,
+		               Substr(sls.trjd_prdcd, 1, 6)
+		               || '0'                          AS dtl_prdcd_ctn,
+		               sls.trjd_prdcd                  AS dtl_prdcd,
+		               prd.prd_deskripsipanjang        AS dtl_nama_barang,
+		               prd.prd_unit                    AS dtl_unit,
+		               prd.prd_frac                    AS dtl_frac,
+		               Nvl(prd.prd_kodetag, ' ')       AS dtl_tag,
+		               sls.trjd_flagtax1               AS dtl_bkp,
+		               CASE
+		                 WHEN PRD.prd_unit = 'KG'
+		                      AND prd.prd_frac = 1000 THEN sls.trjd_quantity
+		                 ELSE sls.trjd_quantity * prd.prd_frac
+		               END                             dtl_qty_pcs,
+		               sls.trjd_quantity               AS dtl_qty,
+		               sls.trjd_unitprice              AS dtl_harga_jual,
+		               sls.trjd_discount               AS dtl_diskon,
+		               CASE
+		                 WHEN sls.trjd_flagtax1 = 'Y' AND sls.trjd_create_by IN( 'IDM','ID1','ID2', 'OMI', 'BKL' ) 
+                     AND To_char(sls.trjd_transactiondate, 'yyyymmdd')<=20220331
+                     THEN sls.trjd_nominalamt * 11 /10
+                     
+                     WHEN sls.trjd_flagtax1 = 'Y' AND sls.trjd_create_by IN( 'IDM','ID1','ID2', 'OMI', 'BKL' ) 
+                     AND To_char(sls.trjd_transactiondate, 'yyyymmdd')>20220331
+                     THEN sls.trjd_nominalamt * 11.1 /10
+                     
+		                 ELSE sls.trjd_nominalamt
+		               END                             dtl_gross,
+		               CASE
+		                 WHEN sls.trjd_flagtax1 = 'Y' AND sls.trjd_create_by NOT IN( 'IDM','ID1','ID2', 'OMI', 'BKL' ) 
+                     AND To_char(sls.trjd_transactiondate, 'yyyymmdd')<=20220331
+                     THEN sls.trjd_nominalamt / 11 *10
+                     
+                     WHEN sls.trjd_flagtax1 = 'Y' AND sls.trjd_create_by NOT IN( 'IDM','ID1','ID2', 'OMI', 'BKL' ) 
+                     AND To_char(sls.trjd_transactiondate, 'yyyymmdd')>20220331
+                     THEN sls.trjd_nominalamt / 11.1 *10
+                     
+		                 ELSE sls.trjd_nominalamt
+		               END                             dtl_netto,
+		               CASE
+		                 WHEN PRD.prd_unit = 'KG' THEN
+		                 sls.trjd_quantity * sls.trjd_baseprice / 1000
+		                 ELSE sls.trjd_quantity * sls.trjd_baseprice
+		               END                             dtl_hpp,
+		               Trim(sls.trjd_divisioncode)     AS dtl_k_div,
+		               div.div_namadivisi              AS dtl_nama_div,
+		               Substr(sls.trjd_division, 1, 2) AS dtl_k_dept,
+		               dep.dep_namadepartement         AS dtl_nama_dept,
+		               Substr(sls.trjd_division, 3, 2) AS dtl_k_katb,
+		               kat.kat_namakategori            AS dtl_nama_katb,
+                   --tko.tko_kodeomi                 AS dtl_kodetokoomi,
+				     
+		               sls.trjd_cus_kodemember         AS dtl_cusno,
+		               cus.cus_namamember              AS dtl_namamember,
+		               cus.cus_flagmemberkhusus        AS dtl_memberkhusus,
+		               cus.cus_kodeoutlet              AS dtl_outlet,
+		               cus.cus_kodesuboutlet           AS dtl_suboutlet,
+					   cus.cus_jenismember             AS dtl_jenismember,
+		               sup.hgb_kodesupplier            AS dtl_kodesupplier,
+		               sup.sup_namasupplier            AS dtl_namasupplier,
+		               akt.jh_belanja_pertama          AS dtl_belanja_pertama,
+		               akt.jh_belanja_terakhir         AS dtl_belanja_terakhir
+
+		        FROM   tbtr_jualdetail sls,
+		               tbmaster_prodmast prd,
+		               tbmaster_customer cus,
+                   tbmaster_tokoigr tko,
+		               tbmaster_divisi div,
+		               tbmaster_departement dep,
+		               (SELECT kat_kodedepartement
+		                       || kat_kodekategori AS kat_kodekategori,
+		                       kat_namakategori
+		                FROM   tbmaster_kategori) kat,
+		               (SELECT m.hgb_prdcd,
+		                       m.hgb_kodesupplier,
+		                       s.sup_namasupplier
+		                FROM   tbmaster_hargabeli m,
+		                       tbmaster_supplier s
+		                WHERE  m.hgb_kodesupplier = s.sup_kodesupplier (+)
+		                       AND m.hgb_tipe = '2'
+		                       AND m.hgb_recordid IS NULL) sup,
+					   (SELECT jh_cus_kodemember,
+						       Trunc(Min(jh_transactiondate)) AS jh_belanja_pertama,
+						       Trunc(Max(jh_transactiondate)) AS jh_belanja_terakhir
+						FROM   tbtr_jualheader
+						WHERE  jh_cus_kodemember IS NOT NULL
+						GROUP  BY jh_cus_kodemember) akt,
+            --tambahan
+            (select * from Tbmaster_Customercrm ) crm
+		        WHERE  sls.trjd_prdcd = prd.prd_prdcd (+)
+		               AND sls.trjd_cus_kodemember = cus.cus_kodemember (+)
+                   AND sls.trjd_cus_kodemember = tko.tko_kodecustomer (+)
+		               AND sls.trjd_divisioncode = div.div_kodedivisi (+)
+		               AND Substr(sls.trjd_division, 1, 2) = dep.dep_kodedepartement (+)
+		               AND sls.trjd_division = kat.kat_kodekategori (+)
+		               AND Substr(sls.trjd_prdcd, 1, 6) || 0 = sup.hgb_prdcd (+)
+		               AND sls.trjd_cus_kodemember = akt.jh_cus_kodemember (+)
+                   --tambahan
+                    AND sls.trjd_cus_kodemember = crm.crm_kodemember (+)
+		               AND sls.trjd_recordid IS NULL
+		               AND sls.trjd_quantity <> 0))
+              WHERE 
+				     ( trunc(dtl_tanggal) BETWEEN to_date('$tglawalbefore', 'yyyy-mm-dd') AND to_date('$tglakhirbefore', 'yyyy-mm-dd') OR
+				       trunc(dtl_tanggal) BETWEEN to_date('$tglawal', 'yyyy-mm-dd') AND to_date('$tglakhir', 'yyyy-mm-dd') OR
+				       trunc(dtl_tanggal) BETWEEN to_date('$tglawalafter', 'yyyy-mm-dd') AND to_date('$tglakhirafter', 'yyyy-mm-dd'))
+               $filteroutlet
+               GROUP BY 
+                dtl_outlet,
+                dtl_suboutlet "
+          );
+          $tipeoutlet = $tipeoutlet->getResultArray();
+          break;
+        case '2':
+
+          break;
+        case '3':
+
+          break;
+        case '4':
+
+          break;
+        case '5':
+
+          break;
+        case '6':
+
+          break;
+        
+        default:
+          # code...
+          break;
+      }
+      
+
+      $data = [
+        'title' => 'Tampil Data'.$now,
+        'tipeoutlet' => $tipeoutlet,
+
+      ];
+    }
 }

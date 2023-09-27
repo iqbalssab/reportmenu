@@ -54,6 +54,7 @@
             <li><a class="dropdown-item" href="<?= $ip; ?>/member/salesmember">Laporan Sales Member</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/member/salesperdep">Monitoring Sales PerHari</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/member/evaluasiperish">Evaluasi Sales Perishable</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/member/evaslspromo">Evaluasi Sales Promo</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/member/efaktur">Monitoring Efaktur</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/member/salesperjam">Sales Per Jam</a></li>
             <hr>

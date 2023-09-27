@@ -290,7 +290,7 @@
                 </div>
             <?php } ?>
             <!-- Cek Promo Gift -->
-            
+            <?php if(!empty($promogift)): ?>
                 <div class="card w-100 mb-4">
                     <div class="card-header bg-primary text-light">
                         <h6>Promo Gift</h6>
@@ -309,7 +309,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php if(!empty($promogift)): ?>
+                            
                                 <?php foreach($promogift as $gift): ?>
                                 <tr>
                                     <td>
@@ -328,7 +328,7 @@
                                         <?php endif; ?>
                                         <!-- Jika Promo Blm AKtif -->
                                         <?php if($gift['STATUS']=="BLMAKTIF"): ?>
-                                            <span class="badge text-bg-success">Promo Belum Aktif (Cek Periode)</span>
+                                            <span class="badge text-bg-success mt-1">Promo Belum Aktif (Cek Periode)</span>
                                         <?php endif; ?>
                                     </td>
                                     <td><?= $gift['KETHADIAH']." - ".$gift['BRGHADIAH']; ?></td>
@@ -346,16 +346,20 @@
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
-                            <?php endif; ?>
+                            
                             </tbody>
                         </table>
                     </div>
                 </div>
+                <?php else: ?>
+                <?php endif; ?>
+                <?php if(!empty($promoinstore)): ?>
                 <div class="card mb-3">
                     <div class="card-header bg-warning-subtle">
                         <h6 class="text-warning">Promo Instore</h6>
                     </div>
                     <div class="card-body">
+                    
                         <table class="table">
                             <thead>
                                 <tr>
@@ -370,7 +374,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php if(!empty($promoinstore)): ?>
+                               
                                     <?php foreach($promoinstore as $pi): ?>
                                         <tr>
                                             <td><?= $pi['KDPROMO']." - ".$pi['NAMAPROMO']; ?></td>
@@ -396,11 +400,12 @@
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
-                                <?php endif; ?>
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>                           
                     </div>
-                </div>            
+                </div>    
+                <?php else: ?>
+                <?php endif; ?>        
             <!-- Cek Promo NK dan HJK -->
             <?php if(!empty($promonk) || !empty($promohjk)): ?>
                 <div class="card w-100 mb3">

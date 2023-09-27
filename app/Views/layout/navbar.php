@@ -53,8 +53,12 @@
             <li><a class="" style="font-size: 14px; color:gray">Sales</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/member/salesmember">Laporan Sales Member</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/member/salesperdep">Monitoring Sales PerHari</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/member/evaluasiperish">Evaluasi Sales Perishable</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/member/efaktur">Monitoring Efaktur</a></li>
             <li><a class="dropdown-item" href="<?= $ip; ?>/member/salesperjam">Sales Per Jam</a></li>
+            <hr>
+            <li><a class="" style="font-size: 14px; color:gray">Evaluasi Kunjungan</a></li>
+            <li><a class="dropdown-item" href="<?= $ip; ?>/member/kunjunganmember">Evaluasi Kunjungan Member</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">

@@ -40,20 +40,20 @@
                         <?php foreach($banding as $bd): ?>
                             <tr>
                                 <td><?= $no++; ?></td>
-                                <td><?= $db['DIV']; ?></td>
-                                <td><?= $db['DEP']; ?></td>
-                                <td><?= $db['KAT']; ?></td>
-                                <td><?= $db['PLU']; ?></td>
-                                <td><?= $db['DESK']; ?></td>
-                                <td><?= $db['FRAC']; ?></td>
-                                <td class="bg-success text-light"><?= $db['TGLPO1']; ?></td>
-                                <td class="bg-success text-light"><?= $db['QTYPO1']; ?></td>
-                                <td class="bg-success text-light"><?= $db['QTYBPB1']; ?></td>
-                                <td class="bg-success text-light"><?= $db['TGLBPB1']; ?></td>
-                                <td class="bg-primary text-light"><?= $db['TGLPO2']; ?></td>
-                                <td class="bg-primary text-light"><?= $db['QTYPO2']; ?></td>
-                                <td class="bg-primary text-light"><?= $db['QTYBPB2']; ?></td>
-                                <td class="bg-primary text-light"><?= $db['TGLBPB2']; ?></td>
+                                <td><?= $bd['DIV']; ?></td>
+                                <td><?= $bd['DEP']; ?></td>
+                                <td><?= $bd['KAT']; ?></td>
+                                <td><?= $bd['PLU']; ?></td>
+                                <td><?= $bd['DESK']; ?></td>
+                                <td><?= $bd['FRAC']; ?></td>
+                                <td class="bg-success text-light"><?= $bd['TGLPO1']; ?></td>
+                                <td class="bg-success text-light"><?= $bd['QTYPO1']; ?></td>
+                                <td class="bg-success text-light"><?= $bd['QTYBPB1']; ?></td>
+                                <td class="bg-success text-light"><?= $bd['TGLBPB1']; ?></td>
+                                <td class="bg-primary text-light"><?= $bd['TGLPO2']; ?></td>
+                                <td class="bg-primary text-light"><?= $bd['QTYPO2']; ?></td>
+                                <td class="bg-primary text-light"><?= $bd['QTYBPB2']; ?></td>
+                                <td class="bg-primary text-light"><?= $bd['TGLBPB2']; ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

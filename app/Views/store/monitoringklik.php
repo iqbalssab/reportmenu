@@ -152,7 +152,7 @@
                                         <?php if($pt['SUDAH_PACKING']==$pt['SUDAH_PICKING'] && $pt['SUDAH_PICKING']!=0): ?>
                                             <td>Clear</td>
                                         <?php else: ?>
-                                            <td><?= $pt['SUDAH_PACKING']."/".$pt['SUDAH_PICKING']; ?></td>
+                                            <td><?= $pt['SUDAH_PACKING']."/".$pt['SUDAH_SENDHH']; ?></td>
                                         <?php endif; ?>
                                         <td><?= $pt['SUDAH_STRUK']; ?></td>
                                         <?php if($pt['JMLPB']==$pt['SUDAH_STRUK']): ?>

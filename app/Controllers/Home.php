@@ -9,6 +9,6 @@ class Home extends BaseController
         $data = [
             'title' => 'IGR Purwokerto'
         ];
-        return view('welcome_message', $data);
+        return view('indexutama', $data);
     }
 }

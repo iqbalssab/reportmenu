@@ -54,17 +54,17 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td><?= number_format($totalMember); ?></td>
-                    <td><?= number_format($totalKunj); ?></td>
-                    <td><?= number_format($totalSlip); ?></td>
-                    <td><?= number_format($totalProduk); ?></td>
-                    <td><?= number_format($totalGross); ?></td>
-                    <td><?= number_format($totalNett); ?></td>
-                    <td><?= number_format($totalMargin); ?></td>
+                    <td class="fw-bold"><?= number_format($totalMember); ?></td>
+                    <td class="fw-bold"><?= number_format($totalKunj); ?></td>
+                    <td class="fw-bold"><?= number_format($totalSlip); ?></td>
+                    <td class="fw-bold"><?= number_format($totalProduk); ?></td>
+                    <td class="fw-bold"><?= number_format($totalGross); ?></td>
+                    <td class="fw-bold"><?= number_format($totalNett); ?></td>
+                    <td class="fw-bold"><?= number_format($totalMargin); ?></td>
                     <?php if($totalMargin != 0): ?>
-                    <td><?= number_format($totalPersen,2,",",","); ?></td>
+                    <td class="fw-bold"><?= number_format($totalPersen,2,",",","); ?></td>
                     <?php else: ?>
-                    <td><?= number_format(0,2,",",","); ?></td>
+                    <td class="fw-bold"><?= number_format(0,2,",",","); ?></td>
                     <?php endif; ?>
                 </tr>
             </tbody>

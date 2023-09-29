@@ -59,7 +59,8 @@ class Member extends BaseController
     public function inquirymm() {
       $dbProd = db_connect('production');
       $inquirymm = [];
-      $kodeMM = $kodeBarcode = '';
+      $kodeMM = $this->request->getVar('kodeMM');
+      $kodeBarcode = '';
 
       if(isset($_GET['kodeMM'])) {if ($_GET['kodeMM'] !=""){$kodeMM = $_GET['kodeMM']; }}
 
@@ -317,6 +318,7 @@ class Member extends BaseController
           'title' => 'Inquiry Member Merah',
           'inquirymm' => $inquirymm,
       ];
+      d($data);
         
       // redirect()->to('member/cekmember')->withInput();
       return view('member/inquirymm',$data);

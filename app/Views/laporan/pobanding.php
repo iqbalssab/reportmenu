@@ -3,7 +3,7 @@
 
 <div class="container mt-3">
     <div class="card">
-        <form action="tampilmaslok" method="post">
+        <form action="tampilbanding" method="post">
         <div class="card-header bg-secondary-subtle">
             <h2 class="text-primary fw-bold"><i class="fa-solid fa-scale-balanced me-2"></i>PO Banding</h2>
         </div>

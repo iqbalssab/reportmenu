@@ -15,6 +15,7 @@
     <!-- Laragon -->
     <link rel="stylesheet" href="<?= $ip; ?>public/bootstrap/dist/css/bootstrap.min.css">
 
+
     <!-- Style CSS -->
     <link rel="stylesheet" href="<?= $ip; ?>public/css/style.css">
     <!-- Kalo gapake Laragon/XAMPP -->
@@ -25,18 +26,23 @@
 
 </head>
 
-<body>
+<body class="bg-dark-subtle">
+    <div class="wrapper">
 
-    <?= $this->include('layout/navbar')?>
+    <?= $this->include('layout/sidebar')?>
 
     <?= $this->renderSection('content'); ?>
 
+    </div>
     <script src="<?= $ip; ?>public/jquery-3.7.0.min.js"></script>
     <!-- <script src="jquery-3.7.0.min.js"></script> -->
     <script src="<?=$ip?>public/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <!-- <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script> -->
 
+   
+
     <script>
+    
         $(function() {
            $('.dropdown').hover(function(){
             $(this).addClass('open');
